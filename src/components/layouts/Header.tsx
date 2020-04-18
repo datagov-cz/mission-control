@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 
 import Rocket from 'components/icons/Rocket'
 import Navigation from './Navigation'
+import T from 'components/T'
 
 const Header: React.FC = () => (
   <AppBar position="static">
@@ -10,7 +11,9 @@ const Header: React.FC = () => (
       <IconButton edge="start" color="inherit">
         <Rocket />
       </IconButton>
-      <Typography variant="h6">Mission Control</Typography>
+      <Typography variant="h6">
+        <T>missioncontrol</T>
+      </Typography>
       <Navigation />
     </Toolbar>
   </AppBar>

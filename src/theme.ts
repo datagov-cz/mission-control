@@ -33,6 +33,13 @@ const theme = createMuiTheme({
       },
     },
   },
+  props: {
+    MuiTextField: {
+      variant: 'filled',
+      margin: 'normal',
+      fullWidth: true,
+    },
+  },
 })
 
 export default theme

@@ -5,6 +5,7 @@ import Rocket from 'components/icons/Rocket'
 
 import Routes from 'routes'
 import Error404 from './Error404'
+import T from 'components/T'
 
 const ErrorsLayout: React.FC = () => (
   <Box
@@ -20,7 +21,9 @@ const ErrorsLayout: React.FC = () => (
       <IconButton color="inherit">
         <Rocket />
       </IconButton>
-      <Typography variant="h6">Mission Control</Typography>
+      <Typography variant="h6">
+        <T>missioncontrol</T>
+      </Typography>
     </Box>
     <Switch>
       <Route exact path={Routes.Error404} component={Error404} />

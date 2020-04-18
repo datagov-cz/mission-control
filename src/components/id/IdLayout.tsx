@@ -11,6 +11,7 @@ import {
 import Rocket from 'components/icons/Rocket'
 
 import Routes from 'routes'
+import T from 'components/T'
 
 const IdLayout: React.FC = () => (
   <Box
@@ -30,7 +31,9 @@ const IdLayout: React.FC = () => (
         <IconButton color="inherit">
           <Rocket />
         </IconButton>
-        <Typography variant="h6">Mission Control</Typography>
+        <Typography variant="h6">
+          <T>missioncontrol</T>
+        </Typography>
       </Box>
       <Paper>
         <Box p={4}>
