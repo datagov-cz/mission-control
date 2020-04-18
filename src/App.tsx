@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import { ConnectedRouter } from 'connected-react-router'
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import store, { history } from './store'
+import theme from './theme'
+import AppLayout from 'components/layouts/AppLayout'
 
-export default App;
+const App: React.FC = () => (
+  <ReduxProvider store={store}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ConnectedRouter history={history}>
+        <AppLayout />
+      </ConnectedRouter>
+    </ThemeProvider>
+  </ReduxProvider>
+)
+
+export default App
