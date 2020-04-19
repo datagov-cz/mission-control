@@ -1,0 +1,7 @@
+## This rule redirects to an external API
+[[redirects]]
+  from = "/api/*"
+  to = "https://kbss.felk.cvut.cz/termit-server-kodi/:splat"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+  headers = {X-From = "Netlify"}
