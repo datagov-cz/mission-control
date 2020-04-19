@@ -35,9 +35,12 @@ const theme = createMuiTheme({
   },
   props: {
     MuiTextField: {
-      variant: 'filled',
+      variant: 'filled', // Sets filled input variant as default
       margin: 'normal',
       fullWidth: true,
+    },
+    MuiInputLabel: {
+      required: false, // Hides asterisk in labels for required fields by default
     },
   },
 })

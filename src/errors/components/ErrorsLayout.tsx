@@ -1,29 +1,20 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Box, IconButton, Typography } from '@material-ui/core'
-import Rocket from 'components/icons/Rocket'
 
-import Routes from 'routes'
+import Rocket from 'components/icons/Rocket'
+import BackdropGradient from 'components/ui/BackdropGradient'
+import t from 'components/t'
+import Routes from 'app/routes'
 import Error404 from './Error404'
-import T from 'components/T'
 
 const ErrorsLayout: React.FC = () => (
-  <Box
-    minHeight="100vh"
-    bgcolor="primary.main"
-    color="white"
-    display="flex"
-    flexDirection="column"
-    alignItems="center"
-    justifyContent="center"
-  >
+  <BackdropGradient color="white">
     <Box p={2} display="flex" alignItems="center">
       <IconButton color="inherit">
         <Rocket />
       </IconButton>
-      <Typography variant="h6">
-        <T>missioncontrol</T>
-      </Typography>
+      <Typography variant="h6">{t`missioncontrol`}</Typography>
     </Box>
     <Switch>
       <Route exact path={Routes.Error404} component={Error404} />
@@ -31,7 +22,7 @@ const ErrorsLayout: React.FC = () => (
         <Redirect to={Routes.Error404} />
       </Route>
     </Switch>
-  </Box>
+  </BackdropGradient>
 )
 
 export default ErrorsLayout

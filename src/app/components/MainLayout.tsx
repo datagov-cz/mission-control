@@ -2,9 +2,9 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Header from './Header'
-import Dashboard from 'components/dashboard/Dashboard'
-import Users from 'components/users/Users'
-import Routes from 'routes'
+import Dashboard from 'dashboard/components/Dashboard'
+import Users from 'users/components/Users'
+import Routes from 'app/routes'
 
 const MainLayout: React.FC = () => (
   <>

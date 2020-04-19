@@ -1,11 +1,11 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import IdLayout from 'components/id/IdLayout'
-import ErrorsLayout from 'components/errors/ErrorsLayout'
+import IdLayout from 'id/components/IdLayout'
+import ErrorsLayout from 'errors/components/ErrorsLayout'
 import MainLayout from './MainLayout'
 
-import Routes from 'routes'
+import Routes from 'app/routes'
 
 const AppLayout: React.FC = () => (
   <Switch>

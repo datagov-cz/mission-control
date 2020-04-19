@@ -10,16 +10,12 @@ import {
 } from '@material-ui/core'
 import Rocket from 'components/icons/Rocket'
 
-import Routes from 'routes'
-import T from 'components/T'
+import Routes from 'app/routes'
+import t from 'components/t'
+import BackdropGradient from 'components/ui/BackdropGradient'
 
 const IdLayout: React.FC = () => (
-  <Box
-    minHeight="100vh"
-    bgcolor="primary.main"
-    display="flex"
-    alignItems="center"
-  >
+  <BackdropGradient>
     <Container maxWidth="xs">
       <Box
         p={2}
@@ -31,9 +27,7 @@ const IdLayout: React.FC = () => (
         <IconButton color="inherit">
           <Rocket />
         </IconButton>
-        <Typography variant="h6">
-          <T>missioncontrol</T>
-        </Typography>
+        <Typography variant="h6">{t`missioncontrol`}</Typography>
       </Box>
       <Paper>
         <Box p={4}>
@@ -46,7 +40,7 @@ const IdLayout: React.FC = () => (
         </Box>
       </Paper>
     </Container>
-  </Box>
+  </BackdropGradient>
 )
 
 export default IdLayout

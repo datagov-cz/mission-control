@@ -4,10 +4,10 @@ import { ConnectedRouter } from 'connected-react-router'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import { IntlProvider } from 'react-intl'
 
-import store, { history } from 'store'
-import theme from 'theme'
-import { locale, messages } from 'translations'
-import AppLayout from 'components/layouts/AppLayout'
+import store, { history } from 'app/store'
+import theme from 'app/theme'
+import { locale, messages } from 'app/translations'
+import AppLayout from './AppLayout'
 
 const App: React.FC = () => (
   <ReduxProvider store={store}>

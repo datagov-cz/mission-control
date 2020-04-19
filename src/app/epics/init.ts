@@ -3,8 +3,8 @@ import { isActionOf } from 'typesafe-actions'
 import { filter, mergeMap, tap } from 'rxjs/operators'
 import { empty } from 'rxjs'
 
-import { Actions, Action } from 'actions'
-import { State } from 'reducers'
+import { Actions, Action } from 'app/actions'
+import { State } from 'app/reducers'
 
 const init: Epic<Action, Action, State> = ($action) =>
   $action.pipe(
