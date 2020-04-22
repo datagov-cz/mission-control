@@ -1,5 +1,12 @@
 import React from 'react'
+import { Container, Box, Typography } from '@material-ui/core'
+import t from 'components/t'
 
-const Dashboard: React.FC = () => <div className="Dashboard">DASHBOARD</div>
+const Dashboard: React.FC = () => (
+  <Container className="Dashboard">
+    <Box height="30px"></Box>
+    <Typography variant="h4" paragraph>{t`dashboard`}</Typography>
+  </Container>
+)
 
 export default Dashboard
