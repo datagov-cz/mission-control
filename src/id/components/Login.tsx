@@ -4,18 +4,24 @@ import { TextField, Button, Box } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import t from 'components/t'
 import PasswordTextField from 'components/form/PasswordTextField'
-import { Action } from 'app/actions'
+import { Actions } from 'app/actions'
+import { LoginPayload } from 'id/types'
 
 const Login: React.FC = () => {
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
-  const onSubmit = (data: any) => {
-    //dispatch(Action.)
+  const onSubmit = (data: Record<string, any>) => {
+    dispatch(Actions.Id.login.request(data as LoginPayload))
     console.log(data)
   }
   return (
     <form className="Login" onSubmit={handleSubmit(onSubmit)}>
-      <TextField name="name" label={t`name`} inputRef={register} required />
+      <TextField
+        name="username"
+        label={t`username`}
+        inputRef={register}
+        required
+      />
       <PasswordTextField
         name="password"
         label={t`password`}

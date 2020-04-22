@@ -1,4 +1,6 @@
-import initEpics from './init'
 import { combineEpics } from 'redux-observable'
 
-export default combineEpics(initEpics)
+import initEpics from './init'
+import idEpics from 'id/epics'
+
+export default combineEpics(initEpics, idEpics)

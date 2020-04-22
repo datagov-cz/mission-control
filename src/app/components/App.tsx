@@ -8,6 +8,7 @@ import store, { history } from 'app/store'
 import theme from 'app/theme'
 import { locale, messages } from 'app/translations'
 import AppLayout from './AppLayout'
+import InitBoundary from './InitBoundary'
 
 const App: React.FC = () => (
   <ReduxProvider store={store}>
@@ -15,7 +16,9 @@ const App: React.FC = () => (
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ConnectedRouter history={history}>
-          <AppLayout />
+          <InitBoundary>
+            <AppLayout />
+          </InitBoundary>
         </ConnectedRouter>
       </ThemeProvider>
     </IntlProvider>

@@ -5,11 +5,13 @@ import {
   IconButton,
   Typography,
   makeStyles,
+  Box,
 } from '@material-ui/core'
 
 import Rocket from 'components/icons/Rocket'
 import Navigation from './Navigation'
 import t from 'components/t'
+import Identity from 'id/components/Identity'
 
 const useStyles = makeStyles({
   root: {
@@ -22,11 +24,21 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
-        <IconButton edge="start" color="inherit">
-          <Rocket />
-        </IconButton>
-        <Typography variant="h6">{t`missioncontrol`}</Typography>
+        <Box display="flex" flexGrow="1" flexBasis="20%" alignItems="center">
+          <IconButton edge="start" color="inherit">
+            <Rocket />
+          </IconButton>
+          <Typography variant="h6">{t`missioncontrol`}</Typography>
+        </Box>
         <Navigation />
+        <Box
+          display="flex"
+          flexGrow="1"
+          flexBasis="20%"
+          justifyContent="flex-end"
+        >
+          <Identity />
+        </Box>
       </Toolbar>
     </AppBar>
   )

@@ -3,6 +3,7 @@ import { Tabs } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 
 import RouteTab from 'components/ui/RouteTab'
+import t from 'components/t'
 
 const Navigation: React.FC = () => {
   const location = useLocation()
@@ -13,8 +14,8 @@ const Navigation: React.FC = () => {
       value={location.pathname}
       aria-label="nav tabs example"
     >
-      <RouteTab label="Dashboard" value="/" />
-      <RouteTab label="Users" value="/users" />
+      <RouteTab label={t`dashboard`} value="/" />
+      <RouteTab label={t`users`} value="/users" />
     </Tabs>
   )
 }

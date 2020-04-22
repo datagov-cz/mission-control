@@ -5,9 +5,10 @@ import Header from './Header'
 import Dashboard from 'dashboard/components/Dashboard'
 import Users from 'users/components/Users'
 import Routes from 'app/routes'
+import BackdropGrey from 'components/ui/BackdropGrey'
 
 const MainLayout: React.FC = () => (
-  <>
+  <BackdropGrey>
     <Header />
     <Switch>
       <Route exact path={Routes.Dashboard} component={Dashboard} />
@@ -16,7 +17,7 @@ const MainLayout: React.FC = () => (
         <Redirect to={Routes.Error404} />
       </Route>
     </Switch>
-  </>
+  </BackdropGrey>
 )
 
 export default MainLayout

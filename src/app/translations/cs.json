@@ -1,5 +1,7 @@
 {
   "missioncontrol": "Mission Control",
-  "name": "Jméno",
-  "password": "Heslo"
+  "username": "Uživatelské jméno",
+  "password": "Heslo",
+  "dashboard": "Přehled",
+  "users": "Uživatelé"
 }
