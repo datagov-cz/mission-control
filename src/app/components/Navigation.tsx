@@ -3,7 +3,7 @@ import { Tabs } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 
 import RouteTab from 'components/ui/RouteTab'
-import t from 'components/t'
+import t from 'components/tx'
 
 const Navigation: React.FC = () => {
   const location = useLocation()

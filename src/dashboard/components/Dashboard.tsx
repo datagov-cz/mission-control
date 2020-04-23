@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Box, Typography } from '@material-ui/core'
-import t from 'components/t'
+import t from 'components/tx'
 
 const Dashboard: React.FC = () => (
   <Container className="Dashboard">

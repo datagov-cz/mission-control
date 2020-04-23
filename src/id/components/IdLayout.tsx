@@ -11,7 +11,7 @@ import {
 import Rocket from 'components/icons/Rocket'
 
 import Routes from 'app/routes'
-import t from 'components/t'
+import t from 'components/tx'
 import BackdropGradient from 'components/ui/BackdropGradient'
 
 const IdLayout: React.FC = () => (

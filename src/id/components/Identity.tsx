@@ -9,7 +9,7 @@ import {
   Button,
 } from '@material-ui/core'
 
-import t from 'components/t'
+import t from 'components/tx'
 
 import { getInitials } from 'id/selectors'
 import { Actions } from 'app/actions'

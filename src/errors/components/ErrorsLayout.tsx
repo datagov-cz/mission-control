@@ -4,7 +4,7 @@ import { Box, IconButton, Typography } from '@material-ui/core'
 
 import Rocket from 'components/icons/Rocket'
 import BackdropGradient from 'components/ui/BackdropGradient'
-import t from 'components/t'
+import t from 'components/tx'
 import Routes from 'app/routes'
 import Error404 from './Error404'
 

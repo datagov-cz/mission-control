@@ -11,12 +11,12 @@ import { FormattedMessage } from 'react-intl'
  * t('message.id')  <- equivalent to the above
  * t('message.id.with.variable', { variable: 'value' })
  */
-function t(id: string, values?: object): React.ReactElement
-function t(
+function tx(id: string, values?: object): React.ReactElement
+function tx(
   template: TemplateStringsArray,
   ...expressions: (string | number | boolean)[]
 ): React.ReactElement
-function t(a: any, ...b: any[]): React.ReactElement {
+function tx(a: any, ...b: any[]): React.ReactElement {
   if (typeof a === 'string') {
     return (
       <FormattedMessage
@@ -28,4 +28,4 @@ function t(a: any, ...b: any[]): React.ReactElement {
   }
 }
 
-export default t
+export default tx
