@@ -10,7 +10,7 @@ import {
 
 import Rocket from 'components/icons/Rocket'
 import Navigation from './Navigation'
-import t from 'components/t'
+import t from 'components/i18n'
 import Identity from 'id/components/Identity'
 
 const useStyles = makeStyles({

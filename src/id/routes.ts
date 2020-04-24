@@ -1,7 +1,7 @@
 const IdRoutes = {
   Id: '/id',
   Login: '/id/login',
-  Register: '/id/register',
+  Registration: '/id/registration',
 } as const
 
 export default IdRoutes

@@ -1,15 +1,21 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { TextField, Button, Box } from '@material-ui/core'
+import { useForm } from 'react-hook-form'
 import t from 'components/i18n'
 import PasswordTextField from 'components/form/PasswordTextField'
 import { Actions } from 'app/actions'
+import { LoginPayload } from 'id/types'
 
-import useActionForm from 'app/hooks/useActionForm'
-
-const Login: React.FC = () => {
-  const { register, errors, onSubmit } = useActionForm(Actions.Id.login.request)
+const Registration: React.FC = () => {
+  const dispatch = useDispatch()
+  const { register, handleSubmit } = useForm()
+  const onSubmit = (data: Record<string, any>) => {
+    dispatch(Actions.Id.login.request(data as LoginPayload))
+    console.log(data)
+  }
   return (
-    <form className="Login" onSubmit={onSubmit}>
+    <form className="Registration" onSubmit={handleSubmit(onSubmit)}>
       <TextField
         name="username"
         label={t`email`}
@@ -30,11 +36,11 @@ const Login: React.FC = () => {
         fullWidth
         size="large"
       >
-        {t`loginAction`}
+        {t`registerAction`}
       </Button>
       <Box m={2} />
     </form>
   )
 }
 
-export default Login
+export default Registration

@@ -1,0 +1,10 @@
+{
+  "email": "E-mail",
+  "password": "Heslo",
+  "firstName": "Křestní jméno",
+  "lastName": "Příjmení",
+  "login": "Přihlášení",
+  "loginAction": "Přihlásit se",
+  "registration": "Registrace",
+  "registerAction": "Zaregistrovat se"
+}
