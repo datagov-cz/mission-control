@@ -13,7 +13,7 @@ import {
   RouterState,
 } from 'connected-react-router'
 
-import { Actions, Action } from './actions'
+import Actions, { Action } from './actions'
 import reducers, { State as AppState } from './reducers'
 import epic from './epics'
 
@@ -28,7 +28,7 @@ export interface State extends AppState {
   router: RouterState
 }
 
-const epicMiddleware = createEpicMiddleware<Action, Action, AppState>()
+const epicMiddleware = createEpicMiddleware<Action, Action, State>()
 
 declare global {
   interface Window {
@@ -54,7 +54,7 @@ const configureStore = (initialState?: State): Store<State, Action> =>
 const store = configureStore()
 
 epicMiddleware.run(epic)
-store.dispatch(Actions.Init.initApp())
+store.dispatch(Actions.App.init())
 
 export default store
 

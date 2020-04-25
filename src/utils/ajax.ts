@@ -22,9 +22,6 @@ export const request = (request: AjaxRequest): Observable<AjaxResponse> => {
 export const get = (url: string, headers?: Object) =>
   request({ method: 'GET', url, headers })
 
-export const post = (url: string, body?: any, headers?: Object) =>
-  request({ method: 'POST', url, body, headers })
-
 export const getJSON = <T extends unknown>(
   url: string,
   headers?: Object
@@ -32,3 +29,9 @@ export const getJSON = <T extends unknown>(
   request({ method: 'GET', url, headers }).pipe(
     map((response) => response.response)
   )
+
+export const post = (url: string, body?: any, headers?: Object) =>
+  request({ method: 'POST', url, body, headers })
+
+export const postJSON = (url: string, json: any, headers?: Object) =>
+  post(url, json, { 'Content-Type': 'application/json', ...headers })

@@ -9,6 +9,11 @@ export interface LoginPayload {
   password: string
 }
 
+export interface RegistrationPayload extends LoginPayload {
+  firstName: string
+  lastName: string
+}
+
 export interface LoginResponse extends ApiResponse {
   loggedIn: boolean
 }

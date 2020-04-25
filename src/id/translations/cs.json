@@ -6,5 +6,10 @@
   "login": "Přihlášení",
   "loginAction": "Přihlásit se",
   "registration": "Registrace",
-  "registerAction": "Zaregistrovat se"
+  "registerAction": "Zaregistrovat se",
+  "errorRequired": "Prosím, vyplňte",
+  "errorInvalidEmail": "Zadejte validní e-mail",
+  "loginError": "Neplatná kombinace jména a hesla",
+  "registrationError": "Nepodařilo se vytvořit uživatelský účet, zkuste to prosím znovu",
+  "registrationSuccess": "Registrace proběhla úspěšně!"
 }

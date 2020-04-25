@@ -1,32 +1,58 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { TextField, Button, Box } from '@material-ui/core'
-import { useForm } from 'react-hook-form'
+
 import t from 'components/i18n'
 import PasswordTextField from 'components/form/PasswordTextField'
-import { Actions } from 'app/actions'
-import { LoginPayload } from 'id/types'
+import Actions from 'app/actions'
+import useActionForm from 'app/hooks/useActionForm'
+import { USERNAME_EXISTS_URL } from 'id/constants'
+import { getJSON } from 'utils/ajax'
+import emailRegex from 'utils/emailRegex'
+
+const getUsernameExists = async (value: string) =>
+  !(await getJSON(`${USERNAME_EXISTS_URL}${value}`).toPromise())
 
 const Registration: React.FC = () => {
-  const dispatch = useDispatch()
-  const { register, handleSubmit } = useForm()
-  const onSubmit = (data: Record<string, any>) => {
-    dispatch(Actions.Id.login.request(data as LoginPayload))
-    console.log(data)
-  }
+  const { register, errors, onSubmit } = useActionForm(
+    Actions.Id.register.request
+  )
   return (
-    <form className="Registration" onSubmit={handleSubmit(onSubmit)}>
+    <form className="Registration" onSubmit={onSubmit}>
+      <TextField
+        name="firstName"
+        label={t`firstName`}
+        inputRef={register({ required: t`errorRequired` })}
+        error={!!errors.firstName}
+        helperText={errors.firstName?.message}
+      />
+      <TextField
+        name="lastName"
+        label={t`lastName`}
+        inputRef={register({ required: t`errorRequired` })}
+        error={!!errors.lastName}
+        helperText={errors.lastName?.message}
+      />
       <TextField
         name="username"
         label={t`email`}
-        inputRef={register}
-        required
+        inputRef={register({
+          required: t`errorRequired`,
+          pattern: {
+            value: emailRegex,
+            message: t`errorInvalidEmail`,
+          },
+          validate: async (value) =>
+            (await getUsernameExists(value)) || t`errorEmailExists`,
+        })}
+        error={!!errors.username}
+        helperText={errors.username?.message}
       />
       <PasswordTextField
         name="password"
         label={t`password`}
-        inputRef={register}
-        required
+        inputRef={register({ required: t`errorRequired` })}
+        error={!!errors.password}
+        helperText={errors.password?.message}
       />
       <Box m={2} />
       <Button

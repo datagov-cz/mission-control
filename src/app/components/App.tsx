@@ -11,6 +11,7 @@ import theme from 'app/theme'
 import { locale, messages } from 'app/translations'
 import AppLayout from './AppLayout'
 import InitBoundary from './InitBoundary'
+import Snackbar from './Snackbar'
 
 const App: React.FC = () => (
   <ReduxProvider store={store}>
@@ -21,6 +22,7 @@ const App: React.FC = () => (
           <ConnectedRouter history={history}>
             <InitBoundary>
               <AppLayout />
+              <Snackbar />
             </InitBoundary>
           </ConnectedRouter>
         </ThemeProvider>

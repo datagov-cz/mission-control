@@ -12,7 +12,7 @@ import {
 import t from 'components/i18n'
 
 import { getInitials } from 'id/selectors'
-import { Actions } from 'app/actions'
+import Actions from 'app/actions'
 
 const useStyles = makeStyles({
   avatar: {

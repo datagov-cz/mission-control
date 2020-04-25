@@ -11,7 +11,6 @@ const getNamespacedMessage = (
 ): React.ReactElement => (
   <Namespace.Consumer>
     {(value) => {
-      console.log(id, id.indexOf(NAMESPACE_SEPARATOR))
       const key =
         id.indexOf(NAMESPACE_SEPARATOR) !== -1
           ? id

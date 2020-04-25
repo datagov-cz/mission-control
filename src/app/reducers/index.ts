@@ -1,13 +1,13 @@
-import initReducers, { InitState } from './init'
+import appReducers, { AppState } from './app'
 import idReducers, { IdState } from 'id/reducers'
 
 export interface State {
-  init: InitState
+  app: AppState
   id: IdState
 }
 
 const reducers = {
-  init: initReducers,
+  app: appReducers,
   id: idReducers,
 }
 

@@ -1,6 +1,6 @@
 import { createAction, createAsyncAction } from 'typesafe-actions'
 
-import { LoginPayload, Identity } from './types'
+import { LoginPayload, RegistrationPayload, Identity } from './types'
 
 const IdActions = {
   init: createAction('id/init')(),
@@ -20,6 +20,11 @@ const IdActions = {
     'id/logoutSuccess',
     'id/logoutFailure'
   )<void, void, Error>(),
+  register: createAsyncAction(
+    'id/registerRequest',
+    'id/registerSuccess',
+    'id/registerFailure'
+  )<RegistrationPayload, RegistrationPayload, Error>(),
 }
 
 export default IdActions
