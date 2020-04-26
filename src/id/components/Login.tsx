@@ -13,14 +13,16 @@ const Login: React.FC = () => {
       <TextField
         name="username"
         label={t`email`}
-        inputRef={register}
-        required
+        inputRef={register({ required: t`errorRequired` })}
+        error={!!errors.username}
+        helperText={errors.username?.message}
       />
       <PasswordTextField
         name="password"
         label={t`password`}
-        inputRef={register}
-        required
+        inputRef={register({ required: t`errorRequired` })}
+        error={!!errors.password}
+        helperText={errors.password?.message}
       />
       <Box m={2} />
       <Button
