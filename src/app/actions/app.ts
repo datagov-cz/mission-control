@@ -1,4 +1,5 @@
 import { createAction } from 'typesafe-actions'
+
 import { SnackbarMessage, SnackbarContent } from 'app/types'
 
 const AppActions = {

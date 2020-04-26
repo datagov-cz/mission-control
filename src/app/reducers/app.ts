@@ -25,7 +25,7 @@ const initialState: AppState = {
 const appReducers: Reducer<AppState> = (state = initialState, action) => {
   switch (action.type) {
     case getType(Actions.App.initFinished):
-      return { loading: false, ...state }
+      return { ...state, loading: false }
     case getType(Actions.App.message):
       return { ...state, snackbar: { id: uuid(), ...action.payload } }
     default:

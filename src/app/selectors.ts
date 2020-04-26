@@ -5,11 +5,9 @@ export const getId = (state: State) => state.id
 
 export const getApp = (state: State) => state.app
 
-export const getAppInitialized = (state: State) => getApp(state).loading
-
-/*export const getAppInitialized = createSelector(
+export const getAppInitialized = createSelector(
   getApp,
   (state) => !state.loading
-)*/
+)
 
 export const getSnackbar = createSelector(getApp, (state) => state.snackbar)

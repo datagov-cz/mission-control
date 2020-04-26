@@ -1,6 +1,6 @@
 import { isActionOf } from 'typesafe-actions'
 import { combineEpics } from 'redux-observable'
-import { merge, of, zip } from 'rxjs'
+import { merge, of, zip, race } from 'rxjs'
 import {
   filter,
   mergeMap,
@@ -8,7 +8,6 @@ import {
   tap,
   switchMap,
   catchError,
-  first,
 } from 'rxjs/operators'
 import { push } from 'connected-react-router'
 
@@ -24,15 +23,21 @@ import { LOGIN_URL, MY_ID_URL, REGISTRATION_URL } from './constants'
 const init: Epic = ($action) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.init)),
-    mergeMap(() =>
+    switchMap(() =>
       merge(
-        $action.pipe(filter(isActionOf(Actions.Id.getMyId.success))),
-        $action.pipe(filter(isActionOf(Actions.Id.getMyId.failure))),
-        of(Actions.Id.getMyId.request())
+        of(Actions.Id.getMyId.request()),
+        race(
+          $action.pipe(
+            filter(isActionOf(Actions.Id.getMyId.success)),
+            map(() => Actions.Id.initFinished())
+          ),
+          $action.pipe(
+            filter(isActionOf(Actions.Id.getMyId.failure)),
+            switchMap(() => of(push(Routes.Login), Actions.Id.initFinished()))
+          )
+        )
       )
-    ),
-    first(),
-    map(Actions.Id.initFinished)
+    )
   )
 
 const navigateAfterInitFailure: Epic = ($action) =>
@@ -154,7 +159,7 @@ const loginAfterRegistration: Epic = ($action, store$) =>
 
 export default combineEpics(
   init,
-  navigateAfterInitFailure,
+  // navigateAfterInitFailure,
   getMyId,
   login,
   notificationAfterLogin,

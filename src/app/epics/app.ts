@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable'
 import { isActionOf } from 'typesafe-actions'
-import { filter, mergeMap, map, first } from 'rxjs/operators'
 import { of, merge } from 'rxjs'
+import { filter, mergeMap, map, first } from 'rxjs/operators'
 
 import Actions from 'app/actions'
 import { Epic, SnackbarContent } from 'app/types'
