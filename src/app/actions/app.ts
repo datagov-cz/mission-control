@@ -1,15 +1,10 @@
-import { createAction } from 'typesafe-actions'
-
-import { SnackbarMessage, SnackbarContent } from 'app/types'
+import { createAction, ActionType } from 'typesafe-actions'
 
 const AppActions = {
   init: createAction('app/init')(),
   initFinished: createAction('app/initFinished')(),
-  error: createAction('app/snackbar/error')<SnackbarMessage>(),
-  warning: createAction('app/snackbar/warning')<SnackbarMessage>(),
-  info: createAction('app/snackbar/info')<SnackbarMessage>(),
-  success: createAction('app/snackbar/success')<SnackbarMessage>(),
-  message: createAction('app/snackbar/message')<SnackbarContent>(),
 }
+
+export type AppAction = ActionType<typeof AppActions>
 
 export default AppActions

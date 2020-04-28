@@ -2,7 +2,7 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import { Identity } from './types'
+import { Identity, IdAction } from './types'
 
 export interface IdState extends Identity {}
 
@@ -14,7 +14,10 @@ const initialState: IdState = {
   lastName: '',
 }
 
-const idReducers: Reducer<IdState> = (state = initialState, action) => {
+const idReducers: Reducer<IdState, IdAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case getType(Actions.Id.getMyId.success):
       return { ...action.payload }

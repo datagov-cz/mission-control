@@ -9,8 +9,6 @@ import {
   Button,
 } from '@material-ui/core'
 
-import t from 'components/i18n'
-
 import { getInitials } from 'id/selectors'
 import Actions from 'app/actions'
 

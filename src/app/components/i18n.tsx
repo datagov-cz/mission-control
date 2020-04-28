@@ -3,8 +3,34 @@ import { FormattedMessage } from 'react-intl'
 
 const NAMESPACE_SEPARATOR = '.'
 
+/**
+ * Component with context to set up react-intl namespace. Needs to be
+ * used in tandem with the `t` component below. When the namespace
+ * is set up, it is then used as a prefix for all the translation
+ * strings in the component subtree.
+ *
+ * Namespaces may be overriden - the most proximate parent context
+ * of the `t` component is used.
+ *
+ * If necessary, it is possible to override with a custom namespace in place.
+ *
+ * Example:
+ * <Namespace.Provider value="myNamespace">
+ *   ...
+ *   <Namespace.Provider value="myOtherNamespace">
+ *     ...
+ *     {t`translateMe`}             <-- results in 'myOtherNamespace.translateMe'
+ *     {t`customNamespace.message`} <-- results in `customNamespace.message`
+ *      ...
+ *   </Namespace.Provider>
+ *   ...
+ * </Namespace.Provider>
+ */
 export const Namespace = React.createContext('')
 
+/**
+ * Returns a FormattedMessage react-intl component with appropriate namespace
+ */
 const getNamespacedMessage = (
   id: string,
   values?: Object
@@ -12,7 +38,7 @@ const getNamespacedMessage = (
   <Namespace.Consumer>
     {(value) => {
       const key =
-        id.indexOf(NAMESPACE_SEPARATOR) !== -1
+        id.indexOf(NAMESPACE_SEPARATOR) !== -1 || value === ''
           ? id
           : `${value}${NAMESPACE_SEPARATOR}${id}`
       return <FormattedMessage id={key} values={values} />

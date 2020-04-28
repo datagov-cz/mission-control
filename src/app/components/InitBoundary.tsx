@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { getAppInitialized } from 'app/selectors'
+import { getAppInitFinished } from 'app/selectors'
 
 const InitBoundary: React.FC = ({ children }) => {
-  const appInitialized = useSelector(getAppInitialized)
-  return appInitialized ? <>{children}</> : null
+  const appInitFinished = useSelector(getAppInitFinished)
+  return appInitFinished ? <>{children}</> : null
 }
 
 export default InitBoundary

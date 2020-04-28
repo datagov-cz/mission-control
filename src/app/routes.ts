@@ -1,7 +1,7 @@
-import DashboardRoutes from 'dashboard/routes'
-import UsersRoutes from 'users/routes'
-import IdRoutes from 'id/routes'
-import ErrorsRoutes from 'errors/routes'
+import { Route } from 'app/types'
+import DashboardRoutes, { DashboardRoutesConfiguration } from 'dashboard/routes'
+import UsersRoutes, { UsersRoutesConfiguration } from 'users/routes'
+import IdRoutes, { IdRoutesConfiguration } from 'id/routes'
 
 /**
  * It would be better to define the routes as enums and merge them,
@@ -11,11 +11,15 @@ import ErrorsRoutes from 'errors/routes'
  * components in editors
  */
 const Routes = {
-  Main: '/',
   ...DashboardRoutes,
   ...UsersRoutes,
   ...IdRoutes,
-  ...ErrorsRoutes,
 } as const
 
 export default Routes
+
+export const RoutesConfiguration: Route[] = [
+  ...DashboardRoutesConfiguration,
+  ...IdRoutesConfiguration,
+  ...UsersRoutesConfiguration,
+]

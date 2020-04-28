@@ -1,5 +1,4 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
 import {
   Box,
   Container,
@@ -8,15 +7,13 @@ import {
   Paper,
   AppBar,
 } from '@material-ui/core'
-import Rocket from 'components/icons/Rocket'
-import { Namespace } from 'components/i18n'
+import Rocket from 'app/components/icons/Rocket'
+import { Namespace } from 'app/components/i18n'
 
-import Routes from 'app/routes'
-import t from 'components/i18n'
-import BackdropGradient from 'components/ui/BackdropGradient'
-import Login from './Login'
-import Registration from './Registration'
+import t from 'app/components/i18n'
+import BackdropGradient from 'app/components/BackdropGradient'
 import Navigation from './Navigation'
+import RouteComponentRenderer from 'app/components/RouteComponentRenderer'
 
 const IdLayout: React.FC = () => (
   <Namespace.Provider value="id">
@@ -39,17 +36,7 @@ const IdLayout: React.FC = () => (
             <Navigation />
           </AppBar>
           <Box p={4}>
-            <Switch>
-              <Route exact path={Routes.Login} component={Login} />
-              <Route
-                exact
-                path={Routes.Registration}
-                component={Registration}
-              />
-              <Route path="*">
-                <Redirect to={Routes.Error404} />
-              </Route>
-            </Switch>
+            <RouteComponentRenderer />
           </Box>
         </Paper>
       </Container>

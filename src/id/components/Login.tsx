@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField, Button, Box } from '@material-ui/core'
-import t from 'components/i18n'
-import PasswordTextField from 'components/form/PasswordTextField'
+import t from 'app/components/i18n'
+import PasswordTextField from './PasswordTextField'
 import Actions from 'app/actions'
 
 import useActionForm from 'app/hooks/useActionForm'

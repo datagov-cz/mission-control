@@ -24,21 +24,23 @@ const init: Epic = ($action) =>
 const snackbar: Epic = ($action) =>
   merge(
     $action.pipe(
-      filter(isActionOf(Actions.App.error)),
+      filter(isActionOf(Actions.Snackbar.error)),
       map(({ payload }) => ({ type: 'error', message: payload }))
     ),
     $action.pipe(
-      filter(isActionOf(Actions.App.warning)),
+      filter(isActionOf(Actions.Snackbar.warning)),
       map(({ payload }) => ({ type: 'warning', message: payload }))
     ),
     $action.pipe(
-      filter(isActionOf(Actions.App.info)),
+      filter(isActionOf(Actions.Snackbar.info)),
       map(({ payload }) => ({ type: 'info', message: payload }))
     ),
     $action.pipe(
-      filter(isActionOf(Actions.App.success)),
+      filter(isActionOf(Actions.Snackbar.success)),
       map(({ payload }) => ({ type: 'success', message: payload }))
     )
-  ).pipe(map((snackbar) => Actions.App.message(snackbar as SnackbarContent)))
+  ).pipe(
+    map((snackbar) => Actions.Snackbar.message(snackbar as SnackbarContent))
+  )
 
 export default combineEpics(init, snackbar)

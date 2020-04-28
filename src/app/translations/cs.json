@@ -1,7 +1,9 @@
 {
   "missioncontrol": "Mission Control",
+  "pageNotFound": "Stránka nenalezena",
   "username": "Uživatelské jméno",
   "password": "Heslo",
   "dashboard": "Přehled",
-  "users": "Uživatelé"
+  "users": "Uživatelé",
+  "actions": "Akce"
 }

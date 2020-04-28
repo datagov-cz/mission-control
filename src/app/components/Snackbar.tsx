@@ -4,7 +4,7 @@ import { Snackbar as BaseSnackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 
 import { getSnackbar } from 'app/selectors'
-import t from 'components/i18n'
+import t from 'app/components/i18n'
 
 const Snackbar: React.FC = () => {
   const { message, type, id } = useSelector(getSnackbar)

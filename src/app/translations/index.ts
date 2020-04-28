@@ -2,8 +2,6 @@ import appEn from './en.json'
 import appCs from './cs.json'
 import idEn from 'id/translations/en.json'
 import idCs from 'id/translations/cs.json'
-import errorsEn from 'errors/translations/en.json'
-import errorsCs from 'errors/translations/cs.json'
 import dashboardEn from 'dashboard/translations/en.json'
 import dashboardCs from 'dashboard/translations/cs.json'
 import usersEn from 'users/translations/en.json'
@@ -12,7 +10,6 @@ import usersCs from 'users/translations/cs.json'
 const NAMESPACE_SEPARATOR = '.'
 const APP = 'app'
 const ID = 'id'
-const ERRORS = 'errors'
 const DASHBOARD = 'dashboard'
 const USERS = 'users'
 
@@ -29,14 +26,12 @@ const allTranslations = {
   en: {
     ...prefix(appEn, APP),
     ...prefix(idEn, ID),
-    ...prefix(errorsEn, ERRORS),
     ...prefix(dashboardEn, DASHBOARD),
     ...prefix(usersEn, USERS),
   },
   cs: {
     ...prefix(appCs, APP),
     ...prefix(idCs, ID),
-    ...prefix(errorsCs, ERRORS),
     ...prefix(dashboardCs, DASHBOARD),
     ...prefix(usersCs, USERS),
   },

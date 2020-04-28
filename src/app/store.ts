@@ -1,32 +1,11 @@
-import {
-  createStore,
-  combineReducers,
-  compose,
-  Store,
-  applyMiddleware,
-} from 'redux'
+import { createStore, compose, Store, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
-import { createBrowserHistory } from 'history'
-import {
-  connectRouter,
-  routerMiddleware,
-  RouterState,
-} from 'connected-react-router'
+import { router5Middleware } from 'redux-router5'
 
 import Actions, { Action } from './actions'
-import reducers, { State as AppState } from './reducers'
+import reducer, { State } from './reducers'
 import epic from './epics'
-
-export const history = createBrowserHistory()
-
-const reducer = combineReducers({
-  router: connectRouter(history),
-  ...reducers,
-})
-
-export interface State extends AppState {
-  router: RouterState
-}
+import router from './router'
 
 const epicMiddleware = createEpicMiddleware<Action, Action, State>()
 
@@ -48,16 +27,16 @@ const configureStore = (initialState?: State): Store<State, Action> =>
   createStore(
     reducer,
     initialState,
-    composeEnhancers(applyMiddleware(routerMiddleware(history), epicMiddleware))
+    composeEnhancers(applyMiddleware(router5Middleware(router), epicMiddleware))
   )
 
 const store = configureStore()
+
+// Not sure if this is the right place to put this
+// The router needs to be started before the Epic runs
+router.start()
 
 epicMiddleware.run(epic)
 store.dispatch(Actions.App.init())
 
 export default store
-
-if (process.env.NODE_ENV !== 'production') {
-  window.store = store
-}

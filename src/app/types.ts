@@ -1,13 +1,40 @@
+import { ComponentType } from 'react'
 import { Reducer as ReduxReducer } from 'redux'
 import { Epic as ObservableEpic } from 'redux-observable'
+import { Route as Router5Route, NavigationOptions } from 'router5'
+
+import Routes from 'app/routes'
 
 export type Action = import('app/actions').Action
 
-export type State = import('app/store').State
+export type AppAction = import('app/actions/app').AppAction
 
-export type Reducer<LocalState> = ReduxReducer<LocalState, Action>
+export type RouterAction = import('app/actions/router').RouterAction
+
+export type SnackbarAction = import('app/actions/snackbar').SnackbarAction
+
+export type State = import('app/reducers').State
+
+export type Reducer<
+  LocalState,
+  LocalAction extends Action = Action
+> = ReduxReducer<LocalState, LocalAction>
 
 export type Epic = ObservableEpic<Action, Action, State>
+
+export type Route = Router5Route & {
+  name: string
+  layout?: ComponentType
+  component?: ComponentType
+}
+
+export type RouteName = typeof Routes[keyof typeof Routes]
+
+export type NavigateToPayload = {
+  name: string
+  params: Record<string, any>
+  opts: NavigationOptions
+}
 
 export type SnackbarType = 'error' | 'warning' | 'info' | 'success'
 

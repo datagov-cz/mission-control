@@ -1,3 +1,5 @@
+export type IdAction = import('id/actions').IdAction
+
 export interface ApiResponse {
   success: boolean
   errorId?: string

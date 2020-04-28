@@ -1,4 +1,4 @@
-import { createAction, createAsyncAction } from 'typesafe-actions'
+import { createAction, createAsyncAction, ActionType } from 'typesafe-actions'
 
 import { LoginPayload, RegistrationPayload, Identity } from './types'
 
@@ -26,5 +26,7 @@ const IdActions = {
     'id/registerFailure'
   )<RegistrationPayload, RegistrationPayload, Error>(),
 }
+
+export type IdAction = ActionType<typeof IdActions>
 
 export default IdActions

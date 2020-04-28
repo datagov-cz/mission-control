@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow'
 import IconButton from '@material-ui/core/IconButton'
 
 import { Edit, Delete } from '@material-ui/icons'
-import t from 'components/i18n'
+import t from 'app/components/i18n'
 
 interface Column {
   id: 'name' | 'username' | 'active'

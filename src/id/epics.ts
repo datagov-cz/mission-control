@@ -1,6 +1,6 @@
 import { isActionOf } from 'typesafe-actions'
 import { combineEpics } from 'redux-observable'
-import { merge, of, zip, race } from 'rxjs'
+import { merge, of, race } from 'rxjs'
 import {
   filter,
   mergeMap,
@@ -9,7 +9,6 @@ import {
   switchMap,
   catchError,
 } from 'rxjs/operators'
-import { push } from 'connected-react-router'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
@@ -33,18 +32,17 @@ const init: Epic = ($action) =>
           ),
           $action.pipe(
             filter(isActionOf(Actions.Id.getMyId.failure)),
-            switchMap(() => of(push(Routes.Login), Actions.Id.initFinished()))
+            switchMap(() =>
+              of(
+                Actions.Router.navigateTo(Routes.Login),
+                Actions.Id.initFinished()
+              )
+            )
           )
         )
       )
     )
   )
-
-const navigateAfterInitFailure: Epic = ($action) =>
-  zip(
-    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
-    $action.pipe(filter(isActionOf(Actions.Id.getMyId.failure)))
-  ).pipe(map(() => push(Routes.Login)))
 
 const getMyId: Epic = ($action) =>
   $action.pipe(
@@ -100,13 +98,13 @@ const login: Epic = ($action) =>
 const notificationAfterLogin: Epic = ($action) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.login.failure)),
-    map(() => Actions.App.error('id.loginError'))
+    map(() => Actions.Snackbar.error('id.loginError'))
   )
 
 const navigateAfterLogin: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.login.success)),
-    switchMap(() => of(push(Routes.Dashboard)))
+    switchMap(() => of(Actions.Router.navigateTo(Routes.Dashboard)))
   )
 
 const logout: Epic = ($action, store$) =>
@@ -119,7 +117,7 @@ const logout: Epic = ($action, store$) =>
 const navigateAfterLogout: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.logout.success)),
-    switchMap(() => of(push(Routes.Login)))
+    switchMap(() => of(Actions.Router.navigateTo(Routes.Login)))
   )
 
 const register: Epic = ($action, store$) =>
@@ -143,11 +141,11 @@ const notificationAfterRegistration: Epic = ($action) =>
   merge(
     $action.pipe(
       filter(isActionOf(Actions.Id.register.success)),
-      map(() => Actions.App.success('id.registrationSuccess'))
+      map(() => Actions.Snackbar.success('id.registrationSuccess'))
     ),
     $action.pipe(
       filter(isActionOf(Actions.Id.register.failure)),
-      map(() => Actions.App.error('id.registrationError'))
+      map(() => Actions.Snackbar.error('id.registrationError'))
     )
   )
 
@@ -159,7 +157,6 @@ const loginAfterRegistration: Epic = ($action, store$) =>
 
 export default combineEpics(
   init,
-  // navigateAfterInitFailure,
   getMyId,
   login,
   notificationAfterLogin,
