@@ -30,7 +30,9 @@ const Header: React.FC = () => {
           </IconButton>
           <Typography variant="h6">{t`missioncontrol`}</Typography>
         </Box>
-        <Navigation />
+        <Box display="flex" flexGrow="1" flexBasis="auto">
+          <Navigation />
+        </Box>
         <Box
           display="flex"
           flexGrow="1"

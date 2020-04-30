@@ -6,8 +6,8 @@ import PasswordTextField from './PasswordTextField'
 import Actions from 'app/actions'
 import useActionForm from 'app/hooks/useActionForm'
 import { USERNAME_EXISTS_URL } from 'id/constants'
-import { getJSON } from 'utils/ajax'
-import emailRegex from 'utils/emailRegex'
+import { getJSON } from 'app/utils/ajax'
+import emailRegex from 'app/utils/emailRegex'
 
 const getUsernameExists = async (value: string) =>
   !(await getJSON(`${USERNAME_EXISTS_URL}${value}`).toPromise())

@@ -1,4 +1,4 @@
-import { PREFIX } from 'utils/vocabulary'
+import { PREFIX } from 'app/utils/vocabulary'
 
 export const ID_CONTEXT = {
   id: '@id',

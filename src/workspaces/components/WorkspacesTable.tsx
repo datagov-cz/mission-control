@@ -11,26 +11,24 @@ import IconButton from '@material-ui/core/IconButton'
 import { Edit, Delete } from '@material-ui/icons'
 import t from 'app/components/i18n'
 import { useSelector } from 'react-redux'
-import { getUsers, getUsersLoading } from 'users/selectors'
+import { getWorkspaces, getWorkspacesLoading } from 'workspaces/selectors'
 import { Skeleton } from '@material-ui/lab'
-import { User } from 'users/types'
+import { Workspace } from 'workspaces/types'
 
 const Header: React.FC = () => (
   <TableHead>
     <TableRow>
       <TableCell>{t`name`}</TableCell>
-      <TableCell>{t`email`}</TableCell>
+      <TableCell>{t`owner`}</TableCell>
       <TableCell align="right">{t`actions`}</TableCell>
     </TableRow>
   </TableHead>
 )
 
-const UserRow: React.FC<{ user: User }> = ({ user }) => (
-  <TableRow hover role="checkbox" tabIndex={-1} key={user.uri}>
-    <TableCell>
-      {user.firstName} {user.lastName}
-    </TableCell>
-    <TableCell>{user.username}</TableCell>
+const WorkspaceRow: React.FC<{ workspace: Workspace }> = ({ workspace }) => (
+  <TableRow hover role="checkbox" tabIndex={-1} key={workspace.uri}>
+    <TableCell>{workspace.firstName}</TableCell>
+    <TableCell>{workspace.name}</TableCell>
     <TableCell key="actions" align="right">
       <IconButton>
         <Edit />
@@ -57,8 +55,8 @@ const DummyRow: React.FC<{ key: number }> = ({ key }) => (
 )
 
 const Rows: React.FC = () => {
-  const users = useSelector(getUsers)
-  const isLoading = useSelector(getUsersLoading)
+  const workspaces = useSelector(getWorkspaces)
+  const isLoading = useSelector(getWorkspacesLoading)
 
   if (isLoading) {
     return (
@@ -71,15 +69,15 @@ const Rows: React.FC = () => {
   } else {
     return (
       <>
-        {users.map((user) => (
-          <UserRow user={user} />
+        {workspaces.map((workspace) => (
+          <WorkspaceRow workspace={workspace} />
         ))}
       </>
     )
   }
 }
 
-const UsersTable: React.FC = () => (
+const WorkspacesTable: React.FC = () => (
   <Paper>
     <TableContainer>
       <Table>
@@ -92,4 +90,4 @@ const UsersTable: React.FC = () => (
   </Paper>
 )
 
-export default UsersTable
+export default WorkspacesTable

@@ -2,11 +2,20 @@ import { Observable } from 'rxjs'
 import { ajax, AjaxResponse, AjaxRequest } from 'rxjs/ajax'
 import { tap, map } from 'rxjs/operators'
 
+import { API_URL } from 'app/config'
 import { getToken, setToken } from './auth'
+
+const COMMON_API_PREFIX = '/'
+
+const prefixWithApiUrl = (apiPathOrUrl: string) =>
+  apiPathOrUrl.startsWith(COMMON_API_PREFIX)
+    ? `${API_URL}${apiPathOrUrl}`
+    : apiPathOrUrl
 
 export const request = (request: AjaxRequest): Observable<AjaxResponse> => {
   const secureRequest = {
     ...request,
+    url: prefixWithApiUrl(request.url || ''),
     headers: {
       Authorization: getToken(),
       ...request.headers,

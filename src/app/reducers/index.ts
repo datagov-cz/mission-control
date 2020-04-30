@@ -5,6 +5,8 @@ import { router5Reducer } from 'redux-router5'
 import appReducers, { AppState } from './app'
 import snackbarReducers, { SnackbarState } from './snackbar'
 import idReducers, { IdState } from 'id/reducers'
+import usersReducers, { UsersState } from 'users/reducers'
+import workspacesReducers, { WorkspacesState } from 'workspaces/reducers'
 
 /**
  * For some reason the redux-router5 package does not export the type definition
@@ -21,13 +23,17 @@ export interface State {
   app: AppState
   snackbar: SnackbarState
   id: IdState
+  users: UsersState
+  workspaces: WorkspacesState
 }
 
-const reducer = combineReducers({
+const reducer = combineReducers<State>({
   router: router5Reducer,
   app: appReducers,
   snackbar: snackbarReducers,
   id: idReducers,
+  users: usersReducers,
+  workspaces: workspacesReducers,
 })
 
 export default reducer

@@ -2,7 +2,7 @@ import { PayloadActionCreator, TypeConstant } from 'typesafe-actions'
 import { useDispatch } from 'react-redux'
 import { useForm, UseFormOptions } from 'react-hook-form'
 
-import { getJSON } from 'utils/ajax'
+import { getJSON } from 'app/utils/ajax'
 
 const useActionForm = <Payload>(
   actionCreator: PayloadActionCreator<TypeConstant, Payload>,

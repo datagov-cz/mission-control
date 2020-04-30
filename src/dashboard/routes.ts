@@ -11,7 +11,7 @@ export default DashboardRoutes
 export const DashboardRoutesConfiguration: Route[] = [
   {
     name: DashboardRoutes.Dashboard,
-    path: '/dashboard',
+    path: '/',
     layout: MainLayout,
     component: Dashboard,
   },

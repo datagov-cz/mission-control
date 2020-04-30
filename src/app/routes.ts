@@ -2,6 +2,9 @@ import { Route } from 'app/types'
 import DashboardRoutes, { DashboardRoutesConfiguration } from 'dashboard/routes'
 import UsersRoutes, { UsersRoutesConfiguration } from 'users/routes'
 import IdRoutes, { IdRoutesConfiguration } from 'id/routes'
+import WorkspacesRoutes, {
+  WorkspacesRoutesConfiguration,
+} from 'workspaces/routes'
 
 /**
  * It would be better to define the routes as enums and merge them,
@@ -14,6 +17,7 @@ const Routes = {
   ...DashboardRoutes,
   ...UsersRoutes,
   ...IdRoutes,
+  ...WorkspacesRoutes,
 } as const
 
 export default Routes
@@ -22,4 +26,5 @@ export const RoutesConfiguration: Route[] = [
   ...DashboardRoutesConfiguration,
   ...IdRoutesConfiguration,
   ...UsersRoutesConfiguration,
+  ...WorkspacesRoutesConfiguration,
 ]

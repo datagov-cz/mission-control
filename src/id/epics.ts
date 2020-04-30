@@ -13,8 +13,8 @@ import {
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
-import { post, postJSON, getJSON } from 'utils/ajax'
-import { removeToken } from 'utils/auth'
+import { post, postJSON, getJSON } from 'app/utils/ajax'
+import { removeToken } from 'app/utils/auth'
 
 import { Identity } from './types'
 import { LOGIN_URL, MY_ID_URL, REGISTRATION_URL } from './constants'
