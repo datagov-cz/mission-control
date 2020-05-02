@@ -1,6 +1,6 @@
 import { isActionOf } from 'typesafe-actions'
 import { combineEpics } from 'redux-observable'
-import { of, zip } from 'rxjs'
+import { of } from 'rxjs'
 import { filter, map, switchMap, catchError } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
@@ -12,15 +12,10 @@ import { onRouteEnter } from 'app/utils/epic'
 import { USERS_URL } from './constants'
 import { User } from './types'
 
-const getDataOnRouteEnter: Epic = ($action, state$, dependencies) =>
-  zip(
-    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
-    onRouteEnter(Routes.Users, [Actions.Users.getUsers.request()])(
-      $action,
-      state$,
-      dependencies
-    )
-  ).pipe(map(([init, action]) => action))
+const getDataOnRouteEnter: Epic = ($action) =>
+  onRouteEnter($action, Routes.Users).pipe(
+    switchMap(() => of(Actions.Users.getUsers.request()))
+  )
 
 const getUsers: Epic = ($action) =>
   $action.pipe(

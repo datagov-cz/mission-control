@@ -1,11 +1,12 @@
 import { ActionsObservable } from 'redux-observable'
-import { merge, of } from 'rxjs'
-import { filter, mergeMap, switchMap, takeUntil } from 'rxjs/operators'
+import { combineLatest } from 'rxjs'
+import { filter, map } from 'rxjs/operators'
 import { actionTypes } from 'redux-router5'
 
-import { Action, Epic } from 'app/types'
+import Actions from 'app/actions'
+import { Action } from 'app/types'
 import { TransitionSuccessAction } from 'app/actions/router'
-import router from 'app/router'
+import { isActionOf } from 'typesafe-actions'
 
 export const isTransitionSuccess = (
   action: Action
@@ -15,66 +16,38 @@ export const isTransitionSuccess = (
 const isRouteEnter = (routeName: string) => ({
   payload: { previousRoute, route },
 }: TransitionSuccessAction): boolean =>
-  (previousRoute === null || !previousRoute.name.startsWith(routeName)) &&
+  (previousRoute === null || previousRoute.name !== routeName) &&
   route !== null &&
-  route.name.startsWith(routeName)
+  route.name === routeName
 
 const isRouteLeave = (routeName: string) => ({
   payload: { previousRoute, route },
 }: TransitionSuccessAction): boolean =>
-  (previousRoute === null || previousRoute.name.startsWith(routeName)) &&
-  (route === null || !route.name.startsWith(routeName))
-
-const $routeEnter = ($action: ActionsObservable<Action>, routeName: string) =>
-  $action.pipe(filter(isTransitionSuccess), filter(isRouteEnter(routeName)))
-
-const $routeLeave = ($action: ActionsObservable<Action>, routeName: string) =>
-  $action.pipe(filter(isTransitionSuccess), filter(isRouteLeave(routeName)))
-
-export const isInRoute = (routeName: string) => {
-  const routerState = router.getState()
-  const { name } = routerState === null ? { name: '' } : routerState
-  return name.startsWith(routeName)
-}
-
-const $enteringRoute = (
-  $action: ActionsObservable<Action>,
-  routeName: string
-) => {
-  const fromAction = $routeEnter($action, routeName)
-  const alreadyActive = isInRoute(routeName)
-  return alreadyActive ? merge(of(null), fromAction) : fromAction
-}
-
-export const inRoute = (routeName: string, epic: Epic): Epic => (
-  $action,
-  state$,
-  dependencies
-) =>
-  $enteringRoute($action, routeName).pipe(
-    switchMap(() =>
-      epic($action, state$, dependencies).pipe(
-        takeUntil($routeLeave($action, routeName))
-      )
-    )
-  )
-
-type ActionOrActions = Action | Action[]
-type ActionOrActionsFn = () => ActionOrActions
-
-const getActions = (action: ActionOrActions | ActionOrActionsFn) => {
-  const res = typeof action === 'function' ? action() : action
-  return Array.isArray(res) ? res : [res]
-}
+  (previousRoute === null || previousRoute.name === routeName) &&
+  (route === null || route.name !== routeName)
 
 export const onRouteEnter = (
-  routeName: string,
-  action: ActionOrActions | ActionOrActionsFn
-): Epic => ($action) =>
-  $enteringRoute($action, routeName).pipe(mergeMap(() => getActions(action)))
+  $action: ActionsObservable<Action>,
+  routeName: string
+) =>
+  combineLatest(
+    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
+    $action.pipe(filter(isTransitionSuccess))
+  ).pipe(
+    map(([init, transitionSuccessAction]) => transitionSuccessAction),
+    filter(isRouteEnter(routeName)),
+    map((transitionSuccessAction) => transitionSuccessAction.payload)
+  )
 
 export const onRouteLeave = (
-  routeName: string,
-  action: ActionOrActions | ActionOrActionsFn
-): Epic => ($action) =>
-  $routeLeave($action, routeName).pipe(mergeMap(() => getActions(action)))
+  $action: ActionsObservable<Action>,
+  routeName: string
+) =>
+  combineLatest(
+    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
+    $action.pipe(filter(isTransitionSuccess))
+  ).pipe(
+    map(([init, transitionSuccessAction]) => transitionSuccessAction),
+    filter(isRouteLeave(routeName)),
+    map((transitionSuccessAction) => transitionSuccessAction.payload)
+  )

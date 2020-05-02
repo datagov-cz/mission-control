@@ -32,10 +32,6 @@ const configureStore = (initialState?: State): Store<State, Action> =>
 
 const store = configureStore()
 
-// Not sure if this is the right place to put this
-// The router needs to be started before the Epic runs
-router.start()
-
 epicMiddleware.run(epic)
 store.dispatch(Actions.App.init())
 

@@ -1,15 +1,17 @@
 import { combineEpics } from 'redux-observable'
 import { isActionOf } from 'typesafe-actions'
 import { of, merge } from 'rxjs'
-import { filter, mergeMap, map, first } from 'rxjs/operators'
+import { filter, switchMap, mergeMap, map, first } from 'rxjs/operators'
 
 import Actions from 'app/actions'
 import { Epic, SnackbarContent } from 'app/types'
+import { startRouter } from 'app/router'
 
 const init: Epic = ($action) =>
   $action.pipe(
     filter(isActionOf(Actions.App.init)),
     first(),
+    switchMap(() => startRouter()),
     mergeMap(() =>
       merge(
         $action.pipe(

@@ -11,3 +11,8 @@ router.usePlugin(browserPlugin())
 router.usePlugin(loggerPlugin)
 
 export default router
+
+export const startRouter = () =>
+  new Promise((resolve) => {
+    router.start(resolve)
+  })
