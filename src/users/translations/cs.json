@@ -3,5 +3,7 @@
   "email": "E-mail",
   "password": "Heslo",
   "firstName": "Křestní jméno",
-  "lastName": "Příjmení"
+  "lastName": "Příjmení",
+  "name": "Jméno",
+  "actions": "Akce"
 }

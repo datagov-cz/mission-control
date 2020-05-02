@@ -8,7 +8,7 @@ import useRoute from 'app/hooks/useRoute'
 const Navigation: React.FC = () => {
   const { topRoute } = useRoute()
   return (
-    <Tabs variant="fullWidth" value={topRoute.name}>
+    <Tabs value={topRoute.name}>
       <RouteTab label={t`dashboard.dashboard`} value="dashboard" />
       <RouteTab label={t`workspaces.workspaces`} value="workspaces" />
       <RouteTab label={t`users.users`} value="users" />

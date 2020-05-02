@@ -9,6 +9,7 @@
   "registerAction": "Zaregistrovat se",
   "errorRequired": "Prosím, vyplňte",
   "errorInvalidEmail": "Zadejte validní e-mail",
+  "errorEmailExists": "Zadaný e-mail již v systému existuje",
   "loginError": "Neplatná kombinace jména a hesla",
   "registrationError": "Nepodařilo se vytvořit uživatelský účet, zkuste to prosím znovu",
   "registrationSuccess": "Registrace proběhla úspěšně!"

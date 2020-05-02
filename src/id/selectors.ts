@@ -7,3 +7,5 @@ export const getInitials = createSelector(
     return `${firstName.charAt(0)}${lastName.charAt(0)}`
   }
 )
+
+export const getUsername = createSelector(getState, ({ username }) => username)

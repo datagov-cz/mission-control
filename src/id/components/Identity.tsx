@@ -1,28 +1,15 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  makeStyles,
-  Avatar,
-  MenuItem,
-  Menu,
-  Divider,
-  Button,
-} from '@material-ui/core'
+import { MenuItem, Menu, Divider, Button } from '@material-ui/core'
 
-import { getInitials } from 'id/selectors'
+import { getInitials, getUsername } from 'id/selectors'
 import Actions from 'app/actions'
-
-const useStyles = makeStyles({
-  avatar: {
-    border: '1px solid #FFF',
-    background: 'transparent',
-  },
-})
+import Gravatar from './Gravatar'
 
 const Identity: React.FC = () => {
   const initials = useSelector(getInitials)
+  const email = useSelector(getUsername)
   const [anchorEl, setAnchorEl] = useState(null)
-  const classes = useStyles()
   const dispatch = useDispatch()
 
   const handleLogout = () => {
@@ -40,7 +27,7 @@ const Identity: React.FC = () => {
   return (
     <>
       <Button onClick={handleClick}>
-        <Avatar className={classes.avatar}>{initials}</Avatar>
+        <Gravatar email={email} initials={initials} />
       </Button>
       <Menu
         id="id-menu"

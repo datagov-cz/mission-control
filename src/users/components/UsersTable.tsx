@@ -42,8 +42,8 @@ const UserRow: React.FC<{ user: User }> = ({ user }) => (
   </TableRow>
 )
 
-const DummyRow: React.FC<{ key: number }> = ({ key }) => (
-  <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+const DummyRow: React.FC = () => (
+  <TableRow hover role="checkbox" tabIndex={-1}>
     <TableCell>
       <Skeleton />
     </TableCell>
@@ -63,8 +63,8 @@ const Rows: React.FC = () => {
   if (isLoading) {
     return (
       <>
-        {Array.from(Array(10).keys()).map((key) => (
-          <DummyRow key={key} />
+        {Array.from(Array(10).keys()).map((index) => (
+          <DummyRow key={index} />
         ))}
       </>
     )
@@ -72,7 +72,7 @@ const Rows: React.FC = () => {
     return (
       <>
         {users.map((user) => (
-          <UserRow user={user} />
+          <UserRow user={user} key={user.uri} />
         ))}
       </>
     )
