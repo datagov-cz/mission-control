@@ -20,7 +20,7 @@ const appReducers: Reducer<SnackbarState, SnackbarAction> = (
 ) => {
   switch (action.type) {
     case getType(Actions.Snackbar.message):
-      return { ...state, snackbar: { id: uuid(), ...action.payload } }
+      return { id: uuid(), ...action.payload }
     default:
       return state
   }
