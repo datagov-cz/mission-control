@@ -1,27 +1,25 @@
 export type IdAction = import('id/actions').IdAction
 
-export interface ApiResponse {
+export type ApiResponse = {
   success: boolean
   errorId?: string
   errorMessage?: string
 }
 
-export interface LoginPayload {
+export type LoginPayload = {
   username: string
   password: string
 }
 
-export interface RegistrationPayload extends LoginPayload {
+export type UserNames = {
   firstName: string
   lastName: string
 }
 
-export interface LoginResponse extends ApiResponse {
-  loggedIn: boolean
-}
+export type RegistrationPayload = LoginPayload & UserNames
 
-export interface LoginSuccessPayload {
-  jwt: string
+export type LoginResponse = ApiResponse & {
+  loggedIn: boolean
 }
 
 export interface Identity {
