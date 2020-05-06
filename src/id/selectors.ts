@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
 import { getId as getState } from 'app/selectors'
 
+export const getIdentity = getState
+
 export const getInitials = createSelector(
   getState,
   ({ firstName, lastName }) => {
