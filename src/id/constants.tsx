@@ -17,3 +17,8 @@ export const USERNAME_EXISTS_URL = '/users/username?username='
  * Endpoint for registering the user
  */
 export const REGISTRATION_URL = '/users'
+
+/**
+ * Endpoint for editing user's profile
+ */
+export const EDIT_PROFILE_URL = '/users/current'

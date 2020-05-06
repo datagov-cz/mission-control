@@ -5,6 +5,7 @@ import IdLayout from './components/IdLayout'
 import MeLayout from './components/MeLayout'
 import Profile from './components/Profile'
 import MainLayout from 'app/components/MainLayout'
+import EditProfile from './components/EditProfile'
 
 const IdRoutes = {
   Login: 'login',
@@ -41,5 +42,11 @@ export const IdRoutesConfiguration: Route[] = [
     path: '/profile',
     layout: MeLayout,
     component: Profile,
+  },
+  {
+    name: IdRoutes.MeEdit,
+    path: '/edit',
+    layout: MeLayout,
+    component: EditProfile,
   },
 ]

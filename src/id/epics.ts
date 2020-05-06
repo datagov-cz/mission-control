@@ -13,11 +13,16 @@ import {
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
-import { post, postJSON, getJSON } from 'app/utils/ajax'
+import { post, postJSON, getJSON, putJSON } from 'app/utils/ajax'
 import { removeToken } from 'app/utils/auth'
 
 import { Identity } from './types'
-import { LOGIN_URL, MY_ID_URL, REGISTRATION_URL } from './constants'
+import {
+  LOGIN_URL,
+  MY_ID_URL,
+  REGISTRATION_URL,
+  EDIT_PROFILE_URL,
+} from './constants'
 
 const init: Epic = ($action) =>
   $action.pipe(
@@ -155,6 +160,41 @@ const loginAfterRegistration: Epic = ($action, store$) =>
     map(({ payload }) => Actions.Id.login.request(payload))
   )
 
+const editProfile: Epic = ($action, store$) =>
+  $action.pipe(
+    filter(isActionOf(Actions.Id.editProfile.request)),
+    switchMap(({ payload }) =>
+      putJSON(EDIT_PROFILE_URL, payload).pipe(
+        map(() => Actions.Id.editProfile.success()),
+        catchError((error: Error) =>
+          of(
+            Actions.Id.editProfile.failure(
+              new Error(`Cannot edit profile: ${error.message}`)
+            )
+          )
+        )
+      )
+    )
+  )
+
+const navigateAfterEditProfile: Epic = ($action) =>
+  $action.pipe(
+    filter(isActionOf(Actions.Id.editProfile.success)),
+    switchMap(() => of(Actions.Router.navigateTo(Routes.MeProfile)))
+  )
+
+const notificationAfterEditProfile: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      filter(isActionOf(Actions.Id.editProfile.success)),
+      map(() => Actions.Snackbar.success('id.editProfileSuccess'))
+    ),
+    $action.pipe(
+      filter(isActionOf(Actions.Id.editProfile.failure)),
+      map(() => Actions.Snackbar.error('id.editProfileError'))
+    )
+  )
+
 export default combineEpics(
   init,
   getMyId,
@@ -165,5 +205,8 @@ export default combineEpics(
   navigateAfterLogout,
   register,
   notificationAfterRegistration,
-  loginAfterRegistration
+  loginAfterRegistration,
+  editProfile,
+  navigateAfterEditProfile,
+  notificationAfterEditProfile
 )

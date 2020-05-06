@@ -44,3 +44,9 @@ export const post = (url: string, body?: any, headers?: Object) =>
 
 export const postJSON = (url: string, json: any, headers?: Object) =>
   post(url, json, { 'Content-Type': 'application/json', ...headers })
+
+export const put = (url: string, body?: any, headers?: Object) =>
+  request({ method: 'PUT', url, body, headers })
+
+export const putJSON = (url: string, json: any, headers?: Object) =>
+  put(url, json, { 'Content-Type': 'application/json', ...headers })
