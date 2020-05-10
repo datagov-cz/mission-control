@@ -4,7 +4,7 @@ import { RouteName } from 'app/types'
 
 const useNavigateTo = (routeName: RouteName) => {
   const dispatch = useDispatch()
-  return () => dispatch(Actions.Router.navigateTo(routeName))
+  return () => dispatch(Actions.Router.navigateTo({ name: routeName }))
 }
 
 export default useNavigateTo

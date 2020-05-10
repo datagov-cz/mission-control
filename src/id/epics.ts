@@ -40,7 +40,7 @@ const init: Epic = ($action) =>
             filter(isActionOf(Actions.Id.getMyId.failure)),
             switchMap(() =>
               of(
-                Actions.Router.navigateTo(Routes.Login),
+                Actions.Router.navigateTo({ name: Routes.Login }),
                 Actions.Id.initFinished()
               )
             )
@@ -110,7 +110,7 @@ const notificationAfterLogin: Epic = ($action) =>
 const navigateAfterLogin: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.login.success)),
-    switchMap(() => of(Actions.Router.navigateTo(Routes.Dashboard)))
+    switchMap(() => of(Actions.Router.navigateTo({ name: Routes.Dashboard })))
   )
 
 const logout: Epic = ($action, store$) =>
@@ -123,7 +123,7 @@ const logout: Epic = ($action, store$) =>
 const navigateAfterLogout: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.logout.success)),
-    switchMap(() => of(Actions.Router.navigateTo(Routes.Login)))
+    switchMap(() => of(Actions.Router.navigateTo({ name: Routes.Login })))
   )
 
 const register: Epic = ($action, store$) =>
