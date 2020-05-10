@@ -23,6 +23,7 @@ import {
   REGISTRATION_URL,
   EDIT_PROFILE_URL,
 } from './constants'
+import { getIdentity } from './selectors'
 
 const init: Epic = ($action) =>
   $action.pipe(
@@ -163,8 +164,9 @@ const loginAfterRegistration: Epic = ($action, store$) =>
 const editProfile: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.editProfile.request)),
-    switchMap(({ payload }) =>
-      putJSON(EDIT_PROFILE_URL, payload).pipe(
+    switchMap(({ payload }) => {
+      const { uri, username } = getIdentity(store$.value)
+      return putJSON(EDIT_PROFILE_URL, { uri, username, ...payload }).pipe(
         map(() => Actions.Id.editProfile.success()),
         catchError((error: Error) =>
           of(
@@ -174,7 +176,7 @@ const editProfile: Epic = ($action, store$) =>
           )
         )
       )
-    )
+    })
   )
 
 const navigateAfterEditProfile: Epic = ($action) =>
