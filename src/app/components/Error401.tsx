@@ -7,7 +7,7 @@ import t from 'app/components/i18n'
 import useRoute from 'app/hooks/useRoute'
 import { constants } from 'router5'
 
-const Error404: React.FC = () => (
+const Error401: React.FC = () => (
   <BackdropGradient color="white">
     <Box p={2} display="flex" alignItems="center">
       <IconButton color="inherit">
@@ -15,9 +15,9 @@ const Error404: React.FC = () => (
       </IconButton>
       <Typography variant="h6">{t`missioncontrol`}</Typography>
     </Box>
-    <Typography variant="h1">404</Typography>
-    <Typography variant="h3">{t`pageNotFound`}</Typography>
+    <Typography variant="h1">401</Typography>
+    <Typography variant="h3">{t`notAuthorized`}</Typography>
   </BackdropGradient>
 )
 
-export default Error404
+export default Error401

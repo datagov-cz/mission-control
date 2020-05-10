@@ -1,6 +1,7 @@
 {
   "missioncontrol": "Mission Control",
   "pageNotFound": "Stránka nenalezena",
+  "notAuthorized": "Nemáte dostatečná práva",
   "username": "Uživatelské jméno",
   "password": "Heslo",
   "actions": "Akce"

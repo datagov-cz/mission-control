@@ -14,5 +14,6 @@ export const UsersRoutesConfiguration: Route[] = [
     path: '/users',
     layout: MainLayout,
     component: Users,
+    admin: true,
   },
 ]

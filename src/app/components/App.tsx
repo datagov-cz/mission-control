@@ -24,7 +24,6 @@ const App: React.FC = () => (
           <RouterProvider router={router}>
             <InitBoundary>
               <RouteComponentRenderer />
-              <Error404 />
               <Snackbar />
             </InitBoundary>
           </RouterProvider>
