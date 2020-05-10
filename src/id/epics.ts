@@ -182,7 +182,7 @@ const editProfile: Epic = ($action, store$) =>
 const navigateAfterEditProfile: Epic = ($action) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.editProfile.success)),
-    switchMap(() => of(Actions.Router.navigateTo(Routes.MeProfile)))
+    switchMap(() => of(Actions.Router.navigateTo({ name: Routes.MeProfile })))
   )
 
 const notificationAfterEditProfile: Epic = ($action) =>
