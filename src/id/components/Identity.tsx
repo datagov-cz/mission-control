@@ -15,19 +15,22 @@ import Actions from 'app/actions'
 import Gravatar from './Gravatar'
 import t, { Namespace } from 'app/components/i18n'
 import Routes from 'app/routes'
+import useNavigateTo from 'app/hooks/useNavigateTo'
 
 const Identity: React.FC = () => {
   const initials = useSelector(getInitials)
   const email = useSelector(getUsername)
   const [anchorEl, setAnchorEl] = useState(null)
   const dispatch = useDispatch()
+  const navigateToProfile = useNavigateTo(Routes.MeProfile)
 
   const handleLogout = () => {
     dispatch(Actions.Id.logout.request())
   }
 
   const handleProfile = () => {
-    dispatch(Actions.Router.navigateTo(Routes.MeProfile))
+    handleClose()
+    navigateToProfile()
   }
 
   const handleClick = (event: any) => {
