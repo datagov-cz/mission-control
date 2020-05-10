@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { getId as getState } from 'app/selectors'
+import { USER_ADMIN } from 'app/utils/vocabulary'
 
 export const getIdentity = getState
 
@@ -11,3 +12,7 @@ export const getInitials = createSelector(
 )
 
 export const getUsername = createSelector(getState, ({ username }) => username)
+
+export const getIsAdmin = createSelector(getState, ({ types }) =>
+  types.includes(USER_ADMIN)
+)

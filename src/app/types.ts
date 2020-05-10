@@ -26,6 +26,7 @@ export type Route = Router5Route & {
   name: string
   layout?: ComponentType
   component?: ComponentType
+  admin?: boolean
 }
 
 export type RouteName = typeof Routes[keyof typeof Routes]
