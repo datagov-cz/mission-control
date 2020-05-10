@@ -4,8 +4,6 @@ import { Box, IconButton, Typography } from '@material-ui/core'
 import Rocket from 'app/components/icons/Rocket'
 import BackdropGradient from 'app/components/BackdropGradient'
 import t from 'app/components/i18n'
-import useRoute from 'app/hooks/useRoute'
-import { constants } from 'router5'
 
 const Error404: React.FC = () => (
   <BackdropGradient color="white">

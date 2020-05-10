@@ -22,3 +22,10 @@ export const REGISTRATION_URL = '/users'
  * Endpoint for editing user's profile
  */
 export const EDIT_PROFILE_URL = '/users/current'
+const NS_POPIS_DAT =
+  'http://onto.fel.cvut.cz/ontologies/slovnik/agendovy/popis-dat/pojem/'
+
+const ns = (suffix: string) => `${NS_POPIS_DAT}${suffix}`
+
+export const USER = ns('uživatel')
+export const USER_ADMIN = ns('administrátor')
