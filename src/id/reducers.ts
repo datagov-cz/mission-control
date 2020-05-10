@@ -20,7 +20,8 @@ const idReducers: Reducer<IdState, IdAction> = (
 ) => {
   switch (action.type) {
     case getType(Actions.Id.getMyId.success):
-      return { ...action.payload }
+      const { uri, types, username, firstName, lastName } = action.payload
+      return { uri, types, username, firstName, lastName }
     default:
       return state
   }

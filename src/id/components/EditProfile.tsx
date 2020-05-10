@@ -42,7 +42,7 @@ const EditProfile: React.FC = () => {
           fullWidth
           size="large"
         >
-          {t`editProfileAction`}
+          {t`saveChanges`}
         </Button>
         <Box m={1} />
         <Button fullWidth size="large" onClick={navigateToProfile}>

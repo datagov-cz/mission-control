@@ -17,6 +17,6 @@
   "logout": "Odhlásit se",
   "editProfile": "Upravit profil",
   "changePassword": "Změnit heslo",
-  "editProfileAction": "Upravit profil",
+  "saveChanges": "Uložit změny",
   "cancel": "Zrušit"
 }
