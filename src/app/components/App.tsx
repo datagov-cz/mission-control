@@ -13,7 +13,6 @@ import { locale, messages } from 'app/translations'
 import InitBoundary from './InitBoundary'
 import Snackbar from './Snackbar'
 import RouteComponentRenderer from './RouteComponentRenderer'
-import Error404 from './Error404'
 
 const App: React.FC = () => (
   <ReduxProvider store={store}>

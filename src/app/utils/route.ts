@@ -41,3 +41,6 @@ export const getComponentsHierarchy = (routeName: RouteName): ComponentType[] =>
 
 export const isRouteAdminOnly = (routeName: RouteName): boolean =>
   !!getRoutesHierarchy(routeName).find((route) => route.admin === true)
+
+export const isRouteAccessible = (routeName: RouteName, isAdmin: boolean) =>
+  !isRouteAdminOnly(routeName) || isAdmin
