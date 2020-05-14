@@ -1,6 +1,12 @@
 import { createAction, createAsyncAction, ActionType } from 'typesafe-actions'
 
-import { LoginPayload, RegistrationPayload, Identity, UserNames } from './types'
+import {
+  LoginPayload,
+  RegistrationPayload,
+  Identity,
+  UserNames,
+  Passwords,
+} from './types'
 
 const IdActions = {
   init: createAction('id/init')(),
@@ -30,6 +36,11 @@ const IdActions = {
     'id/editProfileSuccess',
     'id/editProfileFailure'
   )<UserNames, void, Error>(),
+  changePassword: createAsyncAction(
+    'id/changePasswordRequest',
+    'id/changePasswordSuccess',
+    'id/changePasswordFailure'
+  )<Passwords, void, Error>(),
 }
 
 export type IdAction = ActionType<typeof IdActions>
