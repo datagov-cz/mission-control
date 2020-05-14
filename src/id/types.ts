@@ -16,14 +16,20 @@ export type UserNames = {
   lastName: string
 }
 
+export type Passwords = {
+  originalPassword: string
+  password: string
+}
+
 export type RegistrationPayload = LoginPayload & UserNames
 
 export type LoginResponse = ApiResponse & {
   loggedIn: boolean
 }
 
-export interface Identity {
+export type Identity = {
   uri: string
+  admin: boolean
   types: string[]
   username: string
   firstName: string

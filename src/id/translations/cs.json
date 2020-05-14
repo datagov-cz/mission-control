@@ -18,5 +18,11 @@
   "editProfile": "Upravit profil",
   "changePassword": "Změnit heslo",
   "saveChanges": "Uložit změny",
-  "cancel": "Zrušit"
+  "cancel": "Zrušit",
+  "originalPassword": "Současné heslo",
+  "newPassword": "Nové heslo",
+  "changePasswordSuccess": "Heslo bylo změněno",
+  "changePasswordFailure": "Nepodařilo se změnit heslo",
+  "editProfileSuccess": "Profil byl aktualizován",
+  "editProfileFailure": "Nepodařilo se aktualizovat profil"
 }

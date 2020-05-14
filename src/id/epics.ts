@@ -165,8 +165,8 @@ const editProfile: Epic = ($action, store$) =>
   $action.pipe(
     filter(isActionOf(Actions.Id.editProfile.request)),
     switchMap(({ payload }) => {
-      const { uri, username } = getIdentity(store$.value)
-      return putJSON(EDIT_PROFILE_URL, { uri, username, ...payload }).pipe(
+      const identity = getIdentity(store$.value)
+      return putJSON(EDIT_PROFILE_URL, { ...identity, ...payload }).pipe(
         map(() => Actions.Id.editProfile.success()),
         catchError((error: Error) =>
           of(
@@ -197,6 +197,42 @@ const notificationAfterEditProfile: Epic = ($action) =>
     )
   )
 
+const changePassword: Epic = ($action, store$) =>
+  $action.pipe(
+    filter(isActionOf(Actions.Id.changePassword.request)),
+    switchMap(({ payload }) => {
+      const identity = getIdentity(store$.value)
+      return putJSON(EDIT_PROFILE_URL, { ...identity, ...payload }).pipe(
+        map(() => Actions.Id.changePassword.success()),
+        catchError((error: Error) =>
+          of(
+            Actions.Id.changePassword.failure(
+              new Error(`Cannot change password: ${error.message}`)
+            )
+          )
+        )
+      )
+    })
+  )
+
+const navigateAfterChangePassword: Epic = ($action) =>
+  $action.pipe(
+    filter(isActionOf(Actions.Id.changePassword.success)),
+    switchMap(() => of(Actions.Router.navigateTo({ name: Routes.MeProfile })))
+  )
+
+const notificationAfterChangePassword: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      filter(isActionOf(Actions.Id.changePassword.success)),
+      map(() => Actions.Snackbar.success('id.changePasswordSuccess'))
+    ),
+    $action.pipe(
+      filter(isActionOf(Actions.Id.changePassword.failure)),
+      map(() => Actions.Snackbar.error('id.changePasswordError'))
+    )
+  )
+
 export default combineEpics(
   init,
   getMyId,
@@ -210,5 +246,8 @@ export default combineEpics(
   loginAfterRegistration,
   editProfile,
   navigateAfterEditProfile,
-  notificationAfterEditProfile
+  notificationAfterEditProfile,
+  changePassword,
+  navigateAfterChangePassword,
+  notificationAfterChangePassword
 )

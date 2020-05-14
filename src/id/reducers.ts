@@ -4,10 +4,11 @@ import Actions from 'app/actions'
 import { Reducer } from 'app/types'
 import { Identity, IdAction } from './types'
 
-export interface IdState extends Identity {}
+export type IdState = Identity
 
 const initialState: IdState = {
   uri: '',
+  admin: false,
   types: [],
   username: '',
   firstName: '',
@@ -20,8 +21,7 @@ const idReducers: Reducer<IdState, IdAction> = (
 ) => {
   switch (action.type) {
     case getType(Actions.Id.getMyId.success):
-      const { uri, types, username, firstName, lastName } = action.payload
-      return { uri, types, username, firstName, lastName }
+      return { ...action.payload }
     default:
       return state
   }

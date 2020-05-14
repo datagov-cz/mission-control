@@ -6,6 +6,7 @@ import MeLayout from './components/MeLayout'
 import Profile from './components/Profile'
 import MainLayout from 'app/components/MainLayout'
 import EditProfile from './components/EditProfile'
+import ChangePassword from './components/ChangePassword'
 
 const IdRoutes = {
   Login: 'login',
@@ -48,5 +49,11 @@ export const IdRoutesConfiguration: Route[] = [
     path: '/edit',
     layout: MeLayout,
     component: EditProfile,
+  },
+  {
+    name: IdRoutes.MeChangePassword,
+    path: '/change-password',
+    layout: MeLayout,
+    component: ChangePassword,
   },
 ]
