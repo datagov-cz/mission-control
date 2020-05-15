@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { of } from 'rxjs'
-import { map, switchMap, catchError } from 'rxjs/operators'
+import { map, switchMap, catchError, mapTo } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
@@ -13,7 +13,7 @@ import { Workspace } from './types'
 
 const getDataOnRouteEnter: Epic = ($action) =>
   onRouteEnter($action, Routes.Workspaces).pipe(
-    switchMap(() => of(Actions.Workspaces.getWorkspaces.request()))
+    mapTo(Actions.Workspaces.getWorkspaces.request())
   )
 
 const getWorkspaces: Epic = ($action) =>
