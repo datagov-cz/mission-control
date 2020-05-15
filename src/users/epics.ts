@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { of } from 'rxjs'
-import { map, switchMap, catchError } from 'rxjs/operators'
+import { map, switchMap, catchError, mapTo } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
@@ -13,7 +13,7 @@ import { User } from './types'
 
 const getDataOnRouteEnter: Epic = ($action) =>
   onRouteEnter($action, Routes.Users).pipe(
-    switchMap(() => of(Actions.Users.getUsers.request()))
+    mapTo(Actions.Users.getUsers.request())
   )
 
 const getUsers: Epic = ($action) =>

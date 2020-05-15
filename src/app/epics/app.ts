@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { of, merge } from 'rxjs'
-import { switchMap, mergeMap, map, first } from 'rxjs/operators'
+import { switchMap, map, mapTo, first } from 'rxjs/operators'
 
 import Actions from 'app/actions'
 import { Epic, SnackbarContent } from 'app/types'
@@ -12,13 +12,13 @@ const init: Epic = ($action) =>
     ofSafeType(Actions.App.init),
     first(),
     switchMap(() => startRouter()),
-    mergeMap(() =>
+    switchMap(() =>
       merge(
+        of(Actions.Id.init()),
         $action.pipe(
           ofSafeType(Actions.Id.initFinished),
-          map(() => Actions.App.initFinished())
-        ),
-        of(Actions.Id.init())
+          mapTo(Actions.App.initFinished())
+        )
       )
     )
   )
