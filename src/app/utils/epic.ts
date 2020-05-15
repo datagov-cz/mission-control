@@ -1,17 +1,15 @@
 import { ActionsObservable } from 'redux-observable'
 import { combineLatest } from 'rxjs'
 import { filter, map } from 'rxjs/operators'
-import { actionTypes } from 'redux-router5'
 
 import Actions from 'app/actions'
 import { Action } from 'app/types'
 import { TransitionSuccessAction } from 'app/actions/router'
-import { isActionOf } from 'typesafe-actions'
+import { isActionOf, ActionCreator, TypeConstant } from 'typesafe-actions'
 
-export const isTransitionSuccess = (
-  action: Action
-): action is TransitionSuccessAction =>
-  action.type === actionTypes.TRANSITION_SUCCESS
+export const ofSafeType = <TActionCreator extends ActionCreator<TypeConstant>>(
+  action: TActionCreator
+) => filter(isActionOf(action))
 
 const isRouteEnter = (routeName: string) => ({
   payload: { previousRoute, route },
@@ -31,8 +29,8 @@ export const onRouteEnter = (
   routeName: string
 ) =>
   combineLatest(
-    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
-    $action.pipe(filter(isTransitionSuccess))
+    $action.pipe(ofSafeType(Actions.App.initFinished)),
+    $action.pipe(ofSafeType(Actions.Router.transitionSuccess))
   ).pipe(
     map(([init, transitionSuccessAction]) => transitionSuccessAction),
     filter(isRouteEnter(routeName)),
@@ -44,8 +42,8 @@ export const onRouteLeave = (
   routeName: string
 ) =>
   combineLatest(
-    $action.pipe(filter(isActionOf(Actions.App.initFinished))),
-    $action.pipe(filter(isTransitionSuccess))
+    $action.pipe(ofSafeType(Actions.App.initFinished)),
+    $action.pipe(ofSafeType(Actions.Router.transitionSuccess))
   ).pipe(
     map(([init, transitionSuccessAction]) => transitionSuccessAction),
     filter(isRouteLeave(routeName)),
