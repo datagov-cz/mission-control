@@ -6,14 +6,17 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 
-import { Edit, Delete } from '@material-ui/icons'
 import t from 'app/components/i18n'
 import { useSelector } from 'react-redux'
 import { getUsers, getUsersLoading } from 'users/selectors'
 import { Skeleton } from '@material-ui/lab'
+
 import { User } from 'users/types'
+import { getIdentity } from 'id/selectors'
+import useDispatchAction from 'app/hooks/useDispatchAction'
+import Actions from 'app/actions'
 
 const Header: React.FC = () => (
   <TableHead>
@@ -25,19 +28,43 @@ const Header: React.FC = () => (
   </TableHead>
 )
 
+const UserAction: React.FC<{ user: User }> = ({ user }) => {
+  const identity = useSelector(getIdentity)
+  const handleDeactivate = useDispatchAction(
+    Actions.Users.deactivateUser.request(user)
+  )
+  const handleActivate = useDispatchAction(
+    Actions.Users.activateUser.request(user)
+  )
+
+  if (user.username === identity.username) {
+    return null
+  }
+  if (user.isActive) {
+    return (
+      <Button
+        onClick={handleDeactivate}
+        color="secondary"
+      >{t`deactivateUser`}</Button>
+    )
+  } else {
+    return (
+      <Button
+        onClick={handleActivate}
+        color="secondary"
+      >{t`activateUser`}</Button>
+    )
+  }
+}
+
 const UserRow: React.FC<{ user: User }> = ({ user }) => (
   <TableRow hover role="checkbox" tabIndex={-1} key={user.uri}>
     <TableCell>
       {user.firstName} {user.lastName}
     </TableCell>
     <TableCell>{user.username}</TableCell>
-    <TableCell key="actions" align="right">
-      <IconButton>
-        <Edit />
-      </IconButton>
-      <IconButton>
-        <Delete />
-      </IconButton>
+    <TableCell key="actions" align="right" padding="checkbox">
+      <UserAction user={user} />
     </TableCell>
   </TableRow>
 )

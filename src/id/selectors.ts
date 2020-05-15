@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 import { getId as getState } from 'app/selectors'
-import { USER_ADMIN } from './constants'
+import { USER_ADMIN } from 'app/vocabulary'
 
 export const getIdentity = getState
 
