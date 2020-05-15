@@ -1,20 +1,13 @@
 import { combineEpics } from 'redux-observable'
 import { merge, of, race } from 'rxjs'
-import {
-  mergeMap,
-  map,
-  mapTo,
-  tap,
-  switchMap,
-  catchError,
-} from 'rxjs/operators'
+import { mergeMap, map, mapTo, tap, switchMap } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
 import { post, postJSON, getJSON, putJSON } from 'app/utils/ajax'
 import { removeToken } from 'app/utils/auth'
-import { ofSafeType } from 'app/utils/epic'
+import { ofSafeType, mapError } from 'app/utils/epic'
 
 import { Identity } from './types'
 import {
@@ -56,13 +49,7 @@ const getMyId: Epic = ($action) =>
     switchMap(() =>
       getJSON(MY_ID_URL).pipe(
         map((identity) => Actions.Id.getMyId.success(identity as Identity)),
-        catchError((error: Error) =>
-          of(
-            Actions.Id.getMyId.failure(
-              new Error(`Cannot load identity: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Id.getMyId.failure)
       )
     )
   )
@@ -85,13 +72,7 @@ const login: Epic = ($action) =>
             )
           )
         ),
-        catchError((error: Error) =>
-          of(
-            Actions.Id.login.failure(
-              new Error(`Cannot login: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Id.login.failure)
       )
     )
   )
@@ -127,13 +108,7 @@ const register: Epic = ($action, store$) =>
     switchMap(({ payload }) =>
       postJSON(REGISTRATION_URL, payload).pipe(
         map(() => Actions.Id.register.success(payload)),
-        catchError((error: Error) =>
-          of(
-            Actions.Id.register.failure(
-              new Error(`Cannot register: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Id.register.failure)
       )
     )
   )
@@ -163,13 +138,7 @@ const editProfile: Epic = ($action, store$) =>
       const identity = getIdentity(store$.value)
       return putJSON(EDIT_PROFILE_URL, { ...identity, ...payload }).pipe(
         mapTo(Actions.Id.editProfile.success()),
-        catchError((error: Error) =>
-          of(
-            Actions.Id.editProfile.failure(
-              new Error(`Cannot edit profile: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Id.editProfile.failure)
       )
     })
   )
@@ -199,13 +168,7 @@ const changePassword: Epic = ($action, store$) =>
       const identity = getIdentity(store$.value)
       return putJSON(EDIT_PROFILE_URL, { ...identity, ...payload }).pipe(
         mapTo(Actions.Id.changePassword.success()),
-        catchError((error: Error) =>
-          of(
-            Actions.Id.changePassword.failure(
-              new Error(`Cannot change password: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Id.changePassword.failure)
       )
     })
   )

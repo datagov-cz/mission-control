@@ -1,12 +1,11 @@
 import { combineEpics } from 'redux-observable'
-import { of } from 'rxjs'
-import { map, switchMap, catchError, mapTo } from 'rxjs/operators'
+import { map, switchMap, mapTo } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
 import { getJSON } from 'app/utils/ajax'
-import { onRouteEnter, ofSafeType } from 'app/utils/epic'
+import { onRouteEnter, ofSafeType, mapError } from 'app/utils/epic'
 
 import { USERS_URL } from './constants'
 import { User } from './types'
@@ -22,13 +21,7 @@ const getUsers: Epic = ($action) =>
     switchMap(() =>
       getJSON(USERS_URL).pipe(
         map((users) => Actions.Users.getUsers.success(users as User[])),
-        catchError((error: Error) =>
-          of(
-            Actions.Users.getUsers.failure(
-              new Error(`Cannot load identity: ${error.message}`)
-            )
-          )
-        )
+        mapError(Actions.Users.getUsers.failure)
       )
     )
   )
