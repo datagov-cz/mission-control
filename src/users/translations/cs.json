@@ -5,5 +5,9 @@
   "firstName": "Křestní jméno",
   "lastName": "Příjmení",
   "name": "Jméno",
-  "actions": "Akce"
+  "actions": "Akce",
+  "activateUser": "Aktivovat",
+  "deactivateUser": "Deaktivovat",
+  "userStatusUpdateSuccess": "Stav uživatele byl změněn",
+  "userStatusUpdateFailure": "Stav uživatele se nepodařilo změnit"
 }

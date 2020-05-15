@@ -2,11 +2,11 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import { User, UsersAction } from './types'
+import { UsersAction, UserData } from './types'
 
 export type UsersState = {
   isLoading: boolean
-  users: User[]
+  users: UserData[]
 }
 
 const initialState: UsersState = {

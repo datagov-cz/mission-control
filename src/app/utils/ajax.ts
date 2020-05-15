@@ -50,3 +50,6 @@ export const put = (url: string, body?: any, headers?: Object) =>
 
 export const putJSON = (url: string, json: any, headers?: Object) =>
   put(url, json, { 'Content-Type': 'application/json', ...headers })
+
+export const del = (url: string, headers?: Object) =>
+  request({ method: 'DELETE', url, headers })
