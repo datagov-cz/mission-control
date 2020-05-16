@@ -5,3 +5,10 @@
   status = 200
   force = true # COMMENT: ensure that we always redirect
   headers = {X-From = "Netlify"}
+
+## Redirects any unknown URL to index 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
