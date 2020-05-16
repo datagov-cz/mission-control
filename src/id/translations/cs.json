@@ -22,7 +22,7 @@
   "originalPassword": "Současné heslo",
   "newPassword": "Nové heslo",
   "changePasswordSuccess": "Heslo bylo změněno",
-  "changePasswordFailure": "Nepodařilo se změnit heslo",
+  "changePasswordError": "Nepodařilo se změnit heslo",
   "editProfileSuccess": "Profil byl aktualizován",
-  "editProfileFailure": "Nepodařilo se aktualizovat profil"
+  "editProfileError": "Nepodařilo se aktualizovat profil"
 }
