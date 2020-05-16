@@ -1,13 +1,13 @@
 import { combineEpics } from 'redux-observable'
 import { merge, of, race } from 'rxjs'
-import { mergeMap, map, mapTo, tap, switchMap } from 'rxjs/operators'
+import { mergeMap, map, mapTo, tap, switchMap, first } from 'rxjs/operators'
 
 import { Epic } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
 import { post, postJSON, getJSON, putJSON } from 'app/utils/ajax'
 import { removeToken } from 'app/utils/auth'
-import { ofSafeType, mapError } from 'app/utils/epic'
+import { ofSafeType, mapError, fire } from 'app/utils/epic'
 
 import { Identity } from './types'
 import {
@@ -27,15 +27,15 @@ const init: Epic = ($action) =>
         race(
           $action.pipe(
             ofSafeType(Actions.Id.getMyId.success),
+            first(),
             mapTo(Actions.Id.initFinished())
           ),
           $action.pipe(
             ofSafeType(Actions.Id.getMyId.failure),
-            switchMap(() =>
-              of(
-                Actions.Router.navigateTo({ name: Routes.Login }),
-                Actions.Id.initFinished()
-              )
+            first(),
+            fire(
+              Actions.Router.navigateTo({ name: Routes.Login }),
+              Actions.Id.initFinished()
             )
           )
         )
@@ -143,21 +143,19 @@ const editProfile: Epic = ($action, store$) =>
     })
   )
 
-const navigateAfterEditProfile: Epic = ($action) =>
-  $action.pipe(
-    ofSafeType(Actions.Id.editProfile.success),
-    mapTo(Actions.Router.navigateTo({ name: Routes.MeProfile }))
-  )
-
-const notificationAfterEditProfile: Epic = ($action) =>
+const actionsAfterEditProfile: Epic = ($action) =>
   merge(
     $action.pipe(
       ofSafeType(Actions.Id.editProfile.success),
-      mapTo(Actions.Snackbar.success('id.editProfileSuccess'))
+      fire(
+        Actions.Snackbar.success('id.editProfileSuccess'),
+        Actions.Id.getMyId.request(),
+        Actions.Router.navigateTo({ name: Routes.MeProfile })
+      )
     ),
     $action.pipe(
       ofSafeType(Actions.Id.editProfile.failure),
-      mapTo(Actions.Snackbar.error('id.editProfileError'))
+      fire(Actions.Snackbar.error('id.editProfileError'))
     )
   )
 
@@ -173,21 +171,18 @@ const changePassword: Epic = ($action, store$) =>
     })
   )
 
-const navigateAfterChangePassword: Epic = ($action) =>
-  $action.pipe(
-    ofSafeType(Actions.Id.changePassword.success),
-    mapTo(Actions.Router.navigateTo({ name: Routes.MeProfile }))
-  )
-
-const notificationAfterChangePassword: Epic = ($action) =>
+const actionsAfterChangePassword: Epic = ($action) =>
   merge(
     $action.pipe(
       ofSafeType(Actions.Id.changePassword.success),
-      mapTo(Actions.Snackbar.success('id.changePasswordSuccess'))
+      fire(
+        Actions.Snackbar.success('id.changePasswordSuccess'),
+        Actions.Router.navigateTo({ name: Routes.MeProfile })
+      )
     ),
     $action.pipe(
       ofSafeType(Actions.Id.changePassword.failure),
-      mapTo(Actions.Snackbar.error('id.changePasswordError'))
+      fire(Actions.Snackbar.error('id.changePasswordError'))
     )
   )
 
@@ -203,9 +198,7 @@ export default combineEpics(
   notificationAfterRegistration,
   loginAfterRegistration,
   editProfile,
-  navigateAfterEditProfile,
-  notificationAfterEditProfile,
+  actionsAfterEditProfile,
   changePassword,
-  navigateAfterChangePassword,
-  notificationAfterChangePassword
+  actionsAfterChangePassword
 )

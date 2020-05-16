@@ -6,23 +6,34 @@ import {
   ObservedValueOf,
   OperatorFunction,
 } from 'rxjs'
-import { filter, map, catchError } from 'rxjs/operators'
+import { filter, map, catchError, switchMap } from 'rxjs/operators'
 
 import Actions from 'app/actions'
 import { Action } from 'app/types'
 import { TransitionSuccessAction } from 'app/actions/router'
 import { isActionOf, ActionCreator, TypeConstant } from 'typesafe-actions'
 
+/**
+ * Filters a particular action in an epic, while ensuring payload type safety
+ */
 export const ofSafeType = <TActionCreator extends ActionCreator<TypeConstant>>(
   action: TActionCreator
 ) => filter(isActionOf(action))
 
+/**
+ * Catches an error in an epic and maps the Error object to a provided action
+ */
 export const mapError = <T, TErrorAction extends Action>(
   errorActionCreator: (err: Error) => TErrorAction
 ): OperatorFunction<T, T | ObservedValueOf<Observable<TErrorAction>>> =>
   catchError<T, Observable<TErrorAction>>((error) =>
     of(errorActionCreator(error))
   )
+
+/**
+ * Fires multiple consecutive actions out of an epic
+ */
+export const fire = (...args: Action[]) => switchMap(() => of(...args))
 
 const isRouteEnter = (routeName: string) => ({
   payload: { previousRoute, route },
