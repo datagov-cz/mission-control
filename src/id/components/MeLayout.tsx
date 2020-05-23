@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { Namespace } from 'app/components/i18n'
 import RouteComponentRenderer from 'app/components/RouteComponentRenderer'
-import Gravatar from './Gravatar'
+import Gravatar from 'app/components/Gravatar'
 import { getInitials, getUsername } from 'id/selectors'
 
 const MeLayout: React.FC = () => {

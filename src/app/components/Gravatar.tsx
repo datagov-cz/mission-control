@@ -6,7 +6,7 @@ import classNames from 'classnames'
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: {
     border: '2px solid #FFF',
-    background: 'transparent',
+    background: theme.palette.secondary.main,
   },
   regular: {
     width: theme.spacing(5),
@@ -25,20 +25,25 @@ type GravatarProps = {
   email: string
   initials: string
   size?: 'regular' | 'huge'
+  className?: string
 }
 
 const Gravatar: React.FC<GravatarProps> = ({
   email,
   initials,
   size = 'regular',
+  className,
 }) => {
   const classes = useStyles()
   const gravatarUrl = getGravatarUrl(email)
 
-  const avatarClassNames = classNames(
-    classes.avatar,
-    size === 'regular' ? classes.regular : classes.huge
-  )
+  const avatarClassNames = className
+    ? className
+    : classNames(
+        classes.avatar,
+        size === 'regular' && classes.regular,
+        size === 'huge' && classes.huge
+      )
 
   return (
     <Avatar src={gravatarUrl} className={avatarClassNames}>

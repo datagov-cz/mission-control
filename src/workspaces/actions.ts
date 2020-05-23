@@ -1,12 +1,12 @@
 import { createAsyncAction, ActionType } from 'typesafe-actions'
-import { Workspace } from './types'
+import { WorkspaceData } from './types'
 
 const WorkspacesActions = {
   getWorkspaces: createAsyncAction(
     'workspaces/getWorkspacesRequest',
     'workspaces/getWorkspacesSuccess',
     'workspaces/getWorkspacesFailure'
-  )<void, Workspace[], Error>(),
+  )<void, WorkspaceData[], Error>(),
 }
 
 export type WorkspacesAction = ActionType<typeof WorkspacesActions>

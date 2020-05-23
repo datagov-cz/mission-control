@@ -12,7 +12,7 @@ import { Face, ExitToApp } from '@material-ui/icons'
 
 import { getInitials, getUsername } from 'id/selectors'
 import Actions from 'app/actions'
-import Gravatar from './Gravatar'
+import Gravatar from 'app/components/Gravatar'
 import t, { Namespace } from 'app/components/i18n'
 import Routes from 'app/routes'
 import useNavigateTo from 'app/hooks/useNavigateTo'
