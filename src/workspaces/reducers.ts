@@ -2,11 +2,11 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import { Workspace, WorkspacesAction } from './types'
+import { WorkspaceData, WorkspacesAction } from './types'
 
 export type WorkspacesState = {
   isLoading: boolean
-  workspaces: Workspace[]
+  workspaces: WorkspaceData[]
 }
 
 const initialState: WorkspacesState = {

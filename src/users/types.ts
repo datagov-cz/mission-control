@@ -9,6 +9,7 @@ export type UserData = {
 }
 
 export type User = UserData & {
+  initials: string
   isAdmin: boolean
   isActive: boolean
 }

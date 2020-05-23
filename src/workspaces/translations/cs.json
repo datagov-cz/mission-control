@@ -1,6 +1,6 @@
 {
   "workspaces": "Pracovní prostory",
-  "name": "Název",
-  "owner": "Vlastník",
+  "label": "Název",
+  "author": "Autor",
   "actions": "Akce"
 }
