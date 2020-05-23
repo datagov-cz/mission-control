@@ -4,5 +4,7 @@
   "notAuthorized": "Nemáte dostatečná práva",
   "username": "Uživatelské jméno",
   "password": "Heslo",
-  "actions": "Akce"
+  "actions": "Akce",
+  "cancel": "Zrušit",
+  "errorRequired": "Prosím, vyplňte"
 }
