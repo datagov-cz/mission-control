@@ -6,6 +6,10 @@ export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
 export type VocabularyContextData = {}
 
+export type AddWorkspacePayload = {
+  label: string
+}
+
 export type WorkspaceData = {
   uri: string
   label: string

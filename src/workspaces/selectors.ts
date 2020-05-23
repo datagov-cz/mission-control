@@ -32,3 +32,8 @@ const convertWorkspaceDataToWorkspace = ({
 export const getWorkspaces = createSelector(getState, (state) =>
   state.workspaces.map(convertWorkspaceDataToWorkspace)
 )
+
+export const getIsAddWorkspaceFormOpen = createSelector(
+  getState,
+  (state) => state.isAddWorkspaceFormOpen
+)

@@ -2,5 +2,7 @@
   "workspaces": "Pracovní prostory",
   "label": "Název",
   "author": "Autor",
-  "actions": "Akce"
+  "addWorkspace": "Přidat pracovní prostor",
+  "addWorkspaceSuccess": "Pracovní prostor vytvořen",
+  "addWorkspaceError": "Nepodařilo se vytvořit pracovní prostor"
 }
