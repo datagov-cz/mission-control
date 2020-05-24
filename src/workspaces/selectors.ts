@@ -4,8 +4,9 @@ import { values } from 'lodash'
 import { getWorkspaces as getState, getRoute } from 'app/selectors'
 import { convertUserDataToUser } from 'users/selectors'
 
-import { WorkspaceData, Workspace } from './types'
+import { WorkspaceData, Workspace, VocabularyData, Vocabulary } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
+import { VOCABULARY_CONTEXT_READ_ONLY } from 'app/vocabulary'
 
 export const getWorkspacesLoading = createSelector(
   getState,
@@ -14,11 +15,23 @@ export const getWorkspacesLoading = createSelector(
 
 const convertUnixTimestampToDate = (timestamp: number) => new Date(timestamp)
 
+const convertVocabularyDataToVocabulary = (
+  data: VocabularyData
+): Vocabulary => ({
+  uri: data.uri,
+  vocabulary: data.basedOnVocabularyVersion,
+  isReadOnly: data.types.includes(VOCABULARY_CONTEXT_READ_ONLY),
+  vocabularyContext: data.uri,
+  changeTrackingContext: data.changeTrackingContext.uri,
+  changeTrackingVocabulary: data.changeTrackingContext.changesVocabularyVersion,
+})
+
 const convertWorkspaceDataToWorkspace = ({
   author,
   lastEditor,
   created,
   lastModified,
+  vocabularyContexts,
   ...rest
 }: WorkspaceData): Workspace => ({
   ...rest,
@@ -30,6 +43,7 @@ const convertWorkspaceDataToWorkspace = ({
     lastModified !== undefined
       ? convertUnixTimestampToDate(lastModified)
       : undefined,
+  vocabularies: vocabularyContexts.map(convertVocabularyDataToVocabulary),
 })
 
 export const getWorkspaces = createSelector(getState, (state) =>
@@ -60,4 +74,9 @@ export const getWorkspace = createSelector(
       ? convertWorkspaceDataToWorkspace(workspaceDataCandidate)
       : undefined
   }
+)
+
+export const getVocabularies = createSelector(
+  getWorkspace,
+  (state) => state?.vocabularies || []
 )

@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import { range } from 'lodash'
 import MaterialTable, {
   MaterialTableProps,
   Icons,
@@ -47,21 +48,32 @@ const tableIcons: Icons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 }
 
-const tableOptions: Options = {
+const simpleTableOptions: Options = {
   toolbar: false,
-  pageSize: 10,
+  pageSize: 5,
   emptyRowsWhenPaging: false,
   paging: false,
 }
 
+const complexTableOptions: Options = {
+  toolbar: false,
+  pageSize: 10,
+  emptyRowsWhenPaging: true,
+  paging: true,
+}
+
 export type DataColumn<RowData extends object> = Column<RowData>
 
-type DataTableProps<RowData extends object> = MaterialTableProps<RowData>
+type DataTableProps<RowData extends object> = MaterialTableProps<RowData> & {
+  type?: 'simple' | 'complex'
+}
 
 const DataTable = <RowData extends object>({
   isLoading = false,
   columns,
   data,
+  options = {},
+  type = 'complex',
   ...rest
 }: DataTableProps<RowData>) => {
   const tableColumns = !isLoading
@@ -71,9 +83,14 @@ const DataTable = <RowData extends object>({
         render: () => <Skeleton />,
       }))
 
+  const tableOptions =
+    type === 'complex'
+      ? { ...complexTableOptions, ...options }
+      : { ...simpleTableOptions, ...options }
+
   const tableData = !isLoading
     ? data
-    : (Array.from(Array(10).keys()).map(() => ({})) as RowData[])
+    : (range(tableOptions.pageSize!).map(() => ({})) as RowData[])
 
   return (
     <MaterialTable

@@ -3,7 +3,26 @@ import { Id, Uri } from 'app/types'
 
 export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
-export type VocabularyContextData = {}
+export type VocabularyData = {
+  uri: Uri
+  types: Uri[]
+  basedOnVocabularyVersion: Uri
+  changeTrackingContext: {
+    uri: Uri
+    changesVocabularyVersion: Uri
+  }
+}
+
+export type Vocabulary = Omit<
+  VocabularyData,
+  'types' | 'basedOnVocabularyVersion' | 'changeTrackingContext'
+> & {
+  vocabulary: Uri
+  isReadOnly: boolean
+  vocabularyContext: Uri
+  changeTrackingContext: Uri
+  changeTrackingVocabulary: Uri
+}
 
 export type AddWorkspacePayload = {
   label: string
@@ -22,16 +41,17 @@ export type WorkspaceData = {
   lastEditor?: UserData
   created: number
   lastModified?: number
-  vocabularyContexts: VocabularyContextData[]
+  vocabularyContexts: VocabularyData[]
 }
 
 export type Workspace = Omit<
   WorkspaceData,
-  'author' | 'lastEditor' | 'created' | 'lastModified'
+  'author' | 'lastEditor' | 'created' | 'lastModified' | 'vocabularyContexts'
 > & {
   id: Id
   author: User
   lastEditor?: User
   created: Date
   lastModified?: Date
+  vocabularies: Vocabulary[]
 }
