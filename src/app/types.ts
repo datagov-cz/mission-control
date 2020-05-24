@@ -22,6 +22,10 @@ export type Reducer<
 
 export type Epic = ObservableEpic<Action, Action, State>
 
+export type Uri = string
+
+export type Id = string
+
 export type Route = Router5Route & {
   name: string
   layout?: ComponentType

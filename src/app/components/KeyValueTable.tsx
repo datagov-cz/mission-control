@@ -1,0 +1,47 @@
+import React, { ReactNode } from 'react'
+import {
+  Table,
+  TableRow,
+  TableCell,
+  Paper,
+  makeStyles,
+  Theme,
+  TableBody,
+} from '@material-ui/core'
+
+const useStyles = makeStyles((theme: Theme) => ({
+  headCell: {
+    minWidth: 200,
+    width: '25%',
+  },
+}))
+
+type KeyValueTableProps = {
+  data: {
+    key: ReactNode
+    value: ReactNode
+  }[]
+}
+
+const KeyValueTable: React.FC<KeyValueTableProps> = ({ data }) => {
+  const styles = useStyles()
+
+  return (
+    <Paper>
+      <Table>
+        <TableBody>
+          {data.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell variant="head" className={styles.headCell}>
+                {row.key}
+              </TableCell>
+              <TableCell>{row.value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
+  )
+}
+
+export default KeyValueTable

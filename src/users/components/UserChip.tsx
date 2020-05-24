@@ -6,10 +6,13 @@ import { Chip, makeStyles, Theme } from '@material-ui/core'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     background: 'transparent',
+    margin: theme.spacing(-0.75, -0.75),
   },
 }))
 
-export const UserBadge: React.FC<User> = ({
+type UserChipProps = User
+
+const UserChip: React.FC<UserChipProps> = ({
   username,
   initials,
   firstName,
@@ -24,3 +27,5 @@ export const UserBadge: React.FC<User> = ({
     />
   )
 }
+
+export default UserChip

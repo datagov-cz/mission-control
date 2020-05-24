@@ -50,6 +50,8 @@ const tableIcons: Icons = {
 const tableOptions: Options = {
   toolbar: false,
   pageSize: 10,
+  emptyRowsWhenPaging: false,
+  paging: false,
 }
 
 export type DataColumn<RowData extends object> = Column<RowData>

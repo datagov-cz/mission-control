@@ -3,8 +3,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   Button,
+  Box,
 } from '@material-ui/core'
 import t from 'app/components/i18n'
 
@@ -27,15 +27,24 @@ const FormDialog: React.FC<FormDialogProps> = ({
 }) => (
   <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="xs">
     <DialogTitle>{title}</DialogTitle>
-    <DialogContent>{children}</DialogContent>
-    <DialogActions>
-      <Button onClick={handleClose} color="primary">
-        {t`app.cancel`}
-      </Button>
-      <Button onClick={handleSubmit} color="primary" variant="contained">
+    <DialogContent>
+      {children}
+      <Box my={2} />
+      <Button
+        onClick={handleSubmit}
+        color="primary"
+        variant="contained"
+        fullWidth
+        size="large"
+      >
         {submitLabel}
       </Button>
-    </DialogActions>
+      <Box my={1} />
+      <Button onClick={handleClose} color="primary" fullWidth size="large">
+        {t`app.cancel`}
+      </Button>
+      <Box my={1} />
+    </DialogContent>
   </Dialog>
 )
 
