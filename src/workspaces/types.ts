@@ -1,6 +1,5 @@
 import { UserData, User } from 'users/types'
-import Users from 'users/components/Users'
-import Workspaces from './components/Workspaces'
+import { Id, Uri } from 'app/types'
 
 export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
@@ -10,8 +9,14 @@ export type AddWorkspacePayload = {
   label: string
 }
 
+export type EditWorkspacePayload = AddWorkspacePayload & {
+  uri: Uri
+}
+
+export type DeleteWorkspacePayload = EditWorkspacePayload
+
 export type WorkspaceData = {
-  uri: string
+  uri: Uri
   label: string
   author: UserData
   lastEditor?: UserData
@@ -24,6 +29,7 @@ export type Workspace = Omit<
   WorkspaceData,
   'author' | 'lastEditor' | 'created' | 'lastModified'
 > & {
+  id: Id
   author: User
   lastEditor?: User
   created: Date

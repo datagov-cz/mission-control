@@ -1,8 +1,21 @@
 {
   "workspaces": "Pracovní prostory",
   "label": "Název",
-  "author": "Autor",
+  "owner": "Vlastník",
+  "lastEditor": "Poslední změna",
+  "lastModified": "Datum poslední změny",
   "addWorkspace": "Přidat pracovní prostor",
   "addWorkspaceSuccess": "Pracovní prostor vytvořen",
-  "addWorkspaceError": "Nepodařilo se vytvořit pracovní prostor"
+  "addWorkspaceError": "Nepodařilo se vytvořit pracovní prostor",
+  "editWorkspace": "Upravit pracovní prostor",
+  "editWorkspaceSuccess": "Pracovní prostor upraven",
+  "editWorkspaceError": "Nepodařilo se upravit pracovní prostor",
+  "deleteWorkspace": "Smazat pracovní prostor",
+  "deleteWorkspaceSuccess": "Pracovní prostor smazán",
+  "deleteWorkspaceFailure": "Nepodařilo se smazat pracovní prostor",
+  "fillInWorkspaceLabel": "Vyplňte název pracovního prostoru ''{label}'' do pole níže",
+  "workspaceLabelDoesNotMatch": "Název pracovního prostoru se neshoduje",
+  "workspaceInformation": "Základní informace",
+  "vocabularies": "Slovníky",
+  "dangerZone": "Nebezpečná zóna"
 }

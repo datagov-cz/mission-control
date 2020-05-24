@@ -11,6 +11,10 @@ export const getApp = (state: State) => state.app
 
 export const getSnackbar = (state: State) => state.snackbar
 
+export const getRouter = (state: State) => state.router
+
+export const getRoute = createSelector(getRouter, (state) => state.route)
+
 export const getAppInitFinished = createSelector(
   getApp,
   (state) => state.initFinished
