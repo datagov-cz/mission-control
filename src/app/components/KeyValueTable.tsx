@@ -21,27 +21,34 @@ type KeyValueTableProps = {
     key: ReactNode
     value: ReactNode
   }[]
+  transparent?: boolean
 }
 
-const KeyValueTable: React.FC<KeyValueTableProps> = ({ data }) => {
+const KeyValueTableInternal: React.FC<KeyValueTableProps> = ({ data }) => {
   const styles = useStyles()
-
   return (
-    <Paper>
-      <Table>
-        <TableBody>
-          {data.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell variant="head" className={styles.headCell}>
-                {row.key}
-              </TableCell>
-              <TableCell>{row.value}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
+    <Table>
+      <TableBody>
+        {data.map((row, index) => (
+          <TableRow key={index}>
+            <TableCell variant="head" className={styles.headCell}>
+              {row.key}
+            </TableCell>
+            <TableCell>{row.value}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   )
 }
+
+const KeyValueTable: React.FC<KeyValueTableProps> = ({ data, transparent }) =>
+  transparent ? (
+    <KeyValueTableInternal data={data} />
+  ) : (
+    <Paper>
+      <KeyValueTableInternal data={data} />
+    </Paper>
+  )
 
 export default KeyValueTable
