@@ -24,6 +24,12 @@ export type Vocabulary = Omit<
   changeTrackingVocabulary: Uri
 }
 
+export type AddVocabularyPayload = {
+  workspaceUri: Uri
+  vocabularyUri: Uri
+  readOnly: boolean
+}
+
 export type AddWorkspacePayload = {
   label: string
 }
