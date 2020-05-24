@@ -24,5 +24,9 @@
   "changeTrackingContext": "Kontext pro sledování změn",
   "changeTrackingVocabulary": "Sledovaná verze slovníku",
   "true": "Ano",
-  "false": "Ne"
+  "false": "Ne",
+  "addVocabulary": "Přidat slovník",
+  "vocabularyUri": "URI slovníku",
+  "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
+  "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru"
 }

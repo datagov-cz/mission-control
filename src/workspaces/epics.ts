@@ -5,10 +5,10 @@ import { map, switchMap, mapTo } from 'rxjs/operators'
 import { Epic, Id } from 'app/types'
 import Actions from 'app/actions'
 import Routes from 'app/routes'
-import { getJSON, postJSON, putJSON, del } from 'app/utils/ajax'
+import { getJSON, postJSON, putJSON, del, post } from 'app/utils/ajax'
 import { onRouteEnter, ofSafeType, mapError, fire } from 'app/utils/epic'
 
-import { getWorkspacesUrl, getWorkspaceUrl } from './api'
+import { getWorkspacesUrl, getWorkspaceUrl, getAddVocabularyUrl } from './api'
 import { WorkspaceData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 
@@ -133,6 +133,43 @@ const actionsAfterDeleteWorkspace: Epic = ($action) =>
     )
   )
 
+const addVocabulary: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.addVocabulary.request),
+    switchMap(({ payload }) =>
+      post(
+        getAddVocabularyUrl(
+          getIdFromUri(payload.workspaceUri),
+          payload.vocabularyUri,
+          payload.readOnly
+        )
+      ).pipe(
+        mapTo(Actions.Workspaces.addVocabulary.success(payload)),
+        mapError(Actions.Workspaces.addVocabulary.failure)
+      )
+    )
+  )
+
+const actionsAfterAddVocabulary: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.addVocabulary.success),
+      switchMap(({ payload }) =>
+        of(
+          Actions.Snackbar.success('workspaces.addVocabularySuccess'),
+          Actions.Workspaces.openAddVocabularyForm(false),
+          Actions.Workspaces.getWorkspace.request(
+            getIdFromUri(payload.workspaceUri)
+          )
+        )
+      )
+    ),
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.addVocabulary.failure),
+      fire(Actions.Snackbar.error('workspaces.addVocabularyError'))
+    )
+  )
+
 export default combineEpics(
   getDataOnRouteEnter,
   getWorkspaces,
@@ -142,5 +179,7 @@ export default combineEpics(
   editWorkspace,
   actionsAfterEditWorkspace,
   deleteWorkspace,
-  actionsAfterDeleteWorkspace
+  actionsAfterDeleteWorkspace,
+  addVocabulary,
+  actionsAfterAddVocabulary
 )
