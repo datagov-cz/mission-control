@@ -7,13 +7,16 @@ type ToolProps = { workspaceUri: string }
 
 const Tools: React.FC<ToolProps> = (props: ToolProps) => {
     const tools = useSelector(getTools);
-    const handleClick = (e : React.MouseEvent) => { e.stopPropagation() };
+    const handleClick = (e: React.MouseEvent) => {
+        e.stopPropagation()
+    };
     return <>
-        {tools.map( t => <Button
+        {tools.map(t => <Button
+            key={`${t.url}?workspace=${props.workspaceUri}`}
             onClick={handleClick}
             color="secondary"
-            href={t.url + "?workspace=" + props.workspaceUri}
-        >{t.label}</Button> )}
+            href={`${t.url}?workspace=${props.workspaceUri}`}
+        >{t.label}</Button>)}
     </>
 }
 
