@@ -9,6 +9,7 @@ import UserChip from 'users/components/UserChip'
 import Actions from 'app/actions'
 import formatDate from 'app/utils/formatDate'
 import Routes from 'app/routes'
+import Tools from "./Tools";
 
 const WorkspacesTable: React.FC = () => {
   const workspaces = useSelector(getWorkspaces)
@@ -32,6 +33,10 @@ const WorkspacesTable: React.FC = () => {
       title: t`lastModified`,
       render: ({ lastModified }) => lastModified && formatDate(lastModified),
     },
+    {
+      title: t`runInTools`,
+      render: ({ uri}) => <Tools workspaceUri={uri}/>
+    }
   ]
 
   const onRowClick = (
