@@ -50,8 +50,7 @@ const WorkspacesActions = {
     'workspaces/addVocabularyRequest',
     'workspaces/addVocabularySuccess',
     'workspaces/addVocabularyFailure'
-  )<AddVocabularyPayload, AddVocabularyPayload, Error>(),
-  openInTool: createAction('workspaces/openInToolRequest' )<void>(),
+  )<AddVocabularyPayload, AddVocabularyPayload, Error>()
 }
 
 export type WorkspacesAction = ActionType<typeof WorkspacesActions>
