@@ -2,10 +2,10 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import {Tool, WorkspaceData, WorkspacesAction} from './types'
+import { Tool, WorkspaceData, WorkspacesAction } from './types'
 import normalize from 'app/utils/normalize'
 import tools from 'tools.json'
-import {zipObject} from "lodash";
+import { zipObject } from 'lodash'
 
 export type WorkspacesState = {
   isLoading: boolean
@@ -24,7 +24,10 @@ const initialState: WorkspacesState = {
   isDeleteWorkspaceFormOpen: false,
   isAddVocabularyFormOpen: false,
   workspaces: {},
-  tools: zipObject(tools.map( t => t.url ), tools)
+  tools: zipObject(
+    tools.map((t) => t.url),
+    tools
+  ),
 }
 
 const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (

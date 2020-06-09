@@ -63,6 +63,6 @@ export type Workspace = Omit<
 }
 
 export type Tool = {
-  url : string,
+  url: string
   label: string
 }

@@ -9,7 +9,7 @@ import UserChip from 'users/components/UserChip'
 import Actions from 'app/actions'
 import formatDate from 'app/utils/formatDate'
 import Routes from 'app/routes'
-import Tools from "./Tools";
+import Tools from './Tools'
 
 const WorkspacesTable: React.FC = () => {
   const workspaces = useSelector(getWorkspaces)
@@ -35,8 +35,8 @@ const WorkspacesTable: React.FC = () => {
     },
     {
       title: t`runInTools`,
-      render: ({ uri}) => <Tools workspaceUri={uri}/>
-    }
+      render: ({ uri }) => <Tools workspaceUri={uri} />,
+    },
   ]
 
   const onRowClick = (
