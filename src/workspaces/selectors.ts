@@ -86,7 +86,4 @@ export const getVocabularies = createSelector(
   (state) => state?.vocabularies || []
 )
 
-export const getTools = createSelector(
-  getState,
-  (state) => values(state.tools)
-)
+export const getTools = createSelector(getState, (state) => values(state.tools))
