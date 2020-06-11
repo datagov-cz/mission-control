@@ -30,7 +30,6 @@ export type LoginResponse = ApiResponse & {
 export type Identity = {
   uri: string
   admin: boolean
-  types: string[]
   username: string
   firstName: string
   lastName: string

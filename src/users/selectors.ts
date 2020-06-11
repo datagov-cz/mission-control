@@ -15,8 +15,8 @@ export const getUsersData = createSelector(getState, (state) => state.users)
 export const convertUserDataToUser = (userData: UserData): User => ({
   ...userData,
   initials: `${userData.firstName.charAt(0)}${userData.lastName.charAt(0)}`,
-  isAdmin: userData.types.includes(USER_ADMIN),
-  isActive: !userData.types.includes(USER_DEACTIVATED),
+  isAdmin: userData.types?.includes(USER_ADMIN) || false,
+  isActive: !userData.types?.includes(USER_DEACTIVATED) || false,
 })
 
 export const getUsers = createSelector(getUsersData, (usersData) =>

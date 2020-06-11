@@ -9,7 +9,6 @@ export type IdState = Identity
 const initialState: IdState = {
   uri: '',
   admin: false,
-  types: [],
   username: '',
   firstName: '',
   lastName: '',
