@@ -29,7 +29,7 @@ const Header: React.FC = () => {
           <IconButton edge="start" color="inherit">
             <Rocket />
           </IconButton>
-          <Typography variant="h6">{t`missioncontrol`}</Typography>
+          <Typography variant="h6">{t`controlPanel`}</Typography>
         </Box>
         <Box display="flex" flexGrow="1" flexBasis="auto">
           <Navigation />
