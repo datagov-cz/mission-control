@@ -12,6 +12,7 @@ import Rocket from 'app/components/icons/Rocket'
 import Navigation from './Navigation'
 import t from 'app/components/i18n'
 import Identity from 'id/components/Identity'
+import LanguageSelector from './LanguageSelector'
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +40,7 @@ const Header: React.FC = () => {
           flexBasis="20%"
           justifyContent="flex-end"
         >
+          <LanguageSelector />
           <Identity />
         </Box>
       </Toolbar>

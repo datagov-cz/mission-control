@@ -19,3 +19,5 @@ export const getAppInitFinished = createSelector(
   getApp,
   (state) => state.initFinished
 )
+
+export const getLocale = createSelector(getApp, (state) => state.locale)
