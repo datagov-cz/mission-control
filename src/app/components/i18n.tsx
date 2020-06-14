@@ -1,5 +1,20 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, IntlProvider } from 'react-intl'
+import { useSelector } from 'react-redux'
+import { getLocale } from 'app/selectors'
+import translations from 'app/translations'
+
+export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const locale = useSelector(getLocale)
+  const messages = translations[locale]
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      {children}
+    </IntlProvider>
+  )
+}
 
 const NAMESPACE_SEPARATOR = '.'
 

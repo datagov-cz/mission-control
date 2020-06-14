@@ -1,11 +1,19 @@
 import { combineEpics } from 'redux-observable'
 import { of, merge } from 'rxjs'
-import { switchMap, map, mapTo, first } from 'rxjs/operators'
+import {
+  switchMap,
+  map,
+  mapTo,
+  first,
+  tap,
+  ignoreElements,
+} from 'rxjs/operators'
 
 import Actions from 'app/actions'
 import { Epic, SnackbarContent } from 'app/types'
 import { startRouter } from 'app/router'
 import { ofSafeType } from 'app/utils/epic'
+import { setLocale } from 'app/utils/i18n'
 
 const init: Epic = ($action) =>
   $action.pipe(
@@ -45,4 +53,11 @@ const snackbar: Epic = ($action) =>
     map((snackbar) => Actions.Snackbar.message(snackbar as SnackbarContent))
   )
 
-export default combineEpics(init, snackbar)
+const locale: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.App.setLocale),
+    tap(({ payload }) => setLocale(payload)),
+    ignoreElements()
+  )
+
+export default combineEpics(init, snackbar, locale)

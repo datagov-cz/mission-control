@@ -2,21 +2,19 @@ import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { RouterProvider } from 'react-router5'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
-import { IntlProvider } from 'react-intl'
 
-import { Namespace } from 'app/components/i18n'
+import { I18nProvider, Namespace } from 'app/components/i18n'
 
 import store from 'app/store'
 import router from 'app/router'
 import theme from 'app/theme'
-import { locale, messages } from 'app/translations'
 import InitBoundary from './InitBoundary'
 import Snackbar from './Snackbar'
 import RouteComponentRenderer from './RouteComponentRenderer'
 
 const App: React.FC = () => (
   <ReduxProvider store={store}>
-    <IntlProvider locale={locale} messages={messages}>
+    <I18nProvider>
       <Namespace.Provider value="app">
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -28,7 +26,7 @@ const App: React.FC = () => (
           </RouterProvider>
         </ThemeProvider>
       </Namespace.Provider>
-    </IntlProvider>
+    </I18nProvider>
   </ReduxProvider>
 )
 

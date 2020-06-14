@@ -4,6 +4,7 @@ import { Epic as ObservableEpic } from 'redux-observable'
 import { Route as Router5Route, NavigationOptions } from 'router5'
 
 import Routes from 'app/routes'
+import translations from 'app/translations'
 
 export type Action = import('app/actions').Action
 
@@ -49,3 +50,5 @@ export type SnackbarContent = {
   message: SnackbarMessage
   type: SnackbarType
 }
+
+export type Locale = keyof typeof translations

@@ -1,11 +1,8 @@
-const NS_POPIS_DAT =
-  'http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/'
 const NS_PRACOVNI_PROSTOR =
   'https://slovník.gov.cz/datový/pracovní-prostor/pojem/'
 
 const ns = (prefix: string) => (suffix: string) => `${prefix}${suffix}`
 
-const nspd = ns(NS_POPIS_DAT)
 const nspp = ns(NS_PRACOVNI_PROSTOR)
 
 export const USER = nspp('uživatel')
