@@ -7,10 +7,9 @@ import {
   Paper,
   AppBar,
 } from '@material-ui/core'
-import Rocket from 'app/components/icons/Rocket'
-import { Namespace } from 'app/components/i18n'
 
-import t from 'app/components/i18n'
+import t, { Namespace } from 'app/components/i18n'
+import Icon from 'app/components/Icon'
 import BackdropGradient from 'app/components/BackdropGradient'
 import Navigation from './Navigation'
 import RouteComponentRenderer from 'app/components/RouteComponentRenderer'
@@ -28,7 +27,7 @@ const IdLayout: React.FC = () => (
           color="white"
         >
           <IconButton color="inherit">
-            <Rocket />
+            <Icon />
           </IconButton>
           <Typography variant="h6">{t`app.controlPanel`}</Typography>
         </Box>

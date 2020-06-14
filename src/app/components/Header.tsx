@@ -8,8 +8,8 @@ import {
   Box,
 } from '@material-ui/core'
 
-import Rocket from 'app/components/icons/Rocket'
 import Navigation from './Navigation'
+import Icon from './Icon'
 import t from 'app/components/i18n'
 import Identity from 'id/components/Identity'
 import LanguageSelector from './LanguageSelector'
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
       <Toolbar>
         <Box display="flex" flexGrow="1" flexBasis="20%" alignItems="center">
           <IconButton edge="start" color="inherit">
-            <Rocket />
+            <Icon />
           </IconButton>
           <Typography variant="h6">{t`controlPanel`}</Typography>
         </Box>
