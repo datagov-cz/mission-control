@@ -11,7 +11,7 @@ const Error404: React.FC = () => (
       <IconButton color="inherit">
         <Rocket />
       </IconButton>
-      <Typography variant="h6">{t`missioncontrol`}</Typography>
+      <Typography variant="h6">{t`controlPanel`}</Typography>
     </Box>
     <Typography variant="h1">404</Typography>
     <Typography variant="h3">{t`pageNotFound`}</Typography>

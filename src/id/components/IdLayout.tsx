@@ -30,7 +30,7 @@ const IdLayout: React.FC = () => (
           <IconButton color="inherit">
             <Rocket />
           </IconButton>
-          <Typography variant="h6">{t`app.missioncontrol`}</Typography>
+          <Typography variant="h6">{t`app.controlPanel`}</Typography>
         </Box>
         <Paper>
           <AppBar position="static">
