@@ -7,13 +7,12 @@ import useRoute from 'app/hooks/useRoute'
 
 const Navigation: React.FC = () => {
   const { topRoute } = useRoute()
-  const availableTabs = ['dashboard', 'workspaces', 'users']
+  const availableTabs = ['workspaces', 'users']
   const currentTab = availableTabs.includes(topRoute.name)
     ? topRoute.name
     : false
   return (
     <Tabs value={currentTab}>
-      <RouteTab label={t`dashboard.dashboard`} value="dashboard" />
       <RouteTab label={t`workspaces.workspaces`} value="workspaces" />
       <RouteTab label={t`users.users`} value="users" />
     </Tabs>
