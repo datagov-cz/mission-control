@@ -1,6 +1,7 @@
 import { Route } from 'app/types'
 import MainLayout from 'app/components/MainLayout'
 import Dashboard from './components/Dashboard'
+import WorkspacesRoutes from 'workspaces/routes'
 
 const DashboardRoutes = {
   Dashboard: 'dashboard',
@@ -14,5 +15,6 @@ export const DashboardRoutesConfiguration: Route[] = [
     path: '/',
     layout: MainLayout,
     component: Dashboard,
+    forwardTo: WorkspacesRoutes.Workspaces,
   },
 ]
