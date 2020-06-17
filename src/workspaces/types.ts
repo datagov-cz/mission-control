@@ -5,6 +5,7 @@ export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
 export type VocabularyData = {
   uri: Uri
+  label?: string
   types: Uri[]
   basedOnVocabularyVersion: Uri
   changeTrackingContext: {
@@ -18,6 +19,7 @@ export type Vocabulary = Omit<
   'types' | 'basedOnVocabularyVersion' | 'changeTrackingContext'
 > & {
   vocabulary: Uri
+  label?: string
   isReadOnly: boolean
   vocabularyContext: Uri
   changeTrackingContext: Uri

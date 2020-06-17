@@ -19,6 +19,7 @@ const convertVocabularyDataToVocabulary = (
   data: VocabularyData
 ): Vocabulary => ({
   uri: data.uri,
+  label: data.label,
   vocabulary: data.basedOnVocabularyVersion,
   isReadOnly: !!data.types && data.types.includes(VOCABULARY_CONTEXT_READ_ONLY),
   vocabularyContext: data.uri,
