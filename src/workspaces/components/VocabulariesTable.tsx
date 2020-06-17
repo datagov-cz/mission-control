@@ -29,7 +29,7 @@ const DetailPanel = (rowData: Vocabulary) => {
     {
       key: t`changeTrackingVocabulary`,
       value: rowData.changeTrackingVocabulary,
-    }
+    },
   ]
   return (
     <GreyBox pl={6.5}>
