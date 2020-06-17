@@ -10,8 +10,8 @@ import { Box, styled } from '@material-ui/core'
 
 const columns: DataColumn<Vocabulary>[] = [
   {
-    title: t`uri`,
-    field: 'vocabulary',
+    title: t`label`,
+    field: 'label',
   },
   {
     title: t`readOnly`,
@@ -27,17 +27,9 @@ const GreyBox = styled(Box)({
 const DetailPanel = (rowData: Vocabulary) => {
   const data = [
     {
-      key: t`vocabularyContext`,
-      value: rowData.vocabularyContext,
-    },
-    {
-      key: t`changeTrackingContext`,
-      value: rowData.changeTrackingContext,
-    },
-    {
       key: t`changeTrackingVocabulary`,
       value: rowData.changeTrackingVocabulary,
-    },
+    }
   ]
   return (
     <GreyBox pl={6.5}>
