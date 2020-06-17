@@ -19,7 +19,6 @@ export type Vocabulary = Omit<
   'types' | 'basedOnVocabularyVersion' | 'changeTrackingContext'
 > & {
   vocabulary: Uri
-  label?: string
   isReadOnly: boolean
   vocabularyContext: Uri
   changeTrackingContext: Uri
