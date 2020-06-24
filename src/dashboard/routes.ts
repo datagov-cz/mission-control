@@ -15,6 +15,6 @@ export const DashboardRoutesConfiguration: Route[] = [
     path: '/',
     layout: MainLayout,
     component: Dashboard,
-    forwardTo: WorkspacesRoutes.Workspaces,
+    forwardTo: WorkspacesRoutes.WorkspacesList,
   },
 ]
