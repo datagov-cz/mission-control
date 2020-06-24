@@ -5,7 +5,6 @@ import MaterialTable, {
   Icons,
   Options,
   Column,
-  Action,
 } from 'material-table'
 import { Skeleton } from '@material-ui/lab'
 
