@@ -29,5 +29,13 @@
   "vocabularyUri": "URI slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
-  "runInTools": "Otevři v"
+  "runInTools": "Otevři v",
+  "actions": "Akce",
+  "delete": "Smazat",
+  "reallyDeleteVocabulary": "Opravdu smazat slovník?",
+  "areYouSureToDeleteVocabulary": "Smazáním slovníku můžete přijít o data, zejména pokud nebyl slovník dosud publikován.",
+  "cancel": "Zrušit",
+  "confirmDelete": "Opravdu smazat",
+  "deleteVocabularySuccess": "Slovník smazán",
+  "deleteVocabularyFailure": "Nepodařilo se smazat slovník"
 }

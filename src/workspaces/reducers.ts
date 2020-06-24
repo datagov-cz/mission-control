@@ -2,7 +2,7 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import { Tool, WorkspaceData, WorkspacesAction } from './types'
+import { Tool, WorkspaceData, WorkspacesAction, Vocabulary } from './types'
 import normalize from 'app/utils/normalize'
 import tools from 'tools.json'
 import { zipObject } from 'lodash'
@@ -13,6 +13,7 @@ export type WorkspacesState = {
   isEditWorkspaceFormOpen: boolean
   isDeleteWorkspaceFormOpen: boolean
   isAddVocabularyFormOpen: boolean
+  isDeleteVocabularyFormOpen: Vocabulary | false
   workspaces: Record<string, WorkspaceData>
   tools: Record<string, Tool>
 }
@@ -23,6 +24,7 @@ const initialState: WorkspacesState = {
   isEditWorkspaceFormOpen: false,
   isDeleteWorkspaceFormOpen: false,
   isAddVocabularyFormOpen: false,
+  isDeleteVocabularyFormOpen: false,
   workspaces: {},
   tools: zipObject(
     tools.map((t) => t.url),
@@ -58,6 +60,8 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
       return { ...state, isDeleteWorkspaceFormOpen: action.payload }
     case getType(Actions.Workspaces.openAddVocabularyForm):
       return { ...state, isAddVocabularyFormOpen: action.payload }
+    case getType(Actions.Workspaces.openDeleteVocabularyForm):
+      return { ...state, isDeleteVocabularyFormOpen: action.payload }
     default:
       return state
   }

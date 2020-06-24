@@ -8,7 +8,12 @@ import Routes from 'app/routes'
 import { getJSON, postJSON, putJSON, del, post } from 'app/utils/ajax'
 import { onRouteEnter, ofSafeType, mapError, fire } from 'app/utils/epic'
 
-import { getWorkspacesUrl, getWorkspaceUrl, getAddVocabularyUrl } from './api'
+import {
+  getWorkspacesUrl,
+  getWorkspaceUrl,
+  getAddVocabularyUrl,
+  getVocabularyUrl,
+} from './api'
 import { WorkspaceData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 
@@ -170,6 +175,35 @@ const actionsAfterAddVocabulary: Epic = ($action) =>
     )
   )
 
+const deleteVocabulary: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.deleteVocabulary.request),
+    switchMap(({ payload }) =>
+      del(getVocabularyUrl(payload.workspaceId, payload.vocabularyId)).pipe(
+        mapTo(Actions.Workspaces.deleteVocabulary.success(payload)),
+        mapError(Actions.Workspaces.deleteVocabulary.failure)
+      )
+    )
+  )
+
+const actionsAfterDeleteVocabulary: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.deleteVocabulary.success),
+      switchMap(({ payload }) =>
+        of(
+          Actions.Snackbar.success('workspaces.deleteVocabularySuccess'),
+          Actions.Workspaces.openDeleteVocabularyForm(false),
+          Actions.Workspaces.getWorkspace.request(payload.workspaceId)
+        )
+      )
+    ),
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.deleteVocabulary.failure),
+      fire(Actions.Snackbar.error('workspaces.deleteVocabularyError'))
+    )
+  )
+
 export default combineEpics(
   getDataOnRouteEnter,
   getWorkspaces,
@@ -181,5 +215,7 @@ export default combineEpics(
   deleteWorkspace,
   actionsAfterDeleteWorkspace,
   addVocabulary,
-  actionsAfterAddVocabulary
+  actionsAfterAddVocabulary,
+  deleteVocabulary,
+  actionsAfterDeleteVocabulary
 )
