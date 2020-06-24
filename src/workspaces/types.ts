@@ -18,6 +18,7 @@ export type Vocabulary = Omit<
   VocabularyData,
   'types' | 'basedOnVocabularyVersion' | 'changeTrackingContext'
 > & {
+  id: Id
   vocabulary: Uri
   isReadOnly: boolean
   vocabularyContext: Uri
@@ -29,6 +30,11 @@ export type AddVocabularyPayload = {
   workspaceUri: Uri
   vocabularyUri: Uri
   readOnly: boolean
+}
+
+export type DeleteVocabularyPayload = {
+  workspaceId: Id
+  vocabularyId: Id
 }
 
 export type AddWorkspacePayload = {

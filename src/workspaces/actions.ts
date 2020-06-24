@@ -5,8 +5,10 @@ import {
   EditWorkspacePayload,
   DeleteWorkspacePayload,
   AddVocabularyPayload,
+  DeleteVocabularyPayload,
 } from './types'
 import { Id } from 'app/types'
+import { Vocabulary } from 'workspaces/types'
 
 const WorkspacesActions = {
   getWorkspaces: createAsyncAction(
@@ -25,6 +27,9 @@ const WorkspacesActions = {
   >(),
   openAddVocabularyForm: createAction('workspaces/openAddVocabularyForm')<
     boolean
+  >(),
+  openDeleteVocabularyForm: createAction('workspaces/openDeleteVocabularyForm')<
+    Vocabulary | false
   >(),
   addWorkspace: createAsyncAction(
     'workspaces/addWorkspaceRequest',
@@ -51,6 +56,11 @@ const WorkspacesActions = {
     'workspaces/addVocabularySuccess',
     'workspaces/addVocabularyFailure'
   )<AddVocabularyPayload, AddVocabularyPayload, Error>(),
+  deleteVocabulary: createAsyncAction(
+    'workspaces/deleteVocabularyRequest',
+    'workspaces/deleteVocabularySuccess',
+    'workspaces/deleteVocabularyFailure'
+  )<DeleteVocabularyPayload, DeleteVocabularyPayload, Error>(),
 }
 
 export type WorkspacesAction = ActionType<typeof WorkspacesActions>

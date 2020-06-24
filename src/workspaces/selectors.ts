@@ -19,6 +19,7 @@ const convertVocabularyDataToVocabulary = (
   data: VocabularyData
 ): Vocabulary => ({
   uri: data.uri,
+  id: getIdFromUri(data.uri),
   label: data.label,
   vocabulary: data.basedOnVocabularyVersion,
   isReadOnly: !!data.types && data.types.includes(VOCABULARY_CONTEXT_READ_ONLY),
@@ -69,6 +70,11 @@ export const getIsDeleteWorkspaceFormOpen = createSelector(
 export const getIsAddVocabularyFormOpen = createSelector(
   getState,
   (state) => state.isAddVocabularyFormOpen
+)
+
+export const getIsDeleteVocabularyFormOpen = createSelector(
+  getState,
+  (state) => state.isDeleteVocabularyFormOpen
 )
 
 export const getWorkspace = createSelector(
