@@ -1,12 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { Box, styled } from '@material-ui/core'
 
 import t from 'app/components/i18n'
-import { useSelector } from 'react-redux'
-import { getVocabularies, getWorkspacesLoading } from 'workspaces/selectors'
-import { Vocabulary } from 'workspaces/types'
 import DataTable, { DataColumn } from 'app/components/DataTable'
 import KeyValueTable from 'app/components/KeyValueTable'
-import { Box, styled } from '@material-ui/core'
+import { getVocabularies, getWorkspacesLoading } from 'workspaces/selectors'
+import { Vocabulary } from 'workspaces/types'
+import VocabularyActions from './VocabularyActions'
+import DeleteVocabularyForm from './DeleteVocabularyForm'
 
 const columns: DataColumn<Vocabulary>[] = [
   {
@@ -17,6 +19,17 @@ const columns: DataColumn<Vocabulary>[] = [
     title: t`readOnly`,
     field: 'isReadOnly',
     render: (rowData) => t(String(rowData.isReadOnly)),
+  },
+  {
+    title: t`actions`,
+    headerStyle: {
+      textAlign: 'right',
+    },
+    cellStyle: {
+      textAlign: 'right',
+    },
+    sorting: false,
+    render: (vocabulary) => <VocabularyActions vocabulary={vocabulary} />,
   },
 ]
 
@@ -43,13 +56,16 @@ const VocabulariesTable: React.FC = () => {
   const isLoading = useSelector(getWorkspacesLoading)
 
   return (
-    <DataTable
-      isLoading={isLoading}
-      columns={columns}
-      data={vocabularies}
-      detailPanel={DetailPanel}
-      type="simple"
-    />
+    <>
+      <DataTable
+        isLoading={isLoading}
+        columns={columns}
+        data={vocabularies}
+        detailPanel={DetailPanel}
+        type="simple"
+      />
+      <DeleteVocabularyForm />
+    </>
   )
 }
 

@@ -34,5 +34,13 @@
   "publishingWorkspace": "Publikace pracovního prostoru",
   "publishingWorkspacePleaseWait": "Pracovní prostor se právě publikuje. Nemělo by to trvat déle než půl minuty.",
   "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
-  "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor"
+  "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor",
+  "actions": "Akce",
+  "delete": "Smazat",
+  "reallyDeleteVocabulary": "Opravdu smazat slovník?",
+  "areYouSureToDeleteVocabulary": "Smazáním slovníku můžete přijít o data, zejména pokud nebyl slovník dosud publikován.",
+  "cancel": "Zrušit",
+  "confirmDelete": "Opravdu smazat",
+  "deleteVocabularySuccess": "Slovník smazán",
+  "deleteVocabularyFailure": "Nepodařilo se smazat slovník"
 }
