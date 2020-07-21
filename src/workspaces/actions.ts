@@ -5,6 +5,7 @@ import {
   EditWorkspacePayload,
   DeleteWorkspacePayload,
   AddVocabularyPayload,
+  PublishWorkspacePayload,
 } from './types'
 import { Id } from 'app/types'
 
@@ -51,6 +52,11 @@ const WorkspacesActions = {
     'workspaces/addVocabularySuccess',
     'workspaces/addVocabularyFailure'
   )<AddVocabularyPayload, AddVocabularyPayload, Error>(),
+  publishWorkspace: createAsyncAction(
+    'workspaces/publishWorkspaceRequest',
+    'workspaces/publishWorkspaceSuccess',
+    'workspaces/publishWorkspaceFailure'
+  )<PublishWorkspacePayload, PublishWorkspacePayload, Error>(),
 }
 
 export type WorkspacesAction = ActionType<typeof WorkspacesActions>

@@ -12,6 +12,7 @@ export type WorkspacesState = {
   isAddWorkspaceFormOpen: boolean
   isEditWorkspaceFormOpen: boolean
   isDeleteWorkspaceFormOpen: boolean
+  isPublishWorkspaceDialogOpen: boolean
   isAddVocabularyFormOpen: boolean
   workspaces: Record<string, WorkspaceData>
   tools: Record<string, Tool>
@@ -22,6 +23,7 @@ const initialState: WorkspacesState = {
   isAddWorkspaceFormOpen: false,
   isEditWorkspaceFormOpen: false,
   isDeleteWorkspaceFormOpen: false,
+  isPublishWorkspaceDialogOpen: false,
   isAddVocabularyFormOpen: false,
   workspaces: {},
   tools: zipObject(
@@ -56,6 +58,11 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
       return { ...state, isEditWorkspaceFormOpen: action.payload }
     case getType(Actions.Workspaces.openDeleteWorkspaceForm):
       return { ...state, isDeleteWorkspaceFormOpen: action.payload }
+    case getType(Actions.Workspaces.publishWorkspace.request):
+      return { ...state, isPublishWorkspaceDialogOpen: true }
+    case getType(Actions.Workspaces.publishWorkspace.success):
+    case getType(Actions.Workspaces.publishWorkspace.failure):
+      return { ...state, isPublishWorkspaceDialogOpen: false }
     case getType(Actions.Workspaces.openAddVocabularyForm):
       return { ...state, isAddVocabularyFormOpen: action.payload }
     default:

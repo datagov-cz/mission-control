@@ -66,6 +66,11 @@ export const getIsDeleteWorkspaceFormOpen = createSelector(
   (state) => state.isDeleteWorkspaceFormOpen
 )
 
+export const getIsPublishWorkspaceDialogOpen = createSelector(
+  getState,
+  (state) => state.isPublishWorkspaceDialogOpen
+)
+
 export const getIsAddVocabularyFormOpen = createSelector(
   getState,
   (state) => state.isAddVocabularyFormOpen

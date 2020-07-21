@@ -29,5 +29,10 @@
   "vocabularyUri": "URI slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
-  "runInTools": "Otevři v"
+  "runInTools": "Otevři v",
+  "publish": "Publikovat",
+  "publishingWorkspace": "Publikace pracovního prostoru",
+  "publishingWorkspacePleaseWait": "Pracovní prostor se právě publikuje. Nemělo by to trvat déle než půl minuty.",
+  "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
+  "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor"
 }

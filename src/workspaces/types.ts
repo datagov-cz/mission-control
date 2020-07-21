@@ -41,6 +41,8 @@ export type EditWorkspacePayload = AddWorkspacePayload & {
 
 export type DeleteWorkspacePayload = EditWorkspacePayload
 
+export type PublishWorkspacePayload = EditWorkspacePayload
+
 export type WorkspaceData = {
   uri: Uri
   label: string

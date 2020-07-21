@@ -8,7 +8,12 @@ import Routes from 'app/routes'
 import { getJSON, postJSON, putJSON, del, post } from 'app/utils/ajax'
 import { onRouteEnter, ofSafeType, mapError, fire } from 'app/utils/epic'
 
-import { getWorkspacesUrl, getWorkspaceUrl, getAddVocabularyUrl } from './api'
+import {
+  getWorkspacesUrl,
+  getWorkspaceUrl,
+  getAddVocabularyUrl,
+  getWorkspacePublishUrl,
+} from './api'
 import { WorkspaceData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 
@@ -133,6 +138,29 @@ const actionsAfterDeleteWorkspace: Epic = ($action) =>
     )
   )
 
+const publishWorkspace: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.publishWorkspace.request),
+    switchMap(({ payload }) =>
+      post(getWorkspacePublishUrl(getIdFromUri(payload.uri))).pipe(
+        mapTo(Actions.Workspaces.publishWorkspace.success(payload)),
+        mapError(Actions.Workspaces.publishWorkspace.failure)
+      )
+    )
+  )
+
+const actionsAfterPublishWorkspace: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.publishWorkspace.success),
+      fire(Actions.Snackbar.success('workspaces.publishWorkspaceSuccess'))
+    ),
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.publishWorkspace.failure),
+      fire(Actions.Snackbar.error('workspaces.publishWorkspaceError'))
+    )
+  )
+
 const addVocabulary: Epic = ($action) =>
   $action.pipe(
     ofSafeType(Actions.Workspaces.addVocabulary.request),
@@ -180,6 +208,8 @@ export default combineEpics(
   actionsAfterEditWorkspace,
   deleteWorkspace,
   actionsAfterDeleteWorkspace,
+  publishWorkspace,
+  actionsAfterPublishWorkspace,
   addVocabulary,
   actionsAfterAddVocabulary
 )
