@@ -4,6 +4,8 @@ import {
   AddWorkspacePayload,
   EditWorkspacePayload,
   DeleteWorkspacePayload,
+  PublishWorkspacePayload,
+  PRUri,
   AddVocabularyPayload,
   DeleteVocabularyPayload,
 } from './types'
@@ -25,6 +27,9 @@ const WorkspacesActions = {
   openDeleteWorkspaceForm: createAction('workspaces/openDeleteWorkspaceForm')<
     boolean
   >(),
+  openPublishWorkspaceDialog: createAction(
+    'workspaces/openPublishWorkspaceDialog'
+  )<boolean>(),
   openAddVocabularyForm: createAction('workspaces/openAddVocabularyForm')<
     boolean
   >(),
@@ -51,6 +56,11 @@ const WorkspacesActions = {
     'workspaces/getWorkspaceSuccess',
     'workspaces/getWorkspaceFailure'
   )<Id, WorkspaceData, Error>(),
+  publishWorkspace: createAsyncAction(
+    'workspaces/publishWorkspaceRequest',
+    'workspaces/publishWorkspaceSuccess',
+    'workspaces/publishWorkspaceFailure'
+  )<PublishWorkspacePayload, PRUri, Error>(),
   addVocabulary: createAsyncAction(
     'workspaces/addVocabularyRequest',
     'workspaces/addVocabularySuccess',

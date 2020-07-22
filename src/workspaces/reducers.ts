@@ -12,6 +12,8 @@ export type WorkspacesState = {
   isAddWorkspaceFormOpen: boolean
   isEditWorkspaceFormOpen: boolean
   isDeleteWorkspaceFormOpen: boolean
+  isPublishWorkspaceDialogOpen: boolean
+  publishedWorkspacePRUri: string | false
   isAddVocabularyFormOpen: boolean
   isDeleteVocabularyFormOpen: Vocabulary | false
   workspaces: Record<string, WorkspaceData>
@@ -23,6 +25,8 @@ const initialState: WorkspacesState = {
   isAddWorkspaceFormOpen: false,
   isEditWorkspaceFormOpen: false,
   isDeleteWorkspaceFormOpen: false,
+  isPublishWorkspaceDialogOpen: false,
+  publishedWorkspacePRUri: false,
   isAddVocabularyFormOpen: false,
   isDeleteVocabularyFormOpen: false,
   workspaces: {},
@@ -58,6 +62,12 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
       return { ...state, isEditWorkspaceFormOpen: action.payload }
     case getType(Actions.Workspaces.openDeleteWorkspaceForm):
       return { ...state, isDeleteWorkspaceFormOpen: action.payload }
+    case getType(Actions.Workspaces.openPublishWorkspaceDialog):
+      return { ...state, isPublishWorkspaceDialogOpen: action.payload }
+    case getType(Actions.Workspaces.publishWorkspace.request):
+      return { ...state, publishedWorkspacePRUri: false }
+    case getType(Actions.Workspaces.publishWorkspace.success):
+      return { ...state, publishedWorkspacePRUri: action.payload }
     case getType(Actions.Workspaces.openAddVocabularyForm):
       return { ...state, isAddVocabularyFormOpen: action.payload }
     case getType(Actions.Workspaces.openDeleteVocabularyForm):

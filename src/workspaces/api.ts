@@ -11,6 +11,12 @@ export const getWorkspacesUrl = () => '/workspaces'
 export const getWorkspaceUrl = (id: Id) => `${getWorkspacesUrl()}/${id}`
 
 /**
+ * Endpoint to publish a workspace
+ */
+export const getWorkspacePublishUrl = (id: Id) =>
+  `${getWorkspaceUrl(id)}/publish`
+
+/**
  * Endpoint to fetch a list of vocabularies for a particular workspace
  */
 export const getVocabulariesUrl = (workspaceId: Id) =>
