@@ -37,5 +37,11 @@
   "cancel": "Zrušit",
   "confirmDelete": "Opravdu smazat",
   "deleteVocabularySuccess": "Slovník smazán",
-  "deleteVocabularyFailure": "Nepodařilo se smazat slovník"
+  "deleteVocabularyFailure": "Nepodařilo se smazat slovník",
+  "publish": "Publikovat",
+  "publishingWorkspace": "Publikace pracovního prostoru",
+  "publishingWorkspacePleaseWait": "Pracovní prostor se právě publikuje. Nemělo by to trvat déle než půl minuty.",
+  "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
+  "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor",
+  "workspacePRCreated": "Pracovní prostor byl publikován, pull-request vytvořen:"
 }

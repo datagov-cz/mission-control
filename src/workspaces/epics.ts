@@ -11,6 +11,7 @@ import { onRouteEnter, ofSafeType, mapError, fire } from 'app/utils/epic'
 import {
   getWorkspacesUrl,
   getWorkspaceUrl,
+  getWorkspacePublishUrl,
   getAddVocabularyUrl,
   getVocabularyUrl,
 } from './api'
@@ -138,6 +139,33 @@ const actionsAfterDeleteWorkspace: Epic = ($action) =>
     )
   )
 
+const publishWorkspace: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.publishWorkspace.request),
+    switchMap(({ payload }) =>
+      post(getWorkspacePublishUrl(getIdFromUri(payload.uri))).pipe(
+        map((response) =>
+          Actions.Workspaces.publishWorkspace.success(
+            response.xhr.getResponseHeader('Location') || ''
+          )
+        ),
+        mapError(Actions.Workspaces.publishWorkspace.failure)
+      )
+    )
+  )
+
+const actionsAfterPublishWorkspace: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.publishWorkspace.success),
+      fire(Actions.Snackbar.success('workspaces.publishWorkspaceSuccess'))
+    ),
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.publishWorkspace.failure),
+      fire(Actions.Snackbar.error('workspaces.publishWorkspaceError'))
+    )
+  )
+
 const addVocabulary: Epic = ($action) =>
   $action.pipe(
     ofSafeType(Actions.Workspaces.addVocabulary.request),
@@ -214,6 +242,8 @@ export default combineEpics(
   actionsAfterEditWorkspace,
   deleteWorkspace,
   actionsAfterDeleteWorkspace,
+  publishWorkspace,
+  actionsAfterPublishWorkspace,
   addVocabulary,
   actionsAfterAddVocabulary,
   deleteVocabulary,
