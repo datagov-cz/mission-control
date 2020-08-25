@@ -9,7 +9,7 @@ const useActionForm = <Payload>(
   options: UseFormOptions<Payload, object> = {}
 ) => {
   const dispatch = useDispatch()
-  const { register, handleSubmit, errors } = useForm<Payload>(options)
+  const { register, handleSubmit, errors, reset } = useForm<Payload>(options)
   const onSubmitHandler = (formValues: Payload) => {
     dispatch(actionCreator(formValues))
   }
@@ -34,6 +34,7 @@ const useActionForm = <Payload>(
     register,
     registerAsyncCheck,
     errors,
+    reset,
   }
 }
 
