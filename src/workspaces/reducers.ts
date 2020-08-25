@@ -9,26 +9,32 @@ import { zipObject } from 'lodash'
 
 export type WorkspacesState = {
   isLoading: boolean
+  isVocabulariesLoading: boolean
   isAddWorkspaceFormOpen: boolean
   isEditWorkspaceFormOpen: boolean
   isDeleteWorkspaceFormOpen: boolean
   isPublishWorkspaceDialogOpen: boolean
   publishedWorkspacePRUri: string | false
+  isAddExistingVocabularyFormOpen: boolean
   isAddVocabularyFormOpen: boolean
   isDeleteVocabularyFormOpen: Vocabulary | false
+  vocabularies: Vocabulary[]
   workspaces: Record<string, WorkspaceData>
   tools: Record<string, Tool>
 }
 
 const initialState: WorkspacesState = {
   isLoading: true,
+  isVocabulariesLoading: true,
   isAddWorkspaceFormOpen: false,
   isEditWorkspaceFormOpen: false,
   isDeleteWorkspaceFormOpen: false,
   isPublishWorkspaceDialogOpen: false,
   publishedWorkspacePRUri: false,
+  isAddExistingVocabularyFormOpen: false,
   isAddVocabularyFormOpen: false,
   isDeleteVocabularyFormOpen: false,
+  vocabularies: [],
   workspaces: {},
   tools: zipObject(
     tools.map((t) => t.url),
@@ -56,6 +62,14 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
         isLoading: false,
         workspaces: normalize([action.payload]),
       }
+    case getType(Actions.Workspaces.getVocabularies.request):
+      return { ...state, isVocabulariesLoading: true, vocabularies: [] }
+    case getType(Actions.Workspaces.getVocabularies.success):
+      return {
+        ...state,
+        isVocabulariesLoading: false,
+        vocabularies: action.payload,
+      }
     case getType(Actions.Workspaces.openAddWorkspaceForm):
       return { ...state, isAddWorkspaceFormOpen: action.payload }
     case getType(Actions.Workspaces.openEditWorkspaceForm):
@@ -68,6 +82,8 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
       return { ...state, publishedWorkspacePRUri: false }
     case getType(Actions.Workspaces.publishWorkspace.success):
       return { ...state, publishedWorkspacePRUri: action.payload }
+    case getType(Actions.Workspaces.openAddExistingVocabularyForm):
+      return { ...state, isAddExistingVocabularyFormOpen: action.payload }
     case getType(Actions.Workspaces.openAddVocabularyForm):
       return { ...state, isAddVocabularyFormOpen: action.payload }
     case getType(Actions.Workspaces.openDeleteVocabularyForm):

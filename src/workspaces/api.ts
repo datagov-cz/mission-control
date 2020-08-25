@@ -1,6 +1,11 @@
 import { Id, Uri } from 'app/types'
 
 /**
+ * Endpoint to fetch existing vocabularies
+ */
+export const getVocabulariesUrl = () => '/vocabularies'
+
+/**
  * Endpoint to fetch workspaces and create a workspace
  */
 export const getWorkspacesUrl = () => '/workspaces'
@@ -19,7 +24,7 @@ export const getWorkspacePublishUrl = (id: Id) =>
 /**
  * Endpoint to fetch a list of vocabularies for a particular workspace
  */
-export const getVocabulariesUrl = (workspaceId: Id) =>
+export const getWorkspaceVocabulariesUrl = (workspaceId: Id) =>
   `${getWorkspaceUrl(workspaceId)}/vocabularies`
 
 /**
@@ -30,7 +35,7 @@ export const getAddVocabularyUrl = (
   vocabularyUri: Uri,
   readOnly: boolean
 ) =>
-  `${getVocabulariesUrl(
+  `${getWorkspaceVocabulariesUrl(
     workspaceId
   )}?vocabularyUri=${vocabularyUri}&readOnly=${String(readOnly)}`
 
@@ -38,4 +43,4 @@ export const getAddVocabularyUrl = (
  * Endpoint to delete vocabulary from a workspace
  */
 export const getVocabularyUrl = (workspaceId: Id, vocabularyId: Id) =>
-  `${getVocabulariesUrl(workspaceId)}/${vocabularyId}`
+  `${getWorkspaceVocabulariesUrl(workspaceId)}/${vocabularyId}`

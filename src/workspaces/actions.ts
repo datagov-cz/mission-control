@@ -13,6 +13,11 @@ import { Id } from 'app/types'
 import { Vocabulary } from 'workspaces/types'
 
 const WorkspacesActions = {
+  getVocabularies: createAsyncAction(
+    'workspaces/getVocabulariesRequest',
+    'workspaces/getVocabulariesSuccess',
+    'workspaces/getVocabulariesFailure'
+  )<void, Vocabulary[], Error>(),
   getWorkspaces: createAsyncAction(
     'workspaces/getWorkspacesRequest',
     'workspaces/getWorkspacesSuccess',
@@ -29,6 +34,9 @@ const WorkspacesActions = {
   >(),
   openPublishWorkspaceDialog: createAction(
     'workspaces/openPublishWorkspaceDialog'
+  )<boolean>(),
+  openAddExistingVocabularyForm: createAction(
+    'workspaces/openAddExistingVocabularyForm'
   )<boolean>(),
   openAddVocabularyForm: createAction('workspaces/openAddVocabularyForm')<
     boolean

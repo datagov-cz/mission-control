@@ -25,6 +25,7 @@
   "changeTrackingVocabulary": "Sledovaná verze slovníku",
   "true": "Ano",
   "false": "Ne",
+  "addExistingVocabulary": "Přidat existující slovník",
   "addVocabulary": "Přidat slovník",
   "vocabularyUri": "URI slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",

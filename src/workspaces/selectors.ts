@@ -13,6 +13,16 @@ export const getWorkspacesLoading = createSelector(
   (state) => state.isLoading
 )
 
+export const getVocabulariesLoading = createSelector(
+  getState,
+  (state) => state.isVocabulariesLoading
+)
+
+export const getVocabularies = createSelector(
+  getState,
+  (state) => state.vocabularies
+)
+
 const convertUnixTimestampToDate = (timestamp: number) => new Date(timestamp)
 
 const convertVocabularyDataToVocabulary = (
@@ -77,6 +87,11 @@ export const getPublishedWorkspacePRUri = createSelector(
   (state) => state.publishedWorkspacePRUri
 )
 
+export const getIsAddExistingVocabularyFormOpen = createSelector(
+  getState,
+  (state) => state.isAddExistingVocabularyFormOpen
+)
+
 export const getIsAddVocabularyFormOpen = createSelector(
   getState,
   (state) => state.isAddVocabularyFormOpen
@@ -98,7 +113,7 @@ export const getWorkspace = createSelector(
   }
 )
 
-export const getVocabularies = createSelector(
+export const getWorkspaceVocabularies = createSelector(
   getWorkspace,
   (state) => state?.vocabularies || []
 )
