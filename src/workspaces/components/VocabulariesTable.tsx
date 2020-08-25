@@ -5,7 +5,10 @@ import { Box, styled } from '@material-ui/core'
 import t from 'app/components/i18n'
 import DataTable, { DataColumn } from 'app/components/DataTable'
 import KeyValueTable from 'app/components/KeyValueTable'
-import { getVocabularies, getWorkspacesLoading } from 'workspaces/selectors'
+import {
+  getWorkspaceVocabularies,
+  getWorkspacesLoading,
+} from 'workspaces/selectors'
 import { Vocabulary } from 'workspaces/types'
 import VocabularyActions from './VocabularyActions'
 import DeleteVocabularyForm from './DeleteVocabularyForm'
@@ -52,7 +55,7 @@ const DetailPanel = (rowData: Vocabulary) => {
 }
 
 const VocabulariesTable: React.FC = () => {
-  const vocabularies = useSelector(getVocabularies)
+  const vocabularies = useSelector(getWorkspaceVocabularies)
   const isLoading = useSelector(getWorkspacesLoading)
 
   return (

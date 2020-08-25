@@ -14,8 +14,9 @@ import {
   getWorkspacePublishUrl,
   getAddVocabularyUrl,
   getVocabularyUrl,
+  getVocabulariesUrl,
 } from './api'
-import { WorkspaceData } from './types'
+import { WorkspaceData, Vocabulary } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 
 const getDataOnRouteEnter: Epic = ($action) =>
@@ -24,8 +25,23 @@ const getDataOnRouteEnter: Epic = ($action) =>
       mapTo(Actions.Workspaces.getWorkspaces.request())
     ),
     onRouteEnter($action, Routes.WorkspaceDetail).pipe(
+      mapTo(Actions.Workspaces.getVocabularies.request())
+    ),
+    onRouteEnter($action, Routes.WorkspaceDetail).pipe(
       map(({ route }) =>
         Actions.Workspaces.getWorkspace.request(route.params.id)
+      )
+    )
+  )
+
+const getVocabularies: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.getVocabularies.request),
+    switchMap(() =>
+      getJSON(getVocabulariesUrl()).pipe(
+        map((vocabularies) => vocabularies as Vocabulary[]),
+        map(Actions.Workspaces.getVocabularies.success),
+        mapError(Actions.Workspaces.getVocabularies.failure)
       )
     )
   )
@@ -191,6 +207,7 @@ const actionsAfterAddVocabulary: Epic = ($action) =>
         of(
           Actions.Snackbar.success('workspaces.addVocabularySuccess'),
           Actions.Workspaces.openAddVocabularyForm(false),
+          Actions.Workspaces.openAddExistingVocabularyForm(false),
           Actions.Workspaces.getWorkspace.request(
             getIdFromUri(payload.workspaceUri)
           )
@@ -234,6 +251,7 @@ const actionsAfterDeleteVocabulary: Epic = ($action) =>
 
 export default combineEpics(
   getDataOnRouteEnter,
+  getVocabularies,
   getWorkspaces,
   getWorkspace,
   addWorkspace,
