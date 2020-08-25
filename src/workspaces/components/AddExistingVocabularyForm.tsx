@@ -7,7 +7,6 @@ import t from 'app/components/i18n'
 import useActionForm from 'app/hooks/useActionForm'
 import Actions from 'app/actions'
 import {
-  getVocabulariesLoading,
   getVocabularies,
   getIsAddExistingVocabularyFormOpen,
   getWorkspace,
@@ -17,7 +16,6 @@ import FormDialog from 'app/components/FormDialog'
 
 const AddExistingVocabularyForm: React.FC<{}> = () => {
   const isOpen = useSelector(getIsAddExistingVocabularyFormOpen)
-  const isVocabulariesLoading = useSelector(getVocabulariesLoading)
   const vocabularies = useSelector(getVocabularies)
   const workspace = useSelector(getWorkspace)
   const closeForm = useDispatchAction(
