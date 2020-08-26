@@ -3,7 +3,6 @@ import { Typography, Box } from '@material-ui/core'
 
 import t from 'app/components/i18n'
 import VocabulariesTable from './VocabulariesTable'
-import AddExistingVocabulary from './AddExistingVocabulary'
 import AddVocabulary from './AddVocabulary'
 
 const WorkspaceVocabularies: React.FC = () => (
@@ -12,11 +11,7 @@ const WorkspaceVocabularies: React.FC = () => (
       <Typography variant="h5" paragraph>
         {t`vocabularies`}
       </Typography>
-      <Box display="flex">
-        <AddExistingVocabulary />
-        <Box m={1} />
-        <AddVocabulary />
-      </Box>
+      <AddVocabulary />
     </Box>
     <VocabulariesTable />
   </>

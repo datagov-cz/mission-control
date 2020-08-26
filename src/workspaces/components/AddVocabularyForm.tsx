@@ -1,32 +1,160 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   TextField,
-  Checkbox,
   FormControlLabel,
   FormControl,
   FormLabel,
   RadioGroup,
   Radio,
   Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Tabs,
+  Tab,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  InputAdornment,
 } from '@material-ui/core'
-import t from 'app/components/i18n'
-import useActionForm from 'app/hooks/useActionForm'
+import SearchIcon from '@material-ui/icons/Search'
+
 import Actions from 'app/actions'
-import { getIsAddVocabularyFormOpen, getWorkspace } from 'workspaces/selectors'
+import useActionForm from 'app/hooks/useActionForm'
 import useDispatchAction from 'app/hooks/useDispatchAction'
-import FormDialog from 'app/components/FormDialog'
+import t from 'app/components/i18n'
+import SubmitButton from 'app/components/SubmitButton'
+
+import {
+  getIsAddVocabularyFormOpen,
+  getWorkspace,
+  getVocabularies,
+} from 'workspaces/selectors'
+import { BaseVocabularyData } from 'workspaces/types'
+
+type ImportVocabulary = {
+  setTabIndex: (index: number) => void
+}
+
+const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
+  const dispatch = useDispatch()
+  const vocabularies = useSelector(getVocabularies)
+  const workspace = useSelector(getWorkspace)
+  const [needle, setNeedle] = useState('')
+  const [selectedVocabulary, setSelectedVocabulary] = useState<
+    BaseVocabularyData
+  >()
+
+  // Look for matching vocabularies - both URI and label are considered
+  const needleRegex = new RegExp(needle, 'gi')
+  const filteredVocabularies = vocabularies.filter(
+    (vocabulary) =>
+      needleRegex.test(vocabulary.label) || needleRegex.test(vocabulary.uri)
+  )
+
+  // Handles search input changes
+  const handleNeedleChange = useCallback((event) => {
+    setNeedle(event.target.value)
+    setSelectedVocabulary(undefined)
+  }, [])
+
+  // Handles selecting a vocabulary from the list
+  const handleVocabularyClick = useCallback(
+    (vocabulary: BaseVocabularyData) => {
+      setSelectedVocabulary(vocabulary)
+    },
+    []
+  )
+
+  // Handles final import action, triggers backend request
+  const handleImportClick = useCallback(
+    (readOnly: boolean) => {
+      dispatch(
+        Actions.Workspaces.addVocabulary.request({
+          workspaceUri: workspace!.uri,
+          vocabularyUri: selectedVocabulary!.uri,
+          readOnly,
+        })
+      )
+    },
+    [dispatch, workspace, selectedVocabulary]
+  )
+
+  // Handles switching to the second tab
+  const handleTabSwitch = useCallback(() => setTabIndex(1), [setTabIndex])
+
+  return (
+    <>
+      <TextField
+        autoComplete="off"
+        label={t`search`}
+        onChange={handleNeedleChange}
+        autoFocus
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+      {selectedVocabulary && (
+        <>
+          <ListItem>
+            <ListItemText
+              primary={selectedVocabulary.label}
+              secondary={selectedVocabulary.uri}
+            />
+          </ListItem>
+          <SubmitButton
+            onClick={() => handleImportClick(true)}
+          >{t`importVocabularyForReadOnly`}</SubmitButton>
+          <Box my={1} />
+          <SubmitButton
+            onClick={() => handleImportClick(false)}
+          >{t`importVocabularyForReadAndWrite`}</SubmitButton>
+        </>
+      )}
+      {filteredVocabularies.length > 0 && !selectedVocabulary && (
+        <Box style={{ height: 380, overflowY: 'scroll' }}>
+          <List>
+            {filteredVocabularies.map((vocabulary) => (
+              <ListItem
+                button
+                key={vocabulary.uri}
+                onClick={() => handleVocabularyClick(vocabulary)}
+              >
+                <ListItemText
+                  primary={vocabulary.label}
+                  secondary={vocabulary.uri}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      )}
+      {filteredVocabularies.length < 1 && !selectedVocabulary && (
+        <Button
+          onClick={handleTabSwitch}
+          fullWidth
+        >{t`vocabularyNotFoundCreateNew`}</Button>
+      )}
+    </>
+  )
+}
 
 const vocabularyTypes = [
   {
     label: 'Datový',
     prefix: 'https://slovník.gov.cz/datový/',
-    regex: '^https://slovník.gov.cz/datový/[ěščřžýáíéóúůďťňa-z0-9]+$',
+    regex: '^https://slovník.gov.cz/datový/[ěščřžýáíéóúůďťňa-z0-9-]+$',
   },
   {
     label: 'Agendový',
     prefix: 'https://slovník.gov.cz/agendový/',
-    regex: '^https://slovník.gov.cz/agendový/[a-z0-9]+$',
+    regex: '^https://slovník.gov.cz/agendový/[a-z0-9-]+$',
   },
   {
     label: 'Legislativní',
@@ -36,16 +164,12 @@ const vocabularyTypes = [
   {
     label: 'Generický',
     prefix: 'https://slovník.gov.cz/generický/',
-    regex: '^https://slovník.gov.cz/generický/[a-z0-9]+$',
+    regex: '^https://slovník.gov.cz/generický/[ěščřžýáíéóúůďťňa-z0-9-]+$',
   },
 ]
 
-const AddWorkspaceForm: React.FC<{}> = () => {
-  const isOpen = useSelector(getIsAddVocabularyFormOpen)
+const CreateVocabulary: React.FC = () => {
   const workspace = useSelector(getWorkspace)
-  const closeForm = useDispatchAction(
-    Actions.Workspaces.openAddVocabularyForm(false)
-  )
   const { register, errors, onSubmit, reset } = useActionForm(
     Actions.Workspaces.addVocabulary.request
   )
@@ -58,6 +182,7 @@ const AddWorkspaceForm: React.FC<{}> = () => {
     (v) => v.label === vocabularyTypeLabel
   )
 
+  // Handles vocabulary type change when user selects radio option, resets form
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedTypeLabel = (event.target as HTMLInputElement).value
     const selectedType = vocabularyTypes.find(
@@ -68,13 +193,8 @@ const AddWorkspaceForm: React.FC<{}> = () => {
   }
 
   return (
-    <FormDialog
-      isOpen={isOpen}
-      title={t`addVocabulary`}
-      submitLabel={t`addVocabulary`}
-      handleClose={closeForm}
-      handleSubmit={onSubmit}
-    >
+    <>
+      <Box my={1} />
       <FormControl component="fieldset">
         <FormLabel component="legend">{t`vocabularyType`}</FormLabel>
         <RadioGroup
@@ -100,6 +220,7 @@ const AddWorkspaceForm: React.FC<{}> = () => {
           value={workspace?.uri}
           ref={register}
         />
+        <input type="hidden" name="readOnly" value="false" ref={register} />
         <TextField
           autoComplete="off"
           name="vocabularyUri"
@@ -109,27 +230,56 @@ const AddWorkspaceForm: React.FC<{}> = () => {
             pattern: {
               value: new RegExp(vocabularyType?.regex!),
               message: vocabularyType?.regex!,
-              // message: t`app.errorRequired`,
             },
           })}
           error={!!errors.vocabularyUri}
           helperText={errors.vocabularyUri?.message}
         />
-        <TextField name="vocabularyLabel" label={t`vocabularyLabel`} />
-        <FormControlLabel
-          control={
-            <Checkbox
-              color="secondary"
-              name="readOnly"
-              inputRef={register()}
-              disabled
-            />
-          }
-          label={t`readOnly`}
+        <TextField
+          name="label"
+          label={t`vocabularyLabel`}
+          inputRef={register({
+            required: t`app.errorRequired`,
+          })}
+          error={!!errors.label}
+          helperText={errors.label?.message}
         />
+        <SubmitButton onClick={onSubmit}>{t`addVocabulary`}</SubmitButton>
       </form>
-    </FormDialog>
+    </>
   )
 }
 
-export default AddWorkspaceForm
+const AddVocabularyForm: React.FC = () => {
+  const isOpen = useSelector(getIsAddVocabularyFormOpen)
+  const closeForm = useDispatchAction(
+    Actions.Workspaces.openAddVocabularyForm(false)
+  )
+  const [tabIndex, setTabIndex] = React.useState(0)
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setTabIndex(newValue)
+  }
+
+  return (
+    <Dialog open={isOpen} onClose={closeForm} fullWidth maxWidth="sm">
+      <DialogTitle>{t`addVocabulary`}</DialogTitle>
+      <DialogContent>
+        <Tabs value={tabIndex} onChange={handleChange} variant="fullWidth">
+          <Tab label={t`importVocabulary`} />
+          <Tab label={t`createVocabulary`} />
+        </Tabs>
+        <Box style={{ height: 480 }}>
+          {tabIndex === 0 && <ImportVocabulary setTabIndex={setTabIndex} />}
+          {tabIndex === 1 && <CreateVocabulary />}
+        </Box>
+        <Box my={1} />
+        <Button onClick={closeForm} color="primary" fullWidth size="large">
+          {t`app.cancel`}
+        </Button>
+        <Box my={1} />
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export default AddVocabularyForm
