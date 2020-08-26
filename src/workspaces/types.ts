@@ -3,9 +3,12 @@ import { Id, Uri } from 'app/types'
 
 export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
-export type VocabularyData = {
+export type BaseVocabularyData = {
   uri: Uri
-  label?: string
+  label: string
+}
+
+export type VocabularyData = BaseVocabularyData & {
   types: Uri[]
   basedOnVocabularyVersion: Uri
   changeTrackingContext: {
@@ -29,6 +32,7 @@ export type Vocabulary = Omit<
 export type AddVocabularyPayload = {
   workspaceUri: Uri
   vocabularyUri: Uri
+  label?: boolean
   readOnly: boolean
 }
 

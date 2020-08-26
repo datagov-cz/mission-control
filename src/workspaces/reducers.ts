@@ -2,7 +2,13 @@ import { getType } from 'typesafe-actions'
 
 import Actions from 'app/actions'
 import { Reducer } from 'app/types'
-import { Tool, WorkspaceData, WorkspacesAction, Vocabulary } from './types'
+import {
+  Tool,
+  WorkspaceData,
+  WorkspacesAction,
+  Vocabulary,
+  BaseVocabularyData,
+} from './types'
 import normalize from 'app/utils/normalize'
 import tools from 'tools.json'
 import { zipObject } from 'lodash'
@@ -15,10 +21,9 @@ export type WorkspacesState = {
   isDeleteWorkspaceFormOpen: boolean
   isPublishWorkspaceDialogOpen: boolean
   publishedWorkspacePRUri: string | false
-  isAddExistingVocabularyFormOpen: boolean
   isAddVocabularyFormOpen: boolean
   isDeleteVocabularyFormOpen: Vocabulary | false
-  vocabularies: Vocabulary[]
+  vocabularies: BaseVocabularyData[]
   workspaces: Record<string, WorkspaceData>
   tools: Record<string, Tool>
 }
@@ -31,7 +36,6 @@ const initialState: WorkspacesState = {
   isDeleteWorkspaceFormOpen: false,
   isPublishWorkspaceDialogOpen: false,
   publishedWorkspacePRUri: false,
-  isAddExistingVocabularyFormOpen: false,
   isAddVocabularyFormOpen: false,
   isDeleteVocabularyFormOpen: false,
   vocabularies: [],
@@ -82,8 +86,6 @@ const workspacesReducers: Reducer<WorkspacesState, WorkspacesAction> = (
       return { ...state, publishedWorkspacePRUri: false }
     case getType(Actions.Workspaces.publishWorkspace.success):
       return { ...state, publishedWorkspacePRUri: action.payload }
-    case getType(Actions.Workspaces.openAddExistingVocabularyForm):
-      return { ...state, isAddExistingVocabularyFormOpen: action.payload }
     case getType(Actions.Workspaces.openAddVocabularyForm):
       return { ...state, isAddVocabularyFormOpen: action.payload }
     case getType(Actions.Workspaces.openDeleteVocabularyForm):

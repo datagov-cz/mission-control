@@ -35,9 +35,6 @@ const WorkspacesActions = {
   openPublishWorkspaceDialog: createAction(
     'workspaces/openPublishWorkspaceDialog'
   )<boolean>(),
-  openAddExistingVocabularyForm: createAction(
-    'workspaces/openAddExistingVocabularyForm'
-  )<boolean>(),
   openAddVocabularyForm: createAction('workspaces/openAddVocabularyForm')<
     boolean
   >(),

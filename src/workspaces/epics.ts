@@ -207,7 +207,6 @@ const actionsAfterAddVocabulary: Epic = ($action) =>
         of(
           Actions.Snackbar.success('workspaces.addVocabularySuccess'),
           Actions.Workspaces.openAddVocabularyForm(false),
-          Actions.Workspaces.openAddExistingVocabularyForm(false),
           Actions.Workspaces.getWorkspace.request(
             getIdFromUri(payload.workspaceUri)
           )
