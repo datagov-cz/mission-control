@@ -190,7 +190,8 @@ const addVocabulary: Epic = ($action) =>
         getAddVocabularyUrl(
           getIdFromUri(payload.workspaceUri),
           payload.vocabularyUri,
-          payload.readOnly
+          payload.readOnly,
+          payload.label
         )
       ).pipe(
         mapTo(Actions.Workspaces.addVocabulary.success(payload)),
