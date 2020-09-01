@@ -4,13 +4,12 @@ import { Id, Uri } from 'app/types'
 export type WorkspacesAction = import('workspaces/actions').WorkspacesAction
 
 export type BaseVocabularyData = {
-  uri: Uri
+  basedOnVocabularyVersion: Uri
   label: string
 }
 
 export type VocabularyData = BaseVocabularyData & {
   types: Uri[]
-  basedOnVocabularyVersion: Uri
   changeTrackingContext: {
     uri: Uri
     changesVocabularyVersion: Uri

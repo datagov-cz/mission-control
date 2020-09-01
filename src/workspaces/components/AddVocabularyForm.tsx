@@ -51,7 +51,8 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
   const needleRegex = new RegExp(needle, 'gi')
   const filteredVocabularies = vocabularies.filter(
     (vocabulary) =>
-      needleRegex.test(vocabulary.label) || needleRegex.test(vocabulary.uri)
+      needleRegex.test(vocabulary.label) ||
+      needleRegex.test(vocabulary.basedOnVocabularyVersion)
   )
 
   // Handles search input changes
@@ -74,7 +75,7 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
       dispatch(
         Actions.Workspaces.addVocabulary.request({
           workspaceUri: workspace!.uri,
-          vocabularyUri: selectedVocabulary!.uri,
+          vocabularyUri: selectedVocabulary!.basedOnVocabularyVersion,
           readOnly,
         })
       )
@@ -105,7 +106,7 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
           <ListItem>
             <ListItemText
               primary={selectedVocabulary.label}
-              secondary={selectedVocabulary.uri}
+              secondary={selectedVocabulary.basedOnVocabularyVersion}
             />
           </ListItem>
           <SubmitButton
@@ -123,12 +124,12 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
             {filteredVocabularies.map((vocabulary) => (
               <ListItem
                 button
-                key={vocabulary.uri}
+                key={vocabulary.basedOnVocabularyVersion}
                 onClick={() => handleVocabularyClick(vocabulary)}
               >
                 <ListItemText
                   primary={vocabulary.label}
-                  secondary={vocabulary.uri}
+                  secondary={vocabulary.basedOnVocabularyVersion}
                 />
               </ListItem>
             ))}

@@ -16,7 +16,7 @@ import {
   getVocabularyUrl,
   getVocabulariesUrl,
 } from './api'
-import { WorkspaceData, Vocabulary } from './types'
+import { WorkspaceData, BaseVocabularyData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 
 const getDataOnRouteEnter: Epic = ($action) =>
@@ -39,7 +39,7 @@ const getVocabularies: Epic = ($action) =>
     ofSafeType(Actions.Workspaces.getVocabularies.request),
     switchMap(() =>
       getJSON(getVocabulariesUrl()).pipe(
-        map((vocabularies) => vocabularies as Vocabulary[]),
+        map((vocabularies) => vocabularies as BaseVocabularyData[]),
         map(Actions.Workspaces.getVocabularies.success),
         mapError(Actions.Workspaces.getVocabularies.failure)
       )
