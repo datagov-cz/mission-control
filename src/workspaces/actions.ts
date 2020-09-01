@@ -8,6 +8,7 @@ import {
   PRUri,
   AddVocabularyPayload,
   DeleteVocabularyPayload,
+  BaseVocabularyData,
 } from './types'
 import { Id } from 'app/types'
 import { Vocabulary } from 'workspaces/types'
@@ -17,7 +18,7 @@ const WorkspacesActions = {
     'workspaces/getVocabulariesRequest',
     'workspaces/getVocabulariesSuccess',
     'workspaces/getVocabulariesFailure'
-  )<void, Vocabulary[], Error>(),
+  )<void, BaseVocabularyData[], Error>(),
   getWorkspaces: createAsyncAction(
     'workspaces/getWorkspacesRequest',
     'workspaces/getWorkspacesSuccess',
