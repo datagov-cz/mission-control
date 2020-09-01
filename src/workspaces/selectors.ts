@@ -28,11 +28,12 @@ const convertUnixTimestampToDate = (timestamp: number) => new Date(timestamp)
 const convertVocabularyDataToVocabulary = (
   data: VocabularyData
 ): Vocabulary => ({
-  id: getIdFromUri(data.basedOnVocabularyVersion),
+  uri: data.uri,
+  id: getIdFromUri(data.uri),
   label: data.label,
   vocabulary: data.basedOnVocabularyVersion,
   isReadOnly: !!data.types && data.types.includes(VOCABULARY_CONTEXT_READ_ONLY),
-  vocabularyContext: data.basedOnVocabularyVersion,
+  vocabularyContext: data.uri,
   changeTrackingContext: data.changeTrackingContext.uri,
   changeTrackingVocabulary: data.changeTrackingContext.changesVocabularyVersion,
 })

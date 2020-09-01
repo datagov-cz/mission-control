@@ -9,6 +9,7 @@ export type BaseVocabularyData = {
 }
 
 export type VocabularyData = BaseVocabularyData & {
+  uri: Uri
   types: Uri[]
   changeTrackingContext: {
     uri: Uri
