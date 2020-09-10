@@ -14,6 +14,7 @@ import BackdropGradient from 'app/components/BackdropGradient'
 import Navigation from './Navigation'
 import RouteComponentRenderer from 'app/components/RouteComponentRenderer'
 import LanguageSelector from 'app/components/LanguageSelector'
+import Footer from 'app/components/Footer'
 
 const IdLayout: React.FC = () => (
   <Namespace.Provider value="id">
@@ -42,6 +43,7 @@ const IdLayout: React.FC = () => (
         <Box p={2} display="flex" justifyContent="center" color="white">
           <LanguageSelector />
         </Box>
+        <Footer direction="column" />
       </Container>
     </BackdropGradient>
   </Namespace.Provider>
