@@ -16,7 +16,7 @@ import LanguageSelector from './LanguageSelector'
 
 const useStyles = makeStyles({
   root: {
-    background: '#263238 linear-gradient(5deg, #880e4f 0%, #263238 100%)',
+    background: '#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)',
   },
 })
 
