@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ direction = 'row' }) => (
           {t`app.publicitySecondLine`}
         </Typography>
         <Box my={1} />
-        <img src={opzLogo} height={50} />
+        <img src={opzLogo} alt="OPZ" height={50} />
       </Box>
     </Container>
   </>
