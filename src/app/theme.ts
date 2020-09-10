@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { grey, blueGrey, pink } from '@material-ui/core/colors'
+import { grey, blueGrey } from '@material-ui/core/colors'
 
 const theme = createMuiTheme({
   typography: {
@@ -18,10 +18,10 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: blueGrey[900],
+      main: '#057fa5',
     },
     secondary: {
-      main: pink[500],
+      main: blueGrey[400],
     },
   },
   overrides: {

@@ -32,7 +32,7 @@ const IdLayout: React.FC = () => (
           <Typography variant="h6">{t`app.controlPanel`}</Typography>
         </Box>
         <Paper>
-          <AppBar position="static">
+          <AppBar position="static" color="default">
             <Navigation />
           </AppBar>
           <Box p={4}>
