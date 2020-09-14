@@ -249,6 +249,46 @@ const actionsAfterDeleteVocabulary: Epic = ($action) =>
     )
   )
 
+const updateVocabulary: Epic = ($action) =>
+  $action.pipe(
+    ofSafeType(Actions.Workspaces.updateVocabulary.request),
+    switchMap(({ payload }) =>
+      del(getVocabularyUrl(payload.workspace!.id, payload.vocabulary.id)).pipe(
+        switchMap(() =>
+          post(
+            getAddVocabularyUrl(
+              payload.workspace!.id,
+              payload.vocabulary.vocabulary,
+              payload.vocabulary.isReadOnly,
+              payload.vocabulary.label
+            )
+          ).pipe(
+            mapTo(Actions.Workspaces.updateVocabulary.success(payload)),
+            mapError(Actions.Workspaces.updateVocabulary.failure)
+          )
+        ),
+        mapError(Actions.Workspaces.updateVocabulary.failure)
+      )
+    )
+  )
+
+const actionsAfterUpdateVocabulary: Epic = ($action) =>
+  merge(
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.updateVocabulary.success),
+      switchMap(({ payload }) =>
+        of(
+          Actions.Snackbar.success('workspaces.updateVocabularySuccess'),
+          Actions.Workspaces.getWorkspace.request(payload.workspace!.id)
+        )
+      )
+    ),
+    $action.pipe(
+      ofSafeType(Actions.Workspaces.updateVocabulary.failure),
+      fire(Actions.Snackbar.error('workspaces.updateVocabularyError'))
+    )
+  )
+
 export default combineEpics(
   getDataOnRouteEnter,
   getVocabularies,
@@ -265,5 +305,7 @@ export default combineEpics(
   addVocabulary,
   actionsAfterAddVocabulary,
   deleteVocabulary,
-  actionsAfterDeleteVocabulary
+  actionsAfterDeleteVocabulary,
+  updateVocabulary,
+  actionsAfterUpdateVocabulary
 )
