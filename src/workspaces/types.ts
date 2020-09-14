@@ -41,6 +41,11 @@ export type DeleteVocabularyPayload = {
   vocabularyId: Id
 }
 
+export type UpdateVocabularyPayload = {
+  workspace?: Workspace
+  vocabulary: Vocabulary
+}
+
 export type AddWorkspacePayload = {
   label: string
 }

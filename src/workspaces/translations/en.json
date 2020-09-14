@@ -38,5 +38,8 @@
   "cancel": "Cancel",
   "confirmDelete": "Confirm delete",
   "deleteVocabularySuccess": "The vocabulary was deleted",
-  "deleteVocabularyFailure": "The vocabulary cannot be deleted"
+  "deleteVocabularyFailure": "The vocabulary cannot be deleted",
+  "update": "Update",
+  "updateVocabularySuccess": "The vocabulary was updated",
+  "updateVocabularyError": "The vocabulary cannot be updated"
 }
