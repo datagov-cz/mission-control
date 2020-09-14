@@ -3,7 +3,6 @@ import { range } from 'lodash'
 import MaterialTable, {
   MaterialTableProps,
   Icons,
-  Options,
   Column,
 } from 'material-table'
 import { Skeleton } from '@material-ui/lab'
@@ -48,14 +47,14 @@ const tableIcons: Icons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 }
 
-const simpleTableOptions: Options = {
+const simpleTableOptions = {
   toolbar: false,
   pageSize: 5,
   emptyRowsWhenPaging: false,
   paging: false,
 }
 
-const complexTableOptions: Options = {
+const complexTableOptions = {
   toolbar: false,
   pageSize: 10,
   emptyRowsWhenPaging: true,

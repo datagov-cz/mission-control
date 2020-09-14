@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { values } from 'lodash'
+import { values, sortBy } from 'lodash'
 
 import { getWorkspaces as getState, getRoute } from 'app/selectors'
 import { convertUserDataToUser } from 'users/selectors'
@@ -110,7 +110,8 @@ export const getWorkspace = createSelector(
 
 export const getWorkspaceVocabularies = createSelector(
   getWorkspace,
-  (state) => state?.vocabularies || []
+  (state) =>
+    sortBy(state?.vocabularies, [(vocabulary) => vocabulary.isReadOnly]) || []
 )
 
 export const getTools = createSelector(getState, (state) => values(state.tools))

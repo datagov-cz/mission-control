@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Box, styled } from '@material-ui/core'
+import { Tooltip } from '@material-ui/core'
+import SecurityIcon from '@material-ui/icons/Security'
+import EditIcon from '@material-ui/icons/Edit'
 
 import t from 'app/components/i18n'
 import DataTable, { DataColumn } from 'app/components/DataTable'
-import KeyValueTable from 'app/components/KeyValueTable'
 import {
   getWorkspaceVocabularies,
   getWorkspacesLoading,
@@ -13,15 +14,35 @@ import { Vocabulary } from 'workspaces/types'
 import VocabularyActions from './VocabularyActions'
 import DeleteVocabularyForm from './DeleteVocabularyForm'
 
+const TitleColumn = (rowData: Vocabulary) => (
+  <>
+    <b>{rowData.label}</b>
+    <br />
+    {rowData.changeTrackingVocabulary}
+  </>
+)
+
+const ReadOnlyColumn = (rowData: Vocabulary) =>
+  rowData.isReadOnly ? (
+    <Tooltip title={t('readOnly')}>
+      <SecurityIcon />
+    </Tooltip>
+  ) : (
+    <Tooltip title={t('readAndWrite')}>
+      <EditIcon />
+    </Tooltip>
+  )
+
 const columns: DataColumn<Vocabulary>[] = [
+  {
+    title: '',
+    render: ReadOnlyColumn,
+    width: 40,
+  },
   {
     title: t`label`,
     field: 'label',
-  },
-  {
-    title: t`readOnly`,
-    field: 'isReadOnly',
-    render: (rowData) => t(String(rowData.isReadOnly)),
+    render: TitleColumn,
   },
   {
     title: t`actions`,
@@ -36,24 +57,6 @@ const columns: DataColumn<Vocabulary>[] = [
   },
 ]
 
-const GreyBox = styled(Box)({
-  background: '#EEE',
-})
-
-const DetailPanel = (rowData: Vocabulary) => {
-  const data = [
-    {
-      key: t`changeTrackingVocabulary`,
-      value: rowData.changeTrackingVocabulary,
-    },
-  ]
-  return (
-    <GreyBox pl={6.5}>
-      <KeyValueTable data={data} transparent />
-    </GreyBox>
-  )
-}
-
 const VocabulariesTable: React.FC = () => {
   const vocabularies = useSelector(getWorkspaceVocabularies)
   const isLoading = useSelector(getWorkspacesLoading)
@@ -64,7 +67,6 @@ const VocabulariesTable: React.FC = () => {
         isLoading={isLoading}
         columns={columns}
         data={vocabularies}
-        detailPanel={DetailPanel}
         type="simple"
       />
       <DeleteVocabularyForm />
