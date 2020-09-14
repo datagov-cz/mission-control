@@ -20,6 +20,7 @@
   "dangerZone": "Nebezpečná zóna",
   "uri": "URI",
   "readOnly": "Pouze pro čtení",
+  "readAndWrite": "Pro čtení a zápis",
   "vocabularyContext": "Slovníkový kontext",
   "changeTrackingContext": "Kontext pro sledování změn",
   "changeTrackingVocabulary": "Sledovaná verze slovníku",

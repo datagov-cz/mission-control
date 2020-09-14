@@ -20,6 +20,7 @@
   "dangerZone": "Danger zone",
   "uri": "URI",
   "readOnly": "Read only",
+  "readAndWrite": "Read and write",
   "vocabularyContext": "Vocabulary context",
   "changeTrackingContext": "Change tracking context",
   "changeTrackingVocabulary": "Tracked vocabulary version",
