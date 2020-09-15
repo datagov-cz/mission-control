@@ -19,6 +19,7 @@ import {
 import { WorkspaceData, BaseVocabularyData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
 import getIdFromResponse from 'app/utils/getIdFromResponse'
+import { DEFAULT_VOCABULARY_IRI } from 'app/config'
 
 const getDataOnRouteEnter: Epic = ($action) =>
   merge(
@@ -94,6 +95,11 @@ const actionsAfterAddWorkspace: Epic = ($action) =>
           Actions.Router.navigateTo({
             name: Routes.WorkspaceDetail,
             params: { id: payload },
+          }),
+          Actions.Workspaces.addVocabulary.request({
+            workspaceId: payload,
+            vocabularyUri: DEFAULT_VOCABULARY_IRI,
+            readOnly: true,
           })
         )
       )
@@ -195,7 +201,7 @@ const addVocabulary: Epic = ($action) =>
     switchMap(({ payload }) =>
       post(
         getAddVocabularyUrl(
-          getIdFromUri(payload.workspaceUri),
+          payload.workspaceId,
           payload.vocabularyUri,
           payload.readOnly,
           payload.label
@@ -216,7 +222,7 @@ const actionsAfterAddVocabulary: Epic = ($action) =>
           Actions.Snackbar.success('workspaces.addVocabularySuccess'),
           Actions.Workspaces.openAddVocabularyForm(false),
           Actions.Workspaces.getWorkspace.request(
-            getIdFromUri(payload.workspaceUri)
+            getIdFromUri(payload.workspaceId)
           )
         )
       )

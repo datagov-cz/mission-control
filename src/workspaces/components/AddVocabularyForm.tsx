@@ -74,7 +74,7 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
     (readOnly: boolean) => {
       dispatch(
         Actions.Workspaces.addVocabulary.request({
-          workspaceUri: workspace!.uri,
+          workspaceId: workspace!.id,
           vocabularyUri: selectedVocabulary!.basedOnVocabularyVersion,
           label: selectedVocabulary!.label,
           readOnly,
