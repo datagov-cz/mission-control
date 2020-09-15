@@ -1,13 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {
-  Typography,
-  Box,
-  Button,
-  Menu,
-  MenuItem,
-  Divider,
-} from '@material-ui/core'
+import { Box, Button, Menu, MenuItem, Divider } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import t from 'app/components/i18n'
