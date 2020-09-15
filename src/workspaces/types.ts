@@ -30,7 +30,7 @@ export type Vocabulary = Omit<
 }
 
 export type AddVocabularyPayload = {
-  workspaceUri: Uri
+  workspaceId: Id
   vocabularyUri: Uri
   label?: string
   readOnly: boolean
