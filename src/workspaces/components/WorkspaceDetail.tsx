@@ -6,7 +6,7 @@ import RouteLink from 'app/components/RouteLink'
 import Routes from 'app/routes'
 import WorkspaceName from './WorkspaceName'
 import WorkspaceInformation from './WorkspaceInformation'
-import WorkspaceDangerZone from './WorkspaceDangerZone'
+import WorkspaceActions from './WorkspaceActions'
 import WorkspaceVocabularies from './WorkspaceVocabularies'
 
 const WorkspaceDetail: React.FC = () => (
@@ -18,14 +18,15 @@ const WorkspaceDetail: React.FC = () => (
           &larr; {t`workspaces`}
         </RouteLink>
       </Typography>
-      <Typography variant="h4" paragraph>
-        <WorkspaceName />
-      </Typography>
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Typography variant="h4" paragraph>
+          <WorkspaceName />
+        </Typography>
+        <WorkspaceActions />
+      </Box>
       <WorkspaceInformation />
       <Box my={3} />
       <WorkspaceVocabularies />
-      <Box my={3} />
-      <WorkspaceDangerZone />
     </Container>
   </Namespace.Provider>
 )

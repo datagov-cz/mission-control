@@ -85,4 +85,5 @@ export type Workspace = Omit<
 export type Tool = {
   url: string
   label: string
+  key: string
 }

@@ -1,10 +1,12 @@
 [
   {
     "label": "TermIt",
+    "key": "editTerms",
     "url": "https://kbss.felk.cvut.cz/termit-kodi/#vocabularies"
   },
   {
     "label": "OntoGrapher",
+    "key": "editRelations",
     "url": "https://ontographer.netlify.app"
   }
 ]
