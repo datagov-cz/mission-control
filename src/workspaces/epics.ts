@@ -216,7 +216,13 @@ const actionsAfterAddVocabulary: Epic = ($action) =>
     ),
     $action.pipe(
       ofSafeType(Actions.Workspaces.addVocabulary.failure),
-      fire(Actions.Snackbar.error('workspaces.addVocabularyError'))
+      switchMap(({ payload }) => {
+        const errorKey =
+          payload.xhr.status === 409
+            ? 'workspaces.addVocabularyErrorEditableDuplicate'
+            : 'workspaces.addVocabularyError'
+        return of(Actions.Snackbar.error(errorKey))
+      })
     )
   )
 

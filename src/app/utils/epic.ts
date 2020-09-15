@@ -23,8 +23,8 @@ export const ofSafeType = <TActionCreator extends ActionCreator<TypeConstant>>(
 /**
  * Catches an error in an epic and maps the Error object to a provided action
  */
-export const mapError = <T, TErrorAction extends Action>(
-  errorActionCreator: (err: Error) => TErrorAction
+export const mapError = <T, TError extends Error, TErrorAction extends Action>(
+  errorActionCreator: (err: TError) => TErrorAction
 ): OperatorFunction<T, T | ObservedValueOf<Observable<TErrorAction>>> =>
   catchError<T, Observable<TErrorAction>>((error) =>
     of(errorActionCreator(error))
