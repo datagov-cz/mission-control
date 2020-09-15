@@ -17,7 +17,7 @@
   "workspaceLabelDoesNotMatch": "Workspace name does not match",
   "workspaceInformation": "Basic information",
   "vocabularies": "Vocabularies",
-  "dangerZone": "Danger zone",
+  "advanced": "Advanced",
   "uri": "URI",
   "readOnly": "Read only",
   "readAndWrite": "Read and write",
@@ -41,5 +41,7 @@
   "deleteVocabularyFailure": "The vocabulary cannot be deleted",
   "update": "Update",
   "updateVocabularySuccess": "The vocabulary was updated",
-  "updateVocabularyError": "The vocabulary cannot be updated"
+  "updateVocabularyError": "The vocabulary cannot be updated",
+  "editTerms": "Edit terms",
+  "editRelations": "Edit relations"
 }
