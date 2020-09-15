@@ -32,6 +32,7 @@
   "vocabularyLabel": "Název slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
+  "addVocabularyErrorEditableDuplicate": "Vybraný slovník již existuje v režimu zápisu v jiném pracovním prostoru",
   "importVocabulary": "Import slovníku",
   "importVocabularyForReadOnly": "Importuj slovník pouze pro čtení",
   "importVocabularyForReadAndWrite": "Importuj slovník pro čtení i zápis",

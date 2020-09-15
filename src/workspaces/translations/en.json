@@ -30,6 +30,7 @@
   "vocabularyUri": "Vocabulary URI",
   "addVocabularySuccess": "Vocabulary was added to the workspace",
   "addVocabularyError": "Vocabulary cannot be added to the workspace",
+  "addVocabularyErrorEditableDuplicate": "Selected vocabulary already exists in edit mode in another workspace",
   "runInTools": "Open in",
   "actions": "Actions",
   "delete": "Delete",

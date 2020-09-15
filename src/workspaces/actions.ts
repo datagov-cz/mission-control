@@ -1,4 +1,6 @@
 import { createAsyncAction, ActionType, createAction } from 'typesafe-actions'
+import { AjaxError } from 'rxjs/ajax'
+
 import {
   WorkspaceData,
   AddWorkspacePayload,
@@ -72,17 +74,17 @@ const WorkspacesActions = {
     'workspaces/addVocabularyRequest',
     'workspaces/addVocabularySuccess',
     'workspaces/addVocabularyFailure'
-  )<AddVocabularyPayload, AddVocabularyPayload, Error>(),
+  )<AddVocabularyPayload, AddVocabularyPayload, AjaxError>(),
   deleteVocabulary: createAsyncAction(
     'workspaces/deleteVocabularyRequest',
     'workspaces/deleteVocabularySuccess',
     'workspaces/deleteVocabularyFailure'
-  )<DeleteVocabularyPayload, DeleteVocabularyPayload, Error>(),
+  )<DeleteVocabularyPayload, DeleteVocabularyPayload, AjaxError>(),
   updateVocabulary: createAsyncAction(
     'workspaces/updateVocabularyRequest',
     'workspaces/updateVocabularySuccess',
     'workspaces/updateVocabularyFailure'
-  )<UpdateVocabularyPayload, UpdateVocabularyPayload, Error>(),
+  )<UpdateVocabularyPayload, UpdateVocabularyPayload, AjaxError>(),
 }
 
 export type WorkspacesAction = ActionType<typeof WorkspacesActions>
