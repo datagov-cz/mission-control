@@ -18,6 +18,7 @@ import {
 } from './api'
 import { WorkspaceData, BaseVocabularyData } from './types'
 import getIdFromUri from 'app/utils/getIdFromUri'
+import getIdFromResponse from 'app/utils/getIdFromResponse'
 
 const getDataOnRouteEnter: Epic = ($action) =>
   merge(
@@ -75,7 +76,8 @@ const addWorkspace: Epic = ($action) =>
     ofSafeType(Actions.Workspaces.addWorkspace.request),
     switchMap(({ payload }) =>
       postJSON(getWorkspacesUrl(), payload).pipe(
-        mapTo(Actions.Workspaces.addWorkspace.success()),
+        map(getIdFromResponse),
+        map(Actions.Workspaces.addWorkspace.success),
         mapError(Actions.Workspaces.addWorkspace.failure)
       )
     )
@@ -85,10 +87,15 @@ const actionsAfterAddWorkspace: Epic = ($action) =>
   merge(
     $action.pipe(
       ofSafeType(Actions.Workspaces.addWorkspace.success),
-      fire(
-        Actions.Snackbar.success('workspaces.addWorkspaceSuccess'),
-        Actions.Workspaces.openAddWorkspaceForm(false),
-        Actions.Workspaces.getWorkspaces.request()
+      switchMap(({ payload }) =>
+        of(
+          Actions.Snackbar.success('workspaces.addWorkspaceSuccess'),
+          Actions.Workspaces.openAddWorkspaceForm(false),
+          Actions.Router.navigateTo({
+            name: Routes.WorkspaceDetail,
+            params: { id: payload },
+          })
+        )
       )
     ),
     $action.pipe(

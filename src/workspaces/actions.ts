@@ -49,7 +49,7 @@ const WorkspacesActions = {
     'workspaces/addWorkspaceRequest',
     'workspaces/addWorkspaceSuccess',
     'workspaces/addWorkspaceFailure'
-  )<AddWorkspacePayload, void, Error>(),
+  )<AddWorkspacePayload, Id, Error>(),
   editWorkspace: createAsyncAction(
     'workspaces/editWorkspaceRequest',
     'workspaces/editWorkspaceSuccess',
