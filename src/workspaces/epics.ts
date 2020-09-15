@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { merge, of } from 'rxjs'
-import { map, switchMap, mapTo } from 'rxjs/operators'
+import { map, switchMap, mapTo, mergeMap, exhaustMap } from 'rxjs/operators'
 
 import { Epic, Id } from 'app/types'
 import Actions from 'app/actions'
@@ -252,9 +252,9 @@ const actionsAfterDeleteVocabulary: Epic = ($action) =>
 const updateVocabulary: Epic = ($action) =>
   $action.pipe(
     ofSafeType(Actions.Workspaces.updateVocabulary.request),
-    switchMap(({ payload }) =>
+    exhaustMap(({ payload }) =>
       del(getVocabularyUrl(payload.workspace!.id, payload.vocabulary.id)).pipe(
-        switchMap(() =>
+        mergeMap(() =>
           post(
             getAddVocabularyUrl(
               payload.workspace!.id,
