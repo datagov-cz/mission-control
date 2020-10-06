@@ -218,8 +218,8 @@ const CreateVocabulary: React.FC = () => {
       <form>
         <input
           type="hidden"
-          name="workspaceUri"
-          value={workspace?.uri}
+          name="workspaceId"
+          value={workspace?.id}
           ref={register}
         />
         <input type="hidden" name="readOnly" value="false" ref={register} />
