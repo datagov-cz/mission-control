@@ -56,7 +56,7 @@
   "publishingWorkspacePleaseWait": "Pracovní prostor se právě publikuje. Nemělo by to trvat déle než půl minuty.",
   "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
   "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor",
-  "workspacePRCreated": "Pracovní prostor byl publikován, pull-request vytvořen:",
+  "workspacePRCreated": "Pracovní prostor byl publikován, pull request vytvořen:",
   "editTerms": "Editovat pojmy",
   "editRelations": "Editovat vztahy"
 }
