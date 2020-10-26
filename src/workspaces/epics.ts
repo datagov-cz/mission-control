@@ -98,7 +98,7 @@ const actionsAfterAddWorkspace: Epic = ($action) =>
           }),
           Actions.Workspaces.addVocabulary.request({
             workspaceId: payload,
-            vocabularyUri: DEFAULT_VOCABULARY_IRI,
+            vocabularyIri: DEFAULT_VOCABULARY_IRI,
             readOnly: true,
           })
         )
@@ -202,7 +202,7 @@ const addVocabulary: Epic = ($action) =>
       post(
         getAddVocabularyUrl(
           payload.workspaceId,
-          payload.vocabularyUri,
+          payload.vocabularyIri,
           payload.readOnly,
           payload.label
         )

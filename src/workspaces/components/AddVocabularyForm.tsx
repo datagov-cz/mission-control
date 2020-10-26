@@ -75,7 +75,7 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
       dispatch(
         Actions.Workspaces.addVocabulary.request({
           workspaceId: workspace!.id,
-          vocabularyUri: selectedVocabulary!.basedOnVocabularyVersion,
+          vocabularyIri: selectedVocabulary!.basedOnVocabularyVersion,
           label: selectedVocabulary!.label,
           readOnly,
         })
@@ -191,7 +191,7 @@ const CreateVocabulary: React.FC = () => {
       (v) => v.label === selectedTypeLabel
     )
     setVocabularyType(selectedTypeLabel)
-    reset({ vocabularyUri: selectedType?.prefix })
+    reset({ vocabularyIri: selectedType?.prefix })
   }
 
   return (
@@ -225,8 +225,8 @@ const CreateVocabulary: React.FC = () => {
         <input type="hidden" name="readOnly" value="false" ref={register} />
         <TextField
           autoComplete="off"
-          name="vocabularyUri"
-          label={t`vocabularyUri`}
+          name="vocabularyIri"
+          label={t`vocabularyIri`}
           defaultValue={vocabularyType?.prefix}
           inputRef={register({
             pattern: {
@@ -234,8 +234,8 @@ const CreateVocabulary: React.FC = () => {
               message: vocabularyType?.regex!,
             },
           })}
-          error={!!errors.vocabularyUri}
-          helperText={errors.vocabularyUri?.message}
+          error={!!errors.vocabularyIri}
+          helperText={errors.vocabularyIri?.message}
         />
         <TextField
           name="label"
