@@ -19,6 +19,7 @@ const Tools: React.FC<ToolProps> = (props: ToolProps) => {
             variant="contained"
             href={`${tool.url}?workspace=${props.workspaceUri}`}
             target="_blank"
+            onClick={(e) => e.stopPropagation()}
           >
             {t(tool.key)}
           </Button>
