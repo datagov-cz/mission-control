@@ -28,7 +28,7 @@
   "false": "Ne",
   "addVocabulary": "Přidat slovník",
   "vocabularyType": "Typ slovníku",
-  "vocabularyUri": "URI slovníku",
+  "vocabularyIri": "IRI slovníku",
   "vocabularyLabel": "Název slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",

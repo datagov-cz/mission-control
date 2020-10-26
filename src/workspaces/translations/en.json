@@ -28,7 +28,7 @@
   "false": "No",
   "addVocabulary": "Add a vocabulary",
   "vocabularyType": "Vocabulary type",
-  "vocabularyUri": "Vocabulary URI",
+  "vocabularyIri": "Vocabulary IRI",
   "vocabularyLabel": "Vocabulary label",
   "addVocabularySuccess": "Vocabulary was added to the workspace",
   "addVocabularyError": "Vocabulary cannot be added to the workspace",

@@ -32,13 +32,13 @@ export const getWorkspaceVocabulariesUrl = (workspaceId: Id) =>
  */
 export const getAddVocabularyUrl = (
   workspaceId: Id,
-  vocabularyUri: Uri,
+  vocabularyIri: Uri,
   readOnly: boolean,
   label?: string
 ) =>
   `${getWorkspaceVocabulariesUrl(
     workspaceId
-  )}?vocabularyUri=${vocabularyUri}&readOnly=${String(readOnly)}&label=${label}`
+  )}?vocabularyUri=${vocabularyIri}&readOnly=${String(readOnly)}&label=${label}`
 
 /**
  * Endpoint to delete vocabulary from a workspace
