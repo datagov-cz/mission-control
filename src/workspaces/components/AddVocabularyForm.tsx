@@ -47,9 +47,18 @@ const ImportVocabulary: React.FC<ImportVocabulary> = ({ setTabIndex }) => {
     BaseVocabularyData
   >()
 
+  const workspaceVocabularies = workspace!.vocabularies.map(
+    (vocabulary) => vocabulary.vocabulary
+  )
+
+  const availableVocabularies = vocabularies.filter(
+    (vocabulary) =>
+      !workspaceVocabularies.includes(vocabulary.basedOnVocabularyVersion)
+  )
+
   // Look for matching vocabularies - both URI and label are considered
   const needleRegex = new RegExp(needle, 'gi')
-  const filteredVocabularies = vocabularies.filter(
+  const filteredVocabularies = availableVocabularies.filter(
     (vocabulary) =>
       needleRegex.test(vocabulary.label) ||
       needleRegex.test(vocabulary.basedOnVocabularyVersion)

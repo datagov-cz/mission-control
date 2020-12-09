@@ -12,7 +12,7 @@ const Tools: React.FC<ToolProps> = (props: ToolProps) => {
   return (
     <>
       {tools.map((tool) => (
-        <>
+        <React.Fragment key={tool.url}>
           <Button
             key={`${tool.url}?workspace=${props.workspaceUri}`}
             color="primary"
@@ -24,7 +24,7 @@ const Tools: React.FC<ToolProps> = (props: ToolProps) => {
             {t(tool.key)}
           </Button>
           <Box m={1} />
-        </>
+        </React.Fragment>
       ))}
     </>
   )
