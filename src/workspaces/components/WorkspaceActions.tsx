@@ -42,7 +42,6 @@ const WorkspaceActions: React.FC = () => {
   const publish = () => {
     publishRequest()
     openPublishDialog()
-    handleClose()
   }
 
   const edit = () => {
@@ -59,6 +58,10 @@ const WorkspaceActions: React.FC = () => {
     <>
       <Box my={2} display="flex" flexDirection="row">
         <Tools workspaceUri={workspace?.uri} />
+        <Button color="primary" variant="contained" onClick={publish}>
+          {t`publish`}
+        </Button>
+        <Box m={1} />
         <Button
           onClick={handleClick}
           endIcon={<ExpandMoreIcon />}
@@ -73,7 +76,6 @@ const WorkspaceActions: React.FC = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={publish}>{t`publish`}</MenuItem>
           <MenuItem onClick={edit}>{t`editWorkspace`}</MenuItem>
           <Divider />
           <MenuItem onClick={del}>{t`deleteWorkspace`}</MenuItem>
