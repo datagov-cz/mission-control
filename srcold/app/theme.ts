@@ -1,4 +1,4 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles'
 import { grey, blueGrey } from '@material-ui/core/colors'
 
 const theme = createMuiTheme({
@@ -38,7 +38,6 @@ const theme = createMuiTheme({
       variant: 'filled', // Sets filled input variant as default
       margin: 'normal',
       fullWidth: true,
-      autoComplete: 'off',
     },
     MuiInputLabel: {
       required: false, // Hides asterisk in labels for required fields by default
