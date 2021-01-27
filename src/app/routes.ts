@@ -1,30 +1,37 @@
-import { Route } from 'app/types'
-import DashboardRoutes, { DashboardRoutesConfiguration } from 'dashboard/routes'
-import UsersRoutes, { UsersRoutesConfiguration } from 'users/routes'
-import IdRoutes, { IdRoutesConfiguration } from 'id/routes'
-import WorkspacesRoutes, {
-  WorkspacesRoutesConfiguration,
-} from 'workspaces/routes'
+import { RouteDefinition } from '@types'
+import MainLayout from 'components/MainLayout'
+import Workspaces from 'components/workspaces/Workspaces'
+import Workspace from 'components/workspaces/Workspace'
+import { fetchWorkspace, fetchWorkspaces } from 'data/workspaces'
+import {
+  fetchVocabularies,
+  fetchWorkspaceVocabularies,
+} from 'data/vocabularies'
 
-/**
- * It would be better to define the routes as enums and merge them,
- * but unfortunately TypeScript does not support that (yet), and the next
- * best option is to make the string literals as const so that the final
- * object is read only and the route paths are displayed in autosuggest
- * components in editors
- */
 const Routes = {
-  ...DashboardRoutes,
-  ...UsersRoutes,
-  ...IdRoutes,
-  ...WorkspacesRoutes,
+  Workspaces: 'workspaces',
+  Workspace: 'workspace',
 } as const
 
 export default Routes
 
-export const RoutesConfiguration: Route[] = [
-  ...DashboardRoutesConfiguration,
-  ...IdRoutesConfiguration,
-  ...UsersRoutesConfiguration,
-  ...WorkspacesRoutesConfiguration,
+export const RoutesConfiguration: RouteDefinition[] = [
+  {
+    name: Routes.Workspaces,
+    path: '/',
+    layout: MainLayout,
+    component: Workspaces,
+    onEnter: () => fetchWorkspaces(),
+  },
+  {
+    name: Routes.Workspace,
+    path: '/workspace/:id',
+    layout: MainLayout,
+    component: Workspace,
+    onEnter: ({ route }) => {
+      fetchWorkspace(route.params.id)
+      fetchWorkspaceVocabularies(route.params.id)
+      fetchVocabularies()
+    },
+  },
 ]
