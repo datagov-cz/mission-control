@@ -4,7 +4,7 @@ import { constants } from 'router5'
 import { RouteName } from '@types'
 import { getComponentsHierarchy, getTopRoute } from 'utils/route'
 
-import Error404 from 'components/Error404'
+import { Error404 } from 'components/Errors'
 
 const useRoute = () => {
   const route = useRouter5Route()

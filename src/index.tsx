@@ -5,12 +5,16 @@ import router from 'app/router'
 
 import App from 'components/App'
 
-router.start(() => {
-  const rootElement = document.getElementById('app') as HTMLElement
-  // TODO: replace with stable method once proper typings are available
-  ReactDOM.unstable_createRoot(rootElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  )
+import keycloak from 'app/keycloak'
+
+keycloak.then(() => {
+  router.start(() => {
+    const rootElement = document.getElementById('app') as HTMLElement
+    // TODO: replace with stable method once proper typings are available
+    ReactDOM.unstable_createRoot(rootElement).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+  })
 })

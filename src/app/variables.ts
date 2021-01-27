@@ -19,3 +19,15 @@ const nspp = ns(NS_PRACOVNI_PROSTOR)
 export const VOCABULARY_CONTEXT_READ_ONLY = nspp(
   'slovníkový-kontext-pouze-pro-čtení'
 )
+
+const KEYCLOAK_URL = 'https://kbss.felk.cvut.cz:10808/auth'
+
+const KEYCLOAK_REALM = 'kodi-dev'
+
+const KEYCLOAK_CLIENT_ID = 'kodi-mission-control-dev'
+
+export const KEYCLOAK_CONFIG = {
+  url: KEYCLOAK_URL,
+  realm: KEYCLOAK_REALM,
+  clientId: KEYCLOAK_CLIENT_ID,
+}

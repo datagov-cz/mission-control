@@ -13,7 +13,12 @@ const BackdropGradient = styled(Box)({
   justifyContent: 'center',
 })
 
-const Error404: React.FC = () => (
+type ErrorProps = {
+  code: number
+  message: string
+}
+
+const Error: React.FC<ErrorProps> = ({ code, message }) => (
   <BackdropGradient color="white">
     <Box p={2} display="flex" alignItems="center">
       <IconButton color="inherit">
@@ -21,9 +26,13 @@ const Error404: React.FC = () => (
       </IconButton>
       <Typography variant="h6">{t`controlPanel`}</Typography>
     </Box>
-    <Typography variant="h1">404</Typography>
-    <Typography variant="h3">{t`pageNotFound`}</Typography>
+    <Typography variant="h1">{code}</Typography>
+    <Typography variant="h3">{t(message)}</Typography>
   </BackdropGradient>
 )
 
-export default Error404
+export const Error404 = () => <Error code={404} message={'pageNotFound'} />
+
+export const Error500 = () => (
+  <Error code={500} message={'somethingWentWrong'} />
+)
