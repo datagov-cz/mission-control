@@ -10,6 +10,8 @@ import { I18nProvider, Namespace } from 'components/i18n'
 import Snackbar from 'components/Snackbar'
 import RouteComponentRenderer from './RouteComponentRenderer'
 import { suspendResource } from 'data/suspend'
+import { ErrorBoundary } from 'react-error-boundary'
+import { Error500 } from './Errors'
 
 const SuspendHelper: React.FC = () => {
   useObservableSuspense(suspendResource)
@@ -22,11 +24,13 @@ const App: React.FC = () => (
       <Namespace.Provider value="common">
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Suspense fallback={'...'}>
-            <SuspendHelper />
-            <RouteComponentRenderer />
-          </Suspense>
-          <Snackbar />
+          <ErrorBoundary FallbackComponent={Error500}>
+            <Suspense fallback={'...'}>
+              <SuspendHelper />
+              <RouteComponentRenderer />
+            </Suspense>
+            <Snackbar />
+          </ErrorBoundary>
         </ThemeProvider>
       </Namespace.Provider>
     </I18nProvider>
