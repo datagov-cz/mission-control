@@ -7,6 +7,7 @@
   "notAuthorized": "Not authorized",
   "username": "Username",
   "password": "Password",
+  "logout": "Logout",
   "actions": "Actions",
   "cancel": "Cancel",
   "errorRequired": "Required",

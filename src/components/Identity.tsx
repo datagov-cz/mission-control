@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useObservableEagerState } from 'observable-hooks'
+import React, { useCallback, useState } from 'react'
 import {
   MenuItem,
   Menu,
@@ -11,20 +10,26 @@ import { ExitToApp } from '@material-ui/icons'
 
 import Gravatar from 'components/users/Gravatar'
 import t, { Namespace } from 'components/i18n'
-import { identity$$ } from 'data/identity'
+import useAuth from 'hooks/useAuth'
 
 const Identity: React.FC = () => {
-  const { profile } = useObservableEagerState(identity$$)!
+  // TODO: remove / refactor
+  // const { profile } = useObservableEagerState(identity$$)!
 
-  const initials = `${profile.given_name?.charAt(
+  const { identity, userManager } = useAuth()
+
+  const initials = `${identity?.profile.given_name?.charAt(
     0
-  )}${profile.family_name?.charAt(0)}`
+  )}${identity?.profile.family_name?.charAt(0)}`
 
   const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleLogout = () => {
-    //TODO: dispatch(Actions.Id.logout.request())
-  }
+  // TODO: rethink :-)
+  const handleLogout = useCallback(() => {
+    userManager
+      .removeUser()
+      .then(() => (window.location.href = 'https://data.gov.cz'))
+  }, [userManager])
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget)
@@ -35,9 +40,9 @@ const Identity: React.FC = () => {
   }
 
   return (
-    <Namespace.Provider value="id">
+    <Namespace.Provider value="common">
       <Button onClick={handleClick}>
-        <Gravatar email={profile.email!} initials={initials} />
+        <Gravatar email={identity?.profile.email!} initials={initials} />
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={handleLogout}>

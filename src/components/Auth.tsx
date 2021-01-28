@@ -1,12 +1,24 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 import { useObservableEagerState } from 'observable-hooks'
-import { UserManager } from 'oidc-client'
+import Oidc, { UserManager, User as Identity } from 'oidc-client'
 
 import { OIDC_CONFIG } from 'app/variables'
 import useThrow from 'hooks/useThrow'
 import { identity$$, setIdentity } from 'data/identity'
 
+export type AuthContextProps = {
+  identity: Identity | null
+  userManager: UserManager
+}
+
 const userManager = new UserManager(OIDC_CONFIG)
+
+export const AuthContext = React.createContext<AuthContextProps>({
+  identity: null,
+  userManager,
+})
+
+Oidc.Log.logger = console
 
 const hasCodeInUrl = (location: Location): boolean => {
   const searchParams = new URLSearchParams(location.search)
@@ -86,7 +98,11 @@ const Auth: React.FC<AuthProps> = ({
     return null
   }
 
-  return <>{children}</>
+  return (
+    <AuthContext.Provider value={{ identity, userManager }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export default Auth
