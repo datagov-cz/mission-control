@@ -16,7 +16,10 @@ import { identity$$ } from 'data/identity'
 const Identity: React.FC = () => {
   const { profile } = useObservableEagerState(identity$$)!
 
-  const initials = `${profile.firstName.charAt(0)}${profile.lastName.charAt(0)}`
+  const initials = `${profile.given_name?.charAt(
+    0
+  )}${profile.family_name?.charAt(0)}`
+
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleLogout = () => {
