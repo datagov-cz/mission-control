@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useObservableEagerState } from 'observable-hooks'
 import {
   MenuItem,
   Menu,
@@ -10,14 +11,12 @@ import { ExitToApp } from '@material-ui/icons'
 
 import Gravatar from 'components/users/Gravatar'
 import t, { Namespace } from 'components/i18n'
+import { identity$$ } from 'data/identity'
 
 const Identity: React.FC = () => {
-  /* TODO:
-  const initials = useSelector(getInitials)
-  const email = useSelector(getUsername)
-  */
-  const initials = 'KK'
-  const email = 'karelklima@gmail.com'
+  const { profile } = useObservableEagerState(identity$$)!
+
+  const initials = `${profile.firstName.charAt(0)}${profile.lastName.charAt(0)}`
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleLogout = () => {
@@ -35,7 +34,7 @@ const Identity: React.FC = () => {
   return (
     <Namespace.Provider value="id">
       <Button onClick={handleClick}>
-        <Gravatar email={email} initials={initials} />
+        <Gravatar email={profile.email!} initials={initials} />
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={handleLogout}>
