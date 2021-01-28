@@ -24,11 +24,13 @@ const Identity: React.FC = () => {
 
   const [anchorEl, setAnchorEl] = useState(null)
 
-  // TODO: rethink :-)
+  // TODO: reconsider
   const handleLogout = useCallback(() => {
-    userManager
-      .removeUser()
-      .then(() => (window.location.href = 'https://data.gov.cz'))
+    const logout = async () => {
+      await userManager.removeUser()
+      await userManager.signoutRedirect()
+    }
+    logout()
   }, [userManager])
 
   const handleClick = (event: any) => {
