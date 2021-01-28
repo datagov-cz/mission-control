@@ -9,7 +9,7 @@ identity$$
   .pipe(
     tap((user) => {
       if (user) {
-        setToken(user.id_token)
+        setToken(`${user.token_type} ${user.access_token}`)
       } else {
         removeToken()
       }

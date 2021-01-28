@@ -34,6 +34,7 @@ export const OIDC_CONFIG = {
   redirect_uri: URL,
   silent_redirect_uri: URL,
   post_logout_redirect_uri: URL,
+  response_type: 'token id_token',
   loadUserInfo: true,
   automaticSilentRenew: true,
 }
