@@ -20,14 +20,20 @@ export const VOCABULARY_CONTEXT_READ_ONLY = nspp(
   'slovníkový-kontext-pouze-pro-čtení'
 )
 
+const URL = process.env.REACT_APP_URL || 'http://localhost:3000'
+
 const KEYCLOAK_URL = 'https://kbss.felk.cvut.cz:10808/auth'
 
 const KEYCLOAK_REALM = 'kodi-dev'
 
 const KEYCLOAK_CLIENT_ID = 'kodi-mission-control-dev'
 
-export const KEYCLOAK_CONFIG = {
-  url: KEYCLOAK_URL,
-  realm: KEYCLOAK_REALM,
-  clientId: KEYCLOAK_CLIENT_ID,
+export const OIDC_CONFIG = {
+  authority: `${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}`,
+  client_id: KEYCLOAK_CLIENT_ID,
+  redirect_uri: URL,
+  silent_redirect_uri: URL,
+  post_logout_redirect_uri: URL,
+  loadUserInfo: true,
+  automaticSilentRenew: true,
 }

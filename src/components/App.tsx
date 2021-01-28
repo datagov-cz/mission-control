@@ -1,10 +1,8 @@
 import React, { Suspense } from 'react'
-import { RouterProvider } from 'react-router5'
 import { useObservableSuspense } from 'observable-hooks'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 
 import theme from 'app/theme'
-import router from 'app/router'
 
 import { I18nProvider, Namespace } from 'components/i18n'
 import Snackbar from 'components/Snackbar'
@@ -12,6 +10,7 @@ import RouteComponentRenderer from './RouteComponentRenderer'
 import { suspendResource } from 'data/suspend'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Error500 } from './Errors'
+import Router from './Router'
 
 const SuspendHelper: React.FC = () => {
   useObservableSuspense(suspendResource)
@@ -19,7 +18,7 @@ const SuspendHelper: React.FC = () => {
 }
 
 const App: React.FC = () => (
-  <RouterProvider router={router}>
+  <Router>
     <I18nProvider>
       <Namespace.Provider value="common">
         <ThemeProvider theme={theme}>
@@ -34,7 +33,7 @@ const App: React.FC = () => (
         </ThemeProvider>
       </Namespace.Provider>
     </I18nProvider>
-  </RouterProvider>
+  </Router>
 )
 
 export default App

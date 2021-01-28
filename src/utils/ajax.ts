@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs'
 import { ajax, AjaxResponse, AjaxRequest } from 'rxjs/ajax'
-import { tap, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 
 import { API_URL } from 'app/variables'
-import { getToken, setToken } from './auth'
+import { getToken } from './auth'
 
 const COMMON_API_PREFIX = '/'
 
@@ -23,11 +23,7 @@ export const request = (request: AjaxRequest): Observable<AjaxResponse> => {
       ...(request.headers as Headers),
     },
   }
-  return ajax(secureRequest).pipe(
-    tap((response) => {
-      setToken(response.xhr.getResponseHeader('Authorization') || '')
-    })
-  )
+  return ajax(secureRequest)
 }
 
 export const get = (url: string, headers?: Headers) =>
