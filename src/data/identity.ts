@@ -1,5 +1,3 @@
-import { identity } from 'lodash'
-import { ObservableResource } from 'observable-hooks'
 import { User as Identity } from 'oidc-client'
 import { BehaviorSubject } from 'rxjs'
 import { tap } from 'rxjs/operators'
