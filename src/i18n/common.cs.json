@@ -7,6 +7,7 @@
   "notAuthorized": "Nedostatečné oprávnění",
   "username": "Uživatelské jméno",
   "password": "Heslo",
+  "logout": "Odhlásit se",
   "actions": "Akce",
   "cancel": "Zrušit",
   "errorRequired": "Prosím, vyplňte",

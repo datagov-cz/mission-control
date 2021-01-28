@@ -37,4 +37,5 @@ export const OIDC_CONFIG = {
   response_type: 'token id_token',
   loadUserInfo: true,
   automaticSilentRenew: true,
+  revokeAccessTokenOnSignout: true,
 }
