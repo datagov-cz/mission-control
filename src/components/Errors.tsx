@@ -18,7 +18,7 @@ type ErrorProps = {
   message: string
 }
 
-const Error: React.FC<ErrorProps> = ({ code, message }) => (
+const ErrorPage: React.FC<ErrorProps> = ({ code, message }) => (
   <BackdropGradient color="white">
     <Box p={2} display="flex" alignItems="center">
       <IconButton color="inherit">
@@ -31,8 +31,8 @@ const Error: React.FC<ErrorProps> = ({ code, message }) => (
   </BackdropGradient>
 )
 
-export const Error404 = () => <Error code={404} message={'pageNotFound'} />
+export const Error404 = () => <ErrorPage code={404} message={'pageNotFound'} />
 
 export const Error500 = () => (
-  <Error code={500} message={'somethingWentWrong'} />
+  <ErrorPage code={500} message={'somethingWentWrong'} />
 )
