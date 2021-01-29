@@ -20,7 +20,7 @@ export const VOCABULARY_CONTEXT_READ_ONLY = nspp(
   'slovníkový-kontext-pouze-pro-čtení'
 )
 
-const URL = process.env.REACT_APP_URL || 'http://localhost:3000'
+const URL = process.env.REACT_APP_URL || window.location.href
 
 const KEYCLOAK_URL = 'https://kbss.felk.cvut.cz:10808/auth'
 
