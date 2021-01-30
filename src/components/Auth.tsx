@@ -1,36 +1,32 @@
-import React, { PropsWithChildren, useEffect } from 'react'
-import { useObservableEagerState } from 'observable-hooks'
-import Oidc, { UserManager, User as Identity } from 'oidc-client'
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import Oidc, { UserManager, User } from 'oidc-client'
 
 import { OIDC_CONFIG } from 'app/variables'
 import useThrow from 'hooks/useThrow'
-import { identity$$, setIdentity } from 'data/identity'
-
-export type AuthContextProps = {
-  identity: Identity | null
-  userManager: UserManager
-}
-
-const userManager = new UserManager(OIDC_CONFIG)
-
-export const AuthContext = React.createContext<AuthContextProps>({
-  identity: null,
-  userManager,
-})
 
 Oidc.Log.logger = console
+const userManager = new UserManager(OIDC_CONFIG)
+
+type AuthContextProps = {
+  user: User
+  logout: () => void
+}
+
+export const AuthContext = React.createContext<AuthContextProps | null>(null)
 
 const hasCodeInUrl = (location: Location): boolean => {
-  const searchParams = new URLSearchParams(location.search)
   const hashParams = new URLSearchParams(location.hash.replace('#', '?'))
 
   return (
-    searchParams.has('code') ||
-    searchParams.has('id_token') ||
-    searchParams.has('session_state') ||
     hashParams.has('code') ||
     hashParams.has('id_token') ||
-    hashParams.has('session_state')
+    hashParams.has('session_state') ||
+    hashParams.has('state')
   )
 }
 
@@ -39,13 +35,16 @@ const stripCodeFromUrl = ({ protocol, host, pathname }: Location): string =>
 
 type AuthProps = PropsWithChildren<{
   location?: Location
+  history?: History
 }>
 
 const Auth: React.FC<AuthProps> = ({
   children,
   location = window.location,
+  history = window.history,
 }) => {
   const throwError = useThrow()
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const getUser = async () => {
@@ -54,8 +53,8 @@ const Auth: React.FC<AuthProps> = ({
         if (hasCodeInUrl(location)) {
           await userManager.signinCallback()
           const user = await userManager.getUser()
-          setIdentity(user)
-          location.replace(stripCodeFromUrl(location))
+          setUser(user)
+          history.replaceState({}, '', stripCodeFromUrl(location))
           return
         }
 
@@ -65,21 +64,21 @@ const Auth: React.FC<AuthProps> = ({
           // User not authenticated -> trigger auth flow
           await userManager.signinRedirect()
         } else {
-          setIdentity(user)
+          setUser(user)
         }
       } catch (error) {
         throwError(error)
       }
     }
     getUser()
-  }, [location, throwError])
+  }, [location, history, throwError, setUser])
 
   useEffect(() => {
     // Refreshing react state when new state is available in e.g. session storage
     const updateUserData = async () => {
       try {
         const user = await userManager.getUser()
-        setIdentity(user)
+        setUser(user)
       } catch (error) {
         throwError(error)
       }
@@ -88,18 +87,21 @@ const Auth: React.FC<AuthProps> = ({
     userManager.events.addUserLoaded(updateUserData)
 
     return () => userManager.events.removeUserLoaded(updateUserData)
-  }, [throwError])
+  }, [throwError, setUser])
 
-  const identity = useObservableEagerState(identity$$)
+  const logout = useCallback(() => {
+    const handleLogout = async () => {
+      await userManager.signoutRedirect()
+    }
+    handleLogout()
+  }, [])
 
-  console.warn(identity)
-
-  if (!identity) {
+  if (!user) {
     return null
   }
 
   return (
-    <AuthContext.Provider value={{ identity, userManager }}>
+    <AuthContext.Provider value={{ user, logout }}>
       {children}
     </AuthContext.Provider>
   )
