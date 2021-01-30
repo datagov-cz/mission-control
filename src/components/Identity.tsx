@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import {
   MenuItem,
   Menu,
@@ -13,25 +13,16 @@ import t, { Namespace } from 'components/i18n'
 import useAuth from 'hooks/useAuth'
 
 const Identity: React.FC = () => {
-  // TODO: remove / refactor
-  // const { profile } = useObservableEagerState(identity$$)!
+  const {
+    user: {
+      profile: { given_name, family_name, email },
+    },
+    logout,
+  } = useAuth()
 
-  const { identity, userManager } = useAuth()
-
-  const initials = `${identity?.profile.given_name?.charAt(
-    0
-  )}${identity?.profile.family_name?.charAt(0)}`
+  const initials = `${given_name?.charAt(0)}${family_name?.charAt(0)}`
 
   const [anchorEl, setAnchorEl] = useState(null)
-
-  // TODO: reconsider
-  const handleLogout = useCallback(() => {
-    const logout = async () => {
-      await userManager.removeUser()
-      await userManager.signoutRedirect()
-    }
-    logout()
-  }, [userManager])
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget)
@@ -44,10 +35,10 @@ const Identity: React.FC = () => {
   return (
     <Namespace.Provider value="common">
       <Button onClick={handleClick}>
-        <Gravatar email={identity?.profile.email!} initials={initials} />
+        <Gravatar email={email!} initials={initials} />
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={logout}>
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>

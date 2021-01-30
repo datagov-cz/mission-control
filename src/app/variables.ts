@@ -1,8 +1,42 @@
 /**
+ * Helper to make sure that all envs are defined properly
+ * @param name env variable name
+ */
+const getEnv = (name: string): string => {
+  const value = process.env[`REACT_APP_${name}`]
+  if (value) {
+    return value
+  }
+  throw new Error(`Missing environment variable: REACT_APP_${name}`)
+}
+
+/**
  * API URL base
  */
-export const API_URL =
-  process.env.REACT_APP_API_URL || 'https://kbss.felk.cvut.cz/sgov-server'
+export const API_URL = getEnv('API_URL')
+
+/**
+ * App deploy URL base
+ */
+export const DEPLOY_URL = getEnv('DEPLOY_URL')
+
+/**
+ * OIDC variables
+ */
+const OIDC_AUTHORITY = getEnv('OIDC_AUTHORITY')
+const OIDC_CLIENT_ID = getEnv('OIDC_CLIENT_ID')
+
+export const OIDC_CONFIG = {
+  authority: OIDC_AUTHORITY,
+  client_id: OIDC_CLIENT_ID,
+  redirect_uri: DEPLOY_URL,
+  silent_redirect_uri: `${DEPLOY_URL}/oidc-silent-callback.html`,
+  post_logout_redirect_uri: DEPLOY_URL,
+  response_type: 'token id_token',
+  loadUserInfo: true,
+  automaticSilentRenew: true,
+  revokeAccessTokenOnSignout: true,
+}
 
 /**
  * Default vocabulary to include in each workspace
@@ -19,23 +53,3 @@ const nspp = ns(NS_PRACOVNI_PROSTOR)
 export const VOCABULARY_CONTEXT_READ_ONLY = nspp(
   'slovníkový-kontext-pouze-pro-čtení'
 )
-
-const URL = process.env.REACT_APP_URL || window.location.href
-
-const KEYCLOAK_URL = 'https://kbss.felk.cvut.cz:10808/auth'
-
-const KEYCLOAK_REALM = 'kodi-dev'
-
-const KEYCLOAK_CLIENT_ID = 'kodi-mission-control-dev'
-
-export const OIDC_CONFIG = {
-  authority: `${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}`,
-  client_id: KEYCLOAK_CLIENT_ID,
-  redirect_uri: URL,
-  silent_redirect_uri: URL,
-  post_logout_redirect_uri: URL,
-  response_type: 'token id_token',
-  loadUserInfo: true,
-  automaticSilentRenew: true,
-  revokeAccessTokenOnSignout: true,
-}

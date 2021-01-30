@@ -1,8 +1,12 @@
-const JWT_KEY = 'JWT'
+import { User } from 'oidc-client'
+import { OIDC_CONFIG } from 'app/variables'
 
-export const setToken = (jwt: string): void =>
-  localStorage.setItem(JWT_KEY, jwt)
+const OIDC_IDENTITY_STORAGE_KEY = `oidc.user:${OIDC_CONFIG.authority}:${OIDC_CONFIG.client_id}`
 
-export const getToken = (): string => localStorage.getItem(JWT_KEY) || ''
-
-export const removeToken = (): void => localStorage.removeItem(JWT_KEY)
+export const getToken = (): string => {
+  const identityData = sessionStorage.getItem(OIDC_IDENTITY_STORAGE_KEY)
+  const identity = identityData
+    ? JSON.parse(identityData)
+    : (null as User | null)
+  return `${identity?.token_type} ${identity?.access_token}`
+}
