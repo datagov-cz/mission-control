@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { useObservableSuspense } from 'observable-hooks'
+import FlexSearch from 'flexsearch'
 import {
   TextField,
   Box,
@@ -21,6 +22,14 @@ import {
   workspaceVocabulariesResource,
 } from 'data/vocabularies'
 import { workspaceResource } from 'data/workspaces'
+import removeDiacritics from 'utils/removeDiacritics'
+
+type IndexedVocabulary = {
+  id: number
+  normalizedLabel: string
+  normalizedIri: string
+  vocabulary: BaseVocabularyData
+}
 
 type ImportVocabularyFormProps = {
   setTabIndex: (index: number) => void
@@ -36,34 +45,77 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
     workspaceVocabulariesResource
   )
   const workspace = useObservableSuspense(workspaceResource)
-  const [needle, setNeedle] = useState('')
+
+  const [filteredVocabularies, setFilteredVocabularies] = useState<
+    BaseVocabularyData[]
+  >(vocabularies)
+
   const [
     selectedVocabulary,
     setSelectedVocabulary,
   ] = useState<BaseVocabularyData>()
 
-  const workspaceVocabulariesUris = workspaceVocabularies.map(
-    (vocabulary) => vocabulary.vocabulary
-  )
+  // Create a search index with fulltext search support optimized for tolerant matching
+  const flexSearch = useMemo(() => {
+    const index = FlexSearch.create<IndexedVocabulary>({
+      encode: 'extra',
+      tokenize: 'full',
+      threshold: 1,
+      resolution: 3,
+      doc: {
+        id: 'id',
+        field: ['normalizedLabel', 'normalizedIri'],
+      },
+    })
+    vocabularies.forEach((vocabulary, id) => {
+      index.add({
+        id,
+        normalizedLabel: removeDiacritics(vocabulary.label),
+        normalizedIri: removeDiacritics(vocabulary.basedOnVocabularyVersion),
+        vocabulary,
+      })
+    })
+    return index
+  }, [vocabularies])
 
-  const availableVocabularies = vocabularies.filter(
-    (vocabulary) =>
-      !workspaceVocabulariesUris.includes(vocabulary.basedOnVocabularyVersion)
-  )
-
-  // Look for matching vocabularies - both URI and label are considered
-  const needleRegex = new RegExp(needle, 'gi')
-  const filteredVocabularies = availableVocabularies.filter(
-    (vocabulary) =>
-      needleRegex.test(vocabulary.label) ||
-      needleRegex.test(vocabulary.basedOnVocabularyVersion)
+  // Filters out vocabularies that are already present in the workspace
+  const filterWorkspaceVocabularies = useCallback(
+    (someVocabularies: BaseVocabularyData[]) => {
+      const workspaceVocabulariesUris = workspaceVocabularies.map(
+        (vocabulary) => vocabulary.vocabulary
+      )
+      return someVocabularies.filter(
+        (vocabulary) =>
+          !workspaceVocabulariesUris.includes(
+            vocabulary.basedOnVocabularyVersion
+          )
+      )
+    },
+    [workspaceVocabularies]
   )
 
   // Handles search input changes
-  const handleNeedleChange = useCallback((event) => {
-    setNeedle(event.target.value)
-    setSelectedVocabulary(undefined)
-  }, [])
+  const handleSearchChange = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const term = removeDiacritics(event.target.value)
+      console.log(flexSearch.info())
+      console.log('TERM', term)
+      const matchedVocabularies = term
+        ? (await flexSearch.search(term)).map(
+            (indexedVocabulary) => indexedVocabulary.vocabulary
+          )
+        : vocabularies
+      console.log('MATCHED', matchedVocabularies)
+      const finalVocabularies = filterWorkspaceVocabularies(matchedVocabularies)
+      setFilteredVocabularies(finalVocabularies)
+    },
+    [
+      flexSearch,
+      vocabularies,
+      filterWorkspaceVocabularies,
+      setFilteredVocabularies,
+    ]
+  )
 
   // Handles selecting a vocabulary from the list
   const handleVocabularyClick = useCallback(
@@ -96,7 +148,7 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
       <TextField
         autoComplete="off"
         label={t`search`}
-        onChange={handleNeedleChange}
+        onChange={handleSearchChange}
         autoFocus
         InputProps={{
           startAdornment: (
