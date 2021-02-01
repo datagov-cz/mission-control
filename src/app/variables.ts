@@ -18,7 +18,7 @@ export const API_URL = getEnv('API_URL')
 /**
  * App deploy URL base
  */
-export const DEPLOY_URL = getEnv('DEPLOY_URL')
+export const APP_URL = getEnv('APP_URL')
 
 /**
  * OIDC variables
@@ -29,9 +29,9 @@ const OIDC_CLIENT_ID = getEnv('OIDC_CLIENT_ID')
 export const OIDC_CONFIG = {
   authority: OIDC_AUTHORITY,
   client_id: OIDC_CLIENT_ID,
-  redirect_uri: DEPLOY_URL,
-  silent_redirect_uri: `${DEPLOY_URL}/oidc-silent-callback.html`,
-  post_logout_redirect_uri: DEPLOY_URL,
+  redirect_uri: APP_URL,
+  silent_redirect_uri: `${APP_URL}/oidc-silent-callback.html`,
+  post_logout_redirect_uri: APP_URL,
   response_type: 'token id_token',
   loadUserInfo: true,
   automaticSilentRenew: true,
