@@ -98,14 +98,11 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
   const handleSearchChange = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const term = removeDiacritics(event.target.value)
-      console.log(flexSearch.info())
-      console.log('TERM', term)
       const matchedVocabularies = term
         ? (await flexSearch.search(term)).map(
             (indexedVocabulary) => indexedVocabulary.vocabulary
           )
         : vocabularies
-      console.log('MATCHED', matchedVocabularies)
       const finalVocabularies = filterWorkspaceVocabularies(matchedVocabularies)
       setFilteredVocabularies(finalVocabularies)
     },
