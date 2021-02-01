@@ -18,7 +18,10 @@ export const API_URL = getEnv('API_URL')
 /**
  * App deploy URL base
  */
-export const APP_URL = getEnv('APP_URL')
+const CONTEXT = getEnv('CONTEXT')
+const PRODUCTION_URL = getEnv('PRODUCTION_URL')
+const DEVELOPMENT_URL = getEnv('DEVELOPMENT_URL')
+const APP_URL = CONTEXT === 'production' ? PRODUCTION_URL : DEVELOPMENT_URL
 
 /**
  * OIDC variables
