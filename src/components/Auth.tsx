@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import Oidc, { UserManager, User } from 'oidc-client'
 
-import { OIDC_CONFIG } from 'app/variables'
+import { generateRedirectUri, OIDC_CONFIG } from 'app/variables'
 import useThrow from 'hooks/useThrow'
 
 Oidc.Log.logger = console
@@ -18,20 +18,6 @@ type AuthContextProps = {
 }
 
 export const AuthContext = React.createContext<AuthContextProps | null>(null)
-
-const hasCodeInUrl = (location: Location): boolean => {
-  const hashParams = new URLSearchParams(location.hash.replace('#', '?'))
-
-  return (
-    hashParams.has('code') ||
-    hashParams.has('id_token') ||
-    hashParams.has('session_state') ||
-    hashParams.has('state')
-  )
-}
-
-const stripCodeFromUrl = ({ protocol, host, pathname }: Location): string =>
-  `${protocol}//${host}${pathname}`
 
 type AuthProps = PropsWithChildren<{
   location?: Location
@@ -49,20 +35,13 @@ const Auth: React.FC<AuthProps> = ({
   useEffect(() => {
     const getUser = async () => {
       try {
-        // Check if the user is returning back from OIDC
-        if (hasCodeInUrl(location)) {
-          await userManager.signinCallback()
-          const user = await userManager.getUser()
-          setUser(user)
-          history.replaceState({}, '', stripCodeFromUrl(location))
-          return
-        }
-
         // Try to get user information
         const user = await userManager.getUser()
         if (!user) {
           // User not authenticated -> trigger auth flow
-          await userManager.signinRedirect()
+          await userManager.signinRedirect({
+            redirect_uri: generateRedirectUri(location.href),
+          })
         } else {
           setUser(user)
         }

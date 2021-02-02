@@ -1,0 +1,18 @@
+<script>
+  try {
+    const searchParams = new URLSearchParams(window.location.search)
+    if (!searchParams.has('dispatch_uri')) {
+      throw Error('Missing parameter dispatch_uri')
+    }
+    const dispatchUri = searchParams.get('dispatch_uri')
+    // Only allow known domains to redirect to
+    const uriPattern = new RegExp(/^((https:\/\/(deploy-preview-[0-9]+--)?mission-control\.netlify\.app\/)|(http:\/\/localhost:[0-9]+\/))oidc-signin-callback\.html\?forward_uri=/)
+    if (!uriPattern.test(dispatchUri)) {
+      throw Error('Parameter dispatch_uri has an incorrect format')
+    }
+    const finalUri = `${dispatchUri}${window.location.hash}`
+    window.location.replace(finalUri)
+  } catch (error) {
+    console.error(error)
+  }
+</script>

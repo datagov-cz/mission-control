@@ -1,0 +1,16 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.10.1/oidc-client.js"></script>
+<script>
+  const mgr = new Oidc.UserManager()
+  mgr.signinRedirectCallback().then(() => {
+    const searchParams = new URLSearchParams(location.search)
+    if (!searchParams.has('forward_uri')) {
+      throw Error('Missing parameter forward_uri')
+    }
+    const forwardUri = searchParams.get('forward_uri')
+    const uriPattern = new RegExp(/^((https:\/\/(deploy-preview-[0-9]+--)?mission-control\.netlify\.app\/)|(http:\/\/localhost:[0-9]+\/))/)
+    if (!uriPattern.test(forwardUri)) {
+      throw Error('Parameter forward_uri has an incorrect format')
+    }
+    window.location.replace(forwardUri)
+  }).catch(console.error)
+</script>
