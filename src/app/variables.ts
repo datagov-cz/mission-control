@@ -45,7 +45,7 @@ export const OIDC_CONFIG = {
   client_id: OIDC_CLIENT_ID,
   redirect_uri: dispatchUri(APP_URL),
   silent_redirect_uri: silentUri(),
-  post_logout_redirect_uri: dispatchUri(APP_URL),
+  post_logout_redirect_uri: APP_URL,
   response_type: 'token id_token',
   loadUserInfo: true,
   automaticSilentRenew: true,
