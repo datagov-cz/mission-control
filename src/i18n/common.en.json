@@ -12,5 +12,7 @@
   "cancel": "Cancel",
   "errorRequired": "Required",
   "publicityFirstLine": "This application is maintained within project",
-  "publicitySecondLine": "OPZ no. CZ.03.4.74/0.0/0.0/15_025/0013983."
+  "publicitySecondLine": "OPZ no. CZ.03.4.74/0.0/0.0/15_025/0013983.",
+  "reportBug": "Report a bug",
+  "requestFeature": "Request a feature"
 }

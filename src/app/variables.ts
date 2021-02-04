@@ -58,6 +58,12 @@ export const generateRedirectUri = (forwardUri: string) =>
     : dispatchUri(forwardUri)
 
 /**
+ * Links to issue tracker regarding bugs and features
+ */
+export const BUG_TRACKER_URL = getEnv('BUG_TRACKER_URL')
+export const FEATURE_TRACKER_URL = getEnv('FEATURE_TRACKER_URL')
+
+/**
  * Default vocabulary to include in each workspace
  */
 export const DEFAULT_VOCABULARY_IRI = 'https://slovník.gov.cz/veřejný-sektor'
