@@ -12,5 +12,7 @@
   "cancel": "Zrušit",
   "errorRequired": "Prosím, vyplňte",
   "publicityFirstLine": "Tato aplikace je udržována v rámci projektu",
-  "publicitySecondLine": "OPZ č. CZ.03.4.74/0.0/0.0/15_025/0013983."
+  "publicitySecondLine": "OPZ č. CZ.03.4.74/0.0/0.0/15_025/0013983.",
+  "reportBug": "Nahlásit chybu",
+  "requestFeature": "Navrhnout úpravu"
 }

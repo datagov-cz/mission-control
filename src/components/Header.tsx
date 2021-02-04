@@ -10,8 +10,9 @@ import {
 
 import Icon from 'components/Icon'
 import t from 'components/i18n'
-import Identity from 'components/Identity'
+import Help from 'components/Help'
 import LanguageSelector from 'components/LanguageSelector'
+import Identity from 'components/Identity'
 
 const useStyles = makeStyles({
   root: {
@@ -37,6 +38,7 @@ const Header: React.FC = () => {
           flexBasis="20%"
           justifyContent="flex-end"
         >
+          <Help />
           <LanguageSelector />
           <Identity />
         </Box>
