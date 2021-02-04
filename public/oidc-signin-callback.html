@@ -7,10 +7,6 @@
       throw Error('Missing parameter forward_uri')
     }
     const forwardUri = searchParams.get('forward_uri')
-    const uriPattern = new RegExp(/^((https:\/\/(deploy-preview-[0-9]+--)?mission-control\.netlify\.app\/)|(http:\/\/localhost:[0-9]+\/))/)
-    if (!uriPattern.test(forwardUri)) {
-      throw Error('Parameter forward_uri has an incorrect format')
-    }
     window.location.replace(forwardUri)
   }).catch(console.error)
 </script>
