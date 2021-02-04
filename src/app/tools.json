@@ -2,11 +2,11 @@
   {
     "label": "TermIt",
     "key": "editTerms",
-    "url": "https://kbss.felk.cvut.cz/termit-kodi/#vocabularies"
+    "url": "http://slovník.gov.cz/modelujeme/v-nástroji/termit/#vocabularies"
   },
   {
     "label": "OntoGrapher",
     "key": "editRelations",
-    "url": "https://ontographer.netlify.app"
+    "url": "http://slovník.gov.cz/modelujeme/v-nástroji/ontographer"
   }
 ]
