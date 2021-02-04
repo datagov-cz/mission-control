@@ -2,11 +2,11 @@
   {
     "label": "TermIt",
     "key": "editTerms",
-    "url": "http://slovník.gov.cz/modelujeme/v-nástroji/termit/#vocabularies"
+    "url": "https://slovník.gov.cz/modelujeme/v-nástroji/termit/#vocabularies"
   },
   {
     "label": "OntoGrapher",
     "key": "editRelations",
-    "url": "http://slovník.gov.cz/modelujeme/v-nástroji/ontographer"
+    "url": "https://slovník.gov.cz/modelujeme/v-nástroji/ontographer"
   }
 ]
