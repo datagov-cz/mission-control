@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from 'app/variables'
+import classnames from 'classnames'
 import {
   Box,
   Button,
@@ -7,12 +7,11 @@ import {
   ClickAwayListener,
   Grow,
   makeStyles,
-  MenuItem,
-  MenuList,
-  Paper,
   Popper,
 } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
+
+import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from 'app/variables'
 
 import t from 'components/i18n'
 import theme from 'app/theme'
@@ -27,6 +26,10 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: theme.palette.warning.dark,
     },
+  },
+  arrow: {
+    padding: theme.spacing(0.5),
+    minWidth: theme.spacing(3),
   },
 })
 
@@ -51,7 +54,7 @@ const Help: React.FC = () => {
   }
 
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" position="relative">
       <ButtonGroup
         variant="contained"
         color="secondary"
@@ -63,7 +66,10 @@ const Help: React.FC = () => {
           target="_blank"
           className={classes.button}
         >{t`reportBug`}</Button>
-        <Button size="small" onClick={handleToggle} className={classes.button}>
+        <Button
+          onClick={handleToggle}
+          className={classnames(classes.button, classes.arrow)}
+        >
           <ArrowDropDown />
         </Button>
       </ButtonGroup>
@@ -71,6 +77,7 @@ const Help: React.FC = () => {
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
+        placement="bottom-start"
         transition
         disablePortal
       >
@@ -78,24 +85,22 @@ const Help: React.FC = () => {
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+              transformOrigin: 'center top',
             }}
           >
-            <Paper>
+            <Box my={0.5}>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu">
-                  <MenuItem
-                    onClick={handleClose}
-                    component="a"
-                    href={FEATURE_TRACKER_URL}
-                    target="_blank"
-                  >
-                    {t`requestFeature`}
-                  </MenuItem>
-                </MenuList>
+                <Button
+                  variant="contained"
+                  onClick={handleClose}
+                  href={FEATURE_TRACKER_URL}
+                  target="_blank"
+                  className={classes.button}
+                >
+                  {t`requestFeature`}
+                </Button>
               </ClickAwayListener>
-            </Paper>
+            </Box>
           </Grow>
         )}
       </Popper>
