@@ -25,19 +25,13 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
-        <Box display="flex" flexGrow="1" flexBasis="20%" alignItems="center">
+        <Box display="flex" alignItems="center">
           <IconButton edge="start" color="inherit">
             <Icon />
           </IconButton>
           <Typography variant="h6">{t`controlPanel`}</Typography>
         </Box>
-        <Box display="flex" flexGrow="1" flexBasis="auto"></Box>
-        <Box
-          display="flex"
-          flexGrow="1"
-          flexBasis="20%"
-          justifyContent="flex-end"
-        >
+        <Box display="flex" flexGrow="1" justifyContent="flex-end">
           <Help />
           <LanguageSelector />
           <Identity />
