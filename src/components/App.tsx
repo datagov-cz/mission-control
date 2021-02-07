@@ -10,7 +10,7 @@ import Snackbar from 'components/Snackbar'
 import RouteComponentRenderer from './RouteComponentRenderer'
 import { suspendResource } from 'data/suspend'
 import { ErrorBoundary } from 'react-error-boundary'
-import { Error500 } from './Errors'
+import { ErrorFallback } from './Errors'
 import Router from './Router'
 import Title from './Title'
 
@@ -27,7 +27,7 @@ const App: React.FC = () => (
           <Title />
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <ErrorBoundary FallbackComponent={Error500}>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Suspense fallback={'...'}>
                 <SuspendHelper />
                 <RouteComponentRenderer />

@@ -4,6 +4,7 @@
   "en": "English",
   "pageNotFound": "Stránka nenalezena",
   "somethingWentWrong": "Něco se pokazilo",
+  "somethingWentWrongWithApi": "Něco se pokazilo s API",
   "notAuthorized": "Nedostatečné oprávnění",
   "username": "Uživatelské jméno",
   "password": "Heslo",
