@@ -4,6 +4,7 @@
   "en": "English",
   "pageNotFound": "Page not found",
   "somethingWentWrong": "Something went wrong",
+  "somethingWentWrongWithApi": "Something went wrong with API",
   "notAuthorized": "Not authorized",
   "username": "Username",
   "password": "Password",

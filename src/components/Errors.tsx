@@ -1,4 +1,5 @@
 import React from 'react'
+import { AjaxError } from 'rxjs/ajax'
 import { Box, IconButton, styled, Typography } from '@material-ui/core'
 
 import Icon from 'components/Icon'
@@ -13,26 +14,52 @@ const BackdropGradient = styled(Box)({
   justifyContent: 'center',
 })
 
-type ErrorProps = {
+type ErrorPageProps = {
   code: number
   message: string
 }
 
-const ErrorPage: React.FC<ErrorProps> = ({ code, message }) => (
-  <BackdropGradient color="white">
-    <Box p={2} display="flex" alignItems="center">
-      <IconButton color="inherit">
-        <Icon />
-      </IconButton>
-      <Typography variant="h6">{t`controlPanel`}</Typography>
-    </Box>
-    <Typography variant="h1">{code}</Typography>
-    <Typography variant="h3">{t(message)}</Typography>
-  </BackdropGradient>
-)
+const ErrorPage: React.FC<ErrorPageProps> = ({ code, message, children }) => {
+  return (
+    <BackdropGradient color="white">
+      <Box p={2} display="flex" alignItems="center">
+        <IconButton color="inherit">
+          <Icon />
+        </IconButton>
+        <Typography variant="h6">{t`controlPanel`}</Typography>
+      </Box>
+      <Typography variant="h1">{code}</Typography>
+      <Typography variant="h3">{t(message)}</Typography>
+      {children && (
+        <Box maxWidth={500} margin={4}>
+          {children}
+        </Box>
+      )}
+    </BackdropGradient>
+  )
+}
 
 export const Error404 = () => <ErrorPage code={404} message={'pageNotFound'} />
 
-export const Error500 = () => (
-  <ErrorPage code={500} message={'somethingWentWrong'} />
-)
+type ErrorFallbackProps = {
+  error: Error | AjaxError
+}
+
+export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
+  const isAjax = error instanceof AjaxError
+  if (!isAjax) {
+    return <ErrorPage code={500} message={'somethingWentWrong'} />
+  }
+  const ajaxError = error as AjaxError
+  const responseJson = ajaxError.xhr.response
+  return (
+    <ErrorPage code={ajaxError.status} message={'somethingWentWrongWithApi'}>
+      <Typography paragraph style={{ fontFamily: 'monospace' }}>
+        {ajaxError.request.method} {ajaxError.request.url}
+      </Typography>
+      <Typography style={{ fontFamily: 'monospace' }}>
+        {responseJson.message}
+      </Typography>
+    </ErrorPage>
+  )
+}

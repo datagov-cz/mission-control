@@ -6,14 +6,14 @@ import Footer from './Footer'
 import BackdropGrey from './BackdropGrey'
 import RouteComponentRenderer from './RouteComponentRenderer'
 import { ErrorBoundary } from 'react-error-boundary'
-import { Error500 } from './Errors'
+import { ErrorFallback } from './Errors'
 
 const MainLayout: React.FC = () => {
   return (
     <BackdropGrey>
       <Header />
       <Box display="flex" flexGrow="1" flexDirection="column">
-        <ErrorBoundary FallbackComponent={Error500}>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<></>}>
             <RouteComponentRenderer />
           </Suspense>
