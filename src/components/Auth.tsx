@@ -37,7 +37,7 @@ const Auth: React.FC<AuthProps> = ({
       try {
         // Try to get user information
         const user = await userManager.getUser()
-        if (!user) {
+        if (!user || user.expired) {
           // User not authenticated -> trigger auth flow
           await userManager.signinRedirect({
             redirect_uri: generateRedirectUri(location.href),
@@ -65,8 +65,28 @@ const Auth: React.FC<AuthProps> = ({
 
     userManager.events.addUserLoaded(updateUserData)
 
+    // Unsubscribe on component unmount
     return () => userManager.events.removeUserLoaded(updateUserData)
   }, [throwError, setUser])
+
+  useEffect(() => {
+    // Force log in if session cannot be renewed on background
+    const handleSilentRenewError = async (error: Error) => {
+      try {
+        await userManager.signinRedirect({
+          redirect_uri: generateRedirectUri(location.href),
+        })
+      } catch (error) {
+        throwError(error)
+      }
+    }
+
+    userManager.events.addSilentRenewError(handleSilentRenewError)
+
+    // Unsubscribe on component unmount
+    return () =>
+      userManager.events.removeSilentRenewError(handleSilentRenewError)
+  }, [location, throwError, setUser])
 
   const logout = useCallback(() => {
     const handleLogout = async () => {
