@@ -8,21 +8,27 @@ import { Button, ButtonProps } from '@material-ui/core'
 
 type SubmitButtonProps = Omit<ButtonProps, 'onClick'> & {
   onClick: (data: any) => void
+  pending?: React.ReactNode
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, ...rest }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  onClick,
+  pending,
+  children,
+  ...rest
+}) => {
   const { handleSubmit } = useFormContext()
   const [startTransition, isPending] = useTransition({
     timeoutMs: 5000,
   } as SuspenseConfig)
 
   const combinedOnSubmit = useCallback(() => {
-    if (onClick) {
+    handleSubmit((data) => {
       startTransition(() => {
-        handleSubmit(onClick)()
+        onClick(data)
       })
-    }
-  }, [handleSubmit, onClick])
+    })()
+  }, [onClick, handleSubmit])
 
   return (
     <Button
@@ -32,6 +38,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, ...rest }) => {
       size="large"
       onClick={combinedOnSubmit}
       disabled={isPending}
+      children={isPending && pending ? pending : children}
       {...rest}
     />
   )
