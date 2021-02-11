@@ -9,6 +9,7 @@
   "addWorkspaceSuccess": "Workspace was created",
   "addWorkspaceError": "Workspace cannot be created",
   "editWorkspace": "Edit workspace",
+  "editingWorkspace": "Editing workspace...",
   "editWorkspaceSuccess": "Workspace was updated",
   "editWorkspaceError": "Workspace could not be updated",
   "deleteWorkspace": "Delete workspace",

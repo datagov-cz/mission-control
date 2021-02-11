@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react'
+import { of } from 'rxjs'
+import { switchMap, tap, finalize } from 'rxjs/operators'
 
 import { EditWorkspacePayload, Workspace } from '@types'
 
@@ -6,11 +8,8 @@ import t from 'components/i18n'
 import FormDialog from 'components/form/FormDialog'
 import TextField from 'components/form/TextField'
 import Hidden from 'components/form/Hidden'
-import {
-  editWorkspace,
-  fetchWorkspace,
-  invalidateWorkspace,
-} from 'data/workspaces'
+import { editWorkspace, fetchWorkspace } from 'data/workspaces'
+import { suspend, unSuspend } from 'data/suspend'
 
 type EditWorkspaceFormProps = {
   isOpen: boolean
@@ -25,13 +24,17 @@ const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
 }) => {
   const onSubmit = useCallback(
     (data: EditWorkspacePayload) => {
-      invalidateWorkspace()
-      editWorkspace(data).subscribe(() => {
-        fetchWorkspace(workspace.id)
-        onClose()
-      })
+      of(null)
+        .pipe(
+          tap(suspend),
+          switchMap(() => editWorkspace(data)),
+          switchMap(() => fetchWorkspace(workspace.id)),
+          finalize(unSuspend),
+          finalize(onClose)
+        )
+        .subscribe()
     },
-    [workspace, onClose]
+    [workspace.id, onClose]
   )
 
   return (
@@ -40,6 +43,7 @@ const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
       onClose={onClose}
       title={t`editWorkspace`}
       submitLabel={t`editWorkspace`}
+      submitPendingLabel={t`editingWorkspace`}
       onSubmit={onSubmit}
     >
       <Hidden name="uri" value={workspace.uri} />

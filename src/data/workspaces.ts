@@ -1,5 +1,13 @@
 import { Subject, Observable } from 'rxjs'
-import { map, switchMap, mapTo, startWith } from 'rxjs/operators'
+import {
+  map,
+  switchMap,
+  mapTo,
+  startWith,
+  share,
+  filter,
+  take,
+} from 'rxjs/operators'
 import { ObservableResource } from 'observable-hooks'
 
 import {
@@ -72,8 +80,8 @@ const workspaceResource$$ = fetchWorkspace$$.pipe(
       map((data) => data as WorkspaceData | null),
       map((data) => (data ? convertWorkspaceDataToWorkspace(data) : null))
     )
-  )
-  // share() TODO: revise this
+  ),
+  share()
 )
 
 export const workspaceResource = new ObservableResource<Workspace>(
@@ -83,10 +91,11 @@ export const workspaceResource = new ObservableResource<Workspace>(
 
 export const fetchWorkspace = (workspaceId: Id) => {
   fetchWorkspace$$.next(workspaceId)
-}
-
-export const invalidateWorkspace = () => {
-  workspaceResource.reload()
+  return workspaceResource$$.pipe(
+    filter((workspace) => workspace !== null),
+    map((workspace) => workspace as Workspace),
+    take(1)
+  )
 }
 
 export const addWorkspace = (payload: AddWorkspacePayload) =>
