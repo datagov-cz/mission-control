@@ -14,7 +14,11 @@ import { ErrorFallback } from './Errors'
 import Router from './Router'
 import Title from './Title'
 
-const SuspendHelper: React.FC = () => {
+/**
+ * This component prevents React immediate render if the suspend resource is true
+ * The suspend value is to be set / unset while doing AJAX calls
+ */
+const Suspender: React.FC = () => {
   useObservableSuspense(suspendResource)
   return null
 }
@@ -28,8 +32,10 @@ const App: React.FC = () => (
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense fallback={'...'}>
-                <SuspendHelper />
+              <Suspense fallback={null}>
+                <Suspender />
+              </Suspense>
+              <Suspense fallback={null}>
                 <RouteComponentRenderer />
               </Suspense>
               <Snackbar />
