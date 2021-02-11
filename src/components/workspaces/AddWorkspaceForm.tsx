@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { tap, switchMap } from 'rxjs/operators'
 import { useRouter } from 'react-router5'
 
 import { AddWorkspacePayload } from '@types'
@@ -9,6 +10,7 @@ import FormDialog, { FormDialogProps } from 'components/form/FormDialog'
 import TextField from 'components/form/TextField'
 
 import { addWorkspace } from 'data/workspaces'
+import { execute } from 'utils/epic'
 
 type AddWorkspaceFormProps = Pick<FormDialogProps, 'isOpen' | 'onClose'>
 
@@ -16,8 +18,9 @@ const AddWorkspaceForm: React.FC<AddWorkspaceFormProps> = (props) => {
   const router = useRouter()
   const onSubmit = useCallback(
     (data: AddWorkspacePayload) => {
-      addWorkspace(data).subscribe((id) =>
-        router.navigate(Routes.Workspace, { id })
+      execute(
+        switchMap(() => addWorkspace(data)),
+        tap((id) => router.navigate(Routes.Workspace, { id }))
       )
     },
     [router]
