@@ -1,12 +1,16 @@
+import { Observable, Subject } from 'rxjs'
 import {
+  filter,
   map,
   mapTo,
   mergeMap,
   share,
   startWith,
   switchMap,
+  take,
   throttleTime,
 } from 'rxjs/operators'
+import { ObservableResource } from 'observable-hooks'
 
 import {
   AddVocabularyPayload,
@@ -28,8 +32,6 @@ import {
   getVocabularyUrl,
   getWorkspaceVocabulariesUrl,
 } from './api'
-import { Observable, Subject } from 'rxjs'
-import { ObservableResource } from 'observable-hooks'
 
 export const convertVocabularyDataToVocabulary = (
   data: VocabularyData
@@ -85,6 +87,11 @@ export const workspaceVocabulariesResource = new ObservableResource<
 
 export const fetchWorkspaceVocabularies = (workspaceId: Id) => {
   fetchWorkspaceVocabularies$$.next(workspaceId)
+  return workspaceVocabulariesResource$$.pipe(
+    filter((vocabularies) => vocabularies !== null),
+    map((vocabularies) => vocabularies as Vocabulary[]),
+    take(1)
+  )
 }
 
 export const addVocabulary = (payload: AddVocabularyPayload) =>
@@ -96,15 +103,15 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
       payload.label
     )
   ).pipe(
-    handleSuccess('workspaces.addVocabularySuccess'),
+    handleSuccess('vocabularies.addVocabularySuccess'),
     mapTo(payload),
-    handleError('workspaces.addVocabularyError')
+    handleError('vocabularies.addVocabularyError')
   )
 
 export const deleteVocabulary = (payload: DeleteVocabularyPayload) =>
   del(getVocabularyUrl(payload.workspaceId, payload.vocabularyId)).pipe(
-    handleSuccess('workspaces.deleteVocabularySuccess'),
-    handleError('workspaces.deleteVocabularyError')
+    handleSuccess('vocabularies.deleteVocabularySuccess'),
+    handleError('vocabularies.deleteVocabularyError')
   )
 
 export const updateVocabulary = (payload: UpdateVocabularyPayload) =>
@@ -118,9 +125,9 @@ export const updateVocabulary = (payload: UpdateVocabularyPayload) =>
           payload.vocabulary.label
         )
       ).pipe(
-        handleSuccess('workspaces.updateVocabularySuccess'),
-        handleError('workspaces.updateVocabularyError')
+        handleSuccess('vocabularies.updateVocabularySuccess'),
+        handleError('vocabularies.updateVocabularyError')
       )
     ),
-    handleError('workspaces.updateVocabularyError')
+    handleError('vocabularies.updateVocabularyError')
   )
