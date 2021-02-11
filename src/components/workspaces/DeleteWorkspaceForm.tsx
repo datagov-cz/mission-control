@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
-import { of } from 'rxjs'
-import { tap, switchMap, finalize } from 'rxjs/operators'
+import { switchMap, finalize } from 'rxjs/operators'
 import { useRouter } from 'react-router5'
 import { Typography } from '@material-ui/core'
 
@@ -12,7 +11,7 @@ import FormDialog, { FormDialogProps } from 'components/form/FormDialog'
 import TextField from 'components/form/TextField'
 import Hidden from 'components/form/Hidden'
 import { deleteWorkspace } from 'data/workspaces'
-import { suspend, unSuspend } from 'data/suspend'
+import { execute } from 'utils/epic'
 
 type DeleteWorkspaceFormProps = Pick<FormDialogProps, 'isOpen' | 'onClose'> & {
   workspace: Workspace
@@ -25,14 +24,10 @@ const DeleteWorkspaceForm: React.FC<DeleteWorkspaceFormProps> = ({
   const router = useRouter()
   const onSubmit = useCallback(
     (data: DeleteWorkspacePayload) =>
-      of(null)
-        .pipe(
-          tap(suspend),
-          switchMap(() => deleteWorkspace(data)),
-          finalize(unSuspend),
-          finalize(() => router.navigate(Routes.Workspaces))
-        )
-        .subscribe(),
+      execute(
+        switchMap(() => deleteWorkspace(data)),
+        finalize(() => router.navigate(Routes.Workspaces))
+      ),
     [router]
   )
 

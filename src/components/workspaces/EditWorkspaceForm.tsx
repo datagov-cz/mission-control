@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
-import { of } from 'rxjs'
-import { switchMap, tap, finalize } from 'rxjs/operators'
+import { switchMap, finalize } from 'rxjs/operators'
 
 import { EditWorkspacePayload, Workspace } from '@types'
 
@@ -9,7 +8,7 @@ import FormDialog from 'components/form/FormDialog'
 import TextField from 'components/form/TextField'
 import Hidden from 'components/form/Hidden'
 import { editWorkspace, fetchWorkspace } from 'data/workspaces'
-import { suspend, unSuspend } from 'data/suspend'
+import { execute } from 'utils/epic'
 
 type EditWorkspaceFormProps = {
   isOpen: boolean
@@ -24,15 +23,11 @@ const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
 }) => {
   const onSubmit = useCallback(
     (data: EditWorkspacePayload) => {
-      of(null)
-        .pipe(
-          tap(suspend),
-          switchMap(() => editWorkspace(data)),
-          switchMap(() => fetchWorkspace(workspace.id)),
-          finalize(unSuspend),
-          finalize(onClose)
-        )
-        .subscribe()
+      execute(
+        switchMap(() => editWorkspace(data)),
+        switchMap(() => fetchWorkspace(workspace.id)),
+        finalize(onClose)
+      )
     },
     [workspace.id, onClose]
   )
