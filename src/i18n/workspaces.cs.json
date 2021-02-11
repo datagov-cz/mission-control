@@ -11,6 +11,7 @@
   "editWorkspaceSuccess": "Pracovní prostor upraven",
   "editWorkspaceError": "Nepodařilo se upravit pracovní prostor",
   "deleteWorkspace": "Smazat pracovní prostor",
+  "deletingWorkspace": "Mažu pracovní prostor...",
   "deleteWorkspaceSuccess": "Pracovní prostor smazán",
   "deleteWorkspaceError": "Nepodařilo se smazat pracovní prostor",
   "fillInWorkspaceLabel": "Vyplňte název pracovního prostoru ''{label}'' do pole níže",

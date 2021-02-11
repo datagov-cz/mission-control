@@ -6,14 +6,12 @@ import { DeleteWorkspacePayload, Workspace } from '@types'
 import Routes from 'app/routes'
 
 import t from 'components/i18n'
-import FormDialog from 'components/form/FormDialog'
+import FormDialog, { FormDialogProps } from 'components/form/FormDialog'
 import TextField from 'components/form/TextField'
 import Hidden from 'components/form/Hidden'
 import { deleteWorkspace } from 'data/workspaces'
 
-type DeleteWorkspaceFormProps = {
-  isOpen: boolean
-  onClose: () => void
+type DeleteWorkspaceFormProps = Pick<FormDialogProps, 'isOpen' | 'onClose'> & {
   workspace: Workspace
 }
 
@@ -33,6 +31,7 @@ const DeleteWorkspaceForm: React.FC<DeleteWorkspaceFormProps> = ({
       {...props}
       title={t`deleteWorkspace`}
       submitLabel={t`deleteWorkspace`}
+      submitPendingLabel={t`deletingWorkspace`}
       onSubmit={onSubmit}
     >
       <Hidden name="uri" value={workspace.uri} />
@@ -49,6 +48,7 @@ const DeleteWorkspaceForm: React.FC<DeleteWorkspaceFormProps> = ({
               value === workspace.label || 'workspaceLabelDoesNotMatch',
           },
         }}
+        autoFocus
       />
     </FormDialog>
   )

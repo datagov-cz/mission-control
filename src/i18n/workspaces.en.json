@@ -11,6 +11,7 @@
   "editWorkspaceSuccess": "Workspace was updated",
   "editWorkspaceError": "Workspace could not be updated",
   "deleteWorkspace": "Delete workspace",
+  "deletingWorkspace": "Deleting workspace...",
   "deleteWorkspaceSuccess": "Workspace was deleted",
   "deleteWorkspaceError": "Workspace could not be deleted",
   "fillInWorkspaceLabel": "Fill-in the workspace name ''{label}'' to the field below",
