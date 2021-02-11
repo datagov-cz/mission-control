@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { ajax, AjaxResponse, AjaxRequest } from 'rxjs/ajax'
-import { map, tap } from 'rxjs/operators'
+import { map, switchMap, tap } from 'rxjs/operators'
 
 import { API_URL } from 'app/variables'
 import { getToken } from './auth'
@@ -15,6 +15,10 @@ const prefixWithApiUrl = (apiPathOrUrl: string) =>
     ? `${API_URL}${apiPathOrUrl}`
     : apiPathOrUrl
 
+/**
+ * Returns an observable of AjaxRequest, sets the suspend flag
+ * to active during the request if specified
+ */
 export const request = (
   request: AjaxRequest,
   useSuspense: boolean = false
@@ -28,9 +32,19 @@ export const request = (
     },
   }
 
-  useSuspense && suspend()
-
-  return ajax(secureRequest).pipe(tap(() => useSuspense && unSuspend))
+  return of(null).pipe(
+    tap(() => {
+      if (useSuspense) {
+        suspend()
+      }
+    }),
+    switchMap(() => ajax(secureRequest)),
+    tap(() => {
+      if (useSuspense) {
+        unSuspend()
+      }
+    })
+  )
 }
 
 export const get = (

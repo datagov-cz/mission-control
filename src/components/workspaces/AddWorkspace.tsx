@@ -15,7 +15,7 @@ const AddWorkspace: React.FC<{}> = () => {
         <AddIcon />
         {t`addWorkspace`}
       </Fab>
-      <AddWorkspaceForm isOpen={isOpen} handleClose={close} />
+      <AddWorkspaceForm isOpen={isOpen} onClose={close} />
     </>
   )
 }
