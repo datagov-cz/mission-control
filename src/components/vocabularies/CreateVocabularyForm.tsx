@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
+import { finalize, switchMap } from 'rxjs/operators'
 import { useForm } from 'react-hook-form'
-import { useObservableSuspense } from 'observable-hooks'
 import {
   FormControlLabel,
   FormControl,
@@ -10,7 +10,7 @@ import {
   Box,
 } from '@material-ui/core'
 
-import { AddVocabularyPayload } from '@types'
+import { AddVocabularyPayload, Workspace } from '@types'
 import vocabularyTypes from 'app/vocabularyTypes.json'
 
 import t from 'components/i18n'
@@ -19,27 +19,28 @@ import Form from 'components/form/Form'
 import Hidden from 'components/form/Hidden'
 import FormTextField from 'components/form/TextField'
 import { addVocabulary, fetchWorkspaceVocabularies } from 'data/vocabularies'
-import { workspaceResource } from 'data/workspaces'
+import { execute } from 'utils/epic'
 
 type CreateVocabularyFormProps = {
+  workspace: Workspace
   onClose: () => void
 }
 
 const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
+  workspace,
   onClose,
 }) => {
-  const workspace = useObservableSuspense(workspaceResource)
-
   const form = useForm()
 
   const onSubmit = useCallback(
     (payload: AddVocabularyPayload) => {
-      addVocabulary(payload).subscribe(() => {
-        fetchWorkspaceVocabularies(workspace.id)
-        onClose()
-      })
+      execute(
+        switchMap(() => addVocabulary(payload)),
+        switchMap(() => fetchWorkspaceVocabularies(workspace.id)),
+        finalize(onClose)
+      )
     },
-    [onClose, workspace]
+    [workspace, onClose]
   )
 
   const [vocabularyTypeLabel, setVocabularyType] = useState(
@@ -65,7 +66,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
 
   return (
     <>
-      <Box my={1} />
+      <Box py={1} />
       <FormControl component="fieldset">
         <FormLabel component="legend">{t`vocabularyType`}</FormLabel>
         <RadioGroup
@@ -105,7 +106,10 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
             required: 'common.errorRequired',
           }}
         />
-        <SubmitButton onClick={onSubmit}>{t`addVocabulary`}</SubmitButton>
+        <SubmitButton
+          onClick={onSubmit}
+          pending={t`addingVocabulary`}
+        >{t`addVocabulary`}</SubmitButton>
       </Form>
     </>
   )

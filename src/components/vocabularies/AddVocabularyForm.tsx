@@ -1,17 +1,12 @@
-import React from 'react'
-import {
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Tabs,
-  Tab,
-  Button,
-} from '@material-ui/core'
+import React, { useCallback } from 'react'
+import { useObservableSuspense } from 'observable-hooks'
+import { Box, Tabs, Tab } from '@material-ui/core'
 
 import t from 'components/i18n'
+import Dialog from 'components/form/Dialog'
 import ImportVocabularyForm from 'components/vocabularies/ImportVocabularyForm'
 import CreateVocabularyForm from 'components/vocabularies/CreateVocabularyForm'
+import { workspaceResource } from 'data/workspaces'
 
 type TabPanelProps = {
   index: number
@@ -34,33 +29,37 @@ const AddVocabularyForm: React.FC<AddVocabularyFormProps> = ({
   isOpen,
   onClose,
 }) => {
+  const workspace = useObservableSuspense(workspaceResource)
+
   const [tabIndex, setTabIndex] = React.useState(0)
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setTabIndex(newValue)
-  }
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<{}>, newValue: number) => {
+      setTabIndex(newValue)
+    },
+    [setTabIndex]
+  )
 
   return (
-    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>{t`addVocabulary`}</DialogTitle>
-      <DialogContent>
-        <Tabs value={tabIndex} onChange={handleChange} variant="fullWidth">
-          <Tab label={t`importVocabulary`} />
-          <Tab label={t`createVocabulary`} />
-        </Tabs>
-        <Box style={{ height: 480 }}>
-          <TabPanel index={0} currentIndex={tabIndex}>
-            <ImportVocabularyForm setTabIndex={setTabIndex} onClose={onClose} />
-          </TabPanel>
-          <TabPanel index={1} currentIndex={tabIndex}>
-            <CreateVocabularyForm onClose={onClose} />
-          </TabPanel>
-        </Box>
-        <Box my={1} />
-        <Button onClick={onClose} color="primary" fullWidth size="large">
-          {t`common.cancel`}
-        </Button>
-        <Box my={1} />
-      </DialogContent>
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t`addVocabulary`}
+      maxWidth="sm"
+    >
+      <Tabs value={tabIndex} onChange={handleChange} variant="fullWidth">
+        <Tab label={t`importVocabulary`} />
+        <Tab label={t`createVocabulary`} />
+      </Tabs>
+      <Box style={{ height: 480 }}>
+        <TabPanel index={0} currentIndex={tabIndex}>
+          <ImportVocabularyForm setTabIndex={setTabIndex} onClose={onClose} />
+        </TabPanel>
+        <TabPanel index={1} currentIndex={tabIndex}>
+          <CreateVocabularyForm workspace={workspace} onClose={onClose} />
+        </TabPanel>
+      </Box>
+      <Box my={1} />
     </Dialog>
   )
 }
