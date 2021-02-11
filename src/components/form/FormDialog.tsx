@@ -7,12 +7,14 @@ import SubmitButton from './SubmitButton'
 
 export type FormDialogProps = DialogProps & {
   submitLabel: ReactNode
+  submitPendingLabel?: ReactNode
   onSubmit: (data: any) => void
 }
 
 const FormDialog: React.FC<FormDialogProps> = ({
   children,
   submitLabel,
+  submitPendingLabel,
   onSubmit,
   ...props
 }) => {
@@ -21,7 +23,9 @@ const FormDialog: React.FC<FormDialogProps> = ({
       <Dialog {...props}>
         {children}
         <Box my={3} />
-        <SubmitButton onClick={onSubmit}>{submitLabel}</SubmitButton>
+        <SubmitButton onClick={onSubmit} pending={submitPendingLabel}>
+          {submitLabel}
+        </SubmitButton>
         <Box my={2} />
       </Dialog>
     </Form>
