@@ -43,6 +43,9 @@ const theme = createMuiTheme({
     MuiInputLabel: {
       required: false, // Hides asterisk in labels for required fields by default
     },
+    MuiButtonBase: {
+      centerRipple: true,
+    },
   },
 })
 
