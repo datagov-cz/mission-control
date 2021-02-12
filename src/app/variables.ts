@@ -1,9 +1,11 @@
+import { Components } from '@types'
+
 /**
  * Helper to make sure that all envs are defined properly
  * @param name env variable name
  */
-const getEnv = (name: string): string => {
-  const value = process.env[`REACT_APP_${name}`]
+const getEnv = (name: string, defaultValue?: string): string => {
+  const value = process.env[`REACT_APP_${name}`] || defaultValue
   if (value) {
     return value
   }
@@ -11,32 +13,61 @@ const getEnv = (name: string): string => {
 }
 
 /**
- * API URL base
+ * Environment spec - production or development
  */
-export const API_URL = getEnv('API_URL')
+export const ENV = getEnv('ENV')
+
+/**
+ * Stable ID of the application
+ */
+export const ID = getEnv('ID')
 
 /**
  * App deploy URL base
  */
-const CONTEXT = getEnv('CONTEXT')
-const PRODUCTION_URL = getEnv('PRODUCTION_URL')
-const DEVELOPMENT_URL = getEnv('DEVELOPMENT_URL')
-const APP_URL = CONTEXT === 'production' ? PRODUCTION_URL : DEVELOPMENT_URL
+export const URL = (() => {
+  if (getEnv('NETLIFY', 'false') === 'false') {
+    // Not running on Netlify
+    return getEnv('URL')
+  } else if (getEnv('NETLIFY_CONTEXT') === 'production') {
+    // Main production instance on Netlify
+    return getEnv('NETLIFY_URL')
+  } else {
+    // Deploy preview or branch deploy on Netlify
+    return getEnv('NETLIFY_DEPLOY_PRIME_URL')
+  }
+})()
+
+/**
+ * Components configuration
+ */
+export const COMPONENTS: Components = (() => {
+  const base64String = getEnv('COMPONENTS')
+  try {
+    const jsonString = atob(base64String)
+    return JSON.parse(jsonString)
+  } catch (error: any) {
+    console.error(error)
+    throw new Error('Unable to decode COMPONENTS configuration')
+  }
+})()
+
+/**
+ * API URL base
+ */
+export const API_URL = COMPONENTS['sgov-service'].url
 
 /**
  * OIDC variables
  */
-const OIDC_AUTHORITY = getEnv('OIDC_AUTHORITY')
-const OIDC_CLIENT_ID = getEnv('OIDC_CLIENT_ID')
-
 export const OIDC_CONFIG = {
-  authority: OIDC_AUTHORITY,
-  client_id: OIDC_CLIENT_ID,
-  redirect_uri: `${APP_URL}/oidc-signin-callback.html?forward_uri=${encodeURI(
-    APP_URL
+  authority: COMPONENTS.auth.url,
+  client_id: ID,
+  redirect_uri: `${URL}/oidc-signin-callback.html?forward_uri=${encodeURI(
+    URL
   )}`,
-  silent_redirect_uri: `${APP_URL}/oidc-silent-callback.html`,
-  post_logout_redirect_uri: APP_URL,
+  silent_redirect_uri: `${URL}/oidc-silent-callback.html`,
+  post_logout_redirect_uri: URL,
   response_type: 'code',
   loadUserInfo: true,
   automaticSilentRenew: true,
@@ -44,13 +75,13 @@ export const OIDC_CONFIG = {
 }
 
 export const generateRedirectUri = (forwardUri: string) =>
-  `${APP_URL}/oidc-signin-callback.html?forward_uri=${encodeURI(forwardUri)}`
+  `${URL}/oidc-signin-callback.html?forward_uri=${encodeURI(forwardUri)}`
 
 /**
  * Links to issue tracker regarding bugs and features
  */
-export const BUG_TRACKER_URL = getEnv('BUG_TRACKER_URL')
-export const FEATURE_TRACKER_URL = getEnv('FEATURE_TRACKER_URL')
+export const BUG_TRACKER_URL = COMPONENTS['issue-tracker'].meta.newBug
+export const FEATURE_TRACKER_URL = COMPONENTS['issue-tracker'].meta.newFeature
 
 /**
  * Default vocabulary to include in each workspace
