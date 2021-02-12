@@ -25,6 +25,7 @@
   "deleteVocabularySuccess": "The vocabulary was deleted",
   "deleteVocabularyError": "The vocabulary cannot be deleted",
   "update": "Update",
+  "updating": "Updating...",
   "updateVocabularySuccess": "The vocabulary was updated",
   "updateVocabularyError": "The vocabulary cannot be updated"
 }

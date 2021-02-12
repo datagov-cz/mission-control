@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
+import { switchMap } from 'rxjs/operators'
 import { Tooltip } from '@material-ui/core'
 import SecurityIcon from '@material-ui/icons/Security'
 import EditIcon from '@material-ui/icons/Edit'
@@ -16,6 +17,7 @@ import {
   workspaceVocabulariesResource,
 } from 'data/vocabularies'
 import { workspaceResource } from 'data/workspaces'
+import { execute } from 'utils/epic'
 
 const TitleColumn = (rowData: Vocabulary) => (
   <>
@@ -78,8 +80,9 @@ const VocabulariesTable: React.FC = () => {
 
   const onUpdate = useCallback((vocabulary: Vocabulary) => {
     const workspace = workspaceResource.read()
-    updateVocabulary({ workspace, vocabulary }).subscribe(() =>
-      fetchWorkspaceVocabularies(workspace.id)
+    execute(
+      switchMap(() => updateVocabulary({ workspace, vocabulary })),
+      switchMap(() => fetchWorkspaceVocabularies(workspace.id))
     )
   }, [])
 

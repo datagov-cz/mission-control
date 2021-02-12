@@ -25,6 +25,7 @@
   "deleteVocabularySuccess": "Slovník smazán",
   "deleteVocabularyError": "Nepodařilo se smazat slovník",
   "update": "Aktualizovat",
+  "updating": "Aktualizuji...",
   "updateVocabularySuccess": "Slovník aktualizován",
   "updateVocabularyError": "Nepodařilo se aktualizovat slovník"
 }
