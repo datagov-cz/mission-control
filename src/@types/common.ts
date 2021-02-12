@@ -37,3 +37,20 @@ export type RouteTransition = {
   route: Route
   previousRoute: Route | null
 }
+
+type Component<T = {}> = {
+  name: string
+  url: string
+  meta: T
+}
+
+export type Components = {
+  'sgov-service': Component
+  db: Component
+  auth: Component
+  ontographer: Component<{ workspacePath: string }>
+  'termit-backend': Component
+  termit: Component<{ workspacePath: string }>
+  'mission-control': Component
+  'issue-tracker': Component<{ newBug: string; newFeature: string }>
+}
