@@ -1,0 +1,14 @@
+# docker-compose up --env-file=.env.docker
+
+version: '3.9'
+services:
+  mission-control:
+    build:
+      context: .
+      args:
+        ENV: ${ENV}
+        ID: ${ID}
+        URL: ${URL}
+        COMPONENTS: ${COMPONENTS}
+    ports:
+      - '8080:80'
