@@ -1,4 +1,7 @@
-import React, { useCallback } from 'react'
+import React, {
+  useCallback,
+  unstable_useTransition as useTransition,
+} from 'react'
 import { Button } from '@material-ui/core'
 
 import { Vocabulary } from '@types'
@@ -16,10 +19,13 @@ const VocabularyActions: React.FC<VocabularyActionsProps> = ({
   onUpdate,
   onDelete,
 }) => {
-  const onUpdateClick = useCallback(() => onUpdate(vocabulary), [
-    onUpdate,
-    vocabulary,
-  ])
+  const [startTransition, isPending] = useTransition()
+
+  const onUpdateClick = useCallback(
+    () => startTransition(() => onUpdate(vocabulary)),
+    [startTransition, onUpdate, vocabulary]
+  )
+
   const onDeleteClick = useCallback(() => onDelete(vocabulary), [
     onDelete,
     vocabulary,
@@ -30,8 +36,10 @@ const VocabularyActions: React.FC<VocabularyActionsProps> = ({
       <Button
         onClick={onUpdateClick}
         color="secondary"
-        disabled={!vocabulary.isReadOnly}
-      >{t`update`}</Button>
+        disabled={!vocabulary.isReadOnly || isPending}
+      >
+        {isPending ? t`updating` : t`update`}
+      </Button>
       <Button onClick={onDeleteClick} color="secondary">{t`delete`}</Button>
     </>
   )
