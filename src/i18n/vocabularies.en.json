@@ -21,6 +21,7 @@
   "areYouSureToDeleteVocabulary": "By deleting the vocabulary You can loose Your data, especially if the vocabulary has not been published yet.",
   "cancel": "Cancel",
   "confirmDelete": "Confirm delete",
+  "deletingVocabulary": "Deleting vocabulary...",
   "deleteVocabularySuccess": "The vocabulary was deleted",
   "deleteVocabularyError": "The vocabulary cannot be deleted",
   "update": "Update",

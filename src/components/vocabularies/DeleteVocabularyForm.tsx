@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react'
+import { finalize, switchMap } from 'rxjs/operators'
 import { Typography } from '@material-ui/core'
 
 import { DeleteVocabularyPayload, Vocabulary, Workspace } from '@types'
 
 import t from 'components/i18n'
-import FormDialog from 'components/form/FormDialog'
+import FormDialog, { FormDialogProps } from 'components/form/FormDialog'
 import Hidden from 'components/form/Hidden'
 import { deleteVocabulary, fetchWorkspaceVocabularies } from 'data/vocabularies'
+import { execute } from 'utils/epic'
 
-type DeleteVocabularyFormProps = {
-  isOpen: boolean
-  onClose: () => void
+type DeleteVocabularyFormProps = Pick<FormDialogProps, 'isOpen' | 'onClose'> & {
   workspace?: Workspace
   vocabulary?: Vocabulary
 }
@@ -23,10 +23,11 @@ const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
 }) => {
   const onSubmit = useCallback(
     (data: DeleteVocabularyPayload) =>
-      deleteVocabulary(data).subscribe(() => {
-        onClose()
-        fetchWorkspaceVocabularies(workspace!.id)
-      }),
+      execute(
+        switchMap(() => deleteVocabulary(data)),
+        switchMap(() => fetchWorkspaceVocabularies(workspace!.id)),
+        finalize(onClose)
+      ),
     [onClose, workspace]
   )
 
@@ -35,6 +36,7 @@ const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
       isOpen={isOpen}
       title={t`reallyDeleteVocabulary`}
       submitLabel={t`confirmDelete`}
+      submitPendingLabel={t`deletingVocabulary`}
       onClose={onClose}
       onSubmit={onSubmit}
     >
