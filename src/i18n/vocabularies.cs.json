@@ -21,6 +21,7 @@
   "areYouSureToDeleteVocabulary": "Smazáním slovníku můžete přijít o data, zejména pokud nebyl slovník dosud publikován.",
   "cancel": "Zrušit",
   "confirmDelete": "Opravdu smazat",
+  "deletingVocabulary": "Mažu slovník...",
   "deleteVocabularySuccess": "Slovník smazán",
   "deleteVocabularyError": "Nepodařilo se smazat slovník",
   "update": "Aktualizovat",
