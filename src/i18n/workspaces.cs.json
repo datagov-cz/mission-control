@@ -34,6 +34,7 @@
   "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
   "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor",
   "workspacePRCreated": "Pracovní prostor byl publikován, pull request vytvořen:",
+  "actions": "Akce",
   "editTerms": "Editovat pojmy",
   "editRelations": "Editovat vztahy"
 }

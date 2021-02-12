@@ -40,7 +40,7 @@ const WorkspacesTable: React.FC = () => {
       render: ({ lastModified }) => lastModified && formatDate(lastModified),
     },
     {
-      title: t`runInTools`,
+      title: t`actions`,
       render: ({ uri }) => <Tools workspaceUri={uri} />,
     },
   ]
