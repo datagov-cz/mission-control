@@ -45,12 +45,12 @@ type Component<T = {}> = {
 }
 
 export type Components = {
-  'sgov-service': Component
-  db: Component
-  auth: Component
+  sgovServer: Component
+  dbServer: Component
+  authServer: Component
   ontographer: Component<{ workspacePath: string }>
-  'termit-backend': Component
+  termitServer: Component
   termit: Component<{ workspacePath: string }>
-  'mission-control': Component
-  'issue-tracker': Component<{ newBug: string; newFeature: string }>
+  missionControl: Component
+  issueTracker: Component<{ newBug: string; newFeature: string }>
 }
