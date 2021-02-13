@@ -55,13 +55,13 @@ export const COMPONENTS: Components = (() => {
 /**
  * API URL base
  */
-export const API_URL = COMPONENTS['sgov-service'].url
+export const API_URL = COMPONENTS.sgovServer.url
 
 /**
  * OIDC variables
  */
 export const OIDC_CONFIG = {
-  authority: COMPONENTS.auth.url,
+  authority: COMPONENTS.authServer.url,
   client_id: ID,
   redirect_uri: `${URL}/oidc-signin-callback.html?forward_uri=${encodeURI(
     URL
@@ -80,8 +80,8 @@ export const generateRedirectUri = (forwardUri: string) =>
 /**
  * Links to issue tracker regarding bugs and features
  */
-export const BUG_TRACKER_URL = COMPONENTS['issue-tracker'].meta.newBug
-export const FEATURE_TRACKER_URL = COMPONENTS['issue-tracker'].meta.newFeature
+export const BUG_TRACKER_URL = COMPONENTS.issueTracker.meta.newBug
+export const FEATURE_TRACKER_URL = COMPONENTS.issueTracker.meta.newFeature
 
 /**
  * Default vocabulary to include in each workspace
