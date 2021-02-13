@@ -1,15 +1,15 @@
 {
-  "sgov-service": {
+  "sgovServer": {
     "name": "SGoV Service",
     "url": "https://kbss.felk.cvut.cz/sgov-server",
     "meta": {}
   },
-  "db": {
+  "dbServer": {
     "name": "A graph database",
     "url": "https://example.com/sparql",
     "meta": {}
   },
-  "auth": {
+  "authServer": {
     "name": "OIDC Authentication Service",
     "url": "https://kbss.felk.cvut.cz:10808/auth/realms/kodi-dev",
     "meta": {}
@@ -21,7 +21,7 @@
       "workspacePath": "?workspace=%WORKSPACE_IRI%"
     }
   },
-  "termit-backend": {
+  "termitServer": {
     "name": "TermIT backend",
     "url": "https://example.com/termit-backend",
     "meta": {}
@@ -33,12 +33,12 @@
       "workspacePath": "#vocabularies?workspace=%WORKSPACE_IRI%"
     }
   },
-  "mission-control": {
+  "missionControl": {
     "name": "Mission Control",
     "url": "https://example.com/mission-control",
     "meta": {}
   },
-  "issue-tracker": {
+  "issueTracker": {
     "name": "Issue Tracker",
     "url": "https://github.com/opendata-mvcr/sgov-assembly-line/issues",
     "meta": {

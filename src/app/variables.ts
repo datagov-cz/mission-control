@@ -13,9 +13,9 @@ const getEnv = (name: string, defaultValue?: string): string => {
 }
 
 /**
- * Environment spec - production or development
+ * Context spec - production or development
  */
-export const ENV = getEnv('ENV')
+export const CONTEXT = getEnv('CONTEXT')
 
 /**
  * Stable ID of the application
