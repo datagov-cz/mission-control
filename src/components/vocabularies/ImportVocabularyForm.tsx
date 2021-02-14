@@ -1,5 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  unstable_useTransition as useTransition,
+} from 'react'
 import { useObservableSuspense } from 'observable-hooks'
+import { useRouter } from 'react-router5'
 import FlexSearch from 'flexsearch'
 import {
   TextField,
@@ -9,26 +15,33 @@ import {
   ListItem,
   ListItemText,
   InputAdornment,
+  ListItemSecondaryAction,
 } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import SearchIcon from '@material-ui/icons/Search'
+import WarningIcon from '@material-ui/icons/WarningOutlined'
 
-import { BaseVocabularyData } from '@types'
+import { BaseVocabularyWithWorkspace, Workspace } from '@types'
+import Routes from 'app/routes'
 
 import t from 'components/i18n'
 import {
   addVocabulary,
   fetchWorkspaceVocabularies,
-  vocabulariesResource,
   workspaceVocabulariesResource,
 } from 'data/vocabularies'
-import { workspaceResource } from 'data/workspaces'
+import {
+  workspaceResource,
+  vocabulariesWithWorkspacesResource,
+  fetchWorkspace,
+} from 'data/workspaces'
 import removeDiacritics from 'utils/removeDiacritics'
 
 type IndexedVocabulary = {
   id: number
   normalizedLabel: string
   normalizedIri: string
-  vocabulary: BaseVocabularyData
+  vocabulary: BaseVocabularyWithWorkspace
 }
 
 type ImportVocabularyFormProps = {
@@ -40,20 +53,20 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
   setTabIndex,
   onClose,
 }) => {
-  const vocabularies = useObservableSuspense(vocabulariesResource)
+  const vocabularies = useObservableSuspense(vocabulariesWithWorkspacesResource)
   const workspaceVocabularies = useObservableSuspense(
     workspaceVocabulariesResource
   )
   const workspace = useObservableSuspense(workspaceResource)
 
   const [filteredVocabularies, setFilteredVocabularies] = useState<
-    BaseVocabularyData[]
+    BaseVocabularyWithWorkspace[]
   >(vocabularies)
 
   const [
     selectedVocabulary,
     setSelectedVocabulary,
-  ] = useState<BaseVocabularyData>()
+  ] = useState<BaseVocabularyWithWorkspace>()
 
   // Create a search index with fulltext search support optimized for tolerant matching
   const flexSearch = useMemo(() => {
@@ -71,7 +84,7 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
       index.add({
         id,
         normalizedLabel: removeDiacritics(vocabulary.label),
-        normalizedIri: removeDiacritics(vocabulary.basedOnVocabularyVersion),
+        normalizedIri: removeDiacritics(vocabulary.vocabulary),
         vocabulary,
       })
     })
@@ -80,15 +93,13 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
 
   // Filters out vocabularies that are already present in the workspace
   const filterWorkspaceVocabularies = useCallback(
-    (someVocabularies: BaseVocabularyData[]) => {
+    (someVocabularies: BaseVocabularyWithWorkspace[]) => {
       const workspaceVocabulariesUris = workspaceVocabularies.map(
         (vocabulary) => vocabulary.vocabulary
       )
       return someVocabularies.filter(
         (vocabulary) =>
-          !workspaceVocabulariesUris.includes(
-            vocabulary.basedOnVocabularyVersion
-          )
+          !workspaceVocabulariesUris.includes(vocabulary.vocabulary)
       )
     },
     [workspaceVocabularies]
@@ -116,7 +127,7 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
 
   // Handles selecting a vocabulary from the list
   const handleVocabularyClick = useCallback(
-    (vocabulary: BaseVocabularyData) => {
+    (vocabulary: BaseVocabularyWithWorkspace) => {
       setSelectedVocabulary(vocabulary)
     },
     []
@@ -127,7 +138,7 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
     (readOnly: boolean) => {
       addVocabulary({
         workspaceId: workspace!.id,
-        vocabularyIri: selectedVocabulary!.basedOnVocabularyVersion,
+        vocabularyIri: selectedVocabulary!.vocabulary,
         readOnly,
       }).subscribe(() => {
         fetchWorkspaceVocabularies(workspace!.id)
@@ -137,11 +148,26 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
     [workspace, selectedVocabulary, onClose]
   )
 
+  const router = useRouter()
+  const [startTransition, isPending] = useTransition()
+
+  // Handles going to another workspace
+  const handleGoToWorkspaceClick = useCallback(
+    (workspace: Workspace) => {
+      startTransition(() => {
+        onClose()
+        router.navigate(Routes.Workspace, { id: workspace.id })
+        fetchWorkspace(workspace.id)
+      })
+    },
+    [router, startTransition, onClose]
+  )
+
   // Handles switching to the second tab
   const handleTabSwitch = useCallback(() => setTabIndex(1), [setTabIndex])
 
-  return (
-    <>
+  const renderSearchField = useMemo(
+    () => () => (
       <TextField
         autoComplete="off"
         label={t`search`}
@@ -155,59 +181,125 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
           ),
         }}
       />
-      {selectedVocabulary && (
-        <>
-          <ListItem>
-            <ListItemText
-              primary={selectedVocabulary.label}
-              secondary={selectedVocabulary.basedOnVocabularyVersion}
-            />
-          </ListItem>
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            size="large"
-            onClick={() => handleImportClick(true)}
-          >
-            {t`importVocabularyForReadOnly`}
-          </Button>
-          <Box my={1} />
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            size="large"
-            onClick={() => handleImportClick(false)}
-          >
-            {t`importVocabularyForReadAndWrite`}
-          </Button>
-        </>
-      )}
-      {filteredVocabularies.length > 0 && !selectedVocabulary && (
+    ),
+    [handleSearchChange]
+  )
+
+  const renderVocabulary = useMemo(
+    () => (vocabulary: BaseVocabularyWithWorkspace) => (
+      <>
+        <ListItemText
+          primary={vocabulary.label}
+          secondary={vocabulary.vocabulary}
+        />
+        {vocabulary.workspace && (
+          <ListItemSecondaryAction>
+            <WarningIcon />
+          </ListItemSecondaryAction>
+        )}
+      </>
+    ),
+    []
+  )
+
+  // Case 1 - user selected a vocabulary, but it's already being used in another workspace
+  if (selectedVocabulary && selectedVocabulary.workspace) {
+    return (
+      <>
+        {renderSearchField()}
+        <ListItem>{renderVocabulary(selectedVocabulary)}</ListItem>
+        <Box py={2}>
+          <Alert severity="info">
+            {t('vocabularyEditedInAnotherWorkspace', {
+              workspace: selectedVocabulary.workspace.label,
+            })}
+          </Alert>
+        </Box>
+        <Button
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={() =>
+            handleGoToWorkspaceClick(selectedVocabulary.workspace!)
+          }
+          disabled={isPending}
+        >
+          {t`goToWorkspace`}
+        </Button>
+        <Box py={0.5} />
+        <Button
+          fullWidth
+          size="large"
+          onClick={() => setSelectedVocabulary(undefined)}
+          disabled={isPending}
+        >
+          {t`cancel`}
+        </Button>
+      </>
+    )
+  }
+
+  // Case 2 - user selected a vocabulary that is ready to be imported
+  if (selectedVocabulary) {
+    console.log(selectedVocabulary)
+    return (
+      <>
+        {renderSearchField()}
+        <ListItem>{renderVocabulary(selectedVocabulary)}</ListItem>
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={() => handleImportClick(true)}
+        >
+          {t`importVocabularyForReadOnly`}
+        </Button>
+        <Box my={1} />
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          size="large"
+          onClick={() => handleImportClick(false)}
+        >
+          {t`importVocabularyForReadAndWrite`}
+        </Button>
+      </>
+    )
+  }
+
+  // Case 3 - display list of vocabularies matching search criteria
+  if (filteredVocabularies.length > 0) {
+    return (
+      <>
+        {renderSearchField()}
         <Box style={{ height: 380, overflowY: 'scroll' }}>
           <List>
             {filteredVocabularies.map((vocabulary) => (
               <ListItem
                 button
-                key={vocabulary.basedOnVocabularyVersion}
+                key={vocabulary.vocabulary}
                 onClick={() => handleVocabularyClick(vocabulary)}
               >
-                <ListItemText
-                  primary={vocabulary.label}
-                  secondary={vocabulary.basedOnVocabularyVersion}
-                />
+                {renderVocabulary(vocabulary)}
               </ListItem>
             ))}
           </List>
         </Box>
-      )}
-      {filteredVocabularies.length < 1 && !selectedVocabulary && (
-        <Button
-          onClick={handleTabSwitch}
-          fullWidth
-        >{t`vocabularyNotFoundCreateNew`}</Button>
-      )}
+      </>
+    )
+  }
+
+  // Case 4 - no match of the search expression
+  return (
+    <>
+      {renderSearchField()}
+      <Button
+        variant="contained"
+        onClick={handleTabSwitch}
+        fullWidth
+      >{t`vocabularyNotFoundCreateNew`}</Button>
     </>
   )
 }

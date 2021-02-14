@@ -12,6 +12,8 @@
   "importVocabulary": "Import slovníku",
   "importVocabularyForReadOnly": "Importuj slovník pouze pro čtení",
   "importVocabularyForReadAndWrite": "Importuj slovník pro čtení i zápis",
+  "vocabularyEditedInAnotherWorkspace": "Slovník je upravován v pracovním prostoru ''{workspace}''",
+  "goToWorkspace": "Přejít na pracovní prostor",
   "vocabularyNotFoundCreateNew": "Nic nenalezeno, vytvořit nový slovník",
   "createVocabulary": "Nový slovník",
   "search": "Vyhledat",

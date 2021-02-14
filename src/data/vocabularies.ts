@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import {
   filter,
   map,
@@ -14,6 +14,7 @@ import { ObservableResource } from 'observable-hooks'
 
 import {
   AddVocabularyPayload,
+  BaseVocabulary,
   BaseVocabularyData,
   DeleteVocabularyPayload,
   Id,
@@ -46,35 +47,38 @@ export const convertVocabularyDataToVocabulary = (
   changeTrackingVocabulary: data.changeTrackingContext.changesVocabularyVersion,
 })
 
-const fetchVocabularies$$ = new Subject()
-const vocabulariesResource$$ = fetchVocabularies$$.pipe(
+const convertBaseVocabularyDataToVocabulary = (
+  data: BaseVocabularyData
+): BaseVocabulary => ({
+  vocabulary: data.basedOnVocabularyVersion,
+  label: data.label,
+})
+
+const fetchVocabulariesTrigger$$ = new BehaviorSubject(null)
+
+export const vocabularies$$ = fetchVocabulariesTrigger$$.pipe(
   throttleTime(100),
-  switchMap(() =>
-    getJSON(getVocabulariesUrl()).pipe(
-      map((data) => data as BaseVocabularyData[])
-    )
+  switchMap(() => getJSON<BaseVocabularyData[]>(getVocabulariesUrl())),
+  map((vocabularies) =>
+    vocabularies.map(convertBaseVocabularyDataToVocabulary)
   ),
   share()
 )
 
-export const vocabulariesResource = new ObservableResource(
-  vocabulariesResource$$
-)
+export const vocabulariesResource = new ObservableResource(vocabularies$$)
 
 export const fetchVocabularies = () => {
-  fetchVocabularies$$.next()
+  fetchVocabulariesTrigger$$.next(null)
 }
 
 const fetchWorkspaceVocabularies$$ = new Subject<Id>()
 const workspaceVocabulariesResource$$ = fetchWorkspaceVocabularies$$.pipe(
   throttleDistinct(100),
   switchMap((workspaceId) =>
-    getJSON(getWorkspaceVocabulariesUrl(workspaceId)).pipe(
-      startWith(null),
-      map((data) => data as VocabularyData[] | null),
-      map((data) => (data ? data.map(convertVocabularyDataToVocabulary) : null))
-    )
+    getJSON<VocabularyData[]>(getWorkspaceVocabulariesUrl(workspaceId))
   ),
+  map((data) => data.map(convertVocabularyDataToVocabulary)),
+  startWith(null),
   share()
 )
 

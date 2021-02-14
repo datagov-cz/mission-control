@@ -12,6 +12,8 @@
   "importVocabulary": "Import vocabulary",
   "importVocabularyForReadOnly": "Import vocabulary for read only",
   "importVocabularyForReadAndWrite": "Import vocabulary for read and write",
+  "vocabularyEditedInAnotherWorkspace": "Vocabulary is being edited in ''{workspace}'' workspace",
+  "goToWorkspace": "Go to workspace",
   "vocabularyNotFoundCreateNew": "Vocabulary not found. Create new vocabulary.",
   "createVocabulary": "Create new vocabulary",
   "search": "Search",

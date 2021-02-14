@@ -6,6 +6,15 @@ export type BaseVocabularyData = {
   label: string
 }
 
+export type BaseVocabulary = {
+  vocabulary: Iri
+  label: string
+}
+
+export type BaseVocabularyWithWorkspace = BaseVocabulary & {
+  workspace?: Workspace
+}
+
 export type VocabularyData = BaseVocabularyData & {
   uri: Iri
   types: Iri[]
