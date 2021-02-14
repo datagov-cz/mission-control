@@ -1,4 +1,4 @@
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, BehaviorSubject, combineLatest } from 'rxjs'
 import {
   map,
   switchMap,
@@ -18,6 +18,7 @@ import {
   EditWorkspacePayload,
   DeleteWorkspacePayload,
   PublishWorkspacePayload,
+  BaseVocabularyWithWorkspace,
 } from '@types'
 import { DEFAULT_VOCABULARY_IRI } from 'app/variables'
 
@@ -35,6 +36,7 @@ import { convertUserDataToUser } from 'data/users'
 import {
   addVocabulary,
   convertVocabularyDataToVocabulary,
+  vocabularies$$,
 } from 'data/vocabularies'
 
 const convertWorkspaceDataToWorkspace = ({
@@ -54,21 +56,20 @@ const convertWorkspaceDataToWorkspace = ({
   vocabularies: vocabularyContexts.map(convertVocabularyDataToVocabulary),
 })
 
-const workspacesResource$$ = new Subject()
+const workspacesTrigger$$ = new BehaviorSubject(null)
+
+export const workspaces$$ = workspacesTrigger$$.pipe(
+  switchMap(() => getJSON<WorkspaceData[]>(getWorkspacesUrl())),
+  map((data) => data.map(convertWorkspaceDataToWorkspace)),
+  share()
+)
 
 export const workspacesResource = new ObservableResource<Workspace[]>(
-  workspacesResource$$.pipe(
-    switchMap(() =>
-      getJSON(getWorkspacesUrl()).pipe(
-        map((data) => data as WorkspaceData[]),
-        map((data) => data.map(convertWorkspaceDataToWorkspace))
-      )
-    )
-  )
+  workspaces$$
 )
 
 export const fetchWorkspaces = () => {
-  workspacesResource$$.next()
+  workspacesTrigger$$.next(null)
 }
 
 const fetchWorkspace$$ = new Subject<Id>()
@@ -97,6 +98,38 @@ export const fetchWorkspace = (workspaceId: Id) => {
     take(1)
   )
 }
+
+const vocabularyWorkspaceMap$$ = workspaces$$.pipe(
+  map((workspaces) => {
+    // returns a mapping of R/W vocabularies to their workspaces
+    return workspaces.reduce<Record<string, Workspace>>((acc, workspace) => {
+      workspace.vocabularies.forEach((vocabulary) => {
+        if (!vocabulary.isReadOnly) {
+          acc[vocabulary.vocabulary] = workspace
+        }
+      })
+      return acc
+    }, {})
+  })
+)
+
+const vocabulariesWithWorkspaces$$ = combineLatest([
+  vocabularies$$,
+  vocabularyWorkspaceMap$$,
+]).pipe(
+  map(([vocabularies, vocabulariesInWorkspaces]) => {
+    // adds workspace reference (if exists) to all available vocabularies
+    return vocabularies.map((vocabulary) => ({
+      ...vocabulary,
+      workspace: vocabulariesInWorkspaces[vocabulary.vocabulary],
+    })) as BaseVocabularyWithWorkspace[]
+  }),
+  share()
+)
+
+export const vocabulariesWithWorkspacesResource = new ObservableResource(
+  vocabulariesWithWorkspaces$$
+)
 
 export const addWorkspace = (payload: AddWorkspacePayload) =>
   postJSON(getWorkspacesUrl(), payload).pipe(
