@@ -1,14 +1,14 @@
-# docker-compose up --env-file=.env.docker
+# This is a utility file to test the mission-control docker image locally
+# docker-compose --env-file=.env.docker-compose up
 
 version: '3.9'
 services:
   mission-control:
+    env_file:
+      - .env.docker-compose
     build:
       context: .
       args:
-        ENV: ${ENV}
-        ID: ${ID}
-        URL: ${URL}
-        COMPONENTS: ${COMPONENTS}
+        PUBLIC_PATH: /
     ports:
-      - '8080:80'
+      - '80:80'
