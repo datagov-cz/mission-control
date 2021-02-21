@@ -1,15 +1,26 @@
+import YAML from 'yaml'
+
 import { Components } from '@types'
+
+const ENV = {
+  ...Object.keys(process.env).reduce<Record<string, string>>((acc, key) => {
+    const strippedKey = key.replace('REACT_APP_', '')
+    acc[strippedKey] = process.env[key]!
+    return acc
+  }, {}),
+  ...(window as any).__config__,
+}
 
 /**
  * Helper to make sure that all envs are defined properly
  * @param name env variable name
  */
 const getEnv = (name: string, defaultValue?: string): string => {
-  const value = process.env[`REACT_APP_${name}`] || defaultValue
+  const value = ENV[name] || defaultValue
   if (value) {
     return value
   }
-  throw new Error(`Missing environment variable: REACT_APP_${name}`)
+  throw new Error(`Missing environment variable: ${name}`)
 }
 
 /**
@@ -44,8 +55,11 @@ export const URL = (() => {
 export const COMPONENTS: Components = (() => {
   const base64String = getEnv('COMPONENTS')
   try {
-    const jsonString = atob(base64String)
-    return JSON.parse(jsonString)
+    // Use TextDecoder interface to properly decode UTF-8 characters
+    const yamlString = new TextDecoder('utf-8').decode(
+      Uint8Array.from(atob(base64String), (c) => c.charCodeAt(0))
+    )
+    return YAML.parse(yamlString)
   } catch (error: any) {
     console.error(error)
     throw new Error('Unable to decode COMPONENTS configuration')
