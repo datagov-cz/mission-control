@@ -38,7 +38,8 @@
     "router5-plugin-logger": "^8.0.1",
     "rxjs": "^6.6.3",
     "typescript": "^4.1.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
     "prettier": "^2.2.1"
