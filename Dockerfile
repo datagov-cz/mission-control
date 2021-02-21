@@ -1,30 +1,35 @@
-# Build image
-FROM node:alpine
-ARG CONTEXT
-ARG ID
-ARG URL
-ARG COMPONENTS
-
-# Make sure that all the args are not empty
-RUN test -n "$CONTEXT"
-RUN test -n "$ID"
-RUN test -n "$URL"
-RUN test -n "$COMPONENTS"
-
-# Remap args to React env vars
-ENV REACT_APP_CONTEXT=$CONTEXT
-ENV REACT_APP_ID=$ID
-ENV REACT_APP_URL=$URL
-ENV REACT_APP_COMPONENTS=$COMPONENTS
-
+# BASE STAGE
+# Prepare node, copy package.json
+FROM node:alpine AS base
 WORKDIR /usr/src/app
-COPY . /usr/src/app/
+COPY package.json package-lock.json ./
 
+# DEPENDENCIES STAGE
+# Install production and dev dependencies
+FROM base AS dependencies
+# install node packages
+RUN npm set progress=false && npm config set depth 0
+RUN npm install
+
+# TEST STAGE
+# run linters, setup and tests
+FROM dependencies AS test
+COPY . .
+RUN  npm run prettier:check
+
+# BUILD STAGE
+# run NPM build
+FROM test as build
+# If an app is supposed to be deployed in a subdir, this is the place to specify that
+ARG PUBLIC_PATH=/
+# Make sure that React app is built using the right path context
+ENV PUBLIC_URL=${PUBLIC_PATH}
 RUN set -ex; \
   npm install; \
   npm run build
 
-# Run image
-FROM nginx:alpine
+# RELEASE STAGE
+# Only include the static files in the final image
+FROM docker.pkg.github.com/opendata-mvcr/react-nginx/react-nginx:latest
 WORKDIR /usr/share/nginx/html
-COPY --from=0 /usr/src/app/build/ /usr/share/nginx/html
+COPY --from=build /usr/src/app/build/ ./
