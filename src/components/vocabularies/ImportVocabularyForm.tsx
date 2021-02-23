@@ -1,11 +1,5 @@
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-  unstable_useTransition as useTransition,
-} from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { useObservableSuspense } from 'observable-hooks'
-import { useRouter } from 'react-router5'
 import FlexSearch from 'flexsearch'
 import {
   TextField,
@@ -21,8 +15,7 @@ import { Alert } from '@material-ui/lab'
 import SearchIcon from '@material-ui/icons/Search'
 import WarningIcon from '@material-ui/icons/WarningOutlined'
 
-import { BaseVocabularyWithWorkspace, Workspace } from '@types'
-import Routes from 'app/routes'
+import { BaseVocabularyWithWorkspace } from '@types'
 
 import t from 'components/i18n'
 import {
@@ -33,9 +26,9 @@ import {
 import {
   workspaceResource,
   vocabulariesWithWorkspacesResource,
-  fetchWorkspace,
 } from 'data/workspaces'
 import removeDiacritics from 'utils/removeDiacritics'
+import RouteLink from 'components/RouteLink'
 
 type IndexedVocabulary = {
   id: number
@@ -148,21 +141,6 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
     [workspace, selectedVocabulary, onClose]
   )
 
-  const router = useRouter()
-  const [startTransition, isPending] = useTransition()
-
-  // Handles going to another workspace
-  const handleGoToWorkspaceClick = useCallback(
-    (workspace: Workspace) => {
-      startTransition(() => {
-        onClose()
-        router.navigate(Routes.Workspace, { id: workspace.id })
-        fetchWorkspace(workspace.id)
-      })
-    },
-    [router, startTransition, onClose]
-  )
-
   // Handles switching to the second tab
   const handleTabSwitch = useCallback(() => setTabIndex(1), [setTabIndex])
 
@@ -210,28 +188,20 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
         <ListItem>{renderVocabulary(selectedVocabulary)}</ListItem>
         <Box py={2}>
           <Alert severity="info">
-            {t('vocabularyEditedInAnotherWorkspace', {
-              workspace: selectedVocabulary.workspace.label,
-            })}
+            {t`vocabularyEditedInAnotherWorkspace`}{' '}
+            <RouteLink
+              route="workspace"
+              params={{ id: selectedVocabulary.workspace.id }}
+              onClick={onClose}
+            >
+              {selectedVocabulary.workspace.label}
+            </RouteLink>
           </Alert>
         </Box>
-        <Button
-          variant="contained"
-          fullWidth
-          size="large"
-          onClick={() =>
-            handleGoToWorkspaceClick(selectedVocabulary.workspace!)
-          }
-          disabled={isPending}
-        >
-          {t`goToWorkspace`}
-        </Button>
-        <Box py={0.5} />
         <Button
           fullWidth
           size="large"
           onClick={() => setSelectedVocabulary(undefined)}
-          disabled={isPending}
         >
           {t`cancel`}
         </Button>

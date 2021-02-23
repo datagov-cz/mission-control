@@ -13,6 +13,7 @@ const RouteLink: React.FC<RouteLinkProps> = ({
   route,
   params = {},
   target,
+  onClick = () => null,
   ...rest
 }) => {
   const router = useRouter()
@@ -23,10 +24,11 @@ const RouteLink: React.FC<RouteLinkProps> = ({
 
       if (evt.button === 0 && !comboKey && target !== '_blank') {
         evt.preventDefault()
+        onClick(evt)
         router.navigate(route, params)
       }
     },
-    [router, route, params, target]
+    [router, route, params, target, onClick]
   )
 
   return <Link {...rest} href={href} target={target} onClick={navigate} />
