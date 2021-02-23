@@ -5,6 +5,7 @@
   "addingVocabulary": "Adding the vocabulary...",
   "vocabularyType": "Vocabulary type",
   "vocabularyIri": "Vocabulary IRI",
+  "useDefaultVocabularyIri": "Use default vocabulary IRI",
   "vocabularyLabel": "Vocabulary label",
   "addVocabularySuccess": "Vocabulary was added to the workspace",
   "addVocabularyError": "Vocabulary cannot be added to the workspace",
