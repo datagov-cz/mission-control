@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { finalize, switchMap } from 'rxjs/operators'
 import { useForm } from 'react-hook-form'
 import {
@@ -18,6 +18,7 @@ import SubmitButton from 'components/form/SubmitButton'
 import Form from 'components/form/Form'
 import Hidden from 'components/form/Hidden'
 import FormTextField from 'components/form/TextField'
+import Checkbox from 'components/form/Checkbox'
 import { addVocabulary, fetchWorkspaceVocabularies } from 'data/vocabularies'
 import { execute } from 'utils/epic'
 
@@ -49,20 +50,35 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
 
   const vocabularyType = vocabularyTypes.find(
     (v) => v.label === vocabularyTypeLabel
-  )
+  )!
+
+  const useDefaultIri = form.watch('defaultIri', true) as boolean
+  const label = form.watch('label') as string
 
   // Handles vocabulary type change when user selects radio option, resets form
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedTypeLabel = (event.target as HTMLInputElement).value
     const selectedType = vocabularyTypes.find(
       (v) => v.label === selectedTypeLabel
-    )
+    )!
     setVocabularyType(selectedTypeLabel)
-    form.reset({
-      vocabularyIri: selectedType?.prefix,
-      label: form.getValues('label'),
-    })
+    if (useDefaultIri) {
+      form.setValue('vocabularyIri', selectedType.prefix)
+    }
   }
+
+  useEffect(() => {
+    if (useDefaultIri) {
+      // Prefills the default vocabulary IRI
+      const chunks = label
+        ? label
+            .toLowerCase()
+            .match(new RegExp(vocabularyType.autoIriRegex, 'g'))
+        : null
+      const iriSafeLabel = chunks ? chunks.join('-') : ''
+      form.setValue('vocabularyIri', `${vocabularyType.prefix}${iriSafeLabel}`)
+    }
+  }, [useDefaultIri, label, form, vocabularyType])
 
   return (
     <>
@@ -89,21 +105,27 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         <Hidden name="workspaceId" value={workspace.id} />
         <Hidden name="readOnly" value="false" />
         <FormTextField
+          name="label"
+          label={t`vocabularyLabel`}
+          rules={{
+            required: 'common.errorRequired',
+          }}
+        />
+        <Checkbox
+          name="defaultIri"
+          defaultChecked={true}
+          label={t`useDefaultVocabularyIri`}
+        />
+        <FormTextField
           name="vocabularyIri"
           label={t`vocabularyIri`}
+          disabled={useDefaultIri}
           defaultValue={vocabularyType?.prefix}
           rules={{
             pattern: {
               value: new RegExp(vocabularyType?.regex!),
               message: vocabularyType?.regex!,
             },
-          }}
-        />
-        <FormTextField
-          name="label"
-          label={t`vocabularyLabel`}
-          rules={{
-            required: 'common.errorRequired',
           }}
         />
         <SubmitButton

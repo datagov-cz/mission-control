@@ -5,6 +5,7 @@
   "addingVocabulary": "Přidávám slovník...",
   "vocabularyType": "Typ slovníku",
   "vocabularyIri": "IRI slovníku",
+  "useDefaultVocabularyIri": "Použít výchozí IRI slovníku",
   "vocabularyLabel": "Název slovníku",
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
