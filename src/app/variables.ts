@@ -24,6 +24,11 @@ const getEnv = (name: string, defaultValue?: string): string => {
 }
 
 /**
+ * PUBLIC_URL contains production deployment path
+ */
+export const PUBLIC_PATH = getEnv('PUBLIC_URL')
+
+/**
  * Context spec - production or development
  */
 export const CONTEXT = getEnv('CONTEXT')

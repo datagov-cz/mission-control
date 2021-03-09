@@ -6,11 +6,12 @@ import { from, ObservableInput } from 'rxjs'
 import { tap } from 'rxjs/operators'
 
 import { RoutesConfiguration } from './routes'
+import { PUBLIC_PATH } from './variables'
 
 const router = createRouter(RoutesConfiguration, {
   allowNotFound: true,
 })
-router.usePlugin(browserPlugin())
+router.usePlugin(browserPlugin({ base: PUBLIC_PATH }))
 router.usePlugin(loggerPlugin)
 
 from((router as unknown) as ObservableInput<RouteTransition>)
