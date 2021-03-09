@@ -3,12 +3,17 @@
 
 version: '3.9'
 services:
+  nginx:
+    restart: always
+    image: nginx
+    volumes:
+      - ./nginx:/etc/nginx/templates
+    ports:
+      - '80:80'
   mission-control:
     env_file:
       - .env.docker-compose
     build:
       context: .
       args:
-        PUBLIC_PATH: /
-    ports:
-      - '80:80'
+        PUBLIC_PATH: /modelujeme
