@@ -25,7 +25,6 @@ ARG PUBLIC_PATH=/
 # Make sure that React app is built using the right path context
 ENV PUBLIC_URL=${PUBLIC_PATH}
 RUN set -ex; \
-  npm install; \
   npm run build
 
 # RELEASE STAGE
