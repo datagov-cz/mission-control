@@ -2,7 +2,7 @@ import YAML from 'yaml'
 
 import { Components } from '@types'
 
-const ENV = {
+const ENV: Record<string, string> = {
   ...Object.keys(process.env).reduce<Record<string, string>>((acc, key) => {
     const strippedKey = key.replace('REACT_APP_', '')
     acc[strippedKey] = process.env[key]!
@@ -17,7 +17,7 @@ const ENV = {
  */
 const getEnv = (name: string, defaultValue?: string): string => {
   const value = ENV[name] || defaultValue
-  if (value) {
+  if (value !== undefined) {
     return value
   }
   throw new Error(`Missing environment variable: ${name}`)
@@ -26,7 +26,7 @@ const getEnv = (name: string, defaultValue?: string): string => {
 /**
  * PUBLIC_URL contains production deployment path
  */
-export const PUBLIC_PATH = getEnv('PUBLIC_URL')
+export const PUBLIC_PATH = getEnv('PUBLIC_URL', '')
 
 /**
  * Context spec - production or development
