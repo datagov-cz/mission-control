@@ -1,5 +1,7 @@
 {
   "workspaces": "Pracovní prostory",
+  "myWorkspaces": "Moje pracovní prostory",
+  "showAllWorkspaces": "Zobrazit všechny pracovní prostory",
   "label": "Název",
   "owner": "Vlastník",
   "lastEditor": "Poslední změna",

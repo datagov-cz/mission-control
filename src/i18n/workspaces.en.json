@@ -1,5 +1,7 @@
 {
   "workspaces": "Workspaces",
+  "myWorkspaces": "My workspaces",
+  "showAllWorkspaces": "Show all workspaces",
   "label": "Name",
   "owner": "Owner",
   "lastEditor": "Last editor",
