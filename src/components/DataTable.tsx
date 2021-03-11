@@ -4,6 +4,7 @@ import MaterialTable, {
   MaterialTableProps,
   Icons,
   Column,
+  Localization,
 } from 'material-table'
 import { Skeleton } from '@material-ui/lab'
 
@@ -23,6 +24,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt'
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import { ObservableResource, useObservableSuspense } from 'observable-hooks'
+import { useIntl } from 'react-intl'
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -76,6 +78,16 @@ const DataTable = <RowData extends object>({
   type = 'complex',
   ...rest
 }: DataTableProps<RowData>) => {
+  const intl = useIntl()
+
+  const tableLocalization: Localization = {
+    body: {
+      emptyDataSourceMessage: intl.formatMessage({
+        id: 'common.noRecordsFound',
+      }),
+    },
+  }
+
   const tableColumns = !isLoading
     ? columns
     : columns.map((column) => ({
@@ -98,6 +110,7 @@ const DataTable = <RowData extends object>({
       options={tableOptions}
       columns={tableColumns}
       data={tableData}
+      localization={tableLocalization}
       {...rest}
     />
   )
