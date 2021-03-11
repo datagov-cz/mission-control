@@ -68,6 +68,15 @@ export const workspacesResource = new ObservableResource<Workspace[]>(
   workspaces$$
 )
 
+export const createUserWorkspacesResource = (username: string) =>
+  new ObservableResource<Workspace[]>(
+    workspaces$$.pipe(
+      map((workspaces) =>
+        workspaces.filter((workspace) => workspace.author.username === username)
+      )
+    )
+  )
+
 export const fetchWorkspaces = () => {
   workspacesTrigger$$.next(null)
 }

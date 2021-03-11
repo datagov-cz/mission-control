@@ -14,13 +14,30 @@ import UserChip from 'components/users/UserChip'
 import Tools from './Tools'
 import formatDate from 'utils/formatDate'
 
-import { workspacesResource, fetchWorkspace } from 'data/workspaces'
+import {
+  workspacesResource,
+  fetchWorkspace,
+  createUserWorkspacesResource,
+} from 'data/workspaces'
+import useAuth from 'hooks/useAuth'
 
-const WorkspacesTable: React.FC = () => {
+type WorkspacesTableProps = {
+  currentUserOnly?: boolean
+}
+
+const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
+  currentUserOnly = false,
+}) => {
   const router = useRouter()
   const [startTransition] = useTransition({
     timeoutMs: 10000,
   } as SuspenseConfig)
+
+  const {
+    user: {
+      profile: { email },
+    },
+  } = useAuth()
 
   const columns: DataColumn<Workspace>[] = [
     {
@@ -45,6 +62,10 @@ const WorkspacesTable: React.FC = () => {
     },
   ]
 
+  if (currentUserOnly) {
+    columns.splice(1, 1)
+  }
+
   const onRowClick = (
     _: MouseEvent | undefined,
     rowData: Workspace | undefined
@@ -57,10 +78,15 @@ const WorkspacesTable: React.FC = () => {
     }
   }
 
+  const resource =
+    currentUserOnly && email
+      ? createUserWorkspacesResource(email!)
+      : workspacesResource
+
   return (
     <DataTableSuspense
       columns={columns}
-      resource={workspacesResource}
+      resource={resource}
       onRowClick={onRowClick}
     />
   )
