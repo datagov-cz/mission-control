@@ -35,7 +35,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
 
   const {
     user: {
-      profile: { email },
+      profile: { sub },
     },
   } = useAuth()
 
@@ -78,10 +78,9 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     }
   }
 
-  const resource =
-    currentUserOnly && email
-      ? createUserWorkspacesResource(email!)
-      : workspacesResource
+  const resource = currentUserOnly
+    ? createUserWorkspacesResource(sub)
+    : workspacesResource
 
   return (
     <DataTableSuspense

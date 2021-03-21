@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 type UserChipProps = User
 
 const UserChip: React.FC<UserChipProps> = ({
-  username,
   initials,
   firstName,
   lastName,
@@ -24,7 +23,7 @@ const UserChip: React.FC<UserChipProps> = ({
   return (
     <Chip
       label={`${firstName} ${lastName}`}
-      avatar={<Gravatar email={username} initials={initials} />}
+      avatar={<Gravatar initials={initials} />}
       classes={classes}
     />
   )
