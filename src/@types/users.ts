@@ -1,7 +1,7 @@
 export type UserData = {
   uri: string
   types?: string[]
-  username: string
+  id: string
   firstName: string
   lastName: string
 }

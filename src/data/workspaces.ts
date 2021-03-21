@@ -68,12 +68,13 @@ export const workspacesResource = new ObservableResource<Workspace[]>(
   workspaces$$
 )
 
-export const createUserWorkspacesResource = (username: string) =>
+export const createUserWorkspacesResource = (userId: string) =>
   new ObservableResource<Workspace[]>(
     workspaces$$.pipe(
       map((workspaces) =>
-        workspaces.filter((workspace) => workspace.author.username === username)
-      )
+        workspaces.filter((workspace) => workspace.author.id === userId)
+      ),
+      share()
     )
   )
 

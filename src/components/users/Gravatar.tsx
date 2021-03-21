@@ -22,20 +22,19 @@ const getGravatarUrl = (email: string) =>
   `https://www.gravatar.com/avatar/${md5(email)}?d=identicon&s=200`
 
 type GravatarProps = {
-  email: string
+  email?: string
   initials: string
   size?: 'regular' | 'huge'
   className?: string
 }
 
 const Gravatar: React.FC<GravatarProps> = ({
-  email,
+  email = null,
   initials,
   size = 'regular',
   className,
 }) => {
   const classes = useStyles()
-  const gravatarUrl = getGravatarUrl(email)
 
   const avatarClassNames = className
     ? className
@@ -45,10 +44,12 @@ const Gravatar: React.FC<GravatarProps> = ({
         size === 'huge' && classes.huge
       )
 
-  return (
-    <Avatar src={gravatarUrl} className={avatarClassNames}>
+  return email ? (
+    <Avatar src={getGravatarUrl(email)} className={avatarClassNames}>
       {initials}
     </Avatar>
+  ) : (
+    <Avatar className={avatarClassNames}>{initials}</Avatar>
   )
 }
 
