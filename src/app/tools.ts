@@ -10,21 +10,21 @@ const tools: Tool[] = [
   {
     key: 'editTerms',
     getUrl: (workspaceIri) => {
-      const path = COMPONENTS.termit.meta.workspacePath.replace(
+      const path = COMPONENTS['al-termit'].meta['workspace-path'].replace(
         '%WORKSPACE_IRI%',
         workspaceIri
       )
-      return `${COMPONENTS.termit.url}${path}`
+      return `${COMPONENTS['al-termit'].url}${path}`
     },
   },
   {
     key: 'editRelations',
     getUrl: (workspaceIri) => {
-      const path = COMPONENTS.ontographer.meta.workspacePath.replace(
+      const path = COMPONENTS['al-ontographer'].meta['workspace-path'].replace(
         '%WORKSPACE_IRI%',
         workspaceIri
       )
-      return `${COMPONENTS.ontographer.url}${path}`
+      return `${COMPONENTS['al-ontographer'].url}${path}`
     },
   },
 ]
