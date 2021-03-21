@@ -1,6 +1,6 @@
 al-sgov-server:
   name: SGoV Service
-  url: http://localhost/modelujeme/sluzby/al-sgov-server
+  url: http://localhost/modelujeme/sluzby/sgov-server
   meta: {}
 al-db-server:
   name: A graph database
@@ -8,7 +8,7 @@ al-db-server:
   meta: {}
 al-auth-server:
   name: OIDC Authentication Service
-  url: http://localhost/modelujeme/sluzby/al-auth-server/realms/assembly-line
+  url: http://localhost/modelujeme/sluzby/auth-server/realms/assembly-line
   meta: {}
 al-ontographer:
   name: ontoGrapher
@@ -17,7 +17,7 @@ al-ontographer:
     workspace-path: '/?workspace=%WORKSPACE_IRI%'
 al-termit-server:
   name: TermIT backend
-  url: http://localhost/modelujeme/sluzby/al-termit-server
+  url: http://localhost/modelujeme/sluzby/termit-server
   meta: {}
 al-termit:
   name: TermIT
