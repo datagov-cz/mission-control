@@ -123,14 +123,17 @@ type DataTableSuspenseProps<RowData extends object> = Omit<
   'data' | 'isLoading'
 > & {
   resource: ObservableResource<RowData[], RowData[]>
+  filter?: (data: RowData[]) => RowData[]
 }
 
 const DataTableSuspenseInner = <RowData extends object>({
   resource,
+  filter,
   ...rest
 }: DataTableSuspenseProps<RowData>) => {
   const data = useObservableSuspense(resource)
-  return <DataTable {...rest} data={data} isLoading={false} />
+  const filteredData = filter ? filter(data) : data
+  return <DataTable {...rest} data={filteredData} isLoading={false} />
 }
 
 export const DataTableSuspense = <RowData extends object>({

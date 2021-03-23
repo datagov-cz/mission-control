@@ -14,11 +14,7 @@ import UserChip from 'components/users/UserChip'
 import Tools from './Tools'
 import formatDate from 'utils/formatDate'
 
-import {
-  workspacesResource,
-  fetchWorkspace,
-  createUserWorkspacesResource,
-} from 'data/workspaces'
+import { workspacesResource, fetchWorkspace } from 'data/workspaces'
 import useAuth from 'hooks/useAuth'
 
 type WorkspacesTableProps = {
@@ -78,14 +74,14 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     }
   }
 
-  const resource = currentUserOnly
-    ? createUserWorkspacesResource(sub)
-    : workspacesResource
+  const dataFilter = (data: any[]) =>
+    data.filter((workspace) => (workspace as Workspace).author.id === sub)
 
   return (
     <DataTableSuspense
       columns={columns}
-      resource={resource}
+      resource={workspacesResource}
+      filter={currentUserOnly ? dataFilter : undefined}
       onRowClick={onRowClick}
     />
   )
