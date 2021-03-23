@@ -67,23 +67,9 @@ export const workspacesResource = new ObservableResource<Workspace[]>(
   workspaces$$
 )
 
-let userWorkspacesResource: ObservableResource<Workspace[]> | null = null
-
-export const createUserWorkspacesResource = (userId: string) => {
-  if (!userWorkspacesResource) {
-    userWorkspacesResource = new ObservableResource<Workspace[]>(
-      workspaces$$.pipe(
-        map((workspaces) =>
-          workspaces.filter((workspace) => workspace.author.id === userId)
-        )
-      )
-    )
-  }
-  return userWorkspacesResource as ObservableResource<Workspace[]>
-}
-
 export const fetchWorkspaces = () => {
   workspacesTrigger$$.next(null)
+  workspacesResource.reload()
 }
 
 const fetchWorkspace$$ = new Subject<Id>()
