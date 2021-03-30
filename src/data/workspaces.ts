@@ -1,13 +1,5 @@
 import { Subject, Observable, BehaviorSubject, combineLatest } from 'rxjs'
-import {
-  map,
-  switchMap,
-  mapTo,
-  startWith,
-  share,
-  filter,
-  take,
-} from 'rxjs/operators'
+import { map, switchMap, startWith, share, filter, take } from 'rxjs/operators'
 import { ObservableResource } from 'observable-hooks'
 
 import {
@@ -20,7 +12,6 @@ import {
   PublishWorkspacePayload,
   BaseVocabularyWithWorkspace,
 } from '@types'
-import { DEFAULT_VOCABULARY_IRI } from 'app/variables'
 
 import { del, getJSON, post, postJSON, putJSON } from 'utils/ajax'
 import getIdFromResponse from 'utils/getIdFromResponse'
@@ -34,7 +25,6 @@ import {
 } from 'data/api'
 import { convertUserDataToUser } from 'data/users'
 import {
-  addVocabulary,
   convertVocabularyDataToVocabulary,
   vocabularies$$,
 } from 'data/vocabularies'

@@ -103,11 +103,6 @@ export const BUG_TRACKER_URL = COMPONENTS['al-issue-tracker'].meta['new-bug']
 export const FEATURE_TRACKER_URL =
   COMPONENTS['al-issue-tracker'].meta['new-feature']
 
-/**
- * Default vocabulary to include in each workspace
- */
-export const DEFAULT_VOCABULARY_IRI = 'https://slovník.gov.cz/veřejný-sektor'
-
 const NS_PRACOVNI_PROSTOR =
   'https://slovník.gov.cz/datový/pracovní-prostor/pojem/'
 
