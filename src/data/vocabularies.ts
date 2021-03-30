@@ -103,7 +103,6 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
     getAddVocabularyUrl(
       payload.workspaceId,
       payload.vocabularyIri,
-      payload.readOnly,
       payload.label
     )
   ).pipe(
@@ -125,7 +124,6 @@ export const updateVocabulary = (payload: UpdateVocabularyPayload) =>
         getAddVocabularyUrl(
           payload.workspace.id,
           payload.vocabulary.vocabulary,
-          payload.vocabulary.isReadOnly,
           payload.vocabulary.label
         )
       ).pipe(

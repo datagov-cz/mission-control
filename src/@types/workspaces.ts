@@ -40,7 +40,6 @@ export type AddVocabularyPayload = {
   workspaceId: Id
   vocabularyIri: Iri
   label?: string
-  readOnly: boolean
 }
 
 export type DeleteVocabularyPayload = {
