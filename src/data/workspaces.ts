@@ -135,14 +135,6 @@ export const addWorkspace = (payload: AddWorkspacePayload) =>
   postJSON(getWorkspacesUrl(), payload).pipe(
     map(getIdFromResponse),
     handleSuccess('workspaces.addWorkspaceSuccess'),
-    switchMap((workspaceId) =>
-      addVocabulary({
-        workspaceId,
-        vocabularyIri: DEFAULT_VOCABULARY_IRI,
-        readOnly: true,
-        label: 'DEFAULT VOCABULARY',
-      }).pipe(mapTo(workspaceId))
-    ),
     handleError('workspaces.addWorkspaceError')
   )
 
