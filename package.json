@@ -6,6 +6,7 @@
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "@opendata-mvcr/assembly-line-shared": "^0.1.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
@@ -38,8 +39,7 @@
     "router5-plugin-logger": "^8.0.1",
     "rxjs": "^6.6.3",
     "typescript": "^4.1.3",
-    "uuid": "^8.3.2",
-    "yaml": "^1.10.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "prettier": "^2.2.1"

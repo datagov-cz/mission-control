@@ -1,75 +1,48 @@
-import YAML from 'yaml'
+import { Env } from '@opendata-mvcr/assembly-line-shared'
 
-import { Components } from '@types'
-
-const ENV: Record<string, string> = {
-  ...Object.keys(process.env).reduce<Record<string, string>>((acc, key) => {
-    const strippedKey = key.replace('REACT_APP_', '')
-    acc[strippedKey] = process.env[key]!
-    return acc
-  }, {}),
-  ...(window as any).__config__,
-}
-
-/**
- * Helper to make sure that all envs are defined properly
- * @param name env variable name
- */
-const getEnv = (name: string, defaultValue?: string): string => {
-  const value = ENV[name] || defaultValue
-  if (value !== undefined) {
-    return value
-  }
-  throw new Error(`Missing environment variable: ${name}`)
-}
+type LocalVars =
+  | 'PUBLIC_URL'
+  | 'NETLIFY'
+  | 'NETLIFY_CONTEXT'
+  | 'NETLIFY_URL'
+  | 'NETLIFY_DEPLOY_PRIME_URL'
+const env = new Env<LocalVars>(process.env)
 
 /**
  * PUBLIC_URL contains production deployment path
  */
-export const PUBLIC_PATH = getEnv('PUBLIC_URL', '')
+export const PUBLIC_PATH = env.get('PUBLIC_URL', '')
 
 /**
  * Context spec - production or development
  */
-export const CONTEXT = getEnv('CONTEXT')
+export const CONTEXT = env.get('CONTEXT')
 
 /**
  * Stable ID of the application
  */
-export const ID = getEnv('ID')
+export const ID = env.get('ID')
 
 /**
  * App deploy URL base
  */
 export const URL = (() => {
-  if (getEnv('NETLIFY', 'false') === 'false') {
+  if (env.get('NETLIFY', 'false') === 'false') {
     // Not running on Netlify
-    return getEnv('URL')
-  } else if (getEnv('NETLIFY_CONTEXT') === 'production') {
+    return env.get('URL')
+  } else if (env.get('NETLIFY_CONTEXT') === 'production') {
     // Main production instance on Netlify
-    return getEnv('NETLIFY_URL')
+    return env.get('NETLIFY_URL')
   } else {
     // Deploy preview or branch deploy on Netlify
-    return getEnv('NETLIFY_DEPLOY_PRIME_URL')
+    return env.get('NETLIFY_DEPLOY_PRIME_URL')
   }
 })()
 
 /**
  * Components configuration
  */
-export const COMPONENTS: Components = (() => {
-  const base64String = getEnv('COMPONENTS')
-  try {
-    // Use TextDecoder interface to properly decode UTF-8 characters
-    const yamlString = new TextDecoder('utf-8').decode(
-      Uint8Array.from(atob(base64String), (c) => c.charCodeAt(0))
-    )
-    return YAML.parse(yamlString)
-  } catch (error: any) {
-    console.error(error)
-    throw new Error('Unable to decode COMPONENTS configuration')
-  }
-})()
+export const COMPONENTS = env.getComponents()
 
 /**
  * API URL base
