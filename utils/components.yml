@@ -1,6 +1,6 @@
 al-sgov-server:
   name: SGoV Service
-  url: https://kbss.felk.cvut.cz/sgov-server
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/sgov-server
   meta: {}
 al-db-server:
   name: A graph database
@@ -8,25 +8,25 @@ al-db-server:
   meta: {}
 al-auth-server:
   name: OIDC Authentication Service
-  url: https://kbss.felk.cvut.cz:10808/auth/realms/kodi-dev
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/auth-server/realms/assembly-line
   meta: {}
 al-ontographer:
   name: ontoGrapher
-  url: https://slovník.gov.cz/modelujeme/v-nástroji/ontographer
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/v-nástroji/ontographer
   meta:
     workspace-path: '/?workspace=%WORKSPACE_IRI%'
 al-termit-server:
   name: TermIT backend
-  url: http://localhost/modelujeme/sluzby/termit-server
+  url: hhttps://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/termit-server
   meta: {}
 al-termit:
   name: TermIT
-  url: https://slovník.gov.cz/modelujeme/v-nástroji/termit
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/v-nástroji/termit
   meta:
     workspace-path: '/#vocabularies?workspace=%WORKSPACE_IRI%'
 al-mission-control:
   name: Mission Control
-  url: https://slovník.gov.cz/modelujeme/
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/
   meta: {}
 al-issue-tracker:
   name: Issue Tracker
