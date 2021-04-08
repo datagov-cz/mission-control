@@ -4,7 +4,7 @@ al-sgov-server:
   meta: {}
 al-db-server:
   name: A graph database
-  url: https://example.com/sparql
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/db-server
   meta: {}
 al-auth-server:
   name: OIDC Authentication Service
@@ -17,7 +17,7 @@ al-ontographer:
     workspace-path: '/?workspace=%WORKSPACE_IRI%'
 al-termit-server:
   name: TermIT backend
-  url: hhttps://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/termit-server
+  url: https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/termit-server
   meta: {}
 al-termit:
   name: TermIT
