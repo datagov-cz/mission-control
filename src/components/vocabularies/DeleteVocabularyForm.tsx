@@ -1,19 +1,22 @@
-import React, { useCallback } from 'react'
-import { finalize, switchMap } from 'rxjs/operators'
-import { Typography } from '@material-ui/core'
+import React, { useCallback } from "react";
+import { finalize, switchMap } from "rxjs/operators";
+import { Typography } from "@material-ui/core";
 
-import { DeleteVocabularyPayload, Vocabulary, Workspace } from '@types'
+import { DeleteVocabularyPayload, Vocabulary, Workspace } from "@types";
 
-import t from 'components/i18n'
-import FormDialog, { FormDialogProps } from 'components/form/FormDialog'
-import Hidden from 'components/form/Hidden'
-import { deleteVocabulary, fetchWorkspaceVocabularies } from 'data/vocabularies'
-import { execute } from 'utils/epic'
+import t from "components/i18n";
+import FormDialog, { FormDialogProps } from "components/form/FormDialog";
+import Hidden from "components/form/Hidden";
+import {
+  deleteVocabulary,
+  fetchWorkspaceVocabularies,
+} from "data/vocabularies";
+import { execute } from "utils/epic";
 
-type DeleteVocabularyFormProps = Pick<FormDialogProps, 'isOpen' | 'onClose'> & {
-  workspace?: Workspace
-  vocabulary?: Vocabulary
-}
+type DeleteVocabularyFormProps = Pick<FormDialogProps, "isOpen" | "onClose"> & {
+  workspace?: Workspace;
+  vocabulary?: Vocabulary;
+};
 
 const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
   isOpen,
@@ -29,7 +32,7 @@ const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
         finalize(onClose)
       ),
     [onClose, workspace]
-  )
+  );
 
   return (
     <FormDialog
@@ -40,11 +43,11 @@ const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
       onClose={onClose}
       onSubmit={onSubmit}
     >
-      <Hidden name="workspaceId" value={workspace?.id || ''} />
-      <Hidden name="vocabularyId" value={vocabulary?.id || ''} />
+      <Hidden name="workspaceId" value={workspace?.id || ""} />
+      <Hidden name="vocabularyId" value={vocabulary?.id || ""} />
       <Typography paragraph>{t`areYouSureToDeleteVocabulary`}</Typography>
     </FormDialog>
-  )
-}
+  );
+};
 
-export default DeleteVocabularyForm
+export default DeleteVocabularyForm;

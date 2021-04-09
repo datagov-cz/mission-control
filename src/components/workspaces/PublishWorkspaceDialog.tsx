@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -7,31 +7,31 @@ import {
   Typography,
   Box,
   Button,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
-import { Workspace } from '@types'
+import { Workspace } from "@types";
 
-import t from 'components/i18n'
-import { publishWorkspace } from 'data/workspaces'
+import t from "components/i18n";
+import { publishWorkspace } from "data/workspaces";
 
 type PublishWorkspaceDialogProps = {
-  isOpen: boolean
-  onClose: () => void
-  workspace: Workspace
-}
+  isOpen: boolean;
+  onClose: () => void;
+  workspace: Workspace;
+};
 
 const PublishWorkspaceDialog: React.FC<PublishWorkspaceDialogProps> = ({
   isOpen,
   onClose,
   workspace,
 }) => {
-  const [prUri, setPrUri] = useState<string>()
+  const [prUri, setPrUri] = useState<string>();
 
   useEffect(() => {
     if (isOpen) {
-      publishWorkspace(workspace).subscribe(setPrUri)
+      publishWorkspace(workspace).subscribe(setPrUri);
     }
-  }, [isOpen, workspace])
+  }, [isOpen, workspace]);
 
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -57,7 +57,7 @@ const PublishWorkspaceDialog: React.FC<PublishWorkspaceDialogProps> = ({
         </DialogContentText>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default PublishWorkspaceDialog
+export default PublishWorkspaceDialog;

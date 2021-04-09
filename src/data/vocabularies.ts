@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import {
   filter,
   map,
@@ -9,8 +9,8 @@ import {
   switchMap,
   take,
   throttleTime,
-} from 'rxjs/operators'
-import { ObservableResource } from 'observable-hooks'
+} from "rxjs/operators";
+import { ObservableResource } from "observable-hooks";
 
 import {
   AddVocabularyPayload,
@@ -21,18 +21,18 @@ import {
   UpdateVocabularyPayload,
   Vocabulary,
   VocabularyData,
-} from '@types'
-import { VOCABULARY_CONTEXT_READ_ONLY } from 'app/variables'
+} from "@types";
+import { VOCABULARY_CONTEXT_READ_ONLY } from "app/variables";
 
-import { del, getJSON, post } from 'utils/ajax'
-import { handleError, handleSuccess, throttleDistinct } from 'utils/epic'
-import getIdFromIri from 'utils/getIdFromIri'
+import { del, getJSON, post } from "utils/ajax";
+import { handleError, handleSuccess, throttleDistinct } from "utils/epic";
+import getIdFromIri from "utils/getIdFromIri";
 import {
   getAddVocabularyUrl,
   getVocabulariesUrl,
   getVocabularyUrl,
   getWorkspaceVocabulariesUrl,
-} from './api'
+} from "./api";
 
 export const convertVocabularyDataToVocabulary = (
   data: VocabularyData
@@ -45,16 +45,16 @@ export const convertVocabularyDataToVocabulary = (
   vocabularyContext: data.uri,
   changeTrackingContext: data.changeTrackingContext.uri,
   changeTrackingVocabulary: data.changeTrackingContext.changesVocabularyVersion,
-})
+});
 
 const convertBaseVocabularyDataToVocabulary = (
   data: BaseVocabularyData
 ): BaseVocabulary => ({
   vocabulary: data.basedOnVocabularyVersion,
   label: data.label,
-})
+});
 
-const fetchVocabulariesTrigger$$ = new BehaviorSubject(null)
+const fetchVocabulariesTrigger$$ = new BehaviorSubject(null);
 
 export const vocabularies$$ = fetchVocabulariesTrigger$$.pipe(
   throttleTime(100),
@@ -63,15 +63,15 @@ export const vocabularies$$ = fetchVocabulariesTrigger$$.pipe(
     vocabularies.map(convertBaseVocabularyDataToVocabulary)
   ),
   share()
-)
+);
 
-export const vocabulariesResource = new ObservableResource(vocabularies$$)
+export const vocabulariesResource = new ObservableResource(vocabularies$$);
 
 export const fetchVocabularies = () => {
-  fetchVocabulariesTrigger$$.next(null)
-}
+  fetchVocabulariesTrigger$$.next(null);
+};
 
-const fetchWorkspaceVocabularies$$ = new Subject<Id>()
+const fetchWorkspaceVocabularies$$ = new Subject<Id>();
 const workspaceVocabulariesResource$$ = fetchWorkspaceVocabularies$$.pipe(
   throttleDistinct(100),
   switchMap((workspaceId) =>
@@ -80,23 +80,23 @@ const workspaceVocabulariesResource$$ = fetchWorkspaceVocabularies$$.pipe(
   map((data) => data.map(convertVocabularyDataToVocabulary)),
   startWith(null),
   share()
-)
+);
 
 export const workspaceVocabulariesResource = new ObservableResource<
   Vocabulary[]
 >(
   workspaceVocabulariesResource$$ as Observable<Vocabulary[]>, // remove the null in typings as that is never emitted
   (value: Vocabulary[] | null): value is Vocabulary[] => !!value
-)
+);
 
 export const fetchWorkspaceVocabularies = (workspaceId: Id) => {
-  fetchWorkspaceVocabularies$$.next(workspaceId)
+  fetchWorkspaceVocabularies$$.next(workspaceId);
   return workspaceVocabulariesResource$$.pipe(
     filter((vocabularies) => vocabularies !== null),
     map((vocabularies) => vocabularies as Vocabulary[]),
     take(1)
-  )
-}
+  );
+};
 
 export const addVocabulary = (payload: AddVocabularyPayload) =>
   post(
@@ -106,16 +106,16 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
       payload.label
     )
   ).pipe(
-    handleSuccess('vocabularies.addVocabularySuccess'),
+    handleSuccess("vocabularies.addVocabularySuccess"),
     mapTo(payload),
-    handleError('vocabularies.addVocabularyError')
-  )
+    handleError("vocabularies.addVocabularyError")
+  );
 
 export const deleteVocabulary = (payload: DeleteVocabularyPayload) =>
   del(getVocabularyUrl(payload.workspaceId, payload.vocabularyId)).pipe(
-    handleSuccess('vocabularies.deleteVocabularySuccess'),
-    handleError('vocabularies.deleteVocabularyError')
-  )
+    handleSuccess("vocabularies.deleteVocabularySuccess"),
+    handleError("vocabularies.deleteVocabularyError")
+  );
 
 export const updateVocabulary = (payload: UpdateVocabularyPayload) =>
   del(getVocabularyUrl(payload.workspace.id, payload.vocabulary.id)).pipe(
@@ -127,9 +127,9 @@ export const updateVocabulary = (payload: UpdateVocabularyPayload) =>
           payload.vocabulary.label
         )
       ).pipe(
-        handleSuccess('vocabularies.updateVocabularySuccess'),
-        handleError('vocabularies.updateVocabularyError')
+        handleSuccess("vocabularies.updateVocabularySuccess"),
+        handleError("vocabularies.updateVocabularyError")
       )
     ),
-    handleError('vocabularies.updateVocabularyError')
-  )
+    handleError("vocabularies.updateVocabularyError")
+  );

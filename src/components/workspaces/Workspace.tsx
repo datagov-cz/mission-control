@@ -1,14 +1,14 @@
-import React from 'react'
-import { Typography, Container, Box } from '@material-ui/core'
+import React from "react";
+import { Typography, Container, Box } from "@material-ui/core";
 
-import Routes from 'app/routes'
+import Routes from "app/routes";
 
-import RouteLink from 'components/RouteLink'
-import t, { Namespace } from 'components/i18n'
-import WorkspaceName from './WorkspaceName'
-import WorkspaceInformation from './WorkspaceInformation'
-import WorkspaceActions from './WorkspaceActions'
-import WorkspaceVocabularies from 'components/vocabularies/WorkspaceVocabularies'
+import RouteLink from "components/RouteLink";
+import t, { Namespace } from "components/i18n";
+import WorkspaceName from "./WorkspaceName";
+import WorkspaceInformation from "./WorkspaceInformation";
+import WorkspaceActions from "./WorkspaceActions";
+import WorkspaceVocabularies from "components/vocabularies/WorkspaceVocabularies";
 
 const Workspace: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const Workspace: React.FC = () => {
         <WorkspaceVocabularies />
       </Container>
     </Namespace.Provider>
-  )
-}
+  );
+};
 
-export default Workspace
+export default Workspace;

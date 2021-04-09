@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,22 +6,22 @@ import {
   Typography,
   makeStyles,
   Box,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
-import Icon from 'components/Icon'
-import t from 'components/i18n'
-import Help from 'components/Help'
-import LanguageSelector from 'components/LanguageSelector'
-import Identity from 'components/Identity'
+import Icon from "components/Icon";
+import t from "components/i18n";
+import Help from "components/Help";
+import LanguageSelector from "components/LanguageSelector";
+import Identity from "components/Identity";
 
 const useStyles = makeStyles({
   root: {
-    background: '#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)',
+    background: "#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)",
   },
-})
+});
 
 const Header: React.FC = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
         </Box>
       </Toolbar>
     </AppBar>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

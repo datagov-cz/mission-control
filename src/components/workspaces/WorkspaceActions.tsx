@@ -1,42 +1,42 @@
-import React from 'react'
-import { useObservableSuspense } from 'observable-hooks'
-import { Box, Button, Menu, MenuItem, Divider } from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import React from "react";
+import { useObservableSuspense } from "observable-hooks";
+import { Box, Button, Menu, MenuItem, Divider } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import t from 'components/i18n'
-import EditWorkspaceForm from './EditWorkspaceForm'
-import DeleteWorkspaceForm from './DeleteWorkspaceForm'
-import PublishWorkspaceDialog from './PublishWorkspaceDialog'
-import Tools from './Tools'
-import useToggle from 'hooks/useToggle'
-import { workspaceResource } from 'data/workspaces'
+import t from "components/i18n";
+import EditWorkspaceForm from "./EditWorkspaceForm";
+import DeleteWorkspaceForm from "./DeleteWorkspaceForm";
+import PublishWorkspaceDialog from "./PublishWorkspaceDialog";
+import Tools from "./Tools";
+import useToggle from "hooks/useToggle";
+import { workspaceResource } from "data/workspaces";
 
 const WorkspaceActions: React.FC = () => {
-  const workspace = useObservableSuspense(workspaceResource)
+  const workspace = useObservableSuspense(workspaceResource);
 
-  const publish = useToggle()
-  const del = useToggle()
-  const edit = useToggle()
+  const publish = useToggle();
+  const del = useToggle();
+  const edit = useToggle();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const editOpen = () => {
-    edit.open()
-    handleClose()
-  }
+    edit.open();
+    handleClose();
+  };
 
   const deleteOpen = () => {
-    del.open()
-    handleClose()
-  }
+    del.open();
+    handleClose();
+  };
 
   return (
     <>
@@ -81,7 +81,7 @@ const WorkspaceActions: React.FC = () => {
         workspace={workspace}
       />
     </>
-  )
-}
+  );
+};
 
-export default WorkspaceActions
+export default WorkspaceActions;

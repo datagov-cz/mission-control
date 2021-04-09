@@ -1,44 +1,44 @@
-import React, { useCallback } from 'react'
-import { useObservableSuspense } from 'observable-hooks'
-import { Box, Tabs, Tab } from '@material-ui/core'
+import React, { useCallback } from "react";
+import { useObservableSuspense } from "observable-hooks";
+import { Box, Tabs, Tab } from "@material-ui/core";
 
-import t from 'components/i18n'
-import Dialog from 'components/form/Dialog'
-import ImportVocabularyForm from 'components/vocabularies/ImportVocabularyForm'
-import CreateVocabularyForm from 'components/vocabularies/CreateVocabularyForm'
-import { workspaceResource } from 'data/workspaces'
+import t from "components/i18n";
+import Dialog from "components/form/Dialog";
+import ImportVocabularyForm from "components/vocabularies/ImportVocabularyForm";
+import CreateVocabularyForm from "components/vocabularies/CreateVocabularyForm";
+import { workspaceResource } from "data/workspaces";
 
 type TabPanelProps = {
-  index: number
-  currentIndex: number
-  children: React.ReactElement
-}
+  index: number;
+  currentIndex: number;
+  children: React.ReactElement;
+};
 
 const TabPanel: React.FC<TabPanelProps> = ({
   index,
   currentIndex,
   children,
-}) => <div hidden={index !== currentIndex}>{children}</div>
+}) => <div hidden={index !== currentIndex}>{children}</div>;
 
 type AddVocabularyFormProps = {
-  isOpen: boolean
-  onClose: () => void
-}
+  isOpen: boolean;
+  onClose: () => void;
+};
 
 const AddVocabularyForm: React.FC<AddVocabularyFormProps> = ({
   isOpen,
   onClose,
 }) => {
-  const workspace = useObservableSuspense(workspaceResource)
+  const workspace = useObservableSuspense(workspaceResource);
 
-  const [tabIndex, setTabIndex] = React.useState(0)
+  const [tabIndex, setTabIndex] = React.useState(0);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{}>, newValue: number) => {
-      setTabIndex(newValue)
+      setTabIndex(newValue);
     },
     [setTabIndex]
-  )
+  );
 
   return (
     <Dialog
@@ -61,7 +61,7 @@ const AddVocabularyForm: React.FC<AddVocabularyFormProps> = ({
       </Box>
       <Box my={1} />
     </Dialog>
-  )
-}
+  );
+};
 
-export default AddVocabularyForm
+export default AddVocabularyForm;

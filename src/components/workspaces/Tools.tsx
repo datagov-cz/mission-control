@@ -1,11 +1,11 @@
-import React from 'react'
-import { Button, Box } from '@material-ui/core'
+import React from "react";
+import { Button, Box } from "@material-ui/core";
 
-import tools from 'app/tools'
+import tools from "app/tools";
 
-import t from 'components/i18n'
+import t from "components/i18n";
 
-type ToolProps = { workspaceUri: string }
+type ToolProps = { workspaceUri: string };
 
 const Tools: React.FC<ToolProps> = ({ workspaceUri }) => {
   return (
@@ -25,7 +25,7 @@ const Tools: React.FC<ToolProps> = ({ workspaceUri }) => {
         </React.Fragment>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default Tools
+export default Tools;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 import {
   Table,
   TableRow,
@@ -7,25 +7,25 @@ import {
   makeStyles,
   Theme,
   TableBody,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   headCell: {
     minWidth: 200,
-    width: '25%',
+    width: "25%",
   },
-}))
+}));
 
 type KeyValueTableProps = {
   data: {
-    key: ReactNode
-    value: ReactNode
-  }[]
-  transparent?: boolean
-}
+    key: ReactNode;
+    value: ReactNode;
+  }[];
+  transparent?: boolean;
+};
 
 const KeyValueTableInternal: React.FC<KeyValueTableProps> = ({ data }) => {
-  const styles = useStyles()
+  const styles = useStyles();
   return (
     <Table>
       <TableBody>
@@ -39,8 +39,8 @@ const KeyValueTableInternal: React.FC<KeyValueTableProps> = ({ data }) => {
         ))}
       </TableBody>
     </Table>
-  )
-}
+  );
+};
 
 const KeyValueTable: React.FC<KeyValueTableProps> = ({ data, transparent }) =>
   transparent ? (
@@ -49,6 +49,6 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({ data, transparent }) =>
     <Paper>
       <KeyValueTableInternal data={data} />
     </Paper>
-  )
+  );
 
-export default KeyValueTable
+export default KeyValueTable;

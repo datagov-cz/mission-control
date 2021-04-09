@@ -1,12 +1,12 @@
-import React, { Suspense } from 'react'
-import { Box } from '@material-ui/core'
+import React, { Suspense } from "react";
+import { Box } from "@material-ui/core";
 
-import Header from './Header'
-import Footer from './Footer'
-import BackdropGrey from './BackdropGrey'
-import RouteComponentRenderer from './RouteComponentRenderer'
-import { ErrorBoundary } from 'react-error-boundary'
-import { ErrorFallback } from './Errors'
+import Header from "./Header";
+import Footer from "./Footer";
+import BackdropGrey from "./BackdropGrey";
+import RouteComponentRenderer from "./RouteComponentRenderer";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./Errors";
 
 const MainLayout: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const MainLayout: React.FC = () => {
       </Box>
       <Footer />
     </BackdropGrey>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;

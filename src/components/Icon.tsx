@@ -1,6 +1,6 @@
-import React from 'react'
-import TuneIcon from '@material-ui/icons/Tune'
+import React from "react";
+import TuneIcon from "@material-ui/icons/Tune";
 
-const Icon: React.FC<{}> = () => <TuneIcon />
+const Icon: React.FC<{}> = () => <TuneIcon />;
 
-export default Icon
+export default Icon;

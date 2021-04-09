@@ -1,15 +1,15 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState } from "react";
 
 const useThrow = () => {
-  const [, setState] = useState()
+  const [, setState] = useState();
   const callback = useCallback(
     (error: Error) =>
       setState(() => {
-        throw error
+        throw error;
       }),
     [setState]
-  )
-  return callback
-}
+  );
+  return callback;
+};
 
-export default useThrow
+export default useThrow;

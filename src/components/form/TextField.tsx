@@ -1,24 +1,28 @@
-import React from 'react'
+import React from "react";
 import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
-} from '@material-ui/core'
-import { RegisterOptions, useFormContext, useController } from 'react-hook-form'
+} from "@material-ui/core";
+import {
+  RegisterOptions,
+  useFormContext,
+  useController,
+} from "react-hook-form";
 
-import t from 'components/i18n'
+import t from "components/i18n";
 
 type TextFieldProps = MuiTextFieldProps & {
-  name: string
-  rules: RegisterOptions
-}
+  name: string;
+  rules: RegisterOptions;
+};
 
 const TextField: React.FC<TextFieldProps> = ({
   name,
   rules,
-  defaultValue = '',
+  defaultValue = "",
   ...restProps
 }) => {
-  const { control, errors } = useFormContext()
+  const { control, errors } = useFormContext();
   const {
     field: { ref, ...inputProps },
   } = useController({
@@ -26,7 +30,7 @@ const TextField: React.FC<TextFieldProps> = ({
     control,
     rules,
     defaultValue,
-  })
+  });
 
   return (
     <MuiTextField
@@ -36,7 +40,7 @@ const TextField: React.FC<TextFieldProps> = ({
       error={!!errors[name]}
       helperText={errors[name]?.message ? t(errors[name]?.message) : undefined}
     />
-  )
-}
+  );
+};
 
-export default TextField
+export default TextField;

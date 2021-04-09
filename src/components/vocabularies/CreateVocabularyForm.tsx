@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { finalize, switchMap } from 'rxjs/operators'
-import { useForm } from 'react-hook-form'
+import React, { useState, useCallback, useEffect } from "react";
+import { finalize, switchMap } from "rxjs/operators";
+import { useForm } from "react-hook-form";
 import {
   FormControlLabel,
   FormControl,
@@ -8,30 +8,30 @@ import {
   RadioGroup,
   Radio,
   Box,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
-import { AddVocabularyPayload, Workspace } from '@types'
-import vocabularyTypes from 'app/vocabularyTypes.json'
+import { AddVocabularyPayload, Workspace } from "@types";
+import vocabularyTypes from "app/vocabularyTypes.json";
 
-import t from 'components/i18n'
-import SubmitButton from 'components/form/SubmitButton'
-import Form from 'components/form/Form'
-import Hidden from 'components/form/Hidden'
-import FormTextField from 'components/form/TextField'
-import Checkbox from 'components/form/Checkbox'
-import { addVocabulary, fetchWorkspaceVocabularies } from 'data/vocabularies'
-import { execute } from 'utils/epic'
+import t from "components/i18n";
+import SubmitButton from "components/form/SubmitButton";
+import Form from "components/form/Form";
+import Hidden from "components/form/Hidden";
+import FormTextField from "components/form/TextField";
+import Checkbox from "components/form/Checkbox";
+import { addVocabulary, fetchWorkspaceVocabularies } from "data/vocabularies";
+import { execute } from "utils/epic";
 
 type CreateVocabularyFormProps = {
-  workspace: Workspace
-  onClose: () => void
-}
+  workspace: Workspace;
+  onClose: () => void;
+};
 
 const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   workspace,
   onClose,
 }) => {
-  const form = useForm()
+  const form = useForm();
 
   const onSubmit = useCallback(
     (payload: AddVocabularyPayload) => {
@@ -39,33 +39,33 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         switchMap(() => addVocabulary(payload)),
         switchMap(() => fetchWorkspaceVocabularies(workspace.id)),
         finalize(onClose)
-      )
+      );
     },
     [workspace, onClose]
-  )
+  );
 
   const [vocabularyTypeLabel, setVocabularyType] = useState(
     vocabularyTypes[0].label
-  )
+  );
 
   const vocabularyType = vocabularyTypes.find(
     (v) => v.label === vocabularyTypeLabel
-  )!
+  )!;
 
-  const useDefaultIri = form.watch('defaultIri', true) as boolean
-  const label = form.watch('label') as string
+  const useDefaultIri = form.watch("defaultIri", true) as boolean;
+  const label = form.watch("label") as string;
 
   // Handles vocabulary type change when user selects radio option, resets form
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedTypeLabel = (event.target as HTMLInputElement).value
+    const selectedTypeLabel = (event.target as HTMLInputElement).value;
     const selectedType = vocabularyTypes.find(
       (v) => v.label === selectedTypeLabel
-    )!
-    setVocabularyType(selectedTypeLabel)
+    )!;
+    setVocabularyType(selectedTypeLabel);
     if (useDefaultIri) {
-      form.setValue('vocabularyIri', selectedType.prefix)
+      form.setValue("vocabularyIri", selectedType.prefix);
     }
-  }
+  };
 
   useEffect(() => {
     if (useDefaultIri) {
@@ -73,12 +73,12 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
       const chunks = label
         ? label
             .toLowerCase()
-            .match(new RegExp(vocabularyType.autoIriRegex, 'g'))
-        : null
-      const iriSafeLabel = chunks ? chunks.join('-') : ''
-      form.setValue('vocabularyIri', `${vocabularyType.prefix}${iriSafeLabel}`)
+            .match(new RegExp(vocabularyType.autoIriRegex, "g"))
+        : null;
+      const iriSafeLabel = chunks ? chunks.join("-") : "";
+      form.setValue("vocabularyIri", `${vocabularyType.prefix}${iriSafeLabel}`);
     }
-  }, [useDefaultIri, label, form, vocabularyType])
+  }, [useDefaultIri, label, form, vocabularyType]);
 
   return (
     <>
@@ -108,7 +108,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
           name="label"
           label={t`vocabularyLabel`}
           rules={{
-            required: 'common.errorRequired',
+            required: "common.errorRequired",
           }}
         />
         <Checkbox
@@ -134,7 +134,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         >{t`addVocabulary`}</SubmitButton>
       </Form>
     </>
-  )
-}
+  );
+};
 
-export default CreateVocabularyForm
+export default CreateVocabularyForm;

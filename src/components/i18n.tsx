@@ -1,24 +1,24 @@
-import React from 'react'
-import { useObservableEagerState } from 'observable-hooks'
-import { FormattedMessage, IntlProvider } from 'react-intl'
+import React from "react";
+import { useObservableEagerState } from "observable-hooks";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
-import { locale$ } from 'data/locale'
-import i18n from 'i18n'
+import { locale$ } from "data/locale";
+import i18n from "i18n";
 
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   // const locale = getLocale() as Locale
-  const locale = useObservableEagerState(locale$)
-  const messages = i18n[locale]
+  const locale = useObservableEagerState(locale$);
+  const messages = i18n[locale];
   return (
     <IntlProvider locale={locale} messages={messages}>
       {children}
     </IntlProvider>
-  )
-}
+  );
+};
 
-const NAMESPACE_SEPARATOR = '.'
+const NAMESPACE_SEPARATOR = ".";
 
 /**
  * Component with context to set up react-intl namespace. Needs to be
@@ -43,7 +43,7 @@ const NAMESPACE_SEPARATOR = '.'
  *   ...
  * </Namespace.Provider>
  */
-export const Namespace = React.createContext('')
+export const Namespace = React.createContext("");
 
 /**
  * Returns a FormattedMessage react-intl component with appropriate namespace
@@ -55,13 +55,13 @@ const getNamespacedMessage = (
   <Namespace.Consumer>
     {(value) => {
       const key =
-        id.indexOf(NAMESPACE_SEPARATOR) !== -1 || value === ''
+        id.indexOf(NAMESPACE_SEPARATOR) !== -1 || value === ""
           ? id
-          : `${value}${NAMESPACE_SEPARATOR}${id}`
-      return <FormattedMessage id={key} values={values} />
+          : `${value}${NAMESPACE_SEPARATOR}${id}`;
+      return <FormattedMessage id={key} values={values} />;
     }}
   </Namespace.Consumer>
-)
+);
 
 /**
  * Shortcut to efficient react-intl FormattedMessage component use.
@@ -73,19 +73,19 @@ const getNamespacedMessage = (
  * t('message.id')  <- equivalent to the above
  * t('message.id.with.variable', { variable: 'value' })
  */
-function t(id: string, values?: object): React.ReactElement
+function t(id: string, values?: object): React.ReactElement;
 function t(
   template: TemplateStringsArray,
   ...expressions: (string | number | boolean)[]
-): React.ReactElement
+): React.ReactElement;
 function t(a: any, ...b: any[]): React.ReactElement {
-  if (typeof a === 'string') {
-    return getNamespacedMessage(a, b[0])
+  if (typeof a === "string") {
+    return getNamespacedMessage(a, b[0]);
   } else {
     return getNamespacedMessage(
       String.raw((a as unknown) as TemplateStringsArray, ...b)
-    )
+    );
   }
 }
 
-export default t
+export default t;

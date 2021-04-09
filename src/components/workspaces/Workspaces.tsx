@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react'
-import { Typography, Container, Box } from '@material-ui/core'
+import React, { Suspense } from "react";
+import { Typography, Container, Box } from "@material-ui/core";
 
-import t, { Namespace } from 'components/i18n'
-import Title from 'components/Title'
+import t, { Namespace } from "components/i18n";
+import Title from "components/Title";
 
-import WorkspacesTable from './WorkspacesTable'
-import AddWorkspace from './AddWorkspace'
+import WorkspacesTable from "./WorkspacesTable";
+import AddWorkspace from "./AddWorkspace";
 
 const Workspaces: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Workspaces: React.FC = () => {
         </Suspense>
       </Container>
     </Namespace.Provider>
-  )
-}
+  );
+};
 
-export default Workspaces
+export default Workspaces;

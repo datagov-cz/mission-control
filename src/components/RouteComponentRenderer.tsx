@@ -1,14 +1,14 @@
-import React, { ComponentType } from 'react'
-import useRoute from 'hooks/useRoute'
+import React, { ComponentType } from "react";
+import useRoute from "hooks/useRoute";
 
-const RouteComponentRendererContext = React.createContext(0)
+const RouteComponentRendererContext = React.createContext(0);
 
 const renderComponent = (Component: ComponentType) => {
-  return Component ? <Component /> : null
-}
+  return Component ? <Component /> : null;
+};
 
 const RouteComponentRenderer: React.FC = () => {
-  const { components } = useRoute()
+  const { components } = useRoute();
   return (
     <RouteComponentRendererContext.Consumer>
       {(level) => (
@@ -17,7 +17,7 @@ const RouteComponentRenderer: React.FC = () => {
         </RouteComponentRendererContext.Provider>
       )}
     </RouteComponentRendererContext.Consumer>
-  )
-}
+  );
+};
 
-export default RouteComponentRenderer
+export default RouteComponentRenderer;

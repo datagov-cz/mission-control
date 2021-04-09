@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   MenuItem,
   Menu,
   Button,
   Typography,
   ListItemIcon,
-} from '@material-ui/core'
-import { ExitToApp } from '@material-ui/icons'
+} from "@material-ui/core";
+import { ExitToApp } from "@material-ui/icons";
 
-import Gravatar from 'components/users/Gravatar'
-import t, { Namespace } from 'components/i18n'
-import useAuth from 'hooks/useAuth'
+import Gravatar from "components/users/Gravatar";
+import t, { Namespace } from "components/i18n";
+import useAuth from "hooks/useAuth";
 
 const Identity: React.FC = () => {
   const {
@@ -18,19 +18,19 @@ const Identity: React.FC = () => {
       profile: { given_name, family_name, email },
     },
     logout,
-  } = useAuth()
+  } = useAuth();
 
-  const initials = `${given_name?.charAt(0)}${family_name?.charAt(0)}`
+  const initials = `${given_name?.charAt(0)}${family_name?.charAt(0)}`;
 
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   return (
     <Namespace.Provider value="common">
@@ -46,7 +46,7 @@ const Identity: React.FC = () => {
         </MenuItem>
       </Menu>
     </Namespace.Provider>
-  )
-}
+  );
+};
 
-export default Identity
+export default Identity;

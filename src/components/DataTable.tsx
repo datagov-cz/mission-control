@@ -1,30 +1,30 @@
-import React, { forwardRef, Suspense } from 'react'
-import { range } from 'lodash'
+import React, { forwardRef, Suspense } from "react";
+import { range } from "lodash";
 import MaterialTable, {
   MaterialTableProps,
   Icons,
   Column,
   Localization,
-} from 'material-table'
-import { Skeleton } from '@material-ui/lab'
+} from "material-table";
+import { Skeleton } from "@material-ui/lab";
 
-import AddBox from '@material-ui/icons/AddBox'
-import ArrowDownward from '@material-ui/icons/ArrowDownward'
-import Check from '@material-ui/icons/Check'
-import ChevronLeft from '@material-ui/icons/ChevronLeft'
-import ChevronRight from '@material-ui/icons/ChevronRight'
-import Clear from '@material-ui/icons/Clear'
-import DeleteOutline from '@material-ui/icons/DeleteOutline'
-import Edit from '@material-ui/icons/Edit'
-import FilterList from '@material-ui/icons/FilterList'
-import FirstPage from '@material-ui/icons/FirstPage'
-import LastPage from '@material-ui/icons/LastPage'
-import Remove from '@material-ui/icons/Remove'
-import SaveAlt from '@material-ui/icons/SaveAlt'
-import Search from '@material-ui/icons/Search'
-import ViewColumn from '@material-ui/icons/ViewColumn'
-import { ObservableResource, useObservableSuspense } from 'observable-hooks'
-import { useIntl } from 'react-intl'
+import AddBox from "@material-ui/icons/AddBox";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Check from "@material-ui/icons/Check";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import Clear from "@material-ui/icons/Clear";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import Edit from "@material-ui/icons/Edit";
+import FilterList from "@material-ui/icons/FilterList";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import Remove from "@material-ui/icons/Remove";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import Search from "@material-ui/icons/Search";
+import ViewColumn from "@material-ui/icons/ViewColumn";
+import { ObservableResource, useObservableSuspense } from "observable-hooks";
+import { useIntl } from "react-intl";
 
 const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -48,61 +48,61 @@ const tableIcons: Icons = {
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-}
+};
 
 const simpleTableOptions = {
   toolbar: false,
   pageSize: 5,
   emptyRowsWhenPaging: false,
   paging: false,
-}
+};
 
 const complexTableOptions = {
   toolbar: false,
   pageSize: 10,
   emptyRowsWhenPaging: true,
   paging: true,
-}
+};
 
-export type DataColumn<RowData extends object> = Column<RowData>
+export type DataColumn<RowData extends object> = Column<RowData>;
 
 type DataTableProps<RowData extends object> = MaterialTableProps<RowData> & {
-  type?: 'simple' | 'complex'
-}
+  type?: "simple" | "complex";
+};
 
 const DataTable = <RowData extends object>({
   isLoading = false,
   columns,
   data,
   options = {},
-  type = 'complex',
+  type = "complex",
   ...rest
 }: DataTableProps<RowData>) => {
-  const intl = useIntl()
+  const intl = useIntl();
 
   const tableLocalization: Localization = {
     body: {
       emptyDataSourceMessage: intl.formatMessage({
-        id: 'common.noRecordsFound',
+        id: "common.noRecordsFound",
       }),
     },
-  }
+  };
 
   const tableColumns = !isLoading
     ? columns
     : columns.map((column) => ({
         ...column,
         render: () => <Skeleton />,
-      }))
+      }));
 
   const tableOptions =
-    type === 'complex'
+    type === "complex"
       ? { ...complexTableOptions, ...options }
-      : { ...simpleTableOptions, ...options }
+      : { ...simpleTableOptions, ...options };
 
   const tableData = !isLoading
     ? data
-    : (range(tableOptions.pageSize!).map(() => ({})) as RowData[])
+    : (range(tableOptions.pageSize!).map(() => ({})) as RowData[]);
 
   return (
     <MaterialTable
@@ -113,28 +113,28 @@ const DataTable = <RowData extends object>({
       localization={tableLocalization}
       {...rest}
     />
-  )
-}
+  );
+};
 
-export default DataTable
+export default DataTable;
 
 type DataTableSuspenseProps<RowData extends object> = Omit<
   DataTableProps<RowData>,
-  'data' | 'isLoading'
+  "data" | "isLoading"
 > & {
-  resource: ObservableResource<RowData[], RowData[]>
-  filter?: (data: RowData[]) => RowData[]
-}
+  resource: ObservableResource<RowData[], RowData[]>;
+  filter?: (data: RowData[]) => RowData[];
+};
 
 const DataTableSuspenseInner = <RowData extends object>({
   resource,
   filter,
   ...rest
 }: DataTableSuspenseProps<RowData>) => {
-  const data = useObservableSuspense(resource)
-  const filteredData = filter ? filter(data) : data
-  return <DataTable {...rest} data={filteredData} isLoading={false} />
-}
+  const data = useObservableSuspense(resource);
+  const filteredData = filter ? filter(data) : data;
+  return <DataTable {...rest} data={filteredData} isLoading={false} />;
+};
 
 export const DataTableSuspense = <RowData extends object>({
   resource,
@@ -144,5 +144,5 @@ export const DataTableSuspense = <RowData extends object>({
     <Suspense fallback={<DataTable {...rest} data={[]} isLoading={true} />}>
       <DataTableSuspenseInner resource={resource} {...rest} />
     </Suspense>
-  )
-}
+  );
+};

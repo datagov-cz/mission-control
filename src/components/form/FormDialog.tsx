@@ -1,15 +1,15 @@
-import React, { ReactNode } from 'react'
-import { Box } from '@material-ui/core'
+import React, { ReactNode } from "react";
+import { Box } from "@material-ui/core";
 
-import Dialog, { DialogProps } from './Dialog'
-import Form from './Form'
-import SubmitButton from './SubmitButton'
+import Dialog, { DialogProps } from "./Dialog";
+import Form from "./Form";
+import SubmitButton from "./SubmitButton";
 
 export type FormDialogProps = DialogProps & {
-  submitLabel: ReactNode
-  submitPendingLabel?: ReactNode
-  onSubmit: (data: any) => void
-}
+  submitLabel: ReactNode;
+  submitPendingLabel?: ReactNode;
+  onSubmit: (data: any) => void;
+};
 
 const FormDialog: React.FC<FormDialogProps> = ({
   children,
@@ -29,7 +29,7 @@ const FormDialog: React.FC<FormDialogProps> = ({
         <Box my={2} />
       </Dialog>
     </Form>
-  )
-}
+  );
+};
 
-export default FormDialog
+export default FormDialog;

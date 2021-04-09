@@ -2,43 +2,43 @@ import React, {
   MouseEvent,
   SuspenseConfig,
   unstable_useTransition as useTransition,
-} from 'react'
-import { useRouter } from 'react-router5'
+} from "react";
+import { useRouter } from "react-router5";
 
-import { Workspace } from '@types'
-import Routes from 'app/routes'
+import { Workspace } from "@types";
+import Routes from "app/routes";
 
-import t from 'components/i18n'
-import { DataColumn, DataTableSuspense } from 'components/DataTable'
-import UserChip from 'components/users/UserChip'
-import Tools from './Tools'
-import formatDate from 'utils/formatDate'
+import t from "components/i18n";
+import { DataColumn, DataTableSuspense } from "components/DataTable";
+import UserChip from "components/users/UserChip";
+import Tools from "./Tools";
+import formatDate from "utils/formatDate";
 
-import { workspacesResource, fetchWorkspace } from 'data/workspaces'
-import useAuth from 'hooks/useAuth'
+import { workspacesResource, fetchWorkspace } from "data/workspaces";
+import useAuth from "hooks/useAuth";
 
 type WorkspacesTableProps = {
-  currentUserOnly?: boolean
-}
+  currentUserOnly?: boolean;
+};
 
 const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
   currentUserOnly = false,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [startTransition] = useTransition({
     timeoutMs: 10000,
-  } as SuspenseConfig)
+  } as SuspenseConfig);
 
   const {
     user: {
       profile: { sub },
     },
-  } = useAuth()
+  } = useAuth();
 
   const columns: DataColumn<Workspace>[] = [
     {
       title: t`label`,
-      field: 'label',
+      field: "label",
     },
     {
       title: t`owner`,
@@ -56,10 +56,10 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
       title: t`actions`,
       render: ({ uri }) => <Tools workspaceUri={uri} />,
     },
-  ]
+  ];
 
   if (currentUserOnly) {
-    columns.splice(1, 1)
+    columns.splice(1, 1);
   }
 
   const onRowClick = (
@@ -68,14 +68,14 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
   ) => {
     if (rowData) {
       startTransition(() => {
-        fetchWorkspace(rowData.id)
-        rowData && router.navigate(Routes.Workspace, { id: rowData.id })
-      })
+        fetchWorkspace(rowData.id);
+        rowData && router.navigate(Routes.Workspace, { id: rowData.id });
+      });
     }
-  }
+  };
 
   const dataFilter = (data: any[]) =>
-    data.filter((workspace) => (workspace as Workspace).author.id === sub)
+    data.filter((workspace) => (workspace as Workspace).author.id === sub);
 
   return (
     <DataTableSuspense
@@ -84,7 +84,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
       filter={currentUserOnly ? dataFilter : undefined}
       onRowClick={onRowClick}
     />
-  )
-}
+  );
+};
 
-export default WorkspacesTable
+export default WorkspacesTable;

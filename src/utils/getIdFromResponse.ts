@@ -1,9 +1,9 @@
-import { AjaxResponse } from 'rxjs/ajax'
+import { AjaxResponse } from "rxjs/ajax";
 
-import { Id } from '@types'
-import getIdFromIri from './getIdFromIri'
+import { Id } from "@types";
+import getIdFromIri from "./getIdFromIri";
 
 const getIdFromResponse = (response: AjaxResponse): Id =>
-  getIdFromIri(response.xhr.getResponseHeader('Location') || '')
+  getIdFromIri(response.xhr.getResponseHeader("Location") || "");
 
-export default getIdFromResponse
+export default getIdFromResponse;

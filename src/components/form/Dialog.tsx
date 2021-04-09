@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 import {
   Dialog as MuiDialog,
   DialogProps as MuiDialogProps,
@@ -8,19 +8,19 @@ import {
   Typography,
   makeStyles,
   IconButton,
-} from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
-import Form from './Form'
+import Form from "./Form";
 
 export type DialogProps = Omit<
   MuiDialogProps,
-  'open' | 'onClose' | 'title' | 'onSubmit'
+  "open" | "onClose" | "title" | "onSubmit"
 > & {
-  isOpen: boolean
-  title: ReactNode
-  onClose: () => void
-}
+  isOpen: boolean;
+  title: ReactNode;
+  onClose: () => void;
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   closeButton: {
-    position: 'absolute',
+    position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-}))
+}));
 
 const Dialog: React.FC<DialogProps> = ({
   isOpen,
@@ -42,7 +42,7 @@ const Dialog: React.FC<DialogProps> = ({
   onClose,
   ...props
 }) => {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Form>
       <MuiDialog
@@ -70,7 +70,7 @@ const Dialog: React.FC<DialogProps> = ({
         </DialogContent>
       </MuiDialog>
     </Form>
-  )
-}
+  );
+};
 
-export default Dialog
+export default Dialog;
