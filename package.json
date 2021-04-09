@@ -54,22 +54,7 @@
     "prettier:fix": "prettier --write ./src"
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "semi": [
-        "error",
-        "never"
-      ]
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false,
-    "endOfLine": "auto"
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
