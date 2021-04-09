@@ -1,13 +1,13 @@
-import React from 'react'
-import { Fab } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import React from "react";
+import { Fab } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
-import t from 'components/i18n'
-import AddWorkspaceForm from 'components/workspaces/AddWorkspaceForm'
-import useToggle from 'hooks/useToggle'
+import t from "components/i18n";
+import AddWorkspaceForm from "components/workspaces/AddWorkspaceForm";
+import useToggle from "hooks/useToggle";
 
 const AddWorkspace: React.FC<{}> = () => {
-  const { isOpen, open, close } = useToggle()
+  const { isOpen, open, close } = useToggle();
 
   return (
     <>
@@ -17,7 +17,7 @@ const AddWorkspace: React.FC<{}> = () => {
       </Fab>
       <AddWorkspaceForm isOpen={isOpen} onClose={close} />
     </>
-  )
-}
+  );
+};
 
-export default AddWorkspace
+export default AddWorkspace;

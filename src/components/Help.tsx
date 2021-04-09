@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import classnames from 'classnames'
+import React, { useState, useRef } from "react";
+import classnames from "classnames";
 import {
   Box,
   Button,
@@ -8,13 +8,13 @@ import {
   Grow,
   makeStyles,
   Popper,
-} from '@material-ui/core'
-import { ArrowDropDown } from '@material-ui/icons'
+} from "@material-ui/core";
+import { ArrowDropDown } from "@material-ui/icons";
 
-import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from 'app/variables'
+import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from "app/variables";
 
-import t from 'components/i18n'
-import theme from 'app/theme'
+import t from "components/i18n";
+import theme from "app/theme";
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   button: {
     color: theme.palette.warning.contrastText,
     backgroundColor: theme.palette.warning.main,
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.palette.warning.dark,
     },
   },
@@ -31,27 +31,27 @@ const useStyles = makeStyles({
     padding: theme.spacing(0.5),
     minWidth: theme.spacing(3),
   },
-})
+});
 
 const Help: React.FC = () => {
-  const [open, setOpen] = useState(false)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const classes = useStyles()
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const classes = useStyles();
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen)
-  }
+    setOpen((prevOpen) => !prevOpen);
+  };
 
   const handleClose = (event: React.MouseEvent<Node, MouseEvent>) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event?.target as Node)
     ) {
-      return
+      return;
     }
 
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Box display="flex" alignItems="center" position="relative">
@@ -85,7 +85,7 @@ const Help: React.FC = () => {
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: 'center top',
+              transformOrigin: "center top",
             }}
           >
             <Box my={0.5}>
@@ -105,7 +105,7 @@ const Help: React.FC = () => {
         )}
       </Popper>
     </Box>
-  )
-}
+  );
+};
 
-export default Help
+export default Help;

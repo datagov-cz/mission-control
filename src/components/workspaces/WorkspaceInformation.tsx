@@ -1,17 +1,17 @@
-import React, { Suspense } from 'react'
-import { useObservableSuspense } from 'observable-hooks'
-import { Typography } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import React, { Suspense } from "react";
+import { useObservableSuspense } from "observable-hooks";
+import { Typography } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 
-import t from 'components/i18n'
-import formatDate from 'utils/formatDate'
-import UserChip from 'components/users/UserChip'
-import KeyValueTable from 'components/KeyValueTable'
+import t from "components/i18n";
+import formatDate from "utils/formatDate";
+import UserChip from "components/users/UserChip";
+import KeyValueTable from "components/KeyValueTable";
 
-import { workspaceResource } from 'data/workspaces'
+import { workspaceResource } from "data/workspaces";
 
 const WorkspaceInformationData: React.FC = () => {
-  const workspace = useObservableSuspense(workspaceResource)
+  const workspace = useObservableSuspense(workspaceResource);
 
   const data = [
     {
@@ -30,10 +30,10 @@ const WorkspaceInformationData: React.FC = () => {
       key: t`lastModified`,
       value: workspace!.lastModified && formatDate(workspace.lastModified),
     },
-  ]
+  ];
 
-  return <KeyValueTable data={data} />
-}
+  return <KeyValueTable data={data} />;
+};
 
 const WorkspaceInformation: React.FC = () => {
   const skeletonData = [
@@ -53,7 +53,7 @@ const WorkspaceInformation: React.FC = () => {
       key: t`lastModified`,
       value: <Skeleton />,
     },
-  ]
+  ];
 
   return (
     <>
@@ -64,7 +64,7 @@ const WorkspaceInformation: React.FC = () => {
         <WorkspaceInformationData />
       </Suspense>
     </>
-  )
-}
+  );
+};
 
-export default WorkspaceInformation
+export default WorkspaceInformation;

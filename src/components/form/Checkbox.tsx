@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 import {
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
   FormControlLabel,
-} from '@material-ui/core'
-import { useFormContext, useController } from 'react-hook-form'
+} from "@material-ui/core";
+import { useFormContext, useController } from "react-hook-form";
 
 type CheckboxProps = MuiCheckboxProps & {
-  label: React.ReactNode
-  name: string
-}
+  label: React.ReactNode;
+  name: string;
+};
 
 const Checkbox: React.FC<CheckboxProps> = ({
   label,
@@ -17,14 +17,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
   defaultChecked,
   ...restProps
 }) => {
-  const { control } = useFormContext()
+  const { control } = useFormContext();
   const {
     field: { ref, value, onChange, ...inputProps },
   } = useController({
     name,
     control,
     defaultValue: defaultChecked,
-  })
+  });
 
   return (
     <FormControlLabel
@@ -39,7 +39,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       }
       label={label}
     />
-  )
-}
+  );
+};
 
-export default Checkbox
+export default Checkbox;

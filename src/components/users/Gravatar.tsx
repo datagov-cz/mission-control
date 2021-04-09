@@ -1,11 +1,11 @@
-import React from 'react'
-import md5 from 'crypto-js/md5'
-import classNames from 'classnames'
-import { makeStyles, Avatar, Theme } from '@material-ui/core'
+import React from "react";
+import md5 from "crypto-js/md5";
+import classNames from "classnames";
+import { makeStyles, Avatar, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: {
-    border: '2px solid #FFF',
+    border: "2px solid #FFF",
     background: theme.palette.secondary.main,
   },
   regular: {
@@ -16,33 +16,33 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: theme.spacing(25),
     height: theme.spacing(25),
   },
-}))
+}));
 
 const getGravatarUrl = (email: string) =>
-  `https://www.gravatar.com/avatar/${md5(email)}?d=identicon&s=200`
+  `https://www.gravatar.com/avatar/${md5(email)}?d=identicon&s=200`;
 
 type GravatarProps = {
-  email?: string
-  initials: string
-  size?: 'regular' | 'huge'
-  className?: string
-}
+  email?: string;
+  initials: string;
+  size?: "regular" | "huge";
+  className?: string;
+};
 
 const Gravatar: React.FC<GravatarProps> = ({
   email = null,
   initials,
-  size = 'regular',
+  size = "regular",
   className,
 }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   const avatarClassNames = className
     ? className
     : classNames(
         classes.avatar,
-        size === 'regular' && classes.regular,
-        size === 'huge' && classes.huge
-      )
+        size === "regular" && classes.regular,
+        size === "huge" && classes.huge
+      );
 
   return email ? (
     <Avatar src={getGravatarUrl(email)} className={avatarClassNames}>
@@ -50,7 +50,7 @@ const Gravatar: React.FC<GravatarProps> = ({
     </Avatar>
   ) : (
     <Avatar className={avatarClassNames}>{initials}</Avatar>
-  )
-}
+  );
+};
 
-export default Gravatar
+export default Gravatar;

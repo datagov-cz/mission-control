@@ -1,15 +1,15 @@
-import React from 'react'
-import { Divider, Typography, Box, Container } from '@material-ui/core'
+import React from "react";
+import { Divider, Typography, Box, Container } from "@material-ui/core";
 
-import t from 'components/i18n'
+import t from "components/i18n";
 
-import opzLogo from './images/opz_logo.svg'
+import opzLogo from "./images/opz_logo.svg";
 
 type FooterProps = {
-  direction?: 'row' | 'column'
-}
+  direction?: "row" | "column";
+};
 
-const Footer: React.FC<FooterProps> = ({ direction = 'row' }) => (
+const Footer: React.FC<FooterProps> = ({ direction = "row" }) => (
   <>
     <Divider />
     <Container>
@@ -30,6 +30,6 @@ const Footer: React.FC<FooterProps> = ({ direction = 'row' }) => (
       </Box>
     </Container>
   </>
-)
+);
 
-export default Footer
+export default Footer;

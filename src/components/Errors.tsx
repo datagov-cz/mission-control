@@ -1,23 +1,23 @@
-import React from 'react'
-import { AjaxError } from 'rxjs/ajax'
-import { Box, IconButton, styled, Typography } from '@material-ui/core'
+import React from "react";
+import { AjaxError } from "rxjs/ajax";
+import { Box, IconButton, styled, Typography } from "@material-ui/core";
 
-import Icon from 'components/Icon'
-import t from 'components/i18n'
+import Icon from "components/Icon";
+import t from "components/i18n";
 
 const BackdropGradient = styled(Box)({
-  background: '#263238 radial-gradient(circle, #057fa5 0%, #263238 100%)',
-  minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
+  background: "#263238 radial-gradient(circle, #057fa5 0%, #263238 100%)",
+  minHeight: "100vh",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
 type ErrorPageProps = {
-  code: number
-  message: string
-}
+  code: number;
+  message: string;
+};
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ code, message, children }) => {
   return (
@@ -36,30 +36,30 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ code, message, children }) => {
         </Box>
       )}
     </BackdropGradient>
-  )
-}
+  );
+};
 
-export const Error404 = () => <ErrorPage code={404} message={'pageNotFound'} />
+export const Error404 = () => <ErrorPage code={404} message={"pageNotFound"} />;
 
 type ErrorFallbackProps = {
-  error: Error | AjaxError
-}
+  error: Error | AjaxError;
+};
 
 export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
-  const isAjax = error instanceof AjaxError
+  const isAjax = error instanceof AjaxError;
   if (!isAjax) {
-    return <ErrorPage code={500} message={'somethingWentWrong'} />
+    return <ErrorPage code={500} message={"somethingWentWrong"} />;
   }
-  const ajaxError = error as AjaxError
-  const responseJson = ajaxError.xhr.response
+  const ajaxError = error as AjaxError;
+  const responseJson = ajaxError.xhr.response;
   return (
-    <ErrorPage code={ajaxError.status} message={'somethingWentWrongWithApi'}>
-      <Typography paragraph style={{ fontFamily: 'monospace' }}>
+    <ErrorPage code={ajaxError.status} message={"somethingWentWrongWithApi"}>
+      <Typography paragraph style={{ fontFamily: "monospace" }}>
         {ajaxError.request.method} {ajaxError.request.url}
       </Typography>
-      <Typography style={{ fontFamily: 'monospace' }}>
+      <Typography style={{ fontFamily: "monospace" }}>
         {responseJson.message}
       </Typography>
     </ErrorPage>
-  )
-}
+  );
+};

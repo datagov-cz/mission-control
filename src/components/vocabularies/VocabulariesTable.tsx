@@ -1,23 +1,23 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { switchMap } from 'rxjs/operators'
-import { Tooltip } from '@material-ui/core'
-import SecurityIcon from '@material-ui/icons/Security'
-import EditIcon from '@material-ui/icons/Edit'
+import React, { useCallback, useMemo, useState } from "react";
+import { switchMap } from "rxjs/operators";
+import { Tooltip } from "@material-ui/core";
+import SecurityIcon from "@material-ui/icons/Security";
+import EditIcon from "@material-ui/icons/Edit";
 
-import { Vocabulary, Workspace } from '@types'
+import { Vocabulary, Workspace } from "@types";
 
-import t from 'components/i18n'
-import { DataColumn, DataTableSuspense } from 'components/DataTable'
-import VocabularyActions from './VocabularyActions'
-import DeleteVocabularyForm from './DeleteVocabularyForm'
-import useToggle from 'hooks/useToggle'
+import t from "components/i18n";
+import { DataColumn, DataTableSuspense } from "components/DataTable";
+import VocabularyActions from "./VocabularyActions";
+import DeleteVocabularyForm from "./DeleteVocabularyForm";
+import useToggle from "hooks/useToggle";
 import {
   fetchWorkspaceVocabularies,
   updateVocabulary,
   workspaceVocabulariesResource,
-} from 'data/vocabularies'
-import { workspaceResource } from 'data/workspaces'
-import { execute } from 'utils/epic'
+} from "data/vocabularies";
+import { workspaceResource } from "data/workspaces";
+import { execute } from "utils/epic";
 
 const TitleColumn = (rowData: Vocabulary) => (
   <>
@@ -25,40 +25,40 @@ const TitleColumn = (rowData: Vocabulary) => (
     <br />
     {rowData.changeTrackingVocabulary}
   </>
-)
+);
 
 const ReadOnlyColumn = (rowData: Vocabulary) =>
   rowData.isReadOnly ? (
-    <Tooltip title={t('readOnly')}>
+    <Tooltip title={t("readOnly")}>
       <SecurityIcon />
     </Tooltip>
   ) : (
-    <Tooltip title={t('readAndWrite')}>
+    <Tooltip title={t("readAndWrite")}>
       <EditIcon />
     </Tooltip>
-  )
+  );
 
 const getColumns = (
   onUpdate: (vocabulary: Vocabulary) => void,
   onDelete: (vocabulary: Vocabulary) => void
 ): DataColumn<Vocabulary>[] => [
   {
-    title: '',
+    title: "",
     render: ReadOnlyColumn,
     width: 40,
   },
   {
     title: t`label`,
-    field: 'label',
+    field: "label",
     render: TitleColumn,
   },
   {
     title: t`actions`,
     headerStyle: {
-      textAlign: 'right',
+      textAlign: "right",
     },
     cellStyle: {
-      textAlign: 'right',
+      textAlign: "right",
     },
     sorting: false,
     render: (vocabulary) => (
@@ -69,36 +69,36 @@ const getColumns = (
       />
     ),
   },
-]
+];
 
 const VocabulariesTable: React.FC = () => {
-  const { isOpen, open, close } = useToggle()
+  const { isOpen, open, close } = useToggle();
   const [deleteProps, setDeleteProps] = useState<{
-    vocabulary: Vocabulary
-    workspace: Workspace
-  }>()
+    vocabulary: Vocabulary;
+    workspace: Workspace;
+  }>();
 
   const onUpdate = useCallback((vocabulary: Vocabulary) => {
-    const workspace = workspaceResource.read()
+    const workspace = workspaceResource.read();
     execute(
       switchMap(() => updateVocabulary({ workspace, vocabulary })),
       switchMap(() => fetchWorkspaceVocabularies(workspace.id))
-    )
-  }, [])
+    );
+  }, []);
 
   const onDelete = useCallback(
     (vocabulary: Vocabulary) => {
-      const workspace = workspaceResource.read()
-      setDeleteProps({ vocabulary, workspace })
-      open()
+      const workspace = workspaceResource.read();
+      setDeleteProps({ vocabulary, workspace });
+      open();
     },
     [setDeleteProps, open]
-  )
+  );
 
   const columns = useMemo(() => getColumns(onUpdate, onDelete), [
     onUpdate,
     onDelete,
-  ])
+  ]);
 
   return (
     <>
@@ -109,7 +109,7 @@ const VocabulariesTable: React.FC = () => {
       />
       <DeleteVocabularyForm isOpen={isOpen} onClose={close} {...deleteProps} />
     </>
-  )
-}
+  );
+};
 
-export default VocabulariesTable
+export default VocabulariesTable;

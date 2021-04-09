@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react'
-import { switchMap, finalize } from 'rxjs/operators'
+import React, { useCallback } from "react";
+import { switchMap, finalize } from "rxjs/operators";
 
-import { EditWorkspacePayload, Workspace } from '@types'
+import { EditWorkspacePayload, Workspace } from "@types";
 
-import t from 'components/i18n'
-import FormDialog from 'components/form/FormDialog'
-import TextField from 'components/form/TextField'
-import Hidden from 'components/form/Hidden'
-import { editWorkspace, fetchWorkspace } from 'data/workspaces'
-import { execute } from 'utils/epic'
+import t from "components/i18n";
+import FormDialog from "components/form/FormDialog";
+import TextField from "components/form/TextField";
+import Hidden from "components/form/Hidden";
+import { editWorkspace, fetchWorkspace } from "data/workspaces";
+import { execute } from "utils/epic";
 
 type EditWorkspaceFormProps = {
-  isOpen: boolean
-  onClose: () => void
-  workspace: Workspace
-}
+  isOpen: boolean;
+  onClose: () => void;
+  workspace: Workspace;
+};
 
 const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
   workspace,
@@ -27,10 +27,10 @@ const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
         switchMap(() => editWorkspace(data)),
         switchMap(() => fetchWorkspace(workspace.id)),
         finalize(onClose)
-      )
+      );
     },
     [workspace.id, onClose]
-  )
+  );
 
   return (
     <FormDialog
@@ -47,11 +47,11 @@ const EditWorkspaceForm: React.FC<EditWorkspaceFormProps> = ({
         margin="none"
         name="label"
         label={t`label`}
-        rules={{ required: 'common.errorRequired' }}
+        rules={{ required: "common.errorRequired" }}
         defaultValue={workspace.label}
       />
     </FormDialog>
-  )
-}
+  );
+};
 
-export default EditWorkspaceForm
+export default EditWorkspaceForm;

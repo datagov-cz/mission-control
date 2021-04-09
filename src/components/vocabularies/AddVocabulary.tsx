@@ -1,13 +1,13 @@
-import React from 'react'
-import { Fab } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add'
+import React from "react";
+import { Fab } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
-import t from 'components/i18n'
-import AddVocabularyForm from './AddVocabularyForm'
-import useToggle from 'hooks/useToggle'
+import t from "components/i18n";
+import AddVocabularyForm from "./AddVocabularyForm";
+import useToggle from "hooks/useToggle";
 
 const AddVocabulary: React.FC<{}> = () => {
-  const { isOpen, open, close } = useToggle()
+  const { isOpen, open, close } = useToggle();
 
   return (
     <>
@@ -17,7 +17,7 @@ const AddVocabulary: React.FC<{}> = () => {
       </Fab>
       <AddVocabularyForm isOpen={isOpen} onClose={close} />
     </>
-  )
-}
+  );
+};
 
-export default AddVocabulary
+export default AddVocabulary;
