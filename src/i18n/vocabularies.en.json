@@ -28,5 +28,6 @@
   "update": "Update",
   "updating": "Updating...",
   "updateVocabularySuccess": "The vocabulary was updated",
-  "updateVocabularyError": "The vocabulary cannot be updated"
+  "updateVocabularyError": "The vocabulary cannot be updated",
+  "vocabulariesDependencies": "Vocabulary dependencies"
 }

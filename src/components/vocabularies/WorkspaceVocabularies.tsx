@@ -4,6 +4,7 @@ import { Typography, Box } from "@material-ui/core";
 import t, { Namespace } from "components/i18n";
 import VocabulariesTable from "./VocabulariesTable";
 import AddVocabulary from "./AddVocabulary";
+import VocabulariesDependencies from "./VocabulariesDependencies";
 
 const WorkspaceVocabularies: React.FC = () => (
   <Namespace.Provider value="vocabularies">
@@ -14,6 +15,12 @@ const WorkspaceVocabularies: React.FC = () => (
       <AddVocabulary />
     </Box>
     <VocabulariesTable />
+    <Box paddingTop={2}>
+      <Typography variant="h5" paragraph>
+        {t`vocabulariesDependencies`}
+      </Typography>
+    </Box>
+    <VocabulariesDependencies />
   </Namespace.Provider>
 );
 
