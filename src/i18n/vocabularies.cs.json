@@ -28,5 +28,6 @@
   "update": "Aktualizovat",
   "updating": "Aktualizuji...",
   "updateVocabularySuccess": "Slovník aktualizován",
-  "updateVocabularyError": "Nepodařilo se aktualizovat slovník"
+  "updateVocabularyError": "Nepodařilo se aktualizovat slovník",
+  "vocabulariesDependencies": "Závislosti mezi slovníky"
 }

@@ -44,3 +44,12 @@ export const getAddVocabularyUrl = (
  */
 export const getVocabularyUrl = (workspaceId: Id, vocabularyId: Id) =>
   `${getWorkspaceVocabulariesUrl(workspaceId)}/${vocabularyId}`;
+
+/**
+ * Endpoint to fetch a list of vocabulary dependencies for a particular vocabulary
+ */
+export const getWorkspaceVocabularyDependenciesUrl = (
+  workspaceId: Id,
+  vocabularyIri: Iri
+) =>
+  `${getWorkspaceUrl(workspaceId)}/dependencies?vocabularyIri=${vocabularyIri}`;
