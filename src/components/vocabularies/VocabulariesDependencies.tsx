@@ -23,6 +23,7 @@ const buildGraph = (dependencies: Record<Iri, Iri[]>): Data => {
     nodes.push({
       id: iri,
       label: getVocabularyShortLabel(iri) || iri,
+      color: "#FFFFFF",
     });
   });
 
