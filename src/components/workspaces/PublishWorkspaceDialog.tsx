@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Subscription } from "rxjs";
 import {
   Dialog,
   DialogTitle,
@@ -28,9 +29,16 @@ const PublishWorkspaceDialog: React.FC<PublishWorkspaceDialogProps> = ({
   const [prUri, setPrUri] = useState<string>();
 
   useEffect(() => {
+    let subscription: Subscription | undefined = undefined;
     if (isOpen) {
-      publishWorkspace(workspace).subscribe(setPrUri);
+      subscription = publishWorkspace(workspace).subscribe(setPrUri);
     }
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+      setPrUri(undefined);
+    };
   }, [isOpen, workspace]);
 
   return (
