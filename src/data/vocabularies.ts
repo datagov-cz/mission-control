@@ -1,4 +1,4 @@
-import { BehaviorSubject, forkJoin, Observable, Subject } from "rxjs";
+import { BehaviorSubject, forkJoin, Observable, of, Subject } from "rxjs";
 import {
   filter,
   map,
@@ -105,19 +105,20 @@ const workspaceVocabularyDependenciesResource$$ = fetchWorkspaceVocabularies$$.p
   switchMap((workspaceId) =>
     getJSON<VocabularyData[]>(getWorkspaceVocabulariesUrl(workspaceId)).pipe(
       map((data) => data.map(convertVocabularyDataToVocabulary)),
-      switchMap(
-        (vocabularies) =>
-          forkJoin(
-            vocabularies.reduce((acc, vocabulary) => {
-              acc[vocabulary.vocabulary] = getJSON(
-                getWorkspaceVocabularyDependenciesUrl(
-                  workspaceId,
-                  vocabulary.vocabulary
-                )
-              );
-              return acc;
-            }, {} as Record<Iri, Observable<Iri[]>>)
-          ) as Observable<Record<Iri, Iri[]>>
+      switchMap((vocabularies) =>
+        vocabularies.length
+          ? (forkJoin(
+              vocabularies.reduce((acc, vocabulary) => {
+                acc[vocabulary.vocabulary] = getJSON(
+                  getWorkspaceVocabularyDependenciesUrl(
+                    workspaceId,
+                    vocabulary.vocabulary
+                  )
+                );
+                return acc;
+              }, {} as Record<Iri, Observable<Iri[]>>)
+            ) as Observable<Record<Iri, Iri[]>>)
+          : of({})
       )
     )
   ),
