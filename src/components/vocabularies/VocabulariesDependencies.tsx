@@ -114,7 +114,6 @@ const graphOptions = {
         scaleFactor: 0.5,
       },
     },
-    type: "curvedCW",
   },
   layout: {
     improvedLayout: true,
