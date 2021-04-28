@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { Box, makeStyles } from "@material-ui/core";
 import { Network, Data, Node, Edge } from "vis-network";
-import { flatten } from "lodash";
+import { flatten, uniq } from "lodash";
 
 import { getVocabularyShortLabel } from "@opendata-mvcr/assembly-line-shared";
 
@@ -46,9 +46,11 @@ const buildGraph = (dependencies: Record<Iri, Iri[]>): Data => {
   const edges: Edge[] = [];
 
   const mainVocabularies = Object.keys(dependencies);
-  const dependencyVocabularies = flatten(
-    mainVocabularies.map((key) => dependencies[key])
-  ).filter((dep) => !mainVocabularies.includes(dep));
+  const dependencyVocabularies = uniq(
+    flatten(mainVocabularies.map((key) => dependencies[key])).filter(
+      (dep) => !mainVocabularies.includes(dep)
+    )
+  );
 
   const normalizedLevelMapping = getNormalizedLevelMapping(
     mainVocabularies.concat(dependencyVocabularies)
