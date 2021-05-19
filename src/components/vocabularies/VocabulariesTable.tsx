@@ -73,10 +73,11 @@ const getColumns = (
 
 const VocabulariesTable: React.FC = () => {
   const { isOpen, open, close } = useToggle();
-  const [deleteProps, setDeleteProps] = useState<{
-    vocabulary: Vocabulary;
-    workspace: Workspace;
-  }>();
+  const [deleteProps, setDeleteProps] =
+    useState<{
+      vocabulary: Vocabulary;
+      workspace: Workspace;
+    }>();
 
   const onUpdate = useCallback((vocabulary: Vocabulary) => {
     const workspace = workspaceResource.read();
@@ -95,10 +96,10 @@ const VocabulariesTable: React.FC = () => {
     [setDeleteProps, open]
   );
 
-  const columns = useMemo(() => getColumns(onUpdate, onDelete), [
-    onUpdate,
-    onDelete,
-  ]);
+  const columns = useMemo(
+    () => getColumns(onUpdate, onDelete),
+    [onUpdate, onDelete]
+  );
 
   return (
     <>

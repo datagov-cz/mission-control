@@ -14,7 +14,7 @@ const router = createRouter(RoutesConfiguration, {
 router.usePlugin(browserPlugin({ base: PUBLIC_PATH }));
 router.usePlugin(loggerPlugin);
 
-from((router as unknown) as ObservableInput<RouteTransition>)
+from(router as unknown as ObservableInput<RouteTransition>)
   .pipe(
     tap((routeTransition) => {
       const currentRouteName = routeTransition.route.name;

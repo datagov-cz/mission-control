@@ -13,9 +13,11 @@ const getDefaultLocale = () => {
   const navigatorLocale = navigator.language.split(/[-_]/)[0];
 
   // Picks user's browser locale if the relevant translation file exists, otherwise defaults to en.
-  return (supportedLocales.includes(navigatorLocale)
-    ? navigatorLocale
-    : supportedLocales[0]) as Locale;
+  return (
+    supportedLocales.includes(navigatorLocale)
+      ? navigatorLocale
+      : supportedLocales[0]
+  ) as Locale;
 };
 
 export const getLocale = (): Locale =>
