@@ -83,7 +83,7 @@ function t(a: any, ...b: any[]): React.ReactElement {
     return getNamespacedMessage(a, b[0]);
   } else {
     return getNamespacedMessage(
-      String.raw((a as unknown) as TemplateStringsArray, ...b)
+      String.raw(a as unknown as TemplateStringsArray, ...b)
     );
   }
 }

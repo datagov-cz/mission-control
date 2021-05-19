@@ -100,31 +100,32 @@ export const fetchWorkspaceVocabularies = (workspaceId: Id) => {
   );
 };
 
-const workspaceVocabularyDependenciesResource$$ = fetchWorkspaceVocabularies$$.pipe(
-  throttleDistinct(100),
-  switchMap((workspaceId) =>
-    getJSON<VocabularyData[]>(getWorkspaceVocabulariesUrl(workspaceId)).pipe(
-      map((data) => data.map(convertVocabularyDataToVocabulary)),
-      switchMap((vocabularies) =>
-        vocabularies.length
-          ? (forkJoin(
-              vocabularies.reduce((acc, vocabulary) => {
-                acc[vocabulary.vocabulary] = getJSON(
-                  getWorkspaceVocabularyDependenciesUrl(
-                    workspaceId,
-                    vocabulary.vocabulary
-                  )
-                );
-                return acc;
-              }, {} as Record<Iri, Observable<Iri[]>>)
-            ) as Observable<Record<Iri, Iri[]>>)
-          : of({})
+const workspaceVocabularyDependenciesResource$$ =
+  fetchWorkspaceVocabularies$$.pipe(
+    throttleDistinct(100),
+    switchMap((workspaceId) =>
+      getJSON<VocabularyData[]>(getWorkspaceVocabulariesUrl(workspaceId)).pipe(
+        map((data) => data.map(convertVocabularyDataToVocabulary)),
+        switchMap((vocabularies) =>
+          vocabularies.length
+            ? (forkJoin(
+                vocabularies.reduce((acc, vocabulary) => {
+                  acc[vocabulary.vocabulary] = getJSON(
+                    getWorkspaceVocabularyDependenciesUrl(
+                      workspaceId,
+                      vocabulary.vocabulary
+                    )
+                  );
+                  return acc;
+                }, {} as Record<Iri, Observable<Iri[]>>)
+              ) as Observable<Record<Iri, Iri[]>>)
+            : of({})
+        )
       )
-    )
-  ),
-  startWith(null),
-  share()
-);
+    ),
+    startWith(null),
+    share()
+  );
 
 export const workspaceVocabularyDependenciesResource = new ObservableResource<
   Record<Iri, Iri[]>

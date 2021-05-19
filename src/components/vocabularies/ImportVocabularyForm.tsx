@@ -59,14 +59,11 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
   );
   const workspace = useObservableSuspense(workspaceResource);
 
-  const [filteredVocabularies, setFilteredVocabularies] = useState<
-    BaseVocabularyWithWorkspace[]
-  >(vocabularies);
+  const [filteredVocabularies, setFilteredVocabularies] =
+    useState<BaseVocabularyWithWorkspace[]>(vocabularies);
 
-  const [
-    selectedVocabulary,
-    setSelectedVocabulary,
-  ] = useState<BaseVocabularyWithWorkspace>();
+  const [selectedVocabulary, setSelectedVocabulary] =
+    useState<BaseVocabularyWithWorkspace>();
 
   const intl = useIntl();
 
@@ -116,9 +113,8 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
             (indexedVocabulary) => indexedVocabulary.vocabulary
           )
         : vocabularies;
-      const finalVocabularies = filterWorkspaceVocabularies(
-        matchedVocabularies
-      );
+      const finalVocabularies =
+        filterWorkspaceVocabularies(matchedVocabularies);
       setFilteredVocabularies(finalVocabularies);
     },
     [
@@ -151,44 +147,46 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
   const handleTabSwitch = useCallback(() => setTabIndex(1), [setTabIndex]);
 
   const renderSearchField = useMemo(
-    () => () => (
-      <TextField
-        autoComplete="off"
-        label={t`search`}
-        onChange={handleSearchChange}
-        autoFocus
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-    ),
+    () => () =>
+      (
+        <TextField
+          autoComplete="off"
+          label={t`search`}
+          onChange={handleSearchChange}
+          autoFocus
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      ),
     [handleSearchChange]
   );
 
   const renderVocabulary = useMemo(
-    () => (vocabulary: BaseVocabularyWithWorkspace) => (
-      <>
-        <ListItemText
-          primary={vocabulary.label}
-          secondary={vocabulary.vocabulary}
-        />
-        {vocabulary.workspace && (
-          <ListItemSecondaryAction>
-            <Tooltip
-              title={`${intl.formatMessage({
-                id: "vocabularies.vocabularyEditedInAnotherWorkspace",
-              })} ${vocabulary.workspace.label}`}
-            >
-              <WarningIcon />
-            </Tooltip>
-          </ListItemSecondaryAction>
-        )}
-      </>
-    ),
+    () => (vocabulary: BaseVocabularyWithWorkspace) =>
+      (
+        <>
+          <ListItemText
+            primary={vocabulary.label}
+            secondary={vocabulary.vocabulary}
+          />
+          {vocabulary.workspace && (
+            <ListItemSecondaryAction>
+              <Tooltip
+                title={`${intl.formatMessage({
+                  id: "vocabularies.vocabularyEditedInAnotherWorkspace",
+                })} ${vocabulary.workspace.label}`}
+              >
+                <WarningIcon />
+              </Tooltip>
+            </ListItemSecondaryAction>
+          )}
+        </>
+      ),
     [intl]
   );
 

@@ -26,10 +26,10 @@ const VocabularyActions: React.FC<VocabularyActionsProps> = ({
     [startTransition, onUpdate, vocabulary]
   );
 
-  const onDeleteClick = useCallback(() => onDelete(vocabulary), [
-    onDelete,
-    vocabulary,
-  ]);
+  const onDeleteClick = useCallback(
+    () => onDelete(vocabulary),
+    [onDelete, vocabulary]
+  );
 
   return (
     <>
