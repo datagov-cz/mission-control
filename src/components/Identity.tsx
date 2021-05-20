@@ -7,10 +7,10 @@ import {
   ListItemIcon,
 } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
+import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
 import Gravatar from "components/users/Gravatar";
 import t, { Namespace } from "components/i18n";
-import useAuth from "hooks/useAuth";
 
 const Identity: React.FC = () => {
   const {

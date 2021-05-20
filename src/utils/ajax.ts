@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
 import { ajax, AjaxResponse, AjaxRequest } from "rxjs/ajax";
 import { map } from "rxjs/operators";
+import { getToken } from "@opendata-mvcr/assembly-line-shared";
 
 import { API_URL } from "app/variables";
-import { getToken } from "./auth";
 
 const COMMON_API_PREFIX = "/";
 
@@ -50,8 +50,5 @@ export const put = (url: string, body?: any, headers?: Headers) =>
 export const putJSON = (url: string, json: any, headers?: Headers) =>
   put(url, json, { "Content-Type": "application/json", ...headers });
 
-export const del = (
-  url: string,
-  headers?: Headers,
-  useSuspense: boolean = true
-) => request({ method: "DELETE", url, headers });
+export const del = (url: string, headers?: Headers) =>
+  request({ method: "DELETE", url, headers });

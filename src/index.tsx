@@ -2,7 +2,9 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
-import Auth from "components/Auth";
+import { setProcessEnv, Auth } from "@opendata-mvcr/assembly-line-shared";
+
+setProcessEnv(process.env);
 
 const App = React.lazy(() => import("components/App"));
 
