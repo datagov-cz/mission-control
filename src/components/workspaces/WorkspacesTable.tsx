@@ -4,6 +4,7 @@ import React, {
   unstable_useTransition as useTransition,
 } from "react";
 import { useRouter } from "react-router5";
+import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
 import { Workspace } from "@types";
 import Routes from "app/routes";
@@ -15,7 +16,6 @@ import Tools from "./Tools";
 import formatDate from "utils/formatDate";
 
 import { workspacesResource, fetchWorkspace } from "data/workspaces";
-import useAuth from "hooks/useAuth";
 
 type WorkspacesTableProps = {
   currentUserOnly?: boolean;

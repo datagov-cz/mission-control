@@ -1,4 +1,4 @@
-import { Env } from "@opendata-mvcr/assembly-line-shared";
+import { getEnvInstance } from "@opendata-mvcr/assembly-line-shared";
 
 type LocalVars =
   | "PUBLIC_URL"
@@ -6,7 +6,7 @@ type LocalVars =
   | "NETLIFY_CONTEXT"
   | "NETLIFY_URL"
   | "NETLIFY_DEPLOY_PRIME_URL";
-const env = new Env<LocalVars>(process.env);
+const env = getEnvInstance<LocalVars>();
 
 /**
  * PUBLIC_URL contains production deployment path
@@ -48,26 +48,6 @@ export const COMPONENTS = env.getComponents();
  * API URL base
  */
 export const API_URL = COMPONENTS["al-sgov-server"].url;
-
-/**
- * OIDC variables
- */
-export const OIDC_CONFIG = {
-  authority: COMPONENTS["al-auth-server"].url,
-  client_id: ID,
-  redirect_uri: `${URL}/oidc-signin-callback.html?forward_uri=${encodeURI(
-    URL
-  )}`,
-  silent_redirect_uri: `${URL}/oidc-silent-callback.html`,
-  post_logout_redirect_uri: URL,
-  response_type: "code",
-  loadUserInfo: true,
-  automaticSilentRenew: true,
-  revokeAccessTokenOnSignout: true,
-};
-
-export const generateRedirectUri = (forwardUri: string) =>
-  `${URL}/oidc-signin-callback.html?forward_uri=${encodeURI(forwardUri)}`;
 
 /**
  * Links to issue tracker regarding bugs and features
