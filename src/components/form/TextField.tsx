@@ -32,6 +32,10 @@ const TextField: React.FC<TextFieldProps> = ({
     defaultValue,
   });
 
+  console.warn("TEXT FIELD");
+  console.warn(errors[name]);
+  console.warn(errors[name]?.message);
+
   return (
     <MuiTextField
       {...inputProps}

@@ -1,7 +1,4 @@
-import React, {
-  useCallback,
-  unstable_useTransition as useTransition,
-} from "react";
+import React, { useCallback, useTransition } from "react";
 import { Button } from "@material-ui/core";
 
 import { Vocabulary } from "@types";
@@ -19,7 +16,7 @@ const VocabularyActions: React.FC<VocabularyActionsProps> = ({
   onUpdate,
   onDelete,
 }) => {
-  const [startTransition, isPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onUpdateClick = useCallback(
     () => startTransition(() => onUpdate(vocabulary)),

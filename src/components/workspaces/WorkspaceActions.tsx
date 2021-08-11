@@ -50,7 +50,6 @@ const WorkspaceActions: React.FC = () => {
           onClick={handleClick}
           endIcon={<ExpandMoreIcon />}
           variant="contained"
-          color="default"
         >
           {t`advanced`}
         </Button>

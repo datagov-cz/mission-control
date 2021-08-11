@@ -1,7 +1,7 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { grey, blueGrey } from "@material-ui/core/colors";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       "-apple-system",
@@ -24,27 +24,33 @@ const theme = createMuiTheme({
       main: blueGrey[400],
     },
   },
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        body: {
-          backgroundColor: grey[200],
-        },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        variant: "filled", // Sets filled input variant as default
+        margin: "normal",
+        fullWidth: true,
+        autoComplete: "off",
       },
     },
-  },
-  props: {
-    MuiTextField: {
-      variant: "filled", // Sets filled input variant as default
-      margin: "normal",
-      fullWidth: true,
-      autoComplete: "off",
-    },
     MuiInputLabel: {
-      required: false, // Hides asterisk in labels for required fields by default
+      defaultProps: {
+        required: false, // Hides asterisk in labels for required fields by default
+      },
     },
     MuiButtonBase: {
-      centerRipple: true,
+      defaultProps: {
+        centerRipple: true,
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        "@global": {
+          body: {
+            backgroundColor: grey[200],
+          },
+        },
+      },
     },
   },
 });

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { useObservableSuspense } from "observable-hooks";
 import { Typography } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@material-ui/core";
 
 import t from "components/i18n";
 import formatDate from "utils/formatDate";

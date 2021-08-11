@@ -1,8 +1,4 @@
-import React, {
-  useCallback,
-  unstable_useTransition as useTransition,
-  SuspenseConfig,
-} from "react";
+import React, { useCallback, useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 import { Button, ButtonProps } from "@material-ui/core";
 
@@ -18,9 +14,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   ...rest
 }) => {
   const { handleSubmit } = useFormContext();
-  const [startTransition, isPending] = useTransition({
-    timeoutMs: 5000,
-  } as SuspenseConfig);
+  const [isPending, startTransition] = useTransition();
 
   const combinedOnSubmit = useCallback(() => {
     handleSubmit((data) => {
@@ -28,7 +22,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         onClick(data);
       });
     })();
-  }, [onClick, handleSubmit]);
+  }, [onClick, handleSubmit, startTransition]);
 
   return (
     <Button

@@ -12,7 +12,7 @@ const MainLayout: React.FC = () => {
   return (
     <BackdropGrey>
       <Header />
-      <Box display="flex" flexGrow="1" flexDirection="column">
+      <Box display="flex" flexGrow={1} flexDirection="column">
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<></>}>
             <RouteComponentRenderer />

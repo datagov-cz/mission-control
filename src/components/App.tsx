@@ -1,7 +1,12 @@
 import React, { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { useObservableSuspense } from "observable-hooks";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import {
+  CssBaseline,
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from "@material-ui/core";
 
 import theme from "app/theme";
 
@@ -13,6 +18,11 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Errors";
 import Router from "./Router";
 import Title from "./Title";
+
+declare module "@material-ui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 /**
  * This component prevents React immediate render if the suspend resource is true
@@ -29,18 +39,20 @@ const App: React.FC = () => (
       <I18nProvider>
         <Namespace.Provider value="common">
           <Title />
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Suspense fallback={null}>
-                <Suspender />
-              </Suspense>
-              <Suspense fallback={null}>
-                <RouteComponentRenderer />
-              </Suspense>
-              <Snackbar />
-            </ErrorBoundary>
-          </ThemeProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense fallback={null}>
+                  <Suspender />
+                </Suspense>
+                <Suspense fallback={null}>
+                  <RouteComponentRenderer />
+                </Suspense>
+                <Snackbar />
+              </ErrorBoundary>
+            </ThemeProvider>
+          </StyledEngineProvider>
         </Namespace.Provider>
       </I18nProvider>
     </Router>

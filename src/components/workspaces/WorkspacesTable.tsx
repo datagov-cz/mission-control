@@ -1,8 +1,4 @@
-import React, {
-  MouseEvent,
-  SuspenseConfig,
-  unstable_useTransition as useTransition,
-} from "react";
+import React, { useTransition } from "react";
 import { useRouter } from "react-router5";
 import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
@@ -10,7 +6,11 @@ import { Workspace } from "@types";
 import Routes from "app/routes";
 
 import t from "components/i18n";
-import { DataColumn, DataTableSuspense } from "components/DataTable";
+import {
+  DataColumn,
+  DataTableObservableResource,
+  DataTableSuspense,
+} from "components/DataTable";
 import UserChip from "components/users/UserChip";
 import Tools from "./Tools";
 import formatDate from "utils/formatDate";
@@ -25,9 +25,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
   currentUserOnly = false,
 }) => {
   const router = useRouter();
-  const [startTransition] = useTransition({
-    timeoutMs: 10000,
-  } as SuspenseConfig);
+  const [, startTransition] = useTransition();
 
   const {
     user: {
@@ -35,26 +33,37 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     },
   } = useAuth();
 
-  const columns: DataColumn<Workspace>[] = [
+  const columns: DataColumn[] = [
     {
-      title: t`label`,
+      renderHeader: () => t`label`,
       field: "label",
+      width: 300,
     },
     {
-      title: t`owner`,
-      render: ({ author }) => <UserChip {...author} />,
+      field: "owner",
+      renderHeader: () => t`owner`,
+      renderCell: (params) => <UserChip {...params.row.author} />,
+      width: 150,
     },
     {
-      title: t`lastEditor`,
-      render: ({ lastEditor }) => lastEditor && <UserChip {...lastEditor} />,
+      field: "lastEditor",
+      renderHeader: () => t`lastEditor`,
+      renderCell: (params) =>
+        params.row.lastEditor && <UserChip {...params.row.lastEditor} />,
+      width: 150,
     },
     {
-      title: t`lastModified`,
-      render: ({ lastModified }) => lastModified && formatDate(lastModified),
+      field: "lastModified",
+      renderHeader: () => t`lastModified`,
+      renderCell: (params) =>
+        params.row.lastModified && formatDate(params.row.lastModified),
+      width: 200,
     },
     {
-      title: t`actions`,
-      render: ({ uri }) => <Tools workspaceUri={uri} />,
+      field: "actions",
+      renderHeader: () => t`actions`,
+      renderCell: (params) => <Tools workspaceUri={params.row.uri} />,
+      width: 350,
     },
   ];
 
@@ -62,10 +71,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     columns.splice(1, 1);
   }
 
-  const onRowClick = (
-    _: MouseEvent | undefined,
-    rowData: Workspace | undefined
-  ) => {
+  const onRowClick = (rowData: any) => {
     if (rowData) {
       startTransition(() => {
         fetchWorkspace(rowData.id);
@@ -80,7 +86,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
   return (
     <DataTableSuspense
       columns={columns}
-      resource={workspacesResource}
+      resource={workspacesResource as unknown as DataTableObservableResource}
       filter={currentUserOnly ? dataFilter : undefined}
       onRowClick={onRowClick}
     />

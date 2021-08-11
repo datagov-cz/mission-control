@@ -23,7 +23,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ code, message, children }) => {
   return (
     <BackdropGradient color="white">
       <Box p={2} display="flex" alignItems="center">
-        <IconButton color="inherit">
+        <IconButton color="inherit" size="large">
           <Icon />
         </IconButton>
         <Typography variant="h6">{t`controlPanel`}</Typography>

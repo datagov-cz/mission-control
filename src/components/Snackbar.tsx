@@ -3,7 +3,7 @@ import { of, merge } from "rxjs";
 import { switchMap, delay } from "rxjs/operators";
 import { useObservableState } from "observable-hooks";
 import { Snackbar as BaseSnackbar } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@material-ui/core";
 
 import t from "components/i18n";
 import { messages$ } from "data/messages";

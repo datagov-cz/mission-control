@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useMemo } from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import makeStyles from "@material-ui/styles/makeStyles";
 import { Network, Data, Node, Edge } from "vis-network";
 import { flatten, uniq } from "lodash";
 

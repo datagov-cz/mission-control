@@ -4,10 +4,11 @@ import {
   TableRow,
   TableCell,
   Paper,
-  makeStyles,
   Theme,
   TableBody,
 } from "@material-ui/core";
+
+import makeStyles from "@material-ui/styles/makeStyles";
 
 const useStyles = makeStyles((theme: Theme) => ({
   headCell: {
