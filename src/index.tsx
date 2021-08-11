@@ -13,8 +13,7 @@ const AuthErrorFallback = () => (
 );
 
 const rootElement = document.getElementById("app") as HTMLElement;
-// TODO: replace with stable method once proper typings are available
-ReactDOM.unstable_createRoot(rootElement).render(
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ErrorBoundary FallbackComponent={AuthErrorFallback}>
       <Auth>

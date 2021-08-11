@@ -6,9 +6,9 @@ import {
   ButtonGroup,
   ClickAwayListener,
   Grow,
-  makeStyles,
   Popper,
 } from "@material-ui/core";
+import makeStyles from "@material-ui/styles/makeStyles";
 import { ArrowDropDown } from "@material-ui/icons";
 
 import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from "app/variables";
@@ -89,7 +89,7 @@ const Help: React.FC = () => {
             }}
           >
             <Box my={0.5}>
-              <ClickAwayListener onClickAway={handleClose}>
+              <ClickAwayListener onClickAway={handleClose as () => void}>
                 <Button
                   variant="contained"
                   onClick={handleClose}

@@ -50,7 +50,7 @@ export const Namespace = React.createContext("");
  */
 const getNamespacedMessage = (
   id: string,
-  values?: Object
+  values?: Record<string, React.ReactNode>
 ): React.ReactElement => (
   <Namespace.Consumer>
     {(value) => {

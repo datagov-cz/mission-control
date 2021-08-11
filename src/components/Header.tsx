@@ -4,9 +4,10 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  makeStyles,
   Box,
 } from "@material-ui/core";
+
+import makeStyles from "@material-ui/styles/makeStyles";
 
 import Icon from "components/Icon";
 import t from "components/i18n";
@@ -26,12 +27,12 @@ const Header: React.FC = () => {
     <AppBar position="static" className={classes.root}>
       <Toolbar>
         <Box display="flex" alignItems="center">
-          <IconButton edge="start" color="inherit">
+          <IconButton edge="start" color="inherit" size="large">
             <Icon />
           </IconButton>
           <Typography variant="h6">{t`controlPanel`}</Typography>
         </Box>
-        <Box display="flex" flexGrow="1" justifyContent="flex-end">
+        <Box display="flex" flexGrow={1} justifyContent="flex-end">
           <Help />
           <LanguageSelector />
           <Identity />

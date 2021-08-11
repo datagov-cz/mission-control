@@ -5,10 +5,9 @@ import {
   DialogTitle,
   DialogContent,
   Box,
-  Typography,
-  makeStyles,
   IconButton,
 } from "@material-ui/core";
+import makeStyles from "@material-ui/styles/makeStyles";
 import CloseIcon from "@material-ui/icons/Close";
 
 import Form from "./Form";
@@ -52,13 +51,14 @@ const Dialog: React.FC<DialogProps> = ({
         maxWidth="xs"
         {...props}
       >
-        <DialogTitle disableTypography>
-          <Typography variant="h6">{title}</Typography>
+        <DialogTitle>
+          {title}
           {onClose ? (
             <IconButton
               aria-label="close"
               className={classes.closeButton}
               onClick={onClose}
+              size="large"
             >
               <CloseIcon />
             </IconButton>

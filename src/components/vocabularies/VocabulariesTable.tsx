@@ -7,7 +7,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Vocabulary, Workspace } from "@types";
 
 import t from "components/i18n";
-import { DataColumn, DataTableSuspense } from "components/DataTable";
+import {
+  DataColumn,
+  DataTableObservableResource,
+  DataTableSuspense,
+} from "components/DataTable";
 import VocabularyActions from "./VocabularyActions";
 import DeleteVocabularyForm from "./DeleteVocabularyForm";
 import useToggle from "hooks/useToggle";
@@ -18,17 +22,22 @@ import {
 } from "data/vocabularies";
 import { workspaceResource } from "data/workspaces";
 import { execute } from "utils/epic";
+import { GridCellParams } from "@material-ui/data-grid";
 
-const TitleColumn = (rowData: Vocabulary) => (
-  <>
-    <b>{rowData.label}</b>
-    <br />
-    {rowData.changeTrackingVocabulary}
-  </>
-);
+const TitleCell = (cellParams: GridCellParams) => {
+  const rowData = cellParams.row as Vocabulary;
+  return (
+    <>
+      <b>{rowData.label}</b>
+      <br />
+      {rowData.changeTrackingVocabulary}
+    </>
+  );
+};
 
-const ReadOnlyColumn = (rowData: Vocabulary) =>
-  rowData.isReadOnly ? (
+const ReadOnlyCell = (cellParams: GridCellParams) => {
+  const rowData = cellParams.row as Vocabulary;
+  return rowData.isReadOnly ? (
     <Tooltip title={t("readOnly")}>
       <SecurityIcon />
     </Tooltip>
@@ -37,33 +46,28 @@ const ReadOnlyColumn = (rowData: Vocabulary) =>
       <EditIcon />
     </Tooltip>
   );
+};
 
 const getColumns = (
   onUpdate: (vocabulary: Vocabulary) => void,
   onDelete: (vocabulary: Vocabulary) => void
-): DataColumn<Vocabulary>[] => [
+): DataColumn[] => [
   {
-    title: "",
-    render: ReadOnlyColumn,
+    field: "readOnly",
+    renderCell: ReadOnlyCell,
     width: 40,
   },
   {
-    title: t`label`,
+    renderHeader: () => t`label`,
     field: "label",
-    render: TitleColumn,
+    renderCell: TitleCell,
   },
   {
-    title: t`actions`,
-    headerStyle: {
-      textAlign: "right",
-    },
-    cellStyle: {
-      textAlign: "right",
-    },
-    sorting: false,
-    render: (vocabulary) => (
+    field: "actions",
+    renderHeader: () => t`actions`,
+    renderCell: (cellParams) => (
       <VocabularyActions
-        vocabulary={vocabulary}
+        vocabulary={cellParams.row as Vocabulary}
         onUpdate={onUpdate}
         onDelete={onDelete}
       />
@@ -104,7 +108,9 @@ const VocabulariesTable: React.FC = () => {
   return (
     <>
       <DataTableSuspense
-        resource={workspaceVocabulariesResource}
+        resource={
+          workspaceVocabulariesResource as unknown as DataTableObservableResource
+        }
         columns={columns}
         type="simple"
       />

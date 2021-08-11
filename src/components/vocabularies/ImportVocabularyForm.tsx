@@ -15,7 +15,7 @@ import {
   DialogTitle,
   Tooltip,
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import WarningIcon from "@material-ui/icons/WarningOutlined";
 
