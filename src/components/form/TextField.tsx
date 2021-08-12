@@ -22,9 +22,10 @@ const TextField: React.FC<TextFieldProps> = ({
   defaultValue = "",
   ...restProps
 }) => {
-  const { control, errors } = useFormContext();
+  const { control } = useFormContext();
   const {
     field: { ref, ...inputProps },
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -32,17 +33,13 @@ const TextField: React.FC<TextFieldProps> = ({
     defaultValue,
   });
 
-  console.warn("TEXT FIELD");
-  console.warn(errors[name]);
-  console.warn(errors[name]?.message);
-
   return (
     <MuiTextField
       {...inputProps}
       {...restProps}
       inputRef={ref}
-      error={!!errors[name]}
-      helperText={errors[name]?.message ? t(errors[name]?.message) : undefined}
+      error={!!error}
+      helperText={error?.message ? t(error?.message) : undefined}
     />
   );
 };

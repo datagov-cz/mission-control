@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
-import { useForm, FormProvider, UseFormMethods } from "react-hook-form";
+import { useForm, FormProvider, UseFormReturn } from "react-hook-form";
 
 export type FormDialogProps = {
-  form?: UseFormMethods<Record<string, any>>;
+  form?: UseFormReturn<Record<string, any>>;
   children: ReactNode;
 };
 
