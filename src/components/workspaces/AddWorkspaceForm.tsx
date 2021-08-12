@@ -20,7 +20,10 @@ const AddWorkspaceForm: React.FC<AddWorkspaceFormProps> = (props) => {
     (data: AddWorkspacePayload) => {
       execute(
         switchMap(() => addWorkspace(data)),
-        tap((id) => goTo(Routes.Workspace, { id }))
+        tap((id) => {
+          Routes.Workspace.onEnter({ id });
+          goTo(Routes.Workspace, { id });
+        })
       );
     },
     [goTo]
