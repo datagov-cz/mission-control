@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { switchMap } from "rxjs/operators";
-import { Tooltip } from "@material-ui/core";
-import SecurityIcon from "@material-ui/icons/Security";
-import EditIcon from "@material-ui/icons/Edit";
+import { Box } from "@material-ui/core";
 
 import { Vocabulary, Workspace } from "@types";
 
@@ -27,24 +25,10 @@ import { GridCellParams } from "@material-ui/data-grid";
 const TitleCell = (cellParams: GridCellParams) => {
   const rowData = cellParams.row as Vocabulary;
   return (
-    <>
+    <Box display="flex" flexDirection="column" lineHeight={1.5}>
       <b>{rowData.label}</b>
-      <br />
-      {rowData.changeTrackingVocabulary}
-    </>
-  );
-};
-
-const ReadOnlyCell = (cellParams: GridCellParams) => {
-  const rowData = cellParams.row as Vocabulary;
-  return rowData.isReadOnly ? (
-    <Tooltip title={t("readOnly")}>
-      <SecurityIcon />
-    </Tooltip>
-  ) : (
-    <Tooltip title={t("readAndWrite")}>
-      <EditIcon />
-    </Tooltip>
+      <span>{rowData.changeTrackingVocabulary}</span>
+    </Box>
   );
 };
 
@@ -53,14 +37,10 @@ const getColumns = (
   onDelete: (vocabulary: Vocabulary) => void
 ): DataColumn[] => [
   {
-    field: "readOnly",
-    renderCell: ReadOnlyCell,
-    width: 40,
-  },
-  {
     renderHeader: () => t`label`,
     field: "label",
     renderCell: TitleCell,
+    width: 500,
   },
   {
     field: "actions",
@@ -72,16 +52,17 @@ const getColumns = (
         onDelete={onDelete}
       />
     ),
+    width: 200,
+    disableReorder: true,
   },
 ];
 
 const VocabulariesTable: React.FC = () => {
   const { isOpen, open, close } = useToggle();
-  const [deleteProps, setDeleteProps] =
-    useState<{
-      vocabulary: Vocabulary;
-      workspace: Workspace;
-    }>();
+  const [deleteProps, setDeleteProps] = useState<{
+    vocabulary: Vocabulary;
+    workspace: Workspace;
+  }>();
 
   const onUpdate = useCallback((vocabulary: Vocabulary) => {
     const workspace = workspaceResource.read();
@@ -113,6 +94,8 @@ const VocabulariesTable: React.FC = () => {
         }
         columns={columns}
         type="simple"
+        hideFooter
+        rowHeight={76}
       />
       <DeleteVocabularyForm isOpen={isOpen} onClose={close} {...deleteProps} />
     </>

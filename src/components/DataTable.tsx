@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { range } from "lodash";
 import { Skeleton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import {
   DataGrid,
   DataGridProps,
@@ -32,6 +33,12 @@ type DataTableProps = Omit<DataGridProps, "rows"> & {
   data: GridRowsProp;
   isLoading: boolean;
 };
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#fff",
+  },
+});
 
 const DataTable = ({
   isLoading = false,
@@ -68,11 +75,14 @@ const DataTable = ({
     ? data
     : (range(tableOptions.pageSize!).map((id) => ({ id })) as GridRowData[]);
 
+  const classes = useStyles();
+
   return (
     <DataGrid
       // options={tableOptions}
       //localization={tableLocalization}
       {...rest}
+      className={classes.root}
       columns={tableColumns}
       rows={tableData}
       autoHeight
@@ -99,7 +109,16 @@ const DataTableSuspenseInner = ({
 }: DataTableSuspenseProps) => {
   const data = useObservableSuspense(resource);
   const filteredData = filter ? filter(data) : data;
-  return <DataTable {...rest} data={filteredData} isLoading={false} />;
+  return (
+    <DataTable
+      disableColumnMenu
+      disableColumnSelector
+      disableSelectionOnClick
+      {...rest}
+      data={filteredData}
+      isLoading={false}
+    />
+  );
 };
 
 export const DataTableSuspense = ({
