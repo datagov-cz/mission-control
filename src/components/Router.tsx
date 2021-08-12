@@ -1,34 +1,69 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
-import { RouterProvider } from "react-router5";
+import {
+  BrowserRouter,
+  Routes as Switch,
+  Route,
+  Navigate,
+  useLocation,
+  matchPath,
+} from "react-router-dom";
 
-import router, { startRouter } from "app/router";
-import useThrow from "hooks/useThrow";
+import Routes from "app/routes";
 
-type AuthProps = PropsWithChildren<{
-  location?: Location;
-}>;
+import MainLayout from "./MainLayout";
+import Workspace from "./workspaces/Workspace";
+import Workspaces from "./workspaces/Workspaces";
+import { Error404 } from "./Errors";
+import { useEffect, useState } from "react";
 
-const Auth: React.FC<AuthProps> = ({ children }) => {
-  const throwError = useThrow();
+/**
+ * This component facilitates initial loading of data when particular routes
+ * are accessed directly via URL. Subsequent data management during page transitions
+ * is handled on demand to facilitate the render-as-you-fetch strategy for optimal UX.
+ */
+const InitialLoad: React.FC = () => {
   const [initialized, setInitialized] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const initialize = async () => {
-      try {
-        await startRouter();
-        setInitialized(true);
-      } catch (error) {
-        throwError(error);
+    if (!initialized) {
+      const workspacesMatch = matchPath(
+        { path: Routes.Workspaces },
+        location.pathname
+      );
+      if (workspacesMatch) {
+        Routes.Workspaces.onEnter();
       }
-    };
-    initialize();
-  }, [throwError, setInitialized]);
 
-  if (!initialized) {
-    return null;
-  }
+      const workspaceMatch = matchPath(
+        { path: Routes.Workspace },
+        location.pathname
+      );
+      if (workspaceMatch) {
+        Routes.Workspace.onEnter(workspaceMatch.params as { id: string });
+      }
 
-  return <RouterProvider router={router}>{children}</RouterProvider>;
+      setInitialized(true);
+    }
+  }, [initialized, location]);
+  return null;
 };
 
-export default Auth;
+const Router: React.FC = () => (
+  <BrowserRouter>
+    <InitialLoad />
+    <MainLayout>
+      <Switch>
+        <Route path="/">
+          <Navigate to="/workspaces" />
+        </Route>
+        <Route path="/workspaces" element={<Workspaces />} />
+        <Route path="/workspace/:id" element={<Workspace />} />
+        <Route>
+          <Error404 />
+        </Route>
+      </Switch>
+    </MainLayout>
+  </BrowserRouter>
+);
+
+export default Router;

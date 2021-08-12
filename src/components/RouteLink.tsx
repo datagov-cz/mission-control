@@ -1,11 +1,9 @@
 import React, { useCallback } from "react";
+import { generatePath, useNavigate } from "react-router-dom";
 import { Link, LinkProps } from "@material-ui/core";
 
-import { useRouter } from "react-router5";
-import { RouteName } from "@types";
-
 type RouteLinkProps = Omit<LinkProps, "component" | "href"> & {
-  route: RouteName;
+  route: string;
   params?: Record<string, any>;
 };
 
@@ -16,22 +14,22 @@ const RouteLink: React.FC<RouteLinkProps> = ({
   onClick = () => null,
   ...rest
 }) => {
-  const router = useRouter();
-  const href = router.buildUrl(route, params);
-  const navigate = useCallback(
+  const navigate = useNavigate();
+  const href = generatePath(route, params);
+  const go = useCallback(
     (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       const comboKey = evt.metaKey || evt.altKey || evt.ctrlKey || evt.shiftKey;
 
       if (evt.button === 0 && !comboKey && target !== "_blank") {
         evt.preventDefault();
         onClick(evt);
-        router.navigate(route, params);
+        navigate(href);
       }
     },
-    [router, route, params, target, onClick]
+    [navigate, href, target, onClick]
   );
 
-  return <Link {...rest} href={href} target={target} onClick={navigate} />;
+  return <Link {...rest} href={href} target={target} onClick={go} />;
 };
 
 export default RouteLink;

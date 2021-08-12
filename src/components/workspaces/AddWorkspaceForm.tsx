@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { tap, switchMap } from "rxjs/operators";
-import { useRouter } from "react-router5";
 
 import { AddWorkspacePayload } from "@types";
 import Routes from "app/routes";
@@ -11,19 +10,20 @@ import TextField from "components/form/TextField";
 
 import { addWorkspace } from "data/workspaces";
 import { execute } from "utils/epic";
+import useGoTo from "hooks/useGoTo";
 
 type AddWorkspaceFormProps = Pick<FormDialogProps, "isOpen" | "onClose">;
 
 const AddWorkspaceForm: React.FC<AddWorkspaceFormProps> = (props) => {
-  const router = useRouter();
+  const goTo = useGoTo();
   const onSubmit = useCallback(
     (data: AddWorkspacePayload) => {
       execute(
         switchMap(() => addWorkspace(data)),
-        tap((id) => router.navigate(Routes.Workspace, { id }))
+        tap((id) => goTo(Routes.Workspace, { id }))
       );
     },
-    [router]
+    [goTo]
   );
 
   return (

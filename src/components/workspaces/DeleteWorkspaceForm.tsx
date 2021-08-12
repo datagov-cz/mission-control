@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { switchMap, finalize } from "rxjs/operators";
-import { useRouter } from "react-router5";
 import { Typography } from "@material-ui/core";
 
 import { DeleteWorkspacePayload, Workspace } from "@types";
@@ -12,6 +11,7 @@ import TextField from "components/form/TextField";
 import Hidden from "components/form/Hidden";
 import { deleteWorkspace } from "data/workspaces";
 import { execute } from "utils/epic";
+import useGoTo from "hooks/useGoTo";
 
 type DeleteWorkspaceFormProps = Pick<FormDialogProps, "isOpen" | "onClose"> & {
   workspace: Workspace;
@@ -21,14 +21,14 @@ const DeleteWorkspaceForm: React.FC<DeleteWorkspaceFormProps> = ({
   workspace,
   ...props
 }) => {
-  const router = useRouter();
+  const goTo = useGoTo();
   const onSubmit = useCallback(
     (data: DeleteWorkspacePayload) =>
       execute(
         switchMap(() => deleteWorkspace(data)),
-        finalize(() => router.navigate(Routes.MyWorkspaces))
+        finalize(() => goTo(Routes.Workspaces))
       ),
-    [router]
+    [goTo]
   );
 
   return (
