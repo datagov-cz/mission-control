@@ -16,7 +16,9 @@ const Workspace: React.FC = () => {
       <Container className="Workspaces">
         <Box height="30px"></Box>
         <Typography variant="body1" gutterBottom>
-          <RouteLink route={Routes.Default}>&larr; {t`workspaces`}</RouteLink>
+          <RouteLink route={Routes.Workspaces}>
+            &larr; {t`workspaces`}
+          </RouteLink>
         </Typography>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <Typography variant="h4" paragraph>

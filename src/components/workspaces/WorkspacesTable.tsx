@@ -1,5 +1,4 @@
-import React, { useTransition } from "react";
-import { useRouter } from "react-router5";
+import React, { useCallback, useTransition } from "react";
 import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
 import { Workspace } from "@types";
@@ -14,6 +13,7 @@ import {
 import UserChip from "components/users/UserChip";
 import Tools from "./Tools";
 import formatDate from "utils/formatDate";
+import useGoTo from "hooks/useGoTo";
 
 import { workspacesResource, fetchWorkspace } from "data/workspaces";
 
@@ -24,7 +24,7 @@ type WorkspacesTableProps = {
 const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
   currentUserOnly = false,
 }) => {
-  const router = useRouter();
+  const goTo = useGoTo();
   const [, startTransition] = useTransition();
 
   const {
@@ -71,14 +71,17 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     columns.splice(1, 1);
   }
 
-  const onRowClick = (rowData: any) => {
-    if (rowData) {
-      startTransition(() => {
-        fetchWorkspace(rowData.id);
-        rowData && router.navigate(Routes.Workspace, { id: rowData.id });
-      });
-    }
-  };
+  const onRowClick = useCallback(
+    (rowData: any) => {
+      if (rowData) {
+        startTransition(() => {
+          fetchWorkspace(rowData.id);
+          rowData && goTo(Routes.Workspace, rowData);
+        });
+      }
+    },
+    [goTo, startTransition]
+  );
 
   const dataFilter = (data: any[]) =>
     data.filter((workspace) => (workspace as Workspace).author.id === sub);
@@ -89,6 +92,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
       resource={workspacesResource as unknown as DataTableObservableResource}
       filter={currentUserOnly ? dataFilter : undefined}
       onRowClick={onRowClick}
+      disableSelectionOnClick
     />
   );
 };

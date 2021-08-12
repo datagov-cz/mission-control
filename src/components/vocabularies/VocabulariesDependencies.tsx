@@ -57,8 +57,6 @@ const buildGraph = (dependencies: Record<Iri, Iri[]>): Data => {
     mainVocabularies.concat(dependencyVocabularies)
   );
 
-  console.log(normalizedLevelMapping);
-
   mainVocabularies.forEach((iri) => {
     nodes.push({
       id: iri,
