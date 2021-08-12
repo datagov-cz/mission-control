@@ -11,9 +11,9 @@ const MainLayout: React.FC = ({ children }) => {
   return (
     <BackdropGrey>
       <Header />
-      <Box display="flex" flexGrow={1} flexDirection="column">
+      <Box display="flex" flexGrow={1} flexDirection="column" paddingBottom={2}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<>loading</>}>{children}</Suspense>
+          <Suspense fallback={<></>}>{children}</Suspense>
         </ErrorBoundary>
       </Box>
       <Footer />
