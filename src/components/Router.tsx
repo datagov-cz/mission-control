@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import Routes from "app/routes";
+import { PUBLIC_PATH } from "app/variables";
 
 import MainLayout from "./MainLayout";
 import Workspace from "./workspaces/Workspace";
@@ -52,7 +53,7 @@ const Router: React.FC = () => (
   <BrowserRouter>
     <InitialLoad />
     <MainLayout>
-      <Switch>
+      <Switch basename={PUBLIC_PATH}>
         <Route path="/">
           <Navigate to="/workspaces" />
         </Route>
