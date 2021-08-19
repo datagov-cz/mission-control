@@ -40,7 +40,7 @@ const getColumns = (
     renderHeader: () => t`label`,
     field: "label",
     renderCell: TitleCell,
-    width: 500,
+    width: 700,
   },
   {
     field: "actions",
