@@ -21,7 +21,6 @@ const AddWorkspaceForm: React.FC<AddWorkspaceFormProps> = (props) => {
       execute(
         switchMap(() => addWorkspace(data)),
         tap((id) => {
-          Routes.Workspace.onEnter({ id });
           goTo(Routes.Workspace, { id });
         })
       );
