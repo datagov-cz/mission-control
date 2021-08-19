@@ -15,7 +15,7 @@ import Tools from "./Tools";
 import formatDate from "utils/formatDate";
 import useGoTo from "hooks/useGoTo";
 
-import { workspacesResource, fetchWorkspace } from "data/workspaces";
+import { workspacesResource } from "data/workspaces";
 
 type WorkspacesTableProps = {
   currentUserOnly?: boolean;
@@ -75,8 +75,7 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     (rowData: any) => {
       if (rowData) {
         startTransition(() => {
-          fetchWorkspace(rowData.id);
-          rowData && goTo(Routes.Workspace, rowData);
+          goTo(Routes.Workspace, rowData);
         });
       }
     },

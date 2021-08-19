@@ -27,7 +27,6 @@ const DeleteWorkspaceForm: React.FC<DeleteWorkspaceFormProps> = ({
       execute(
         switchMap(() => deleteWorkspace(data)),
         finalize(() => {
-          Routes.Workspaces.onEnter();
           goTo(Routes.Workspaces);
         })
       ),
