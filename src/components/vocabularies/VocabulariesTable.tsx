@@ -1,12 +1,17 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { switchMap } from "rxjs/operators";
 import { Box } from "@material-ui/core";
+import {
+  GridCellParams,
+  GridColDef,
+  GridValueGetterParams,
+  GridSortModel,
+} from "@material-ui/data-grid";
 
 import { Vocabulary, Workspace } from "@types";
 
 import t from "components/i18n";
 import {
-  DataColumn,
   DataTableObservableResource,
   DataTableSuspense,
 } from "components/DataTable";
@@ -20,7 +25,6 @@ import {
 } from "data/vocabularies";
 import { workspaceResource } from "data/workspaces";
 import { execute } from "utils/epic";
-import { GridCellParams } from "@material-ui/data-grid";
 
 const TitleCell = (cellParams: GridCellParams) => {
   const rowData = cellParams.row as Vocabulary;
@@ -35,12 +39,13 @@ const TitleCell = (cellParams: GridCellParams) => {
 const getColumns = (
   onUpdate: (vocabulary: Vocabulary) => void,
   onDelete: (vocabulary: Vocabulary) => void
-): DataColumn[] => [
+): GridColDef[] => [
   {
     renderHeader: () => t`label`,
     field: "label",
     renderCell: TitleCell,
-    width: 700,
+    valueGetter: (cellParams: GridValueGetterParams) => cellParams.row.label,
+    flex: 1,
   },
   {
     field: "actions",
@@ -54,6 +59,13 @@ const getColumns = (
     ),
     width: 200,
     disableReorder: true,
+  },
+];
+
+const sortModel: GridSortModel = [
+  {
+    field: "label",
+    sort: "asc",
   },
 ];
 
@@ -93,6 +105,7 @@ const VocabulariesTable: React.FC = () => {
           workspaceVocabulariesResource as unknown as DataTableObservableResource
         }
         columns={columns}
+        sortModel={sortModel}
         type="simple"
         hideFooter
         rowHeight={76}
