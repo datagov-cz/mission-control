@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { useObservableSuspense } from "observable-hooks";
+import {
+  useObservableEagerState,
+  useObservableSuspense,
+} from "observable-hooks";
 import {
   CssBaseline,
   ThemeProvider,
@@ -8,12 +11,13 @@ import {
   StyledEngineProvider,
 } from "@material-ui/core";
 
-import theme from "app/theme";
+import { createLocalizedTheme } from "app/theme";
 
 import { I18nProvider, Namespace } from "components/i18n";
 import Snackbar from "components/Snackbar";
 import Router from "./Router";
 import { suspendResource } from "data/suspend";
+import { locale$ } from "data/locale";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Errors";
 import Title from "./Title";
@@ -32,13 +36,19 @@ const Suspender: React.FC = () => {
   return null;
 };
 
+const LocalizedThemeProvider: React.FC = ({ children }) => {
+  const locale = useObservableEagerState(locale$);
+  const theme = createLocalizedTheme(locale);
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+
 const App: React.FC = () => (
   <HelmetProvider>
     <I18nProvider>
       <Namespace.Provider value="common">
         <Title />
         <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
+          <LocalizedThemeProvider>
             <CssBaseline />
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Suspense fallback={null}>
@@ -49,7 +59,7 @@ const App: React.FC = () => (
               </Suspense>
               <Snackbar />
             </ErrorBoundary>
-          </ThemeProvider>
+          </LocalizedThemeProvider>
         </StyledEngineProvider>
       </Namespace.Provider>
     </I18nProvider>

@@ -14,9 +14,8 @@ import { ArrowDropDown } from "@material-ui/icons";
 import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from "app/variables";
 
 import t from "components/i18n";
-import theme from "app/theme";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginRight: theme.spacing(2),
   },
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
     padding: theme.spacing(0.5),
     minWidth: theme.spacing(3),
   },
-});
+}));
 
 const Help: React.FC = () => {
   const [open, setOpen] = useState(false);
