@@ -1,6 +1,4 @@
 import React, { Suspense } from "react";
-import { range } from "lodash";
-import { Skeleton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import {
   DataGrid,
@@ -10,21 +8,6 @@ import {
   GridRowsProp,
 } from "@material-ui/data-grid";
 import { ObservableResource, useObservableSuspense } from "observable-hooks";
-//import { useIntl } from "react-intl";
-
-const simpleTableOptions = {
-  toolbar: false,
-  pageSize: 5,
-  emptyRowsWhenPaging: false,
-  paging: false,
-};
-
-const complexTableOptions = {
-  toolbar: false,
-  pageSize: 10,
-  emptyRowsWhenPaging: true,
-  paging: true,
-};
 
 export type DataColumn = GridColDef;
 
@@ -38,54 +21,37 @@ const useStyles = makeStyles({
   root: {
     backgroundColor: "#fff",
   },
+  row: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  cell: {
+    "&:focus": {
+      outline: "none !important",
+    },
+  },
 });
 
 const DataTable = ({
   isLoading = false,
   columns,
   data,
-  // options = {},
-  type = "complex",
   ...rest
 }: DataTableProps) => {
-  //const intl = useIntl();
-
-  /*const tableLocalization: Localization = {
-    body: {
-      emptyDataSourceMessage: intl.formatMessage({
-        id: "common.noRecordsFound",
-      }),
-    },
-  };*/
-
-  const tableColumns = !isLoading
-    ? columns
-    : columns.map((column) => ({
-        ...column,
-        render: () => <Skeleton />,
-      }));
-
-  const options = {};
-  const tableOptions =
-    type === "complex"
-      ? { ...complexTableOptions, ...options }
-      : { ...simpleTableOptions, ...options };
-
-  const tableData = !isLoading
-    ? data
-    : (range(tableOptions.pageSize!).map((id) => ({ id })) as GridRowData[]);
-
   const classes = useStyles();
 
   return (
     <DataGrid
-      // options={tableOptions}
-      //localization={tableLocalization}
       {...rest}
-      className={classes.root}
-      columns={tableColumns}
-      rows={tableData}
+      classes={classes}
+      columns={columns}
+      rows={data}
       autoHeight
+      loading={isLoading}
+      disableColumnMenu
+      disableColumnSelector
+      disableSelectionOnClick
     />
   );
 };
@@ -99,26 +65,14 @@ export type DataTableObservableResource = ObservableResource<
 
 type DataTableSuspenseProps = Omit<DataTableProps, "data" | "isLoading"> & {
   resource: ObservableResource<GridRowData[], GridRowData[]>;
-  filter?: (data: GridRowData[]) => GridRowData[];
 };
 
 const DataTableSuspenseInner = ({
   resource,
-  filter,
   ...rest
 }: DataTableSuspenseProps) => {
   const data = useObservableSuspense(resource);
-  const filteredData = filter ? filter(data) : data;
-  return (
-    <DataTable
-      disableColumnMenu
-      disableColumnSelector
-      disableSelectionOnClick
-      {...rest}
-      data={filteredData}
-      isLoading={false}
-    />
-  );
+  return <DataTable {...rest} data={data} isLoading={false} />;
 };
 
 export const DataTableSuspense = ({

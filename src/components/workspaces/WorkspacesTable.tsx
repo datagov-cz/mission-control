@@ -1,7 +1,5 @@
 import React, { useCallback, useTransition } from "react";
-import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
-import { Workspace } from "@types";
 import Routes from "app/routes";
 
 import t from "components/i18n";
@@ -17,21 +15,9 @@ import useGoTo from "hooks/useGoTo";
 
 import { workspacesResource } from "data/workspaces";
 
-type WorkspacesTableProps = {
-  currentUserOnly?: boolean;
-};
-
-const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
-  currentUserOnly = false,
-}) => {
+const WorkspacesTable: React.FC = () => {
   const goTo = useGoTo();
   const [, startTransition] = useTransition();
-
-  const {
-    user: {
-      profile: { sub },
-    },
-  } = useAuth();
 
   const columns: DataColumn[] = [
     {
@@ -67,10 +53,6 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     },
   ];
 
-  if (currentUserOnly) {
-    columns.splice(1, 1);
-  }
-
   const onRowClick = useCallback(
     (rowData: any) => {
       if (rowData) {
@@ -82,14 +64,10 @@ const WorkspacesTable: React.FC<WorkspacesTableProps> = ({
     [goTo, startTransition]
   );
 
-  const dataFilter = (data: any[]) =>
-    data.filter((workspace) => (workspace as Workspace).author.id === sub);
-
   return (
     <DataTableSuspense
       columns={columns}
       resource={workspacesResource as unknown as DataTableObservableResource}
-      filter={currentUserOnly ? dataFilter : undefined}
       onRowClick={onRowClick}
       disableSelectionOnClick
     />
