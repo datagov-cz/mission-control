@@ -1,7 +1,11 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, ThemeOptions } from "@material-ui/core/styles";
 import { grey, blueGrey } from "@material-ui/core/colors";
+import { csCZ, enUS } from "@material-ui/core/locale";
+import { csCZ as csCZgrid, enUS as enUSgrid } from "@material-ui/data-grid";
 
-const theme = createTheme({
+import { Locale } from "@types";
+
+const themeOptions: ThemeOptions = {
   typography: {
     fontFamily: [
       "-apple-system",
@@ -53,6 +57,11 @@ const theme = createTheme({
       },
     },
   },
-});
+};
 
-export default theme;
+export const createLocalizedTheme = (locale: Locale) => {
+  if (locale === "en") {
+    return createTheme(themeOptions, enUS, enUSgrid);
+  }
+  return createTheme(themeOptions, csCZ, csCZgrid);
+};
