@@ -1,5 +1,9 @@
 import React, { useCallback, useTransition } from "react";
-import { GridColDef, GridSortModel } from "@material-ui/data-grid";
+import {
+  GridColDef,
+  GridSortModel,
+  GridValueGetterParams,
+} from "@material-ui/data-grid";
 
 import Routes from "app/routes";
 
@@ -25,6 +29,8 @@ const columns: GridColDef[] = [
     field: "owner",
     renderHeader: () => t`owner`,
     renderCell: (params) => <UserChip {...params.row.author} />,
+    valueGetter: (cellParams: GridValueGetterParams) =>
+      cellParams.row.author.initials,
     width: 150,
   },
   {
@@ -32,6 +38,8 @@ const columns: GridColDef[] = [
     renderHeader: () => t`lastEditor`,
     renderCell: (params) =>
       params.row.lastEditor && <UserChip {...params.row.lastEditor} />,
+    valueGetter: (cellParams: GridValueGetterParams) =>
+      cellParams.row.author.initials,
     width: 150,
   },
   {
@@ -39,6 +47,8 @@ const columns: GridColDef[] = [
     renderHeader: () => t`lastModified`,
     renderCell: (params) =>
       params.row.lastModified && formatDate(params.row.lastModified),
+    valueGetter: (cellParams: GridValueGetterParams) =>
+      cellParams.row.lastModified,
     width: 200,
   },
   {
@@ -46,10 +56,11 @@ const columns: GridColDef[] = [
     renderHeader: () => t`actions`,
     renderCell: (params) => <Tools workspaceUri={params.row.uri} />,
     width: 350,
+    sortable: false,
   },
 ];
 
-const sortModel: GridSortModel = [
+const defaultSortModel: GridSortModel = [
   {
     field: "label",
     sort: "asc",
@@ -74,7 +85,7 @@ const WorkspacesTable: React.FC = () => {
   return (
     <DataTableSuspense
       columns={columns}
-      sortModel={sortModel}
+      defaultSortModel={defaultSortModel}
       resource={workspacesResource as unknown as DataTableObservableResource}
       onRowClick={onRowClick}
       disableSelectionOnClick

@@ -58,11 +58,11 @@ const getColumns = (
       />
     ),
     width: 200,
-    disableReorder: true,
+    sortable: false,
   },
 ];
 
-const sortModel: GridSortModel = [
+const defaultSortModel: GridSortModel = [
   {
     field: "label",
     sort: "asc",
@@ -105,8 +105,7 @@ const VocabulariesTable: React.FC = () => {
           workspaceVocabulariesResource as unknown as DataTableObservableResource
         }
         columns={columns}
-        sortModel={sortModel}
-        type="simple"
+        defaultSortModel={defaultSortModel}
         hideFooter
         rowHeight={76}
       />

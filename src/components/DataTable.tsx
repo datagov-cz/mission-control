@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import {
   DataGrid,
@@ -6,15 +6,16 @@ import {
   GridColDef,
   GridRowData,
   GridRowsProp,
+  GridSortModel,
 } from "@material-ui/data-grid";
 import { ObservableResource, useObservableSuspense } from "observable-hooks";
 
 export type DataColumn = GridColDef;
 
 type DataTableProps = Omit<DataGridProps, "rows"> & {
-  type?: "simple" | "complex";
   data: GridRowsProp;
   isLoading: boolean;
+  defaultSortModel?: GridSortModel;
 };
 
 const useStyles = makeStyles({
@@ -31,15 +32,22 @@ const useStyles = makeStyles({
       outline: "none !important",
     },
   },
+  columnHeader: {
+    "&:focus": {
+      outline: "none !important",
+    },
+  },
 });
 
 const DataTable = ({
   isLoading = false,
   columns,
   data,
+  defaultSortModel,
   ...rest
 }: DataTableProps) => {
   const classes = useStyles();
+  const [sortModel, setSortModel] = useState(defaultSortModel);
 
   return (
     <DataGrid
@@ -49,6 +57,9 @@ const DataTable = ({
       rows={data}
       autoHeight
       loading={isLoading}
+      sortModel={sortModel}
+      onSortModelChange={(model) => setSortModel(model)}
+      sortingOrder={["asc", "desc"]}
       disableColumnMenu
       disableColumnSelector
       disableSelectionOnClick
