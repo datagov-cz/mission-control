@@ -1,10 +1,5 @@
 import { COMPONENTS } from "app/variables";
-import { Iri } from "@types";
-
-type Tool = {
-  key: string;
-  getUrl: (workspaceIri: Iri) => string;
-};
+import { Tool } from "@types";
 
 const tools: Tool[] = [
   {

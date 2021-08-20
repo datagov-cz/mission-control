@@ -41,7 +41,7 @@ const WorkspaceActions: React.FC = () => {
   return (
     <>
       <Box my={2} display="flex" flexDirection="row">
-        <Tools workspaceUri={workspace?.uri} />
+        <Tools workspace={workspace} />
         <Button color="primary" variant="contained" onClick={publish.open}>
           {t`publish`}
         </Button>

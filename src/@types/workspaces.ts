@@ -87,9 +87,3 @@ export type Workspace = Omit<
   lastModified?: Date;
   vocabularies: Vocabulary[];
 };
-
-export type Tool = {
-  url: string;
-  label: string;
-  key: string;
-};
