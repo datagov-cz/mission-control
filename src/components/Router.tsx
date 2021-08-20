@@ -59,9 +59,7 @@ const Router: React.FC = () => (
         </Route>
         <Route path="/workspaces" element={<Workspaces />} />
         <Route path="/workspace/:id" element={<Workspace />} />
-        <Route>
-          <Error404 />
-        </Route>
+        <Route path="*" element={<Error404 />} />
       </Switch>
     </MainLayout>
   </BrowserRouter>
