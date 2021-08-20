@@ -24,28 +24,26 @@ import { useEffect, useState } from "react";
 const InitialLoad: React.FC = () => {
   const [initialized, setInitialized] = useState(false);
   const location = useLocation();
+  // substring path prefix in case the app runs on a subpath
+  const path = location.pathname.startsWith(PUBLIC_PATH)
+    ? location.pathname.substring(PUBLIC_PATH.length)
+    : location.pathname;
 
   useEffect(() => {
     if (!initialized) {
-      const workspacesMatch = matchPath(
-        { path: Routes.Workspaces },
-        location.pathname
-      );
+      const workspacesMatch = matchPath({ path: Routes.Workspaces }, path);
       if (workspacesMatch) {
         Routes.Workspaces.onEnter();
       }
 
-      const workspaceMatch = matchPath(
-        { path: Routes.Workspace },
-        location.pathname
-      );
+      const workspaceMatch = matchPath({ path: Routes.Workspace }, path);
       if (workspaceMatch) {
         Routes.Workspace.onEnter(workspaceMatch.params as { id: string });
       }
 
       setInitialized(true);
     }
-  }, [initialized, location]);
+  }, [initialized, path]);
   return null;
 };
 
