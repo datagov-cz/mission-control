@@ -4,6 +4,7 @@
     "prefix": "https://slovník.gov.cz/datový/",
     "regex": "^https://slovník.gov.cz/datový/[ěščřžýáíéóúůďťňa-z0-9-]+$",
     "autoIriRegex": "[ěščřžýáíéóúůďťňa-z0-9]+",
+    "autoIriMatchAll": true,
     "level": 4
   },
   {
@@ -11,6 +12,7 @@
     "prefix": "https://slovník.gov.cz/agendový/",
     "regex": "^https://slovník.gov.cz/agendový/[a-z0-9-]+$",
     "autoIriRegex": "[a-z0-9]+",
+    "autoIriMatchAll": true,
     "level": 3
   },
   {
@@ -18,6 +20,7 @@
     "prefix": "https://slovník.gov.cz/legislativní/sbírka/",
     "regex": "^https://slovník.gov.cz/legislativní/sbírka/[0-9]+/[0-9]+$",
     "autoIriRegex": "[0-9]+/[0-9]+",
+    "autoIriMatchAll": false,
     "level": 2
   },
   {
@@ -25,6 +28,7 @@
     "prefix": "https://slovník.gov.cz/generický/",
     "regex": "^https://slovník.gov.cz/generický/[ěščřžýáíéóúůďťňa-z0-9-]+$",
     "autoIriRegex": "[ěščřžýáíéóúůďťňa-z0-9]+",
+    "autoIriMatchAll": true,
     "level": 1
   }
 ]
