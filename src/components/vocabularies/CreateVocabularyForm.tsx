@@ -75,7 +75,11 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
             .toLowerCase()
             .match(new RegExp(vocabularyType.autoIriRegex, "g"))
         : null;
-      const iriSafeLabel = chunks ? chunks.join("-") : "";
+      const iriSafeLabel = chunks
+        ? vocabularyType.autoIriMatchAll
+          ? chunks.join("-")
+          : chunks[0]
+        : "";
       form.setValue("vocabularyIri", `${vocabularyType.prefix}${iriSafeLabel}`);
     }
   }, [useDefaultIri, label, form, vocabularyType]);
