@@ -2,6 +2,7 @@ import React, { useCallback, useTransition } from "react";
 import { GridColDef, GridSortModel } from "@material-ui/data-grid";
 
 import Routes from "app/routes";
+import { Workspace } from "@types";
 
 import t from "components/i18n";
 import {
@@ -44,7 +45,7 @@ const columns: GridColDef[] = [
   {
     field: "actions",
     renderHeader: () => t`actions`,
-    renderCell: (params) => <Tools workspaceUri={params.row.uri} />,
+    renderCell: (params) => <Tools workspace={params.row as Workspace} />,
     width: 350,
   },
 ];
