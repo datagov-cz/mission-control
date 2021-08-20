@@ -14,6 +14,7 @@ import t from "components/i18n";
 import Help from "components/Help";
 import LanguageSelector from "components/LanguageSelector";
 import Identity from "components/Identity";
+import RouteLink from "components/RouteLink";
 
 const useStyles = makeStyles({
   root: {
@@ -26,12 +27,15 @@ const Header: React.FC = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
-        <Box display="flex" alignItems="center">
+        <RouteLink
+          route="/"
+          sx={{ display: "flex", alignItems: "center", color: "white" }}
+        >
           <IconButton edge="start" color="inherit" size="large">
             <Icon />
           </IconButton>
           <Typography variant="h6">{t`controlPanel`}</Typography>
-        </Box>
+        </RouteLink>
         <Box display="flex" flexGrow={1} justifyContent="flex-end">
           <Help />
           <LanguageSelector />

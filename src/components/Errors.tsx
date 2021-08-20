@@ -4,6 +4,7 @@ import { Box, IconButton, styled, Typography } from "@material-ui/core";
 
 import Icon from "components/Icon";
 import t from "components/i18n";
+import RouteLink from "components/RouteLink";
 
 const BackdropGradient = styled(Box)({
   background: "#263238 radial-gradient(circle, #057fa5 0%, #263238 100%)",
@@ -23,10 +24,15 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ code, message, children }) => {
   return (
     <BackdropGradient color="white">
       <Box p={2} display="flex" alignItems="center">
-        <IconButton color="inherit" size="large">
-          <Icon />
-        </IconButton>
-        <Typography variant="h6">{t`controlPanel`}</Typography>
+        <RouteLink
+          route="/"
+          sx={{ display: "flex", alignItems: "center", color: "white" }}
+        >
+          <IconButton color="inherit" size="large">
+            <Icon />
+          </IconButton>
+          <Typography variant="h6">{t`controlPanel`}</Typography>
+        </RouteLink>
       </Box>
       <Typography variant="h1">{code}</Typography>
       <Typography variant="h3">{t(message)}</Typography>
