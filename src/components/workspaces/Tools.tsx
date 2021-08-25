@@ -17,7 +17,7 @@ const ToolButton: React.FC<ToolButtonProps> = ({ tool, workspace }) => {
       <Button
         color="primary"
         variant="contained"
-        href={tool.getUrl(workspace.id)}
+        href={tool.getUrl(workspace.uri)}
         target="_blank"
         onClick={(e) => e.stopPropagation()}
       >
