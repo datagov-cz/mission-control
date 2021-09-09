@@ -7,9 +7,9 @@ import {
   ClickAwayListener,
   Grow,
   Popper,
-} from "@material-ui/core";
-import makeStyles from "@material-ui/styles/makeStyles";
-import { ArrowDropDown } from "@material-ui/icons";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
+import { ArrowDropDown } from "@mui/icons-material";
 
 import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from "app/variables";
 

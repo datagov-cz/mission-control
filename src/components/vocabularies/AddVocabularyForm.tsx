@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useObservableSuspense } from "observable-hooks";
-import { Box, Tabs, Tab } from "@material-ui/core";
+import { Box, Tabs, Tab } from "@mui/material";
 
 import t from "components/i18n";
 import Dialog from "components/form/Dialog";

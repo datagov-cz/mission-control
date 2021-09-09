@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Container, Box } from "@material-ui/core";
+import { Typography, Container, Box } from "@mui/material";
 
 import Routes from "app/routes";
 

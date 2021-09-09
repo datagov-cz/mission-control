@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Typography, Box, Container } from "@material-ui/core";
+import { Divider, Typography, Box, Container } from "@mui/material";
 
 import t from "components/i18n";
 

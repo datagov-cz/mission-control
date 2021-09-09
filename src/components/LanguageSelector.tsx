@@ -1,8 +1,8 @@
 import React from "react";
 import { useObservableEagerState } from "observable-hooks";
-import { Button, Menu, MenuItem } from "@material-ui/core";
-import TranslateIcon from "@material-ui/icons/Translate";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Button, Menu, MenuItem } from "@mui/material";
+import TranslateIcon from "@mui/icons-material/Translate";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { Locale } from "@types";
 

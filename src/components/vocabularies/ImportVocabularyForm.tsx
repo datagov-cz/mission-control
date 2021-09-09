@@ -14,10 +14,10 @@ import {
   DialogContent,
   DialogTitle,
   Tooltip,
-} from "@material-ui/core";
-import { Alert } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import WarningIcon from "@material-ui/icons/WarningOutlined";
+} from "@mui/material";
+import { Alert } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import WarningIcon from "@mui/icons-material/WarningOutlined";
 
 import { BaseVocabularyWithWorkspace } from "@types";
 

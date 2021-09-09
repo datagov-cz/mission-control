@@ -1,6 +1,6 @@
-import { createTheme, ThemeOptions } from "@material-ui/core/styles";
-import { grey, blueGrey } from "@material-ui/core/colors";
-import { csCZ, enUS } from "@material-ui/core/locale";
+import { createTheme, ThemeOptions } from "@mui/material/styles";
+import { grey, blueGrey } from "@mui/material/colors";
+import { csCZ, enUS } from "@mui/material/locale";
 import { csCZ as csCZgrid, enUS as enUSgrid } from "@material-ui/data-grid";
 
 import { Locale } from "@types";

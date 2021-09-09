@@ -1,5 +1,5 @@
 import React from "react";
-import TuneIcon from "@material-ui/icons/Tune";
+import TuneIcon from "@mui/icons-material/Tune";
 
 const Icon: React.FC<{}> = () => <TuneIcon />;
 

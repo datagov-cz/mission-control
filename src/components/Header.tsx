@@ -5,9 +5,9 @@ import {
   IconButton,
   Typography,
   Box,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import makeStyles from "@material-ui/styles/makeStyles";
+import makeStyles from "@mui/styles/makeStyles";
 
 import Icon from "components/Icon";
 import t from "components/i18n";

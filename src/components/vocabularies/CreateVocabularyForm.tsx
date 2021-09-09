@@ -8,7 +8,7 @@ import {
   RadioGroup,
   Radio,
   Box,
-} from "@material-ui/core";
+} from "@mui/material";
 
 import { AddVocabularyPayload, Workspace } from "@types";
 import vocabularyTypes from "app/vocabularyTypes.json";
