@@ -3,7 +3,7 @@ import {
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
   FormControlLabel,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useFormContext, useController } from "react-hook-form";
 
 type CheckboxProps = MuiCheckboxProps & {

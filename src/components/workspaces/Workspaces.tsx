@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Typography, Container, Box, styled } from "@material-ui/core";
+import { Typography, Container, Box, styled } from "@mui/material";
 
 import t, { Namespace } from "components/i18n";
 import Title from "components/Title";

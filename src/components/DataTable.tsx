@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import {
   DataGrid,
   DataGridProps,

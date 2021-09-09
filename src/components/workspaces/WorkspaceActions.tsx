@@ -1,7 +1,7 @@
 import React from "react";
 import { useObservableSuspense } from "observable-hooks";
-import { Box, Button, Menu, MenuItem, Divider } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Box, Button, Menu, MenuItem, Divider } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import t from "components/i18n";
 import EditWorkspaceForm from "./EditWorkspaceForm";

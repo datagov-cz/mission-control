@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box } from "@mui/material";
 
 import t, { Namespace } from "components/i18n";
 import VocabulariesTable from "./VocabulariesTable";

@@ -1,7 +1,7 @@
 import React from "react";
-import { Chip, Theme } from "@material-ui/core";
+import { Chip, Theme } from "@mui/material";
 
-import makeStyles from "@material-ui/styles/makeStyles";
+import makeStyles from "@mui/styles/makeStyles";
 
 import { User } from "@types";
 

@@ -1,9 +1,9 @@
 import React from "react";
 import md5 from "crypto-js/md5";
 import classNames from "classnames";
-import { Avatar, Theme } from "@material-ui/core";
+import { Avatar, Theme } from "@mui/material";
 
-import makeStyles from "@material-ui/styles/makeStyles";
+import makeStyles from "@mui/styles/makeStyles";
 
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: {

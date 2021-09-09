@@ -1,6 +1,6 @@
 import React, { useCallback, useTransition } from "react";
 import { useFormContext } from "react-hook-form";
-import { Button, ButtonProps } from "@material-ui/core";
+import { Button, ButtonProps } from "@mui/material";
 
 type SubmitButtonProps = Omit<ButtonProps, "onClick"> & {
   onClick: (data: any) => void;

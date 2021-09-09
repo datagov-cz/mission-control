@@ -2,7 +2,7 @@ import React from "react";
 import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   RegisterOptions,
   useFormContext,

@@ -5,8 +5,8 @@ import {
   Button,
   Typography,
   ListItemIcon,
-} from "@material-ui/core";
-import { ExitToApp } from "@material-ui/icons";
+} from "@mui/material";
+import { ExitToApp } from "@mui/icons-material";
 import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 
 import Gravatar from "components/users/Gravatar";

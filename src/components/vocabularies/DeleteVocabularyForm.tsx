@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { finalize, switchMap } from "rxjs/operators";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 
 import { DeleteVocabularyPayload, Vocabulary, Workspace } from "@types";
 

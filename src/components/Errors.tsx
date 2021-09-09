@@ -1,6 +1,6 @@
 import React from "react";
 import { AjaxError } from "rxjs/ajax";
-import { Box, IconButton, styled, Typography } from "@material-ui/core";
+import { Box, IconButton, styled, Typography } from "@mui/material";
 
 import Icon from "components/Icon";
 import t from "components/i18n";

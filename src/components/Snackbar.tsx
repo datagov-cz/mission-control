@@ -2,8 +2,8 @@ import React from "react";
 import { of, merge } from "rxjs";
 import { switchMap, delay } from "rxjs/operators";
 import { useObservableState } from "observable-hooks";
-import { Snackbar as BaseSnackbar } from "@material-ui/core";
-import { Alert } from "@material-ui/core";
+import { Snackbar as BaseSnackbar } from "@mui/material";
+import { Alert } from "@mui/material";
 
 import t from "components/i18n";
 import { messages$ } from "data/messages";

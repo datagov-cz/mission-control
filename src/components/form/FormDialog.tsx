@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 
 import Dialog, { DialogProps } from "./Dialog";
 import Form from "./Form";

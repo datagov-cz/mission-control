@@ -1,6 +1,6 @@
 import React, { useCallback, useTransition } from "react";
 import { generatePath } from "react-router-dom";
-import { Link, LinkProps } from "@material-ui/core";
+import { Link, LinkProps } from "@mui/material";
 
 import useGoTo from "hooks/useGoTo";
 

@@ -9,7 +9,7 @@ import {
   ThemeProvider,
   Theme,
   StyledEngineProvider,
-} from "@material-ui/core";
+} from "@mui/material";
 
 import { createLocalizedTheme } from "app/theme";
 
@@ -22,7 +22,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Errors";
 import Title from "./Title";
 
-declare module "@material-ui/styles/defaultTheme" {
+declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import { Fab } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 import t from "components/i18n";
 import AddVocabularyForm from "./AddVocabularyForm";
