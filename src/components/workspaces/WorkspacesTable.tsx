@@ -3,7 +3,7 @@ import {
   GridColDef,
   GridSortModel,
   GridValueGetterParams,
-} from "@material-ui/data-grid";
+} from "@mui/x-data-grid";
 
 import Routes from "app/routes";
 import { Workspace } from "@types";

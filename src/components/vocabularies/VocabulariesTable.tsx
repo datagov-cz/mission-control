@@ -6,7 +6,7 @@ import {
   GridColDef,
   GridValueGetterParams,
   GridSortModel,
-} from "@material-ui/data-grid";
+} from "@mui/x-data-grid";
 
 import { Vocabulary, Workspace } from "@types";
 
