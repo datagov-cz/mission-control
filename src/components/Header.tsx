@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Box,
-} from "@mui/material";
-
-import makeStyles from "@mui/styles/makeStyles";
+import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
 
 import Icon from "components/Icon";
 import t from "components/i18n";
@@ -16,16 +8,14 @@ import LanguageSelector from "components/LanguageSelector";
 import Identity from "components/Identity";
 import RouteLink from "components/RouteLink";
 
-const useStyles = makeStyles({
-  root: {
-    background: "#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)",
-  },
-});
-
 const Header: React.FC = () => {
-  const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.root}>
+    <AppBar
+      position="static"
+      sx={{
+        background: "#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)",
+      }}
+    >
       <Toolbar>
         <RouteLink
           route="/"

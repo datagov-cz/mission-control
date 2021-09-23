@@ -7,7 +7,6 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import CloseIcon from "@mui/icons-material/Close";
 
 import Form from "./Form";
@@ -21,19 +20,6 @@ export type DialogProps = Omit<
   onClose: () => void;
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-}));
-
 const Dialog: React.FC<DialogProps> = ({
   isOpen,
   title,
@@ -41,7 +27,6 @@ const Dialog: React.FC<DialogProps> = ({
   onClose,
   ...props
 }) => {
-  const classes = useStyles();
   return (
     <Form>
       <MuiDialog
@@ -56,7 +41,12 @@ const Dialog: React.FC<DialogProps> = ({
           {onClose ? (
             <IconButton
               aria-label="close"
-              className={classes.closeButton}
+              sx={{
+                position: "absolute",
+                right: 1,
+                top: 1,
+                color: "palette.grey[500]",
+              }}
               onClick={onClose}
               size="large"
             >
