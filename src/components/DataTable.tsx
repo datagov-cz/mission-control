@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/system";
 import {
   DataGrid,
   DataGridProps,
@@ -7,7 +7,7 @@ import {
   GridRowData,
   GridRowsProp,
   GridSortModel,
-} from "@material-ui/data-grid";
+} from "@mui/x-data-grid";
 import { ObservableResource, useObservableSuspense } from "observable-hooks";
 
 export type DataColumn = GridColDef;
@@ -18,7 +18,7 @@ type DataTableProps = Omit<DataGridProps, "rows"> & {
   defaultSortModel?: GridSortModel;
 };
 
-const useStyles = makeStyles({
+/* const useStyles = makeStyles({
   root: {
     backgroundColor: "#fff",
   },
@@ -37,6 +37,10 @@ const useStyles = makeStyles({
       outline: "none !important",
     },
   },
+}); */
+
+const StyledDataGrid = styled(DataGrid)({
+  backgroundColor: "#FFF",
 });
 
 const DataTable = ({
@@ -46,13 +50,11 @@ const DataTable = ({
   defaultSortModel,
   ...rest
 }: DataTableProps) => {
-  const classes = useStyles();
   const [sortModel, setSortModel] = useState(defaultSortModel);
 
   return (
-    <DataGrid
+    <StyledDataGrid
       {...rest}
-      classes={classes}
       columns={columns}
       rows={data}
       autoHeight

@@ -7,7 +7,6 @@ import {
 import {
   CssBaseline,
   ThemeProvider,
-  Theme,
   StyledEngineProvider,
 } from "@mui/material";
 
@@ -21,11 +20,6 @@ import { locale$ } from "data/locale";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Errors";
 import Title from "./Title";
-
-declare module "@mui/styles/defaultTheme" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 
 /**
  * This component prevents React immediate render if the suspend resource is true
