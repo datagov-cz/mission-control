@@ -18,27 +18,6 @@ type DataTableProps = Omit<DataGridProps, "rows"> & {
   defaultSortModel?: GridSortModel;
 };
 
-/* const useStyles = makeStyles({
-  root: {
-    backgroundColor: "#fff",
-  },
-  row: {
-    "&:hover": {
-      cursor: "pointer",
-    },
-  },
-  cell: {
-    "&:focus": {
-      outline: "none !important",
-    },
-  },
-  columnHeader: {
-    "&:focus": {
-      outline: "none !important",
-    },
-  },
-}); */
-
 const StyledDataGrid = styled(DataGrid)({
   backgroundColor: "#FFF",
 });
