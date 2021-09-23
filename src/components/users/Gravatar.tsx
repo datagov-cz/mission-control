@@ -1,23 +1,11 @@
 import React from "react";
 import md5 from "crypto-js/md5";
-import classNames from "classnames";
-import { Avatar, Theme } from "@mui/material";
+import { Avatar } from "@mui/material";
+import { styled } from "@mui/system";
 
-import makeStyles from "@mui/styles/makeStyles";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  avatar: {
-    border: "2px solid #FFF",
-    background: theme.palette.secondary.main,
-  },
-  regular: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-  },
-  huge: {
-    width: theme.spacing(25),
-    height: theme.spacing(25),
-  },
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  border: "2px solid #FFF",
+  background: theme.palette.secondary.main,
 }));
 
 const getGravatarUrl = (email: string) =>
@@ -26,32 +14,29 @@ const getGravatarUrl = (email: string) =>
 type GravatarProps = {
   email?: string;
   initials: string;
-  size?: "regular" | "huge";
-  className?: string;
+  size?: "regular" | "small";
 };
 
 const Gravatar: React.FC<GravatarProps> = ({
   email = null,
   initials,
   size = "regular",
-  className,
 }) => {
-  const classes = useStyles();
+  const sizePoints = size !== "regular" ? 30 : 40;
 
-  const avatarClassNames = className
-    ? className
-    : classNames(
-        classes.avatar,
-        size === "regular" && classes.regular,
-        size === "huge" && classes.huge
-      );
+  const sx = {
+    width: sizePoints,
+    height: sizePoints,
+  };
 
   return email ? (
-    <Avatar src={getGravatarUrl(email)} className={avatarClassNames}>
+    <StyledAvatar src={getGravatarUrl(email)} sx={sx}>
       {initials}
-    </Avatar>
+    </StyledAvatar>
   ) : (
-    <Avatar className={avatarClassNames}>{initials}</Avatar>
+    <StyledAvatar sx={sx} variant="rounded">
+      {initials}
+    </StyledAvatar>
   );
 };
 

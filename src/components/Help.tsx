@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import classnames from "classnames";
 import {
   Box,
   Button,
@@ -8,34 +7,24 @@ import {
   Grow,
   Popper,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/system";
 import { ArrowDropDown } from "@mui/icons-material";
 
 import { BUG_TRACKER_URL, FEATURE_TRACKER_URL } from "app/variables";
 
 import t from "components/i18n";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginRight: theme.spacing(2),
-  },
-  button: {
-    color: theme.palette.warning.contrastText,
-    backgroundColor: theme.palette.warning.main,
-    "&:hover": {
-      backgroundColor: theme.palette.warning.dark,
-    },
-  },
-  arrow: {
-    padding: theme.spacing(0.5),
-    minWidth: theme.spacing(3),
+const HelpButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.warning.contrastText,
+  backgroundColor: theme.palette.warning.main,
+  "&:hover": {
+    backgroundColor: theme.palette.warning.dark,
   },
 }));
 
 const Help: React.FC = () => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const classes = useStyles();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -58,19 +47,12 @@ const Help: React.FC = () => {
         variant="contained"
         color="secondary"
         ref={anchorRef}
-        className={classes.root}
+        sx={{ marginRight: 2 }}
       >
-        <Button
-          href={BUG_TRACKER_URL}
-          target="_blank"
-          className={classes.button}
-        >{t`reportBug`}</Button>
-        <Button
-          onClick={handleToggle}
-          className={classnames(classes.button, classes.arrow)}
-        >
+        <Button href={BUG_TRACKER_URL} color="warning">{t`reportBug`}</Button>
+        <HelpButton onClick={handleToggle} sx={{ p: 0.5, minWidth: 3 }}>
           <ArrowDropDown />
-        </Button>
+        </HelpButton>
       </ButtonGroup>
       <Popper
         open={open}
@@ -89,15 +71,13 @@ const Help: React.FC = () => {
           >
             <Box my={0.5}>
               <ClickAwayListener onClickAway={handleClose as () => void}>
-                <Button
+                <HelpButton
                   variant="contained"
                   onClick={handleClose}
                   href={FEATURE_TRACKER_URL}
-                  target="_blank"
-                  className={classes.button}
                 >
                   {t`requestFeature`}
-                </Button>
+                </HelpButton>
               </ClickAwayListener>
             </Box>
           </Grow>

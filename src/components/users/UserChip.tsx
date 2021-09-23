@@ -1,34 +1,28 @@
 import React from "react";
-import { Chip, Theme } from "@mui/material";
-
-import makeStyles from "@mui/styles/makeStyles";
 
 import { User } from "@types";
 
-import Gravatar from "components/users/Gravatar";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    background: "transparent",
-    margin: theme.spacing(-0.75, -0.75),
-  },
-}));
+// TODO: improve the user chip in the future
+//import Gravatar from "components/users/Gravatar";
 
 type UserChipProps = User;
 
-const UserChip: React.FC<UserChipProps> = ({
-  initials,
-  firstName,
-  lastName,
-}) => {
-  const classes = useStyles();
+const UserChip: React.FC<UserChipProps> = ({ firstName, lastName }) => {
   return (
+    <>
+      {firstName} {lastName}
+    </>
+  );
+  /*return (
     <Chip
       label={`${firstName} ${lastName}`}
-      avatar={<Gravatar initials={initials} />}
-      classes={classes}
+      //avatar={<Gravatar initials={initials} size="small" />}
+      sx={{
+        background: "transparent",
+        margin: -0.75,
+      }}
     />
-  );
+  );*/
 };
 
 export default UserChip;

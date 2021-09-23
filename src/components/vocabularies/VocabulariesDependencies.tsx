@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { Box } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/system";
 import { Network, Data, Node, Edge } from "vis-network";
 import { flatten, uniq } from "lodash";
 
@@ -87,16 +87,6 @@ const buildGraph = (dependencies: Record<Iri, Iri[]>): Data => {
   };
 };
 
-const useStyles = makeStyles({
-  root: {
-    background: "#263238 linear-gradient(5deg, #057fa5 0%, #263238 100%)",
-  },
-  canvas: {
-    width: "100%",
-    height: 500,
-  },
-});
-
 const graphOptions = {
   nodes: {
     shape: "box",
@@ -129,8 +119,12 @@ const graphOptions = {
   },
 };
 
+const Canvas = styled("div")({
+  width: "100%",
+  height: 500,
+});
+
 const VocabulariesDependencies: React.FC = () => {
-  const classes = useStyles();
   const canvas = useRef<HTMLDivElement>(null);
 
   const dependencies = useObservableSuspense(
@@ -145,7 +139,7 @@ const VocabulariesDependencies: React.FC = () => {
 
   return (
     <Box paddingBottom={2}>
-      <div className={classes.canvas} ref={canvas}></div>
+      <Canvas ref={canvas}></Canvas>
     </Box>
   );
 };

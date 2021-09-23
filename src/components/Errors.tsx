@@ -60,10 +60,10 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
   const responseJson = ajaxError.xhr.response;
   return (
     <ErrorPage code={ajaxError.status} message={"somethingWentWrongWithApi"}>
-      <Typography paragraph style={{ fontFamily: "monospace" }}>
+      <Typography paragraph sx={{ fontFamily: "monospace" }}>
         {ajaxError.request.method} {ajaxError.request.url}
       </Typography>
-      <Typography style={{ fontFamily: "monospace" }}>
+      <Typography sx={{ fontFamily: "monospace" }}>
         {responseJson.message}
       </Typography>
     </ErrorPage>
