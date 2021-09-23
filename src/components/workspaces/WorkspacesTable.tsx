@@ -1,11 +1,10 @@
-import React, { useCallback, useTransition } from "react";
+import React from "react";
 import {
   GridColDef,
   GridSortModel,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 
-import Routes from "app/routes";
 import { Workspace } from "@types";
 
 import t from "components/i18n";
@@ -14,9 +13,9 @@ import {
   DataTableSuspense,
 } from "components/DataTable";
 import UserChip from "components/users/UserChip";
+import RouteLink from "components/RouteLink";
 import Tools from "./Tools";
 import formatDate from "utils/formatDate";
-import useGoTo from "hooks/useGoTo";
 
 import { workspacesResource } from "data/workspaces";
 
@@ -24,6 +23,11 @@ const columns: GridColDef[] = [
   {
     renderHeader: () => t`label`,
     field: "label",
+    renderCell: (params) => (
+      <RouteLink route="/workspace/:id" params={{ id: params.row.id }}>
+        {params.row.label}
+      </RouteLink>
+    ),
     flex: 1,
   },
   {
@@ -69,26 +73,11 @@ const defaultSortModel: GridSortModel = [
 ];
 
 const WorkspacesTable: React.FC = () => {
-  const goTo = useGoTo();
-  const [, startTransition] = useTransition();
-
-  const onRowClick = useCallback(
-    (rowData: any) => {
-      if (rowData) {
-        startTransition(() => {
-          goTo(Routes.Workspace, rowData);
-        });
-      }
-    },
-    [goTo, startTransition]
-  );
-
   return (
     <DataTableSuspense
       columns={columns}
       defaultSortModel={defaultSortModel}
       resource={workspacesResource as unknown as DataTableObservableResource}
-      onRowClick={onRowClick}
       disableSelectionOnClick
     />
   );
