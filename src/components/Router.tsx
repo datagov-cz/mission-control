@@ -48,13 +48,11 @@ const InitialLoad: React.FC = () => {
 };
 
 const Router: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={PUBLIC_PATH}>
     <InitialLoad />
     <MainLayout>
-      <Switch basename={PUBLIC_PATH}>
-        <Route path="/">
-          <Navigate to="/workspaces" />
-        </Route>
+      <Switch>
+        <Route path="/" element={<Navigate to="/workspaces" />} />
         <Route path="/workspaces" element={<Workspaces />} />
         <Route path="/workspace/:id" element={<Workspace />} />
         <Route path="*" element={<Error404 />} />
