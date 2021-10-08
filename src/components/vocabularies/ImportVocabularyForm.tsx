@@ -201,7 +201,7 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
             <Alert severity="info">
               {t`vocabularyEditedInAnotherWorkspace`}{" "}
               <RouteLink
-                route="workspace"
+                route="/workspace/:id"
                 params={{ id: selectedVocabulary.workspace.id }}
                 onClick={onClose}
               >
