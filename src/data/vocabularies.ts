@@ -42,7 +42,7 @@ export const convertVocabularyDataToVocabulary = (
   uri: data.uri,
   id: getIdFromIri(data.uri),
   label: data.label,
-  vocabulary: data.basedOnVocabularyVersion,
+  vocabulary: data.basedOnVersion,
   isReadOnly: !!data.types && data.types.includes(VOCABULARY_CONTEXT_READ_ONLY),
   vocabularyContext: data.uri,
   changeTrackingContext: data.changeTrackingContext.uri,
@@ -52,7 +52,7 @@ export const convertVocabularyDataToVocabulary = (
 const convertBaseVocabularyDataToVocabulary = (
   data: BaseVocabularyData
 ): BaseVocabulary => ({
-  vocabulary: data.basedOnVocabularyVersion,
+  vocabulary: data.basedOnVersion,
   label: data.label,
 });
 

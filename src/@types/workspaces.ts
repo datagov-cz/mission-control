@@ -2,7 +2,7 @@ import { UserData, User } from "@types";
 import { Id, Iri } from "@types";
 
 export type BaseVocabularyData = {
-  basedOnVocabularyVersion: Iri;
+  basedOnVersion: Iri;
   label: string;
 };
 
@@ -26,7 +26,7 @@ export type VocabularyData = BaseVocabularyData & {
 
 export type Vocabulary = Omit<
   VocabularyData,
-  "types" | "basedOnVocabularyVersion" | "changeTrackingContext"
+  "types" | "basedOnVersion" | "changeTrackingContext"
 > & {
   id: Id;
   vocabulary: Iri;
