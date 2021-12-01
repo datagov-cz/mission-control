@@ -1,6 +1,6 @@
 # BASE STAGE
 # Prepare node, copy package.json
-FROM node:alpine AS base
+FROM node:12-alpine AS base
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 
