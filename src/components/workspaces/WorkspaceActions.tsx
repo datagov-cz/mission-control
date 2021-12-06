@@ -10,9 +10,13 @@ import PublishWorkspaceDialog from "./PublishWorkspaceDialog";
 import Tools from "./Tools";
 import useToggle from "hooks/useToggle";
 import { workspaceResource } from "data/workspaces";
+import { workspaceVocabulariesResource } from "data/vocabularies";
 
 const WorkspaceActions: React.FC = () => {
   const workspace = useObservableSuspense(workspaceResource);
+  const workspaceVocabularies = useObservableSuspense(
+    workspaceVocabulariesResource
+  );
 
   const publish = useToggle();
   const del = useToggle();
@@ -41,7 +45,9 @@ const WorkspaceActions: React.FC = () => {
   return (
     <>
       <Box my={2} display="flex" flexDirection="row">
-        <Tools workspace={workspace} />
+        <Tools
+          workspace={{ ...workspace, vocabularies: workspaceVocabularies }}
+        />
         <Button color="primary" variant="contained" onClick={publish.open}>
           {t`publish`}
         </Button>
