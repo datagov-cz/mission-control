@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Subscription } from "rxjs";
 import {
   Dialog,
@@ -13,7 +13,11 @@ import {
 import { Workspace } from "@types";
 
 import t from "components/i18n";
-import { publishWorkspace } from "data/workspaces";
+import { deleteWorkspace, publishWorkspace } from "data/workspaces";
+import useGoTo from "hooks/useGoTo";
+import { execute } from "utils/epic";
+import { finalize, switchMap } from "rxjs/operators";
+import Routes from "app/routes";
 
 type PublishWorkspaceDialogProps = {
   isOpen: boolean;
@@ -41,11 +45,22 @@ const PublishWorkspaceDialog: React.FC<PublishWorkspaceDialogProps> = ({
     };
   }, [isOpen, workspace]);
 
+  const goTo = useGoTo();
+
+  const handleDelete = useCallback(() => {
+    execute(
+      switchMap(() => deleteWorkspace(workspace)),
+      finalize(() => {
+        goTo(Routes.Workspaces);
+      })
+    );
+  }, [workspace, goTo]);
+
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>{t`publishingWorkspace`}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText component="div">
           {prUri ? (
             <>
               <Typography paragraph>{t`workspacePRCreated`}</Typography>
@@ -54,6 +69,17 @@ const PublishWorkspaceDialog: React.FC<PublishWorkspaceDialogProps> = ({
                   {prUri}
                 </a>
               </Typography>
+              <Typography paragraph>{t`workspaceMayBeDeleted`}</Typography>
+              <Box my={1} />
+              <Button
+                onClick={handleDelete}
+                color="primary"
+                fullWidth
+                size="large"
+                variant="contained"
+              >
+                {t`deleteWorkspace`}
+              </Button>
               <Box my={1} />
               <Button onClick={onClose} color="primary" fullWidth size="large">
                 {t`common.cancel`}
