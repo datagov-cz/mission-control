@@ -36,6 +36,7 @@
   "publishWorkspaceSuccess": "Workspace successfully published",
   "publishWorkspaceError": "Workspace publication was not successful",
   "workspacePRCreated": "Workspace was published, pull request was created:",
+  "workspaceMayBeDeleted": "Workspace may now be safely removed. Diagrams and other assets are persisted.",
   "actions": "Actions",
   "editTerms": "Edit terms",
   "editRelations": "Edit relations"

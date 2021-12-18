@@ -36,6 +36,7 @@
   "publishWorkspaceSuccess": "Pracovní prostor byl publikován",
   "publishWorkspaceError": "Nepodařilo se publikovat pracovní prostor",
   "workspacePRCreated": "Pracovní prostor byl publikován, pull request vytvořen:",
+  "workspaceMayBeDeleted": "Nyní může být pracovní prostor smazán bez ztráty dat. Diagramy a další přílohy budou uloženy.",
   "actions": "Akce",
   "editTerms": "Editovat pojmy",
   "editRelations": "Editovat vztahy"
