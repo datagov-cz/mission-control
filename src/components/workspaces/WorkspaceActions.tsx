@@ -3,6 +3,7 @@ import { useObservableSuspense } from "observable-hooks";
 import { Box, Button, Menu, MenuItem, Divider } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import { FEATURE_DEMO } from "app/variables";
 import t from "components/i18n";
 import EditWorkspaceForm from "./EditWorkspaceForm";
 import DeleteWorkspaceForm from "./DeleteWorkspaceForm";
@@ -48,7 +49,12 @@ const WorkspaceActions: React.FC = () => {
         <Tools
           workspace={{ ...workspace, vocabularies: workspaceVocabularies }}
         />
-        <Button color="primary" variant="contained" onClick={publish.open}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={publish.open}
+          disabled={FEATURE_DEMO}
+        >
           {t`publish`}
         </Button>
         <Box m={1} />
