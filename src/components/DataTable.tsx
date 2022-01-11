@@ -1,5 +1,4 @@
 import React, { Suspense, useState } from "react";
-import { styled } from "@mui/system";
 import {
   DataGrid,
   DataGridProps,
@@ -18,10 +17,6 @@ type DataTableProps = Omit<DataGridProps, "rows"> & {
   defaultSortModel?: GridSortModel;
 };
 
-const StyledDataGrid = styled(DataGrid)({
-  backgroundColor: "#FFF",
-});
-
 const DataTable = ({
   isLoading = false,
   columns,
@@ -32,7 +27,7 @@ const DataTable = ({
   const [sortModel, setSortModel] = useState(defaultSortModel);
 
   return (
-    <StyledDataGrid
+    <DataGrid
       {...rest}
       columns={columns}
       rows={data}
@@ -44,6 +39,7 @@ const DataTable = ({
       disableColumnMenu
       disableColumnSelector
       disableSelectionOnClick
+      sx={{ backgroundColor: "#FFF" }}
     />
   );
 };

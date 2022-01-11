@@ -7,7 +7,7 @@ import {
 import { useFormContext, useController } from "react-hook-form";
 
 type CheckboxProps = MuiCheckboxProps & {
-  label: React.ReactNode;
+  label: React.ReactElement;
   name: string;
 };
 
