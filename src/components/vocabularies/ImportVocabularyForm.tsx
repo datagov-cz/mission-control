@@ -12,7 +12,6 @@ import {
   ListItemSecondaryAction,
   Dialog,
   DialogContent,
-  DialogTitle,
   Tooltip,
 } from "@mui/material";
 import { Alert } from "@mui/material";
@@ -143,6 +142,20 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
     [workspace, onClose]
   );
 
+  // Handles selecting a vocabulary from the list
+  const handleVocabularyAddClick = useCallback(
+    (vocabulary: BaseVocabularyWithWorkspace) => {
+      addVocabulary({
+        workspaceId: workspace!.id,
+        vocabularyIri: vocabulary.vocabulary,
+      }).subscribe(() => {
+        fetchWorkspaceVocabularies(workspace!.id);
+        onClose();
+      });
+    },
+    [workspace, onClose]
+  );
+
   // Handles switching to the second tab
   const handleTabSwitch = useCallback(() => setTabIndex(1), [setTabIndex]);
 
@@ -194,7 +207,6 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
   if (selectedVocabulary && selectedVocabulary.workspace) {
     return (
       <Dialog open={true}>
-        <DialogTitle>{t`cannotAddVocabulary`}</DialogTitle>
         <DialogContent>
           <ListItem>{renderVocabulary(selectedVocabulary)}</ListItem>
           <Box py={2}>
@@ -209,6 +221,15 @@ const ImportVocabularyForm: React.FC<ImportVocabularyFormProps> = ({
               </RouteLink>
             </Alert>
           </Box>
+          <Button
+            fullWidth
+            size="large"
+            variant="contained"
+            onClick={() => handleVocabularyAddClick(selectedVocabulary)}
+          >
+            {t`addAnyway`}
+          </Button>
+          <Box py={0.5} />
           <Button
             fullWidth
             size="large"

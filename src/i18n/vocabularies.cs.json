@@ -11,7 +11,7 @@
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
   "addVocabularyErrorEditableDuplicate": "Vybraný slovník již existuje v režimu zápisu v jiném pracovním prostoru",
   "importVocabulary": "Import slovníku",
-  "cannotAddVocabulary": "Tento slovník nelze přidat",
+  "addAnyway": "Přesto přidat",
   "vocabularyEditedInAnotherWorkspace": "Slovník je upravován v pracovním prostoru:",
   "vocabularyNotFoundCreateNew": "Nic nenalezeno, vytvořit nový slovník",
   "createVocabulary": "Nový slovník",
