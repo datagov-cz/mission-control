@@ -56,6 +56,12 @@ export const BUG_TRACKER_URL = COMPONENTS["al-issue-tracker"].meta["new-bug"];
 export const FEATURE_TRACKER_URL =
   COMPONENTS["al-issue-tracker"].meta["new-feature"];
 
+/**
+ * Demo instance feature flag
+ */
+export const FEATURE_DEMO =
+  COMPONENTS["al-mission-control"].meta["feature-demo"];
+
 const NS_PRACOVNI_PROSTOR =
   "https://slovník.gov.cz/datový/pracovní-prostor/pojem/";
 
