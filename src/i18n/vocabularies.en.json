@@ -11,7 +11,7 @@
   "addVocabularyError": "Vocabulary cannot be added to the workspace",
   "addVocabularyErrorEditableDuplicate": "Selected vocabulary already exists in edit mode in another workspace",
   "importVocabulary": "Import vocabulary",
-  "cannotAddVocabulary": "Vocabulary cannot be added to workspace",
+  "addAnyway": "Add anyway",
   "vocabularyEditedInAnotherWorkspace": "Vocabulary is being edited in workspace:",
   "vocabularyNotFoundCreateNew": "Vocabulary not found. Create new vocabulary.",
   "createVocabulary": "Create new vocabulary",
