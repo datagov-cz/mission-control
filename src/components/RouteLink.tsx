@@ -2,6 +2,7 @@ import React, { useCallback, useTransition } from "react";
 import { generatePath } from "react-router-dom";
 import { Link, LinkProps } from "@mui/material";
 
+import { PUBLIC_PATH } from "app/variables";
 import useGoTo from "hooks/useGoTo";
 
 type RouteLinkProps = Omit<LinkProps, "component" | "href"> & {
@@ -18,7 +19,7 @@ const RouteLink: React.FC<RouteLinkProps> = ({
 }) => {
   const [, startTransition] = useTransition();
   const goTo = useGoTo();
-  const href = generatePath(route, params);
+  const href = `${PUBLIC_PATH}${generatePath(route, params)}`;
   const go = useCallback(
     (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       const comboKey = evt.metaKey || evt.altKey || evt.ctrlKey || evt.shiftKey;
