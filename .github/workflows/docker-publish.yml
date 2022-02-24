@@ -37,11 +37,12 @@ jobs:
           
   
   update-dev-instance:
+    needs: build-and-push-image
     runs-on: ubuntu-latest
 
     steps:
       - name: Call update webhook
         uses: wei/curl@v1.1.1
         with:
-          args: -H "X-Secret:\ ${{ secrets.AL_DEV_SECRET }}" -X POST https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/update/${{ env.IMAGE_NAME }}.php
+          args: -H \"X-Secret:\ ${{ secrets.AL_DEV_SECRET }}\" -X POST https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/update/${{ env.IMAGE_NAME }}.php
     
