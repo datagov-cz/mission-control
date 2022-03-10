@@ -19,8 +19,13 @@ import Form from "components/form/Form";
 import Hidden from "components/form/Hidden";
 import FormTextField from "components/form/TextField";
 import Checkbox from "components/form/Checkbox";
-import { addVocabulary, fetchWorkspaceVocabularies } from "data/vocabularies";
+import {
+  addVocabulary,
+  fetchWorkspaceVocabularies,
+  vocabulariesResource,
+} from "data/vocabularies";
 import { execute } from "utils/epic";
+import { useObservableSuspense } from "observable-hooks";
 
 type CreateVocabularyFormProps = {
   workspace: Workspace;
@@ -31,6 +36,12 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   workspace,
   onClose,
 }) => {
+  const existingVocabularies = useObservableSuspense(vocabulariesResource);
+
+  const restrictedVocabularyIris = existingVocabularies.map(
+    (v) => v.vocabulary
+  );
+
   const form = useForm();
 
   const onSubmit = useCallback(
@@ -130,6 +141,9 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
               value: new RegExp(vocabularyType?.regex!),
               message: vocabularyType?.regex!,
             },
+            validate: (value) =>
+              !restrictedVocabularyIris.includes(value) ||
+              "vocabularyIriExists",
           }}
         />
         <SubmitButton
