@@ -10,6 +10,7 @@
   "addVocabularySuccess": "Vocabulary was added to the workspace",
   "addVocabularyError": "Vocabulary cannot be added to the workspace",
   "addVocabularyErrorEditableDuplicate": "Selected vocabulary already exists in edit mode in another workspace",
+  "vocabularyIriExists": "Vocabulary with this IRI already exists",
   "importVocabulary": "Import vocabulary",
   "addAnyway": "Add anyway",
   "vocabularyEditedInAnotherWorkspace": "Vocabulary is being edited in workspace:",

@@ -10,6 +10,7 @@
   "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
   "addVocabularyErrorEditableDuplicate": "Vybraný slovník již existuje v režimu zápisu v jiném pracovním prostoru",
+  "vocabularyIriExists": "Slovník s touto IRI již existuje",
   "importVocabulary": "Import slovníku",
   "addAnyway": "Přesto přidat",
   "vocabularyEditedInAnotherWorkspace": "Slovník je upravován v pracovním prostoru:",
