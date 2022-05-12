@@ -34,10 +34,16 @@ export const getAddVocabularyUrl = (
   workspaceId: Id,
   vocabularyIri: Iri,
   label?: string
-) =>
-  `${getWorkspaceVocabulariesUrl(
-    workspaceId
-  )}?vocabularyUri=${vocabularyIri}&readOnly=false&label=${label}`;
+) => {
+  const query = new URLSearchParams({
+    vocabularyUri: vocabularyIri,
+    readOnly: "false",
+  });
+  if (label) {
+    query.append("label", label);
+  }
+  return `${getWorkspaceVocabulariesUrl(workspaceId)}?${query.toString()}`;
+};
 
 /**
  * Endpoint to delete vocabulary from a workspace
