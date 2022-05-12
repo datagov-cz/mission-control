@@ -20,5 +20,5 @@ export type Route = typeof Routes[keyof typeof Routes];
 
 export type Tool = {
   key: string;
-  getUrl: (workspaceIri: Iri) => string;
+  getUrl: (workspaceIri: Iri, vocabularyIris: Iri[]) => string;
 };

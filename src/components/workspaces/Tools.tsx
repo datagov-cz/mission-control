@@ -17,7 +17,10 @@ const ToolButton: React.FC<ToolButtonProps> = ({ tool, workspace }) => {
       <Button
         color="primary"
         variant="contained"
-        href={tool.getUrl(workspace.uri)}
+        href={tool.getUrl(
+          workspace.uri,
+          workspace.vocabularies.map((v) => v.vocabularyContext)
+        )}
         target="_blank"
         onClick={(e) => e.stopPropagation()}
       >
