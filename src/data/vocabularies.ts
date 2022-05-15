@@ -1,13 +1,5 @@
+import { BehaviorSubject, forkJoin, Observable, of, Subject } from "rxjs";
 import {
-  BehaviorSubject,
-  forkJoin,
-  Observable,
-  of,
-  Subject,
-  throwError,
-} from "rxjs";
-import {
-  catchError,
   filter,
   map,
   mapTo,
@@ -150,17 +142,6 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
       payload.label
     )
   ).pipe(
-    catchError((error, caught) => {
-      // TODO: remove this workaround ASAP
-      const vocabularyDiagramException = error?.status === 409;
-
-      if (vocabularyDiagramException) {
-        console.warn("Handling vocabulary diagram exception gracefully");
-        return of(caught);
-      }
-
-      return throwError(error);
-    }),
     handleSuccess("vocabularies.addVocabularySuccess"),
     mapTo(payload),
     handleError("vocabularies.addVocabularyError")
