@@ -10,7 +10,7 @@
     "@mui/styles": "^5.2.3",
     "@mui/system": "^5.2.8",
     "@mui/x-data-grid": "^5.2.2",
-    "@opendata-mvcr/assembly-line-shared": "^0.2.5",
+    "@opendata-mvcr/assembly-line-shared": "^0.3.0",
     "@types/crypto-js": "^4.1.0",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.172",
