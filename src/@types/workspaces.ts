@@ -44,7 +44,7 @@ export type AddVocabularyPayload = {
 
 export type DeleteVocabularyPayload = {
   workspaceId: Id;
-  vocabularyId: Id;
+  vocabularyIri: Iri;
 };
 
 export type UpdateVocabularyPayload = {

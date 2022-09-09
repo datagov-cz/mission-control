@@ -148,7 +148,7 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
   );
 
 export const deleteVocabulary = (payload: DeleteVocabularyPayload) =>
-  del(getVocabularyUrl(payload.workspaceId, payload.vocabularyId)).pipe(
+  del(getWorkspaceVocabulariesUrl(payload.workspaceId), payload.vocabularyIri).pipe(
     handleSuccess("vocabularies.deleteVocabularySuccess"),
     handleError("vocabularies.deleteVocabularyError")
   );
