@@ -25,7 +25,7 @@ import {
 } from "@types";
 import { VOCABULARY_CONTEXT_READ_ONLY } from "app/variables";
 
-import { del, getJSON, post } from "utils/ajax";
+import { del, delJSON, getJSON, post } from "utils/ajax";
 import { handleError, handleSuccess, throttleDistinct } from "utils/epic";
 import getIdFromIri from "utils/getIdFromIri";
 import {
@@ -148,7 +148,7 @@ export const addVocabulary = (payload: AddVocabularyPayload) =>
   );
 
 export const deleteVocabulary = (payload: DeleteVocabularyPayload) =>
-  del(getWorkspaceVocabulariesUrl(payload.workspaceId), payload.vocabularyIri).pipe(
+  delJSON(getWorkspaceVocabulariesUrl(payload.workspaceId), `"${payload.vocabularyIri}"`).pipe(
     handleSuccess("vocabularies.deleteVocabularySuccess"),
     handleError("vocabularies.deleteVocabularyError")
   );
