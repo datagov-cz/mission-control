@@ -44,7 +44,7 @@ const DeleteVocabularyForm: React.FC<DeleteVocabularyFormProps> = ({
       onSubmit={onSubmit}
     >
       <Hidden name="workspaceId" value={workspace?.id || ""} />
-      <Hidden name="vocabularyId" value={vocabulary?.id || ""} />
+      <Hidden name="vocabularyIri" value={vocabulary?.vocabulary || ""} />
       <Typography paragraph>{t`areYouSureToDeleteVocabulary`}</Typography>
     </FormDialog>
   );
