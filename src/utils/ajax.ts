@@ -1,57 +1,29 @@
-import { Observable } from "rxjs";
-import { ajax, AjaxResponse, AjaxRequest } from "rxjs/ajax";
-import { map } from "rxjs/operators";
+import { API_URL } from "../app/variables";
+import axios from "axios";
 import { getToken } from "@opendata-mvcr/assembly-line-shared";
+import Constants from "../app/Constants";
 
-import { API_URL } from "app/variables";
+export class Ajax {
+  protected axiosInstance = axios.create({
+    baseURL: API_URL,
+  });
 
-const COMMON_API_PREFIX = "/";
+  constructor() {
+    this.axiosInstance.interceptors.request.use((reqConfig) => {
+      if (!reqConfig.headers) {
+        reqConfig.headers = {};
+      }
+      reqConfig.headers[Constants.Headers.AUTHORIZATION] = getToken();
+      reqConfig.withCredentials = true;
+      return reqConfig;
+    });
+  }
 
-type Headers = Record<string, any>;
+  public get(path: string) {
+    return this.axiosInstance.get(path);
+  }
+}
 
-const prefixWithApiUrl = (apiPathOrUrl: string) =>
-  apiPathOrUrl.startsWith(COMMON_API_PREFIX)
-    ? `${API_URL}${apiPathOrUrl}`
-    : apiPathOrUrl;
+const instance = new Ajax();
 
-export const request = (request: AjaxRequest): Observable<AjaxResponse> => {
-  const secureRequest = {
-    ...request,
-    url: prefixWithApiUrl(request.url || ""),
-    headers: {
-      Authorization: getToken(),
-      ...(request.headers as Headers),
-    },
-  };
-
-  return ajax(secureRequest);
-};
-
-export const get = (url: string, headers?: Headers) =>
-  request({ method: "GET", url, headers });
-
-export const getJSON = <T extends unknown>(
-  url: string,
-  headers?: Headers
-): Observable<T> =>
-  request({ method: "GET", url, headers }).pipe(
-    map((response) => response.response)
-  );
-
-export const post = (url: string, body?: any, headers?: Headers) =>
-  request({ method: "POST", url, body, headers });
-
-export const postJSON = (url: string, json: any, headers?: Headers) =>
-  post(url, json, { "Content-Type": "application/json", ...headers });
-
-export const put = (url: string, body?: any, headers?: Headers) =>
-  request({ method: "PUT", url, body, headers });
-
-export const putJSON = (url: string, json: any, headers?: Headers) =>
-  put(url, json, { "Content-Type": "application/json", ...headers });
-
-export const del = (url: string, body?: any, headers?: Headers) =>
-  request({ method: "DELETE", url, body, headers });
-
-export const delJSON = (url: string, json: any, headers?: Headers) =>
-  del(url, json, { "Content-Type": "application/json", ...headers });
+export default instance;

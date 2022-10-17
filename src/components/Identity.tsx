@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  MenuItem,
-  Menu,
-  Button,
-  Typography,
-  ListItemIcon,
-} from "@mui/material";
-import { ExitToApp } from "@mui/icons-material";
 import { useAuth } from "@opendata-mvcr/assembly-line-shared";
-
-import Gravatar from "components/users/Gravatar";
-import t, { Namespace } from "components/i18n";
 
 const Identity: React.FC = () => {
   const {
@@ -31,21 +20,15 @@ const Identity: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  console.log(given_name, family_name, email);
   return (
-    <Namespace.Provider value="common">
-      <Button onClick={handleClick}>
-        <Gravatar email={email!} initials={initials} />
-      </Button>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={logout}>
-          <ListItemIcon>
-            <ExitToApp />
-          </ListItemIcon>
-          <Typography variant="inherit">{t`logout`}</Typography>
-        </MenuItem>
-      </Menu>
-    </Namespace.Provider>
+    <>
+      <h2>
+        {given_name}
+        {family_name}
+      </h2>
+      <button onClick={logout}>Loggout</button>
+    </>
   );
 };
 
