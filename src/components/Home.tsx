@@ -1,7 +1,13 @@
 import React from "react";
+import LineBoxWrapper from "./common/LineBoxWrapper";
 
 const Home: React.FC = () => {
-  return <h2>HOME</h2>;
+  return (
+    <div>
+      <h2>HOME</h2>
+      <LineBoxWrapper />
+    </div>
+  );
 };
 
 export default Home;

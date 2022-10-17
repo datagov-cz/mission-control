@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage, IntlProvider } from "react-intl";
 
 import i18n from "../i18n";
-import {Locale} from "../@types";
+import { Locale } from "../@types";
 
 export const I18nProvider: React.FC<{
   children: React.ReactNode;

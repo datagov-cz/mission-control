@@ -4,7 +4,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Router from "./Router";
 import { I18nProvider, Namespace } from "./components/i18n";
 import { Locale } from "./@types";
-import {getLocale, setLocale} from "./utils/i18n";
+import { getLocale, setLocale } from "./utils/i18n";
+import { ThemeProvider } from "@mui/material";
+import theme from "./app/theme";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,9 +18,8 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-
   const [language, setLanguage] = useState(getLocale());
-  const saveLanguage = (language:Locale) => {
+  const saveLanguage = (language: Locale) => {
     setLocale(language);
     setLanguage(language);
   };
@@ -26,9 +27,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider language={language}>
-        <Namespace.Provider value="common">
-          <Router setLanguage={saveLanguage} />
-        </Namespace.Provider>
+        <ThemeProvider theme={theme}>
+          <Namespace.Provider value="common">
+            <Router setLanguage={saveLanguage} />
+          </Namespace.Provider>
+        </ThemeProvider>
       </I18nProvider>
       <ReactQueryDevtools initialIsOpen />
     </QueryClientProvider>
