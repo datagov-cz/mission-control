@@ -1,15 +1,21 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
-const LineBoxWrapper: React.FC = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const LineBoxWrapper: React.FC<Props> = ({children}) => {
   return (
     <Box
       sx={{
         background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-        width: 300,
+        padding: 1,
+        borderRadius: "4px",
+        marginTop: 1
       }}
     >
-      <Typography variant={"h5"}>Hello there</Typography>
+      {children}
     </Box>
   );
 };

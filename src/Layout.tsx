@@ -2,7 +2,8 @@ import React from "react";
 import NavigationTab from "./components/NavigationTab";
 import t from "./components/i18n";
 import { Locale } from "./@types";
-import { AppBar, Box } from "@mui/material";
+import { AppBar, Box, IconButton, Typography } from "@mui/material";
+import Icon from "./components/Icon";
 
 interface Props {
   children: React.ReactNode;
@@ -15,14 +16,25 @@ const Layout: React.FC<Props> = (props) => {
       <AppBar
         position={"sticky"}
         sx={{
-          background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
+          background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)"
         }}
       >
         <Box flex={1}>
-          <h1>{t`controlPanel`}</h1>
-          <button onClick={() => props.setLanguage("en")}>English</button>
-          <button onClick={() => props.setLanguage("cs")}>Čeština</button>
-          <NavigationTab />
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <IconButton edge="start" color="inherit" size="large">
+                <Icon />
+              </IconButton>
+              <Typography variant={"h5"}>{t`controlPanel`}</Typography>
+            </Box>
+            <NavigationTab />
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <button onClick={() => props.setLanguage("en")}>English</button>
+              <button onClick={() => props.setLanguage("cs")}>Čeština</button>
+            </Box>
+          </Box>
+
+
         </Box>
       </AppBar>
       {/* An <Outlet> renders whatever child route is currently active,

@@ -25,7 +25,7 @@ const NavigationTab = () => {
   const currentTab = routeMatch?.pattern?.path;
 
   return (
-    <Tabs value={currentTab}>
+    <Tabs value={currentTab} textColor={"inherit"}>
       <Tab
         icon={<HomeOutlinedIcon />}
         iconPosition="start"
