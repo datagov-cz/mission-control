@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Project } from "../@types";
 import LineBoxWrapper from "./common/LineBoxWrapper";
 import { Box, Button, styled, Typography } from "@mui/material";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import getIdFromIri from "../utils/getIdFromIri";
 import { UserProfile } from "./user/UserProfiles";
+import LanguageContext from "../LanguageContext";
 
 interface Props {
   project: Project;
@@ -35,7 +36,6 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
       <CenteredSpacedOutBox>
         <Box width={300}>
           <Typography variant={"body1"} color={"white"}>
-            {" "}
             {project.label}
           </Typography>
         </Box>
@@ -46,7 +46,6 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
         >
           <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
             <Typography variant={"subtitle2"} color={"black"}>
-              {" "}
               Spravovat
             </Typography>
           </LinkToProject>

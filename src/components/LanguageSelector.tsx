@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import TranslateIcon from "@mui/icons-material/Translate";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -6,16 +6,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Locale } from "../@types";
 
 import t, { Namespace } from "./i18n";
+import LanguageContext from "../LanguageContext";
 
-interface Props {
-  setLanguage: (language: Locale) => void;
-  currentLanguage: string;
-}
-const LanguageSelector: React.FC<Props> = ({
-  setLanguage,
-  currentLanguage,
-}) => {
+const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const {language, saveLanguage } = useContext(LanguageContext);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -27,7 +22,7 @@ const LanguageSelector: React.FC<Props> = ({
 
   const selectLocale = (locale: Locale) => {
     handleClose();
-    setLanguage(locale);
+    saveLanguage(locale);
   };
 
   const selectCs = () => selectLocale("cs");
@@ -41,7 +36,7 @@ const LanguageSelector: React.FC<Props> = ({
         onClick={handleClick}
         color="inherit"
       >
-        {currentLanguage}
+        {language}
       </Button>
       <Menu
         anchorEl={anchorEl}

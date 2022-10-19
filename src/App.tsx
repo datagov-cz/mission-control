@@ -7,6 +7,7 @@ import { Locale } from "./@types";
 import { getLocale, setLocale } from "./utils/i18n";
 import { ThemeProvider } from "@mui/material";
 import theme from "./app/theme";
+import LanguageContext from "./LanguageContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,22 +19,27 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+
   const [language, setLanguage] = useState(getLocale());
   const saveLanguage = (language: Locale) => {
     setLocale(language);
     setLanguage(language);
   };
 
+  const value = { language, saveLanguage };
+
   return (
     <QueryClientProvider client={queryClient}>
+      <LanguageContext.Provider value={value}>
       <I18nProvider language={language}>
         <ThemeProvider theme={theme}>
           <Namespace.Provider value="common">
-            <Router setLanguage={saveLanguage} currentLanguage={language} />
+            <Router />
           </Namespace.Provider>
         </ThemeProvider>
       </I18nProvider>
       <ReactQueryDevtools initialIsOpen />
+      </LanguageContext.Provider>
     </QueryClientProvider>
   );
 };

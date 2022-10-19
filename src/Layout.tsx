@@ -9,14 +9,10 @@ import LanguageSelector from "./components/LanguageSelector";
 
 interface Props {
   children: React.ReactNode;
-  setLanguage: (language: Locale) => void;
-  currentLanguage: string;
 }
 
 const Layout: React.FC<Props> = ({
   children,
-  setLanguage,
-  currentLanguage,
 }) => {
   return (
     <div>
@@ -43,10 +39,7 @@ const Layout: React.FC<Props> = ({
             <NavigationTab />
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <MyUserProfile />
-              <LanguageSelector
-                setLanguage={setLanguage}
-                currentLanguage={currentLanguage}
-              />
+              <LanguageSelector />
             </Box>
           </Box>
         </Box>
