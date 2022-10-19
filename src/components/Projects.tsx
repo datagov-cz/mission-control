@@ -1,17 +1,8 @@
 import React from "react";
 import { useProjects } from "../api/ProjectAPI";
-import { Link } from "react-router-dom";
-import getIdFromIri from "../utils/getIdFromIri";
-import { Box, Button, Container, styled, Typography } from "@mui/material";
-import LineBoxWrapper from "./common/LineBoxWrapper";
-import SettingsIcon from "@mui/icons-material/Settings";
-
-const LinkToProject = styled(Link)(() => ({
-  color: "white",
-  textDecoration: "none",
-  paddingRight: "16px"
-}));
-
+import { Container, Typography } from "@mui/material";
+import ProjectListItem from "./ProjectListItem";
+import { Project } from "../@types";
 
 const Projects: React.FC = () => {
   const { data = [], isLoading } = useProjects();
@@ -19,18 +10,8 @@ const Projects: React.FC = () => {
   return (
     <Container>
       <Typography variant={"h4"}>Projects</Typography>
-      {data.map((project) => (
-        <LineBoxWrapper>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <Typography variant={"h6"} color={"white"}> {project.label}</Typography>
-            <Button variant="contained" sx={{ padding: 0, color: "black", backgroundColor: "white" }}
-                    startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}>
-              <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
-                <Typography variant={"h6"} color={"black"}> Spravovat</Typography>
-              </LinkToProject>
-            </Button>
-          </Box>
-        </LineBoxWrapper>
+      {data.map((project: Project) => (
+        <ProjectListItem project={project} key={project.uri} />
       ))}
     </Container>
   );

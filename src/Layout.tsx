@@ -4,6 +4,7 @@ import t from "./components/i18n";
 import { Locale } from "./@types";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
 import Icon from "./components/Icon";
+import { MyUserProfile } from "./components/user/UserProfiles";
 
 interface Props {
   children: React.ReactNode;
@@ -16,11 +17,17 @@ const Layout: React.FC<Props> = (props) => {
       <AppBar
         position={"sticky"}
         sx={{
-          background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)"
+          background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
         }}
       >
         <Box flex={1}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <IconButton edge="start" color="inherit" size="large">
                 <Icon />
@@ -29,12 +36,11 @@ const Layout: React.FC<Props> = (props) => {
             </Box>
             <NavigationTab />
             <Box sx={{ display: "flex", alignItems: "center" }}>
+              <MyUserProfile />
               <button onClick={() => props.setLanguage("en")}>English</button>
               <button onClick={() => props.setLanguage("cs")}>Čeština</button>
             </Box>
           </Box>
-
-
         </Box>
       </AppBar>
       {/* An <Outlet> renders whatever child route is currently active,
