@@ -11,12 +11,13 @@ import { Locale } from "./@types";
 
 interface Props {
   setLanguage: (language: Locale) => void;
+  currentLanguage: string;
 }
 
-const Router: React.FC<Props> = ({ setLanguage }) => {
+const Router: React.FC<Props> = ({ setLanguage, currentLanguage }) => {
   return (
     <BrowserRouter>
-      <Layout setLanguage={setLanguage}>
+      <Layout setLanguage={setLanguage} currentLanguage={currentLanguage}>
         <Routes>
           <Route path="vocabularies" element={<Vocabularies />} />
           <Route path="projects" element={<Projects />} />

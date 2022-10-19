@@ -16,5 +16,9 @@
   "publicitySecondLine": "OPZ no. CZ.03.4.74/0.0/0.0/15_025/0013983.",
   "reportBug": "Report a bug",
   "requestFeature": "Request a feature",
-  "noRecordsFound": "No records found"
+  "noRecordsFound": "No records found",
+  "home": "Home",
+  "projects": "Projects",
+  "myPanel": "My panel",
+  "loading": "Loading..."
 }

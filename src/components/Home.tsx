@@ -1,9 +1,11 @@
 import React from "react";
+import { Typography } from "@mui/material";
+import t from "./i18n";
 
 const Home: React.FC = () => {
   return (
     <div>
-      <h2>HOME</h2>
+      <Typography variant={"h4"}>{t`home`}</Typography>
     </div>
   );
 };

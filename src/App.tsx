@@ -29,7 +29,7 @@ const App = () => {
       <I18nProvider language={language}>
         <ThemeProvider theme={theme}>
           <Namespace.Provider value="common">
-            <Router setLanguage={saveLanguage} />
+            <Router setLanguage={saveLanguage} currentLanguage={language} />
           </Namespace.Provider>
         </ThemeProvider>
       </I18nProvider>
