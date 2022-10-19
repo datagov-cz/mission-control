@@ -39,5 +39,8 @@
   "workspaceMayBeDeleted": "After the pull request is approved and merged to the main project branch, this workspace may be safely removed without any loss of data. Diagrams and other assets are persisted.",
   "actions": "Actions",
   "editTerms": "Edit terms",
-  "editRelations": "Edit relations"
+  "editRelations": "Edit relations",
+  "projects": "Projects",
+  "loading": "Loading...",
+  "manage": "Manage"
 }

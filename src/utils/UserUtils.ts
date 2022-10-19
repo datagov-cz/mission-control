@@ -14,7 +14,6 @@ export function stringToColor(string: string) {
     color += `00${value.toString(16)}`.slice(-2);
   }
   /* eslint-enable no-bitwise */
-  console.log(`Generated color for: ${string} is: ${color}`);
   return color;
 }
 

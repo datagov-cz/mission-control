@@ -20,6 +20,8 @@ const Layout: React.FC<Props> = ({
         position={"sticky"}
         sx={{
           background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
+          paddingLeft: 1,
+          paddingRight: 1
         }}
       >
         <Box flex={1}>

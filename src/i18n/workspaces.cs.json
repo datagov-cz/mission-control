@@ -39,5 +39,8 @@
   "workspaceMayBeDeleted": "Po schválení pull requestu a jeho zapracování do hlavní větve projektu může být pracovní prostor smazán bez ztráty dat. Diagramy a další přílohy budou uloženy.",
   "actions": "Akce",
   "editTerms": "Editovat pojmy",
-  "editRelations": "Editovat vztahy"
+  "editRelations": "Editovat vztahy",
+  "projects": "Otevřené úpravy",
+  "loading": "Načítání...",
+  "manage": "Spravovat"
 }

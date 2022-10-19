@@ -7,6 +7,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import getIdFromIri from "../utils/getIdFromIri";
 import { UserProfile } from "./user/UserProfiles";
 import LanguageContext from "../LanguageContext";
+import t from "./i18n";
 
 interface Props {
   project: Project;
@@ -15,28 +16,42 @@ interface Props {
 const CenteredSpacedOutBox = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "space-between"
 }));
 
 const LinkToProject = styled(Link)(() => ({
   color: "white",
   textDecoration: "none",
-  paddingRight: "16px",
+  paddingRight: "16px"
 }));
 
 const ActionButton = styled(Button)(() => ({
   padding: 0,
   color: "black",
-  backgroundColor: "white",
+  backgroundColor: "white"
 }));
 
 const ProjectListItem: React.FC<Props> = ({ project }) => {
+  const { language } = useContext(LanguageContext);
+  const formatter = new Intl.RelativeTimeFormat(language);
+
+  //TODO: Make it work for hours, days and possibly years
+  let diff = new Date().getTime() - Number(project.lastModified!);
+  diff /= (1000 * 60 * 60 * 24);
+  diff = Math.floor(diff);
+
+  const formattedDate = formatter.format(-diff, "days");
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
         <Box width={300}>
           <Typography variant={"body1"} color={"white"}>
             {project.label}
+          </Typography>
+        </Box>
+        <Box width={100}>
+          <Typography variant={"body2"} color={"white"}>
+            {formattedDate}
           </Typography>
         </Box>
         <UserProfile user={project.lastEditor} />
@@ -46,7 +61,7 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
         >
           <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
             <Typography variant={"subtitle2"} color={"black"}>
-              Spravovat
+              {t`manage`}
             </Typography>
           </LinkToProject>
         </ActionButton>
