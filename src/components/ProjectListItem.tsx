@@ -9,16 +9,11 @@ import { UserProfile } from "./user/UserProfiles";
 import LanguageContext from "../LanguageContext";
 import t from "./i18n";
 import { calculateTimeDifference } from "../utils/TimeUtils";
+import { CenteredSpacedOutBox } from "./common/CenteredSpacedOutBox";
 
 interface Props {
   project: Project;
 }
-
-const CenteredSpacedOutBox = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between"
-}));
 
 const LinkToProject = styled(Link)(() => ({
   color: "white",
