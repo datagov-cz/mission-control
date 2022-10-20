@@ -6,7 +6,6 @@ import { Typography } from "@mui/material";
 import ProjectListItem from "./ProjectListItem";
 import t, { Namespace } from "./i18n";
 import { ReactWindowScroller } from "../utils/ReactWindowScroller";
-import { Project } from "../@types";
 
 const Row = memo(({ data, index, style }: any) => {
   const { items } = data;
@@ -49,7 +48,6 @@ const Projects: React.FC = () => {
           </List>
         )}
       </ReactWindowScroller>
-
     </Namespace.Provider>
   );
 };

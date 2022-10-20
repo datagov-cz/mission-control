@@ -29,7 +29,11 @@ const LinkToProject = styled(Link)(() => ({
 const ActionButton = styled(Button)(() => ({
   padding: 0,
   color: "black",
-  backgroundColor: "white"
+  backgroundColor: "white",
+  "&:hover": {
+    color: "black",
+    backgroundColor: "white"
+  }
 }));
 
 const ProjectListItem: React.FC<Props> = ({ project }) => {
@@ -50,16 +54,16 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
           </Typography>
         </Box>
         <UserProfile user={project.lastEditor} />
-        <ActionButton
-          variant="contained"
-          startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}
-        >
-          <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
-            <Typography variant={"subtitle2"} color={"black"}>
+        <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
+          <ActionButton
+            variant="contained"
+            startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}
+          >
+            <Typography variant={"subtitle2"} color={"black"} sx={{ marginRight: "16px" }}>
               {t`manage`}
             </Typography>
-          </LinkToProject>
-        </ActionButton>
+          </ActionButton>
+        </LinkToProject>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );
