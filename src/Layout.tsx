@@ -1,7 +1,6 @@
 import React from "react";
 import NavigationTab from "./components/NavigationTab";
 import t from "./components/i18n";
-import { Locale } from "./@types";
 import { AppBar, Box, Container, IconButton, Typography } from "@mui/material";
 import Icon from "./components/Icon";
 import { MyUserProfile } from "./components/user/UserProfiles";
