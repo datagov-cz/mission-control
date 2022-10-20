@@ -5,7 +5,9 @@ import { Id, Project } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 
 const getProjects = (): Promise<Project[]> =>
-  Ajax.get(getProjectsUrl()).then((resp) => resp.data);
+  Ajax.get(getProjectsUrl()).then((resp) => resp.data).then((data) => data.sort((a: Project, b: Project) => {
+    return Number(b.lastModified) - Number(a.lastModified);
+  }));
 
 const getProject = (id: Id): Promise<Project> => {
   return Ajax.get(getProjectUrl(id)).then((resp) => resp.data);
