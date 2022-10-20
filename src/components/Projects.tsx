@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import memoize from 'memoize-one';
+import memoize from "memoize-one";
 import { useProjects } from "../api/ProjectAPI";
 import { areEqual, FixedSizeList as List } from "react-window";
 import { Typography } from "@mui/material";
@@ -7,7 +7,7 @@ import ProjectListItem from "./ProjectListItem";
 import t, { Namespace } from "./i18n";
 import { ReactWindowScroller } from "../utils/ReactWindowScroller";
 
-const Row = memo(({ data, index, style }:any) => {
+const Row = memo(({ data, index, style }: any) => {
   const { items } = data;
   const item = items[index];
   return (
@@ -20,12 +20,12 @@ const Row = memo(({ data, index, style }:any) => {
 }, areEqual);
 
 const createItemData = memoize((items) => ({
-  items,
+  items
 }));
 
 const Projects: React.FC = () => {
   const { data = [], isLoading } = useProjects();
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>
+  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
   const itemData = createItemData(data);
   return (
     <Namespace.Provider value={"workspaces"}>

@@ -8,6 +8,7 @@ import getIdFromIri from "../utils/getIdFromIri";
 import { UserProfile } from "./user/UserProfiles";
 import LanguageContext from "../LanguageContext";
 import t from "./i18n";
+import { calculateTimeDifference } from "../utils/TimeUtils";
 
 interface Props {
   project: Project;
@@ -33,14 +34,8 @@ const ActionButton = styled(Button)(() => ({
 
 const ProjectListItem: React.FC<Props> = ({ project }) => {
   const { language } = useContext(LanguageContext);
-  const formatter = new Intl.RelativeTimeFormat(language);
+  const formattedDate = calculateTimeDifference(project.lastModified!, language);
 
-  //TODO: Make it work for hours, days and possibly years
-  let diff = new Date().getTime() - Number(project.lastModified!);
-  diff /= (1000 * 60 * 60 * 24);
-  diff = Math.floor(diff);
-
-  const formattedDate = formatter.format(-diff, "days");
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
@@ -49,7 +44,7 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
             {project.label}
           </Typography>
         </Box>
-        <Box width={100}>
+        <Box width={150}>
           <Typography variant={"body2"} color={"white"}>
             {formattedDate}
           </Typography>
