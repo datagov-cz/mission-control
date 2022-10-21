@@ -1,11 +1,11 @@
 import React, { memo } from "react";
 import memoize from "memoize-one";
-import { useProjects } from "../api/ProjectAPI";
+import { useProjects } from "../../api/ProjectAPI";
 import { areEqual, FixedSizeList as List } from "react-window";
 import { Typography } from "@mui/material";
 import ProjectListItem from "./ProjectListItem";
-import t, { Namespace } from "./i18n";
-import { ReactWindowScroller } from "../utils/ReactWindowScroller";
+import t, { Namespace } from "../i18n";
+import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
 
 const Row = memo(({ data, index, style }: any) => {
   const { items } = data;

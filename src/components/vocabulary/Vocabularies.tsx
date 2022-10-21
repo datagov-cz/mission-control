@@ -1,7 +1,7 @@
 import React from "react";
-import { useVocabularies } from "../api/VocabularyApi";
+import { useVocabularies } from "../../api/VocabularyApi";
 import { Typography } from "@mui/material";
-import t from "./i18n";
+import t from "../i18n";
 
 const Vocabularies: React.FC = () => {
   const { data = [], isLoading } = useVocabularies();

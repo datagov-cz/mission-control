@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
-import { Project } from "../@types";
-import LineBoxWrapper from "./common/LineBoxWrapper";
+import { Project } from "../../@types";
+import LineBoxWrapper from "../common/LineBoxWrapper";
 import { Box, Button, styled, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
-import getIdFromIri from "../utils/getIdFromIri";
-import { UserProfile } from "./user/UserProfiles";
-import LanguageContext from "../LanguageContext";
-import t from "./i18n";
-import { calculateTimeDifference } from "../utils/TimeUtils";
-import { CenteredSpacedOutBox } from "./common/CenteredSpacedOutBox";
+import getIdFromIri from "../../utils/getIdFromIri";
+import { UserProfile } from "../user/UserProfiles";
+import LanguageContext from "../../LanguageContext";
+import t from "../i18n";
+import { calculateTimeDifference } from "../../utils/TimeUtils";
+import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 
 interface Props {
   project: Project;

@@ -1,9 +1,9 @@
 import React from "react";
-import { useProjectViaID } from "../api/ProjectAPI";
-import { Project as IProject } from "../@types";
+import { useProjectViaID } from "../../api/ProjectAPI";
+import { Project as IProject } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
-import t from "./i18n";
+import t from "../i18n";
 
 interface ProjectDetailInterface {
   project: IProject;
