@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import ProjectListItem from "./ProjectListItem";
 import t, { Namespace } from "../i18n";
 import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
+import ProjectListHeader from "./ProjectListHeader";
 
 const Row = memo(({ data, index, style }: any) => {
   const { items } = data;
@@ -30,6 +31,7 @@ const Projects: React.FC = () => {
   return (
     <Namespace.Provider value={"workspaces"}>
       <Typography variant={"h5"} sx={{paddingTop:2,paddingBottom:1}}>{t`projects`}</Typography>
+      <ProjectListHeader/>
       <ReactWindowScroller>
         {({ ref, outerRef, style, onScroll }: any) => (
           <List

@@ -17,8 +17,7 @@ interface Props {
 
 const LinkToProject = styled(Link)(() => ({
   color: "white",
-  textDecoration: "none",
-  paddingRight: "16px"
+  textDecoration: "none"
 }));
 
 const ActionButton = styled(Button)(() => ({
@@ -38,27 +37,31 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
-        <Box width={300}>
+        <Box flex={2}>
           <Typography variant={"body1"} color={"white"}>
             {project.label}
           </Typography>
         </Box>
-        <Box width={150}>
+        <Box flex={1}>
           <Typography variant={"body2"} color={"white"}>
             {formattedDate}
           </Typography>
         </Box>
-        <UserProfile user={project.lastEditor} />
-        <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
-          <ActionButton
-            variant="contained"
-            startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}
-          >
-            <Typography variant={"subtitle2"} color={"black"} sx={{ marginRight: "16px" }}>
-              {t`manage`}
-            </Typography>
-          </ActionButton>
-        </LinkToProject>
+        <Box flex={1}>
+          <UserProfile user={project.lastEditor} />
+        </Box>
+        <Box flex={1} sx={{ textAlign: "right" }}>
+          <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
+            <ActionButton
+              variant="contained"
+              startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}
+            >
+              <Typography variant={"subtitle2"} color={"black"} sx={{ marginRight: "16px" }}>
+                {t`manage`}
+              </Typography>
+            </ActionButton>
+          </LinkToProject>
+        </Box>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );
