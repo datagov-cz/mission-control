@@ -1,59 +1,35 @@
 import React from "react";
-import NavigationTab from "./components/NavigationTab";
-import t from "./components/i18n";
-import { AppBar, Box, Container, IconButton, Typography } from "@mui/material";
-import Icon from "./components/Icon";
-import { MyUserProfile } from "./components/user/UserProfiles";
-import LanguageSelector from "./components/LanguageSelector";
+import { Box, Container, styled } from "@mui/material";
+import Footer from "./Footer";
+import Header from "./Header";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<Props> = ({
-  children,
-}) => {
-  return (
-    <div>
-      <AppBar
-        position={"sticky"}
-        sx={{
-          background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-          paddingLeft: 1,
-          paddingRight: 1
-        }}
-      >
-        <Box flex={1}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <IconButton edge="start" color="inherit" size="large">
-                <Icon />
-              </IconButton>
-              <Typography variant={"h5"}>{t`controlPanel`}</Typography>
-            </Box>
-            <NavigationTab />
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <MyUserProfile />
-              <LanguageSelector />
-            </Box>
-          </Box>
-        </Box>
-      </AppBar>
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above.
-          For now it is removed
-          TODO: Return outlet
-          */}
+const FullSizedBox = styled(Box)({
+  minHeight: "100vh",
+  display: "flex",
+  flexDirection: "column"
+});
 
-      <Container>{children}</Container>
-    </div>
+const ContentBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  flexGrow: 1
+});
+
+const Layout: React.FC<Props> = ({
+                                   children
+                                 }) => {
+  return (
+    <FullSizedBox>
+      <Header />
+      <ContentBox>
+        <Container>{children}</Container>
+      </ContentBox>
+      <Footer />
+    </FullSizedBox>
   );
 };
 
