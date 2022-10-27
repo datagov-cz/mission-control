@@ -5,6 +5,7 @@ import LineBoxWrapper from "../common/LineBoxWrapper";
 import { BaseVocabularyData } from "../../@types";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   vocabulary: BaseVocabularyData;
@@ -15,11 +16,15 @@ const VocabularyListItem: React.FC<Props> = ({
                                                vocabulary, setIsWaiting
                                              }) => {
   let navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const createProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
-    createVocabularyProjectPromise(vocabulary).then((instanceID) => navigate(`/projects/${instanceID}`)
-    ).catch(()=>setIsWaiting(false));
+    createVocabularyProjectPromise(vocabulary).then((instanceID) => {
+        queryClient.invalidateQueries(["projects"]);
+        navigate(`/projects/${instanceID}`);
+      }
+    ).catch(() => setIsWaiting(false));
 
 
   };

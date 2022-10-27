@@ -25,8 +25,9 @@ const createItemData = memoize((items) => ({
 }));
 
 const Projects: React.FC = () => {
-  const { data = [], isLoading } = useProjects();
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  const { data = [], isLoading, isRefetching } = useProjects();
+  if (isLoading || isRefetching) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+
   const itemData = createItemData(data);
   return (
     <Namespace.Provider value={"workspaces"}>
