@@ -13,9 +13,9 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30 * 1000,
-      refetchOnWindowFocus: false,
-    },
-  },
+      refetchOnWindowFocus: false
+    }
+  }
 });
 
 const App = () => {
@@ -31,14 +31,16 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageContext.Provider value={value}>
-      <I18nProvider language={language}>
-        <ThemeProvider theme={theme}>
-          <Namespace.Provider value="common">
-            <Router />
-          </Namespace.Provider>
-        </ThemeProvider>
-      </I18nProvider>
-      <ReactQueryDevtools initialIsOpen />
+        <I18nProvider language={language}>
+          <ThemeProvider theme={theme}>
+            <Namespace.Provider value="common">
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <Router />
+              </React.Suspense>
+            </Namespace.Provider>
+          </ThemeProvider>
+        </I18nProvider>
+        <ReactQueryDevtools initialIsOpen />
       </LanguageContext.Provider>
     </QueryClientProvider>
   );
