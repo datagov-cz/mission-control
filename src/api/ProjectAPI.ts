@@ -4,7 +4,6 @@ import { getAddVocabularyUrl, getProjectsUrl, getProjectUrl } from "./endpoints"
 import { BaseVocabularyData, Id, Project } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
-import { AxiosResponse } from "axios";
 
 const getProjects = (): Promise<Project[]> =>
   Ajax.get(getProjectsUrl()).then((resp) => resp.data).then((data) => data.sort((a: Project, b: Project) => {
@@ -30,8 +29,7 @@ export const useProjectViaID = (uri: string) => {
 };
 
 
-// @ts-ignore
-export const createVocabularyProject = (vocabulary: BaseVocabularyData): Promise<AxiosResponse> => {
+export const createVocabularyProject = (vocabulary: BaseVocabularyData) => {
   console.log(`Creating vocabulary project: ${vocabulary.label}`);
   Ajax.post(getProjectsUrl(),{label: vocabulary.label}).then(
     (response)=>{
