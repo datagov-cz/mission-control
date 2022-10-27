@@ -29,12 +29,17 @@ export const useProjectViaID = (uri: string) => {
 };
 
 
-export const createVocabularyProject = (vocabulary: BaseVocabularyData) => {
-  console.log(`Creating vocabulary project: ${vocabulary.label}`);
-  Ajax.post(getProjectsUrl(),{label: vocabulary.label}).then(
-    (response)=>{
-      const id = getIdFromResponse(response);
-      return Ajax.post(getAddVocabularyUrl(id,vocabulary.basedOnVersion),{vocabularyUri: vocabulary.basedOnVersion, readOnly: false});
-    }
-  ).catch((err)=>{console.log(err)})
-}
+export const createVocabularyProjectPromise = (vocabulary: BaseVocabularyData):Promise<any> => {
+  return new Promise((myResolve, myReject) => {
+    Ajax.post(getProjectsUrl(), { label: vocabulary.label }).then(
+      (response) => {
+        const id = getIdFromResponse(response);
+        Ajax.post(getAddVocabularyUrl(id, vocabulary.basedOnVersion), {
+          vocabularyUri: vocabulary.basedOnVersion,
+          readOnly: false
+        }).then(
+          () => myResolve(id)
+        );
+      }).catch(reason => myReject(reason));
+  });
+};

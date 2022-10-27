@@ -1,19 +1,28 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LineBoxWrapper from "../common/LineBoxWrapper";
 import { BaseVocabularyData } from "../../@types";
-import { createVocabularyProject } from "../../api/ProjectAPI";
+import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   vocabulary: BaseVocabularyData;
+  setIsWaiting: Dispatch<SetStateAction<boolean>>;
 }
 
 const VocabularyListItem: React.FC<Props> = ({
-                                               vocabulary
+                                               vocabulary, setIsWaiting
                                              }) => {
+  let navigate = useNavigate();
+
+  const createProject = async (vocabulary: BaseVocabularyData) => {
+    setIsWaiting(true);
+    createVocabularyProjectPromise(vocabulary).then((instanceID) => navigate(`/projects/${instanceID}`)
+    ).catch(()=>setIsWaiting(false));
 
 
+  };
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
@@ -22,7 +31,7 @@ const VocabularyListItem: React.FC<Props> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <Button onClick={() => createVocabularyProject(vocabulary)}>SEND REQUEST</Button>
+        <Button onClick={() => createProject(vocabulary)}>SEND REQUEST</Button>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );
