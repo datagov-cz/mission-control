@@ -20,5 +20,7 @@
   "home": "Home",
   "projects": "Projects",
   "myPanel": "My panel",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "editVocabulary": "Edit vocabulary",
+  "creatingProject": "Opening vocabulary"
 }

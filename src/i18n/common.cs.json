@@ -20,5 +20,7 @@
   "home": "Domů",
   "projects": "Otevřené úpravy",
   "myPanel": "Můj panel",
-  "loading": "Načítání..."
+  "loading": "Načítání...",
+  "editVocabulary": "Upravit slovník ",
+  "creatingProject": "Otevírám slovník"
 }

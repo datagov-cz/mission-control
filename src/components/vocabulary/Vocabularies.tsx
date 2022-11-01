@@ -8,6 +8,7 @@ const Vocabularies: React.FC = () => {
   const { data = [], isLoading } = useVocabularies();
   const [isWaiting, setIsWaiting] = useState(false);
   if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+
   return (
     <div>
       <Typography variant={"h4"}>{t`myPanel`}</Typography>

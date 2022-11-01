@@ -20,7 +20,6 @@ const Project: React.FC = () => {
 };
 
 const ActionButton = styled(Button)(() => ({
-  // padding: 8,
   color: "white",
   background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
   "&:hover": {
@@ -30,12 +29,13 @@ const ActionButton = styled(Button)(() => ({
 }));
 
 const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
+
   return (
     <Namespace.Provider value={"workspaces"}>
       <Typography variant="h5">{project.label}</Typography>
       <CenteredSpacedOutBox width={500}>
         <Box flex={1}>
-          <ActionButton variant="contained" onClick={() => console.log("Edit terms")}>
+          <ActionButton variant="contained">
             <Typography variant={"subtitle2"}>{t`editTerms`}</Typography>
           </ActionButton>
         </Box>

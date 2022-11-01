@@ -5,9 +5,11 @@ import Router from "./Router";
 import { I18nProvider, Namespace } from "./components/i18n";
 import { Locale } from "./@types";
 import { getLocale, setLocale } from "./utils/i18n";
-import { ThemeProvider } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import theme from "./app/theme";
 import LanguageContext from "./LanguageContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,6 @@ const App = () => {
   };
 
   const value = { language, saveLanguage };
-
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageContext.Provider value={value}>
@@ -37,6 +38,7 @@ const App = () => {
               <React.Suspense fallback={<div>Loading...</div>}>
                 <Router />
               </React.Suspense>
+              <ToastContainer/>
             </Namespace.Provider>
           </ThemeProvider>
         </I18nProvider>

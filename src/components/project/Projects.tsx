@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
             height={window.innerHeight}
             itemCount={data.length}
             itemData={itemData}
-            itemSize={50}
+            itemSize={60}
             onScroll={onScroll}
             overscanCount={30}
           >
