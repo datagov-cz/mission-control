@@ -7,12 +7,12 @@ import VocabularyListItem from "./VocabularyListItem";
 const Vocabularies: React.FC = () => {
   const { data = [], isLoading } = useVocabularies();
   const [isWaiting, setIsWaiting] = useState(false);
-  if (isLoading || isWaiting) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
   return (
     <div>
       <Typography variant={"h4"}>{t`myPanel`}</Typography>
       {data.map((vocabulary) => (
-        <VocabularyListItem vocabulary={vocabulary} key={vocabulary.label} setIsWaiting={setIsWaiting}/>
+        <VocabularyListItem vocabulary={vocabulary} key={vocabulary.label} setIsWaiting={setIsWaiting} isWating={isWaiting}/>
       ))}
 
     </div>

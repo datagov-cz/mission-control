@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Project } from "../../@types";
 import LineBoxWrapper from "../common/LineBoxWrapper";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import getIdFromIri from "../../utils/getIdFromIri";
@@ -10,6 +10,7 @@ import LanguageContext from "../../LanguageContext";
 import t from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
+import { ActionButton } from "../common/ActionButton";
 
 interface Props {
   project: Project;
@@ -20,15 +21,6 @@ const LinkToProject = styled(Link)(() => ({
   textDecoration: "none"
 }));
 
-const ActionButton = styled(Button)(() => ({
-  padding: 0,
-  color: "black",
-  backgroundColor: "white",
-  "&:hover": {
-    color: "black",
-    backgroundColor: "white"
-  }
-}));
 
 const ProjectListItem: React.FC<Props> = ({ project }) => {
   const { language } = useContext(LanguageContext);

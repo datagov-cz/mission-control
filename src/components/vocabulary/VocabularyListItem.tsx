@@ -6,18 +6,21 @@ import { BaseVocabularyData } from "../../@types";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { ActionButton } from "../common/ActionButton";
 
 interface Props {
   vocabulary: BaseVocabularyData;
   setIsWaiting: Dispatch<SetStateAction<boolean>>;
+  isWating: boolean;
 }
 
 const VocabularyListItem: React.FC<Props> = ({
-                                               vocabulary, setIsWaiting
+                                               vocabulary, setIsWaiting, isWating
                                              }) => {
   let navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  //TODO: use this package for the notifications https://fkhadra.github.io/react-toastify/introduction/
   const createProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
     createVocabularyProjectPromise(vocabulary).then((instanceID) => {
@@ -36,7 +39,7 @@ const VocabularyListItem: React.FC<Props> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <Button onClick={() => createProject(vocabulary)}>SEND REQUEST</Button>
+        <ActionButton disabled={isWating} onClick={() => createProject(vocabulary)}>EDIT VOCABULARY</ActionButton>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );
