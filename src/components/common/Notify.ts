@@ -15,7 +15,11 @@ const defaultPromiseParams:ToastPromiseParams = {
 export const notifyPromise = (promise: Promise<any>, params = defaultPromiseParams) => {
   return toast.promise(
     promise,
-    params
+    params,
+    {
+      position: toast.POSITION.TOP_CENTER,
+      hideProgressBar: true,
+    }
   );
 };
 

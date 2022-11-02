@@ -29,7 +29,7 @@ const VocabularyListItem: React.FC<Props> = ({
 
     //TODO: find a way to do it via some utility
     const pending = `${intl.messages["common.creatingProject"]} ${vocabulary.label}`;
-    const success = `${vocabulary.label} ${intl.messages["common.projectSuccessCreation"]} 👌`;
+    const success = `${vocabulary.label} ${intl.messages["common.projectSuccessCreation"]} 🎉`;
     const error = `${intl.messages["common.somethingWentWrong"]}`;
 
     return {

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
-import { Project as IProject } from "../../@types";
+import { ProjectData as IProject, VocabularyData as IVocabulary } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
 import { Box, Button, styled, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
+import LineBoxWrapper from "../common/LineBoxWrapper";
+import { calculateTimeDifference } from "../../utils/TimeUtils";
+import LanguageContext from "../../LanguageContext";
 
 interface ProjectDetailInterface {
   project: IProject;
@@ -28,11 +32,38 @@ const ActionButton = styled(Button)(() => ({
   }
 }));
 
-const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
+interface VocabularyI{
+  vocabulary:IVocabulary;
+}
 
+//TODO: Create vocabulary component with customizable button
+
+const Vocabulary:React.FC<VocabularyI> = ({vocabulary}) => {
+  return(
+    <LineBoxWrapper>
+      <CenteredSpacedOutBox>
+        <Box flex={2}>
+          <Typography variant={"body1"} color={"white"}>
+            {vocabulary.label}
+          </Typography>
+        </Box>
+        <Button variant="outlined" startIcon={<DeleteIcon />} color={"error"} sx={{backgroundColor:"white"}}>
+          <Typography variant={"subtitle2"}>{t`removeVocabulary`}</Typography>
+        </Button>
+      </CenteredSpacedOutBox>
+    </LineBoxWrapper>
+  );
+}
+
+//TODO: Make this component more readable
+const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
+  //TODO: Make it work with the previous calculation
+  const { language } = useContext(LanguageContext);
+  const formattedDate = calculateTimeDifference(project.lastModified!, language);
   return (
     <Namespace.Provider value={"workspaces"}>
-      <Typography variant="h5">{project.label}</Typography>
+      <Typography variant="h4" mt={2} mb={2}>{project.label}</Typography>
+      <Typography variant={"subtitle1"}  mt={2} mb={2}>{`Naposledy upraveno: ${formattedDate}`}</Typography>
       <CenteredSpacedOutBox width={500}>
         <Box flex={1}>
           <ActionButton variant="contained">
@@ -50,7 +81,8 @@ const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
           </ActionButton>
         </Box>
       </CenteredSpacedOutBox>
-
+      <Typography variant="h5" mt={2} mb={2}>Upravuje</Typography>
+      {project.vocabularyContexts.map((vocabulary)=><Vocabulary vocabulary={vocabulary} key={vocabulary.uri}/>)}
 
     </Namespace.Provider>
   );

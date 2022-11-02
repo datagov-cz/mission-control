@@ -22,3 +22,10 @@ export const calculateTimeDifference = (modifiedDate: Date, language: Locale) =>
   diff = Math.floor(diff);
   return formatter.format(-diff, "days");
 };
+
+export const isTimeOverEditThreshold = (date: Date):boolean => {
+  const currentDate = new Date();
+
+
+  return false;
+}

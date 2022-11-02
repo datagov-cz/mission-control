@@ -42,5 +42,6 @@
   "editRelations": "Edit relations",
   "projects": "Projects",
   "loading": "Loading...",
-  "manage": "Manage"
+  "manage": "Manage",
+  "removeVocabulary": "Remove"
 }

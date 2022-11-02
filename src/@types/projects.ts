@@ -72,7 +72,7 @@ export type ProjectData = {
   author: UserData;
   lastEditor?: UserData;
   created: number;
-  lastModified?: number;
+  lastModified?: Date;
   vocabularyContexts: VocabularyData[];
 };
 

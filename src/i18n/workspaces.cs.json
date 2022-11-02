@@ -42,5 +42,6 @@
   "editRelations": "Editovat vztahy",
   "projects": "Otevřené úpravy",
   "loading": "Načítání...",
-  "manage": "Spravovat"
+  "manage": "Spravovat",
+  "removeVocabulary": "Odebrat"
 }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Ajax from "../utils/Ajax";
 import { getAddVocabularyUrl, getProjectsUrl, getProjectUrl } from "./endpoints";
-import { BaseVocabularyData, Id, Project } from "../@types";
+import { BaseVocabularyData, Id, Project, ProjectData } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
 
@@ -10,7 +10,7 @@ const getProjects = (): Promise<Project[]> =>
     return Number(b.lastModified) - Number(a.lastModified);
   }));
 
-const getProject = (id: Id): Promise<Project> => {
+const getProject = (id: Id): Promise<ProjectData> => {
   return Ajax.get(getProjectUrl(id)).then((resp) => resp.data);
 };
 
