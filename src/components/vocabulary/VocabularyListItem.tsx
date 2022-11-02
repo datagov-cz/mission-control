@@ -9,6 +9,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ActionButton } from "../common/ActionButton";
 import { notifyPromise } from "../common/Notify";
 import t from "../i18n";
+import { useIntl } from "react-intl";
+import { ToastPromiseParams } from "react-toastify";
 
 interface Props {
   vocabulary: BaseVocabularyData;
@@ -21,10 +23,25 @@ const VocabularyListItem: React.FC<Props> = ({
                                              }) => {
   let navigate = useNavigate();
   const queryClient = useQueryClient();
+  const intl = useIntl();
+
+  const formatProjectCreationMessage = (): ToastPromiseParams => {
+
+    //TODO: find a way to do it via some utility
+    const pending = `${intl.messages["common.creatingProject"]} ${vocabulary.label}`;
+    const success = `${vocabulary.label} ${intl.messages["common.projectSuccessCreation"]} 👌`;
+    const error = `${intl.messages["common.somethingWentWrong"]}`;
+
+    return {
+      pending: pending,
+      success: success,
+      error: error
+    };
+  };
 
   const createProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
-    notifyPromise(createVocabularyProjectPromise(vocabulary)).then((instanceID) => {
+    notifyPromise(createVocabularyProjectPromise(vocabulary), formatProjectCreationMessage()).then((instanceID) => {
         queryClient.invalidateQueries(["projects"]);
         navigate(`/projects/${instanceID}`);
       }

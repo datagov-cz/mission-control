@@ -22,5 +22,6 @@
   "myPanel": "My panel",
   "loading": "Loading...",
   "editVocabulary": "Edit vocabulary",
-  "creatingProject": "Opening vocabulary"
+  "creatingProject": "Opening vocabulary",
+  "projectSuccessCreation": "is ready for editation"
 }

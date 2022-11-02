@@ -22,5 +22,6 @@
   "myPanel": "Můj panel",
   "loading": "Načítání...",
   "editVocabulary": "Upravit slovník ",
-  "creatingProject": "Otevírám slovník"
+  "creatingProject": "Otevírám slovník",
+  "projectSuccessCreation": "je připraven k úpravám"
 }
