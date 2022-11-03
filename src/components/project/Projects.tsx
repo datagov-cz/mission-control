@@ -12,27 +12,29 @@ const Row = memo(({ data, index, style }: any) => {
   const { items } = data;
   const item = items[index];
   return (
-    <div
-      style={style}
-    >
+    <div style={style}>
       <ProjectListItem project={item} key={item.uri} />
     </div>
   );
 }, areEqual);
 
 const createItemData = memoize((items) => ({
-  items
+  items,
 }));
 
 const Projects: React.FC = () => {
   const { data = [], isLoading, isRefetching } = useProjects();
-  if (isLoading || isRefetching) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading || isRefetching)
+    return <Typography variant={"h4"}>{t`loading`}</Typography>;
 
   const itemData = createItemData(data);
   return (
     <Namespace.Provider value={"workspaces"}>
-      <Typography variant={"h5"} sx={{paddingTop:2,paddingBottom:1}}>{t`projects`}</Typography>
-      <ProjectListHeader/>
+      <Typography
+        variant={"h5"}
+        sx={{ paddingTop: 2, paddingBottom: 1 }}
+      >{t`projects`}</Typography>
+      <ProjectListHeader />
       <ReactWindowScroller>
         {({ ref, outerRef, style, onScroll }: any) => (
           <List

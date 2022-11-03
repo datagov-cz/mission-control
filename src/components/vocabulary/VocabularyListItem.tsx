@@ -19,15 +19,17 @@ interface Props {
 }
 
 const VocabularyListItem: React.FC<Props> = ({
-                                               vocabulary, setIsWaiting, isWating
-                                             }) => {
+  vocabulary,
+  setIsWaiting,
+  isWating,
+}) => {
   let navigate = useNavigate();
   const queryClient = useQueryClient();
   const intl = useIntl();
 
   const formatProjectCreationMessage = (): ToastPromiseParams => {
-
     //TODO: find a way to do it via some utility
+    //TODO: find a way to make it a styled component, not only text
     const pending = `${intl.messages["common.creatingProject"]} ${vocabulary.label}`;
     const success = `${vocabulary.label} ${intl.messages["common.projectSuccessCreation"]} 🎉`;
     const error = `${intl.messages["common.somethingWentWrong"]}`;
@@ -35,18 +37,21 @@ const VocabularyListItem: React.FC<Props> = ({
     return {
       pending: pending,
       success: success,
-      error: error
+      error: error,
     };
   };
 
   const createProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
-    notifyPromise(createVocabularyProjectPromise(vocabulary), formatProjectCreationMessage()).then((instanceID) => {
+    notifyPromise(
+      createVocabularyProjectPromise(vocabulary),
+      formatProjectCreationMessage()
+    )
+      .then((instanceID) => {
         queryClient.invalidateQueries(["projects"]);
         navigate(`/projects/${instanceID}`);
-      }
-    ).catch(() => setIsWaiting(false));
-
+      })
+      .catch(() => setIsWaiting(false));
   };
   return (
     <LineBoxWrapper>
@@ -56,7 +61,10 @@ const VocabularyListItem: React.FC<Props> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <ActionButton disabled={isWating} onClick={() => createProject(vocabulary)}>
+        <ActionButton
+          disabled={isWating}
+          onClick={() => createProject(vocabulary)}
+        >
           <Typography variant={"subtitle2"}>{t`editVocabulary`}</Typography>
         </ActionButton>
       </CenteredSpacedOutBox>

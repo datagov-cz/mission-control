@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ direction = "row" }) => (
           {t`common.publicitySecondLine`}
         </Typography>
         <Box my={1} />
-        <EUIcon/>
+        <EUIcon />
       </Box>
     </Container>
   </>

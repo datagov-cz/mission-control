@@ -10,7 +10,7 @@ import LanguageContext from "../LanguageContext";
 
 const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const {language, saveLanguage } = useContext(LanguageContext);
+  const { language, saveLanguage } = useContext(LanguageContext);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

@@ -10,18 +10,16 @@ interface Props {
 const FullSizedBox = styled(Box)({
   minHeight: "100vh",
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "column",
 });
 
 const ContentBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  flexGrow: 1
+  flexGrow: 1,
 });
 
-const Layout: React.FC<Props> = ({
-                                   children
-                                 }) => {
+const Layout: React.FC<Props> = ({ children }) => {
   return (
     <FullSizedBox>
       <Header />

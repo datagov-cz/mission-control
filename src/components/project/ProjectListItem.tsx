@@ -8,9 +8,9 @@ import getIdFromIri from "../../utils/getIdFromIri";
 import { UserProfile } from "../user/UserProfiles";
 import LanguageContext from "../../LanguageContext";
 import t from "../i18n";
-import { calculateTimeDifference } from "../../utils/TimeUtils";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import { ActionButton } from "../common/ActionButton";
+import LastEdited from "./LastEdited";
 
 interface Props {
   project: Project;
@@ -18,14 +18,10 @@ interface Props {
 
 const LinkToProject = styled(Link)(() => ({
   color: "white",
-  textDecoration: "none"
+  textDecoration: "none",
 }));
 
-
 const ProjectListItem: React.FC<Props> = ({ project }) => {
-  const { language } = useContext(LanguageContext);
-  const formattedDate = calculateTimeDifference(project.lastModified!, language);
-
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
@@ -35,9 +31,7 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
           </Typography>
         </Box>
         <Box flex={1}>
-          <Typography variant={"body2"} color={"white"}>
-            {formattedDate}
-          </Typography>
+          <LastEdited lastModified={project.lastModified!} />
         </Box>
         <Box flex={1}>
           <UserProfile user={project.lastEditor} />
@@ -48,7 +42,11 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
               variant="contained"
               startIcon={<SettingsIcon sx={{ marginLeft: "16px" }} />}
             >
-              <Typography variant={"subtitle2"} color={"black"} sx={{ marginRight: "16px" }}>
+              <Typography
+                variant={"subtitle2"}
+                color={"black"}
+                sx={{ marginRight: "16px" }}
+              >
                 {t`manage`}
               </Typography>
             </ActionButton>

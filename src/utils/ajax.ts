@@ -5,7 +5,7 @@ import Constants from "../app/Constants";
 
 export class Ajax {
   protected axiosInstance = axios.create({
-    baseURL: API_URL
+    baseURL: API_URL,
   });
 
   constructor() {

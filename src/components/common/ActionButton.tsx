@@ -5,6 +5,6 @@ export const ActionButton = styled(Button)(() => ({
   backgroundColor: "white",
   "&:hover": {
     color: "black",
-    backgroundColor: "white"
-  }
+    backgroundColor: "white",
+  },
 }));

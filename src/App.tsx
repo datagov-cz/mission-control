@@ -15,13 +15,12 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30 * 1000,
-      refetchOnWindowFocus: false
-    }
-  }
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
 const App = () => {
-
   const [language, setLanguage] = useState(getLocale());
   const saveLanguage = (language: Locale) => {
     setLocale(language);
@@ -38,7 +37,7 @@ const App = () => {
               <React.Suspense fallback={<div>Loading...</div>}>
                 <Router />
               </React.Suspense>
-              <ToastContainer/>
+              <ToastContainer />
             </Namespace.Provider>
           </ThemeProvider>
         </I18nProvider>

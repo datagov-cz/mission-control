@@ -4,8 +4,7 @@ import { Locale } from "./@types";
 // set the defaults
 const LanguageContext = React.createContext({
   language: "en" as Locale,
-  saveLanguage: (language: Locale) => {}
-
+  saveLanguage: (language: Locale) => {},
 });
 
 export default LanguageContext;

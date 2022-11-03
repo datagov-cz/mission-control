@@ -13,9 +13,13 @@ const Vocabularies: React.FC = () => {
     <div>
       <Typography variant={"h4"}>{t`myPanel`}</Typography>
       {data.map((vocabulary) => (
-        <VocabularyListItem vocabulary={vocabulary} key={vocabulary.label} setIsWaiting={setIsWaiting} isWating={isWaiting}/>
+        <VocabularyListItem
+          vocabulary={vocabulary}
+          key={vocabulary.label}
+          setIsWaiting={setIsWaiting}
+          isWating={isWaiting}
+        />
       ))}
-
     </div>
   );
 };
