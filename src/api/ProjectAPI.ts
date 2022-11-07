@@ -5,9 +5,16 @@ import {
   getProjectsUrl,
   getProjectUrl,
 } from "./endpoints";
-import { BaseVocabularyData, Id, Project, ProjectData } from "../@types";
+import {
+  BaseVocabularyData,
+  Id,
+  Project,
+  ProjectData,
+  UserData,
+} from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
+import Projects from "../components/project/Projects";
 
 const getProjects = (): Promise<Project[]> =>
   Ajax.get(getProjectsUrl())
@@ -24,6 +31,27 @@ const getProject = (id: Id): Promise<ProjectData> => {
 
 export const useProjects = () => {
   return useQuery(["projects"], getProjects);
+};
+
+export const getLastEditedProject = (): ProjectData => {
+  //Just mock TODO: call API or calculate from available data
+  const user: UserData = {
+    firstName: "Filip",
+    id: "id",
+    lastName: "Kopecký",
+    types: [],
+    uri: "uri",
+  };
+  const project: ProjectData = {
+    author: user,
+    created: 166738458732,
+    label: "Konference stavebnictví",
+    lastEditor: user,
+    lastModified: new Date(1667384634172),
+    uri: "https://slovník.gov.cz/datový/pracovní-prostor/pojem/metadatový-kontext/instance-1583624421",
+    vocabularyContexts: [],
+  };
+  return project;
 };
 
 export const useProject = (project: Project) => {

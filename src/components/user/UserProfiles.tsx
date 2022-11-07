@@ -1,8 +1,8 @@
-import { Avatar, Box, styled, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { useAuth } from "@opendata-mvcr/assembly-line-shared";
 import React from "react";
 import { stringAvatar, stringToColor } from "../../utils/UserUtils";
-import { User } from "../../@types";
+import { UserData } from "../../@types";
 import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 
@@ -56,7 +56,7 @@ export const MyUserProfile: React.FC = () => {
 
 //TODO: probably user is always passed
 interface UserProfileProps {
-  user?: User;
+  user?: UserData;
 }
 
 export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
