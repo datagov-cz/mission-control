@@ -9,37 +9,55 @@ interface ProjectCardProps {
   project: ProjectData;
 }
 
-const ExpandingBox = styled(Box)(() => ({
+const ExpandingBox = styled(Box)(({ theme }) => ({
   color: "white",
-  background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-  transition: "all 0.3s",
-  width: 300,
-  height: 100,
+  background: "#1E87AF",
+  transition: "all 2s",
   borderRadius: "4px",
   overflow: "hidden",
   "& .hiddenBut": {
-    display: "none",
+    maxHeight: 0,
+    transition: "max-height .5s",
+    overflow: "hidden",
+  },
+  "& .projectLabel":{
+    "--fontsize": "1.25rem",
+    position: "relative",
+    maxHeight: `calc((${theme.typography.h6.lineHeight} * var(--fontsize)) )`,
+    transition: "max-height .5s",
+    overflow: "hidden",
+    paddingRight: "1.6rem" /* space for ellipsis */,
+    "&::before": {
+      position: "absolute",
+      content: '"\\002026"',
+      bottom: 0,
+      right: 0,
+    },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      right: 0,
+      width: "1.7rem",
+      height: "2.1rem",
+      background: "#1E87AF",
+    },
   },
   "&:hover": {
-    width: 500,
-    height: 200,
     "& .hiddenBut": {
-      display: "block",
+      maxHeight:"50px",
+    },
+    "& .projectLabel": {
+      maxHeight: `calc((${theme.typography.h6.lineHeight} * var(--fontsize) * 3) )`,
     },
   },
 }));
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
   //TODO: Make the sizing better, in a more calculated manner
   return (
     <ExpandingBox p={2}>
-      <Typography variant={"h6"}>{project.label}</Typography>
-      <Box
-        mt={1}
-        sx={{
-          height: "100px",
-        }}
-      >
+      <Typography variant={"h6"} className={"projectLabel"}>{project.label}</Typography>
+      <Box mt={1}>
         <Box sx={{ display: "flex" }}>
           <Typography mr={1} variant={"subtitle1"}>
             Poslední úprava:
@@ -59,8 +77,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </Box>
         </Box>
       </Box>
-      <Box>
-        <Button className={"hiddenBut"} variant={"contained"}>
+      <Box className={"hiddenBut"}>
+        <Button sx={{marginBottom:"8px"}} variant={"contained"}>
           Hidden
         </Button>
       </Box>
@@ -70,7 +88,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
 export const LastEditProject: React.FC = () => {
   const data = getLastEditedProject();
-  return <ProjectCard project={data} />;
+  return <ProjectCardExpandable project={data} />;
 };
 
-export default ProjectCard;
+export default ProjectCardExpandable;

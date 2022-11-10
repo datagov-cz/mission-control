@@ -45,7 +45,7 @@ export const getLastEditedProject = (): ProjectData => {
   const project: ProjectData = {
     author: user,
     created: 166738458732,
-    label: "Konference stavebnictví",
+    label: "Konference stavebnictví - very very very veryvery veryvery veryvery veryvery very long very very very veryvery veryvery veryvery veryvery very long",
     lastEditor: user,
     lastModified: new Date(1667384634172),
     uri: "https://slovník.gov.cz/datový/pracovní-prostor/pojem/metadatový-kontext/instance-1583624421",
