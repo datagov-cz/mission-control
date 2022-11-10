@@ -12,9 +12,10 @@ interface ProjectCardProps {
 const ExpandingBox = styled(Box)(({ theme }) => ({
   color: "white",
   background: "#1E87AF",
-  transition: "all 2s",
+  transition: "all .5s",
   borderRadius: "4px",
   overflow: "hidden",
+  maxWidth: "400px",
   "& .hiddenBut": {
     maxHeight: 0,
     transition: "max-height .5s",
@@ -23,7 +24,7 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
   "& .projectLabel":{
     "--fontsize": "1.25rem",
     position: "relative",
-    maxHeight: `calc((${theme.typography.h6.lineHeight} * var(--fontsize)) )`,
+    maxHeight: `calc((${theme.typography.h6.lineHeight} * ${theme.typography.h6.fontSize}) )`,
     transition: "max-height .5s",
     overflow: "hidden",
     paddingRight: "1.6rem" /* space for ellipsis */,
@@ -43,11 +44,12 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
     },
   },
   "&:hover": {
+    maxWidth: "600px",
     "& .hiddenBut": {
       maxHeight:"50px",
     },
     "& .projectLabel": {
-      maxHeight: `calc((${theme.typography.h6.lineHeight} * var(--fontsize) * 3) )`,
+      maxHeight: `calc((${theme.typography.h6.lineHeight} * ${theme.typography.h6.fontSize} * 3) )`,
     },
   },
 }));
