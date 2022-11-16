@@ -7,11 +7,11 @@ import {
 import { useLocation, useParams } from "react-router-dom";
 import { Box, Button, styled, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LineBoxWrapper from "../common/LineBoxWrapper";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
+import RemoveVocabularyButton from "./buttons/RemoveVocabulary";
 
 interface ProjectDetailInterface {
   project: IProject;
@@ -49,14 +49,7 @@ const Vocabulary: React.FC<VocabularyI> = ({ vocabulary }) => {
             {vocabulary.label}
           </Typography>
         </Box>
-        <Button
-          variant="outlined"
-          startIcon={<DeleteIcon />}
-          color={"error"}
-          sx={{ backgroundColor: "white" }}
-        >
-          <Typography variant={"subtitle2"}>{t`removeVocabulary`}</Typography>
-        </Button>
+          <RemoveVocabularyButton/>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );

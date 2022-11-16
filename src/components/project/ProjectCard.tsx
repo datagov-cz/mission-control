@@ -4,6 +4,11 @@ import { getLastEditedProject } from "../../api/ProjectAPI";
 import { Box, Button, styled, Typography } from "@mui/material";
 import LastEdited from "./LastEdited";
 import { UserProfile } from "../user/UserProfiles";
+import { ActionButton } from "../common/ActionButton";
+import EditTermsButton from "./buttons/EditTermsButton";
+import { Namespace } from "../i18n";
+import ManageProjectButton from "./buttons/ManageProjectButton";
+import EditRelationsButton from "./buttons/EditRelationsButton";
 
 interface ProjectCardProps {
   project: ProjectData;
@@ -20,8 +25,12 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
     maxHeight: 0,
     transition: "max-height .5s",
     overflow: "hidden",
+    marginTop: "16px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
   },
-  "& .projectLabel":{
+  "& .projectLabel": {
     "--fontsize": "1.25rem",
     position: "relative",
     maxHeight: `calc((${theme.typography.h6.lineHeight} * ${theme.typography.h6.fontSize}) )`,
@@ -46,7 +55,7 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
   "&:hover": {
     maxWidth: "600px",
     "& .hiddenBut": {
-      maxHeight:"50px",
+      maxHeight: "50px",
     },
     "& .projectLabel": {
       maxHeight: `calc((${theme.typography.h6.lineHeight} * ${theme.typography.h6.fontSize} * 3) )`,
@@ -57,34 +66,39 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
 const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
   //TODO: Make the sizing better, in a more calculated manner
   return (
-    <ExpandingBox p={2}>
-      <Typography variant={"h6"} className={"projectLabel"}>{project.label}</Typography>
-      <Box mt={1}>
-        <Box sx={{ display: "flex" }}>
-          <Typography mr={1} variant={"subtitle1"}>
-            Poslední úprava:
-          </Typography>
-          <Box>
-            <Box display={"flex"}>
-              <Box mr={1} height={"100%"}>
-                <UserProfile user={project.lastEditor} />
-              </Box>
-              <Box>
-                <Typography variant={"subtitle1"}>
-                  {`${project.lastEditor?.firstName} ${project.lastEditor?.lastName}`}
-                </Typography>
-                <LastEdited lastModified={project.lastModified!} />
+    <Namespace.Provider value={"workspaces"}>
+      <ExpandingBox p={2}>
+        <Typography variant={"h6"} className={"projectLabel"}>
+          {project.label}
+        </Typography>
+        <Box mt={1}>
+          <Box sx={{ display: "flex" }}>
+            <Typography mr={1} variant={"subtitle1"}>
+              Poslední úprava:
+            </Typography>
+            <Box>
+              <Box display={"flex"}>
+                <Box mr={1} height={"100%"}>
+                  <UserProfile user={project.lastEditor} />
+                </Box>
+                <Box>
+                  <Typography variant={"subtitle1"}>
+                    {`${project.lastEditor?.firstName} ${project.lastEditor?.lastName}`}
+                  </Typography>
+                  <LastEdited lastModified={project.lastModified!} />
+                </Box>
               </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-      <Box className={"hiddenBut"}>
-        <Button sx={{marginBottom:"8px"}} variant={"contained"}>
-          Hidden
-        </Button>
-      </Box>
-    </ExpandingBox>
+        <Box className={"hiddenBut"}>
+          {/**Fix spacing for smaller cards**/}
+          <ManageProjectButton project={project}/>
+          <EditTermsButton />
+          <EditRelationsButton />
+        </Box>
+      </ExpandingBox>
+    </Namespace.Provider>
   );
 };
 

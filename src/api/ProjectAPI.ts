@@ -45,8 +45,8 @@ export const getLastEditedProject = (): ProjectData => {
   const project: ProjectData = {
     author: user,
     created: 166738458732,
-    label: "Konference stavebnictví - very very very veryvery veryvery veryvery veryvery very long very very very veryvery veryvery veryvery veryvery very long",
-    //label: "Konference stavebnictví ",
+    //label: "Konference stavebnictví",
+    label: "Slovník zákona č. 56/2001 Sb. o podmínkách provozu vozidel na pozemních komunikacích a o změně zákona č. 168/1999 Sb., o pojištění odpovědnosti za škodu způsobenou provozem vozidla a o změně některých souvisejících zákonů (zákon o pojištění odpovědnosti z provozu vozidla), ve znění zákona č. 307/1999 Sb. - slovník",
     lastEditor: user,
     lastModified: new Date(1667384634172),
     uri: "https://slovník.gov.cz/datový/pracovní-prostor/pojem/metadatový-kontext/instance-1583624421",
