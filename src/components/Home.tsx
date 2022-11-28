@@ -14,7 +14,6 @@ const Home: React.FC = () => {
         <Box>
           <LastEditProject />
         </Box>
-
       </Box>
     </div>
   );

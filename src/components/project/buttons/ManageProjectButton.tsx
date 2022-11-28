@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionButton } from "../../common/ActionButton";
+import { ActionButtonWhite } from "../../common/ActionButton";
 import { styled, Typography } from "@mui/material";
 import t from "../../i18n";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -12,23 +12,17 @@ const LinkToProject = styled(Link)(() => ({
   textDecoration: "none",
 }));
 
-interface PublishButtonProps{
-  project: Project | ProjectData
+interface PublishButtonProps {
+  project: Project | ProjectData;
 }
-const ManageProjectButton: React.FC<PublishButtonProps> = ({project}) => {
+const ManageProjectButton: React.FC<PublishButtonProps> = ({ project }) => {
   return (
     <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
-      <ActionButton
-        variant="contained"
-        startIcon={<SettingsIcon />}
-      >
-        <Typography
-          variant={"subtitle2"}
-          color={"black"}
-        >
+      <ActionButtonWhite variant="contained" startIcon={<SettingsIcon />}>
+        <Typography variant={"subtitle2"} color={"black"}>
           {t`manage`}
         </Typography>
-      </ActionButton>
+      </ActionButtonWhite>
     </LinkToProject>
   );
 };

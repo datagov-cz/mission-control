@@ -12,6 +12,9 @@ import LineBoxWrapper from "../common/LineBoxWrapper";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
 import RemoveVocabularyButton from "./buttons/RemoveVocabulary";
+import EditTermsButton from "./buttons/EditTermsButton";
+import EditRelationsButton from "./buttons/EditRelationsButton";
+import PublishButton from "./buttons/PublishButton";
 
 interface ProjectDetailInterface {
   project: IProject;
@@ -24,15 +27,6 @@ const Project: React.FC = () => {
   }
   return <ProjectDetailFetch />;
 };
-
-const ActionButton = styled(Button)(() => ({
-  color: "white",
-  background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-  "&:hover": {
-    color: "white",
-    background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-  },
-}));
 
 interface VocabularyI {
   vocabulary: IVocabulary;
@@ -49,7 +43,7 @@ const Vocabulary: React.FC<VocabularyI> = ({ vocabulary }) => {
             {vocabulary.label}
           </Typography>
         </Box>
-          <RemoveVocabularyButton/>
+        <RemoveVocabularyButton />
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );
@@ -71,27 +65,15 @@ const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
       <Typography variant={"subtitle1"} mt={2} mb={2}>
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
-      <CenteredSpacedOutBox width={500}>
+      <CenteredSpacedOutBox width={700}>
         <Box flex={1}>
-          <ActionButton variant="contained">
-            <Typography variant={"subtitle2"}>{t`editTerms`}</Typography>
-          </ActionButton>
+          <EditTermsButton project={project} />
         </Box>
         <Box flex={1}>
-          <ActionButton
-            variant="contained"
-            onClick={() => console.log("Edit relations")}
-          >
-            <Typography variant={"subtitle2"}>{t`editRelations`}</Typography>
-          </ActionButton>
+          <EditRelationsButton project={project} />
         </Box>
         <Box flex={1}>
-          <ActionButton
-            variant="contained"
-            onClick={() => console.log("Edit relations")}
-          >
-            <Typography variant={"subtitle2"}>{t`publish`}</Typography>
-          </ActionButton>
+          <PublishButton project={project} />
         </Box>
       </CenteredSpacedOutBox>
       <Typography variant="h5" mt={2} mb={2}>

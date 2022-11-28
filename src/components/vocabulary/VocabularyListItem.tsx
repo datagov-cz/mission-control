@@ -6,7 +6,7 @@ import { BaseVocabularyData } from "../../@types";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { ActionButton } from "../common/ActionButton";
+import { ActionButtonWhite } from "../common/ActionButton";
 import { notifyPromise } from "../common/Notify";
 import t from "../i18n";
 import { useIntl } from "react-intl";
@@ -61,12 +61,12 @@ const VocabularyListItem: React.FC<Props> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <ActionButton
+        <ActionButtonWhite
           disabled={isWating}
           onClick={() => createProject(vocabulary)}
         >
           <Typography variant={"subtitle2"}>{t`editVocabulary`}</Typography>
-        </ActionButton>
+        </ActionButtonWhite>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );

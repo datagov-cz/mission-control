@@ -18,8 +18,7 @@ export const getProjectUrl = (id: Id) => `${getProjectsUrl()}/${id}`;
 /**
  * Endpoint to publish a workspace
  */
-export const getWorkspacePublishUrl = (id: Id) =>
-  `${getProjectUrl(id)}/publish`;
+export const getProjectPublishUrl = (id: Id) => `${getProjectUrl(id)}/publish`;
 
 /**
  * Endpoint to fetch a list of vocabularies for a particular workspace

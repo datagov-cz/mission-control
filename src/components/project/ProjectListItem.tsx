@@ -11,7 +11,6 @@ interface Props {
   project: Project;
 }
 
-
 const ProjectListItem: React.FC<Props> = ({ project }) => {
   return (
     <LineBoxWrapper>

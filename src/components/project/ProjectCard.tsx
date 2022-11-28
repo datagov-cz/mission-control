@@ -1,10 +1,9 @@
 import React from "react";
 import { ProjectData } from "../../@types";
 import { getLastEditedProject } from "../../api/ProjectAPI";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import LastEdited from "./LastEdited";
 import { UserProfile } from "../user/UserProfiles";
-import { ActionButton } from "../common/ActionButton";
 import EditTermsButton from "./buttons/EditTermsButton";
 import { Namespace } from "../i18n";
 import ManageProjectButton from "./buttons/ManageProjectButton";
@@ -93,9 +92,9 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
         </Box>
         <Box className={"hiddenBut"}>
           {/**Fix spacing for smaller cards**/}
-          <ManageProjectButton project={project}/>
-          <EditTermsButton />
-          <EditRelationsButton />
+          <ManageProjectButton project={project} />
+          <EditTermsButton project={project} />
+          <EditRelationsButton project={project} />
         </Box>
       </ExpandingBox>
     </Namespace.Provider>
