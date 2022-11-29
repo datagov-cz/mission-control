@@ -1,28 +1,32 @@
 import React from "react";
-import { ActionButtonWhite } from "../../common/ActionButton";
+import { ActionButton, ActionButtonProps } from "../../common/ActionButton";
 import { styled, Typography } from "@mui/material";
 import t from "../../i18n";
 import SettingsIcon from "@mui/icons-material/Settings";
 import getIdFromIri from "../../../utils/getIdFromIri";
 import { Link } from "react-router-dom";
-import { Project, ProjectData } from "../../../@types";
+import { ProjectDetailProps } from "../Project";
 
 const LinkToProject = styled(Link)(() => ({
   color: "white",
   textDecoration: "none",
 }));
 
-interface PublishButtonProps {
-  project: Project | ProjectData;
-}
-const ManageProjectButton: React.FC<PublishButtonProps> = ({ project }) => {
+const ManageProjectButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
+  project,
+  backgroundColor,
+  textColor,
+}) => {
   return (
     <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
-      <ActionButtonWhite variant="contained" startIcon={<SettingsIcon />}>
-        <Typography variant={"subtitle2"} color={"black"}>
-          {t`manage`}
-        </Typography>
-      </ActionButtonWhite>
+      <ActionButton
+        backgroundColor={backgroundColor}
+        textColor={textColor}
+        variant="contained"
+        startIcon={<SettingsIcon />}
+      >
+        <Typography variant={"subtitle2"}>{t`manage`}</Typography>
+      </ActionButton>
     </LinkToProject>
   );
 };

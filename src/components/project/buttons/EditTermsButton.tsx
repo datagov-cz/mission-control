@@ -1,18 +1,20 @@
 import React from "react";
-import { ActionButton } from "../../common/ActionButton";
+import { ActionButton, ActionButtonProps } from "../../common/ActionButton";
 import { Typography } from "@mui/material";
 import t from "../../i18n";
 import EditIcon from "@mui/icons-material/Edit";
-import { ProjectData } from "../../../@types";
 import { getEditTermLink } from "../../../utils/QueryUtil";
+import { ProjectDetailProps } from "../Project";
 
-interface EditTermsButtonProps {
-  project: ProjectData;
-}
-
-const EditTermsButton: React.FC<EditTermsButtonProps> = ({ project }) => {
+const EditTermsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
+  project,
+  textColor,
+  backgroundColor,
+}) => {
   return (
     <ActionButton
+      backgroundColor={backgroundColor}
+      textColor={textColor}
       variant="contained"
       startIcon={<EditIcon />}
       href={getEditTermLink(project)}

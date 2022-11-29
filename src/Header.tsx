@@ -5,13 +5,14 @@ import NavigationTab from "./components/NavigationTab";
 import { MyUserProfile } from "./components/user/UserProfiles";
 import LanguageSelector from "./components/LanguageSelector";
 import React from "react";
+import { LINEAR_BACKGROUND } from "./utils/Constants";
 
 const Header: React.FC = () => {
   return (
     <AppBar
       position={"sticky"}
       sx={{
-        background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
+        background: LINEAR_BACKGROUND,
         paddingLeft: 1,
         paddingRight: 1,
       }}

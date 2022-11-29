@@ -1,17 +1,13 @@
 import React from "react";
-import { Project } from "../../@types";
 import LineBoxWrapper from "../common/LineBoxWrapper";
 import { Box, Typography } from "@mui/material";
 import { UserProfile } from "../user/UserProfiles";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LastEdited from "./LastEdited";
 import ManageProjectButton from "./buttons/ManageProjectButton";
+import { ProjectDetailProps } from "./Project";
 
-interface Props {
-  project: Project;
-}
-
-const ProjectListItem: React.FC<Props> = ({ project }) => {
+const ProjectListItem: React.FC<ProjectDetailProps> = ({ project }) => {
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
@@ -27,7 +23,11 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
           <UserProfile user={project.lastEditor} />
         </Box>
         <Box flex={1} sx={{ textAlign: "right" }}>
-          <ManageProjectButton project={project} />
+          <ManageProjectButton
+            project={project}
+            textColor={"black"}
+            backgroundColor={"white"}
+          />
         </Box>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>

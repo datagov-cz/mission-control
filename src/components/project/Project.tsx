@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
-import {
-  ProjectData as IProject,
-  VocabularyData as IVocabulary,
-} from "../../@types";
+import { ProjectData, VocabularyData as IVocabulary } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LineBoxWrapper from "../common/LineBoxWrapper";
@@ -16,8 +13,8 @@ import EditTermsButton from "./buttons/EditTermsButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
 import PublishButton from "./buttons/PublishButton";
 
-interface ProjectDetailInterface {
-  project: IProject;
+export interface ProjectDetailProps {
+  project: ProjectData;
 }
 
 const Project: React.FC = () => {
@@ -50,7 +47,7 @@ const Vocabulary: React.FC<VocabularyI> = ({ vocabulary }) => {
 };
 
 //TODO: Make this component more readable
-const ProjectDetail: React.FC<ProjectDetailInterface> = ({ project }) => {
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
   //TODO: Make it work with the previous calculation
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(

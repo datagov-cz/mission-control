@@ -1,19 +1,21 @@
 import { Button, styled } from "@mui/material";
+import { LINEAR_BACKGROUND } from "../../utils/Constants";
 
-export const ActionButtonWhite = styled(Button)(() => ({
-  color: "black",
-  backgroundColor: "white",
-  "&:hover": {
-    color: "black",
-    backgroundColor: "white",
-  },
-}));
+export interface ActionButtonProps {
+  textColor?: string;
+  backgroundColor?: string;
+}
 
-export const ActionButton = styled(Button)(() => ({
-  color: "white",
-  background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-  "&:hover": {
-    color: "white",
-    background: "linear-gradient(90deg, #2C397E, 10.42%, #1B96B9 100%)",
-  },
-}));
+export const ActionButton = styled(Button, {
+  shouldForwardProp: (prop) =>
+    prop !== "textColor" && prop !== "backgroundColor",
+})<ActionButtonProps>(
+  ({ theme, backgroundColor = LINEAR_BACKGROUND, textColor = "white" }) => ({
+    color: textColor,
+    background: backgroundColor,
+    "&:hover": {
+      color: textColor,
+      background: backgroundColor,
+    },
+  })
+);

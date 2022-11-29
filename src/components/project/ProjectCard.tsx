@@ -91,10 +91,22 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
           </Box>
         </Box>
         <Box className={"hiddenBut"}>
-          {/**Fix spacing for smaller cards**/}
-          <ManageProjectButton project={project} />
-          <EditTermsButton project={project} />
-          <EditRelationsButton project={project} />
+          {/**TODO: Fix spacing for smaller cards**/}
+          <ManageProjectButton
+            project={project}
+            textColor={"black"}
+            backgroundColor={"white"}
+          />
+          <EditTermsButton
+            project={project}
+            textColor={"black"}
+            backgroundColor={"white"}
+          />
+          <EditRelationsButton
+            project={project}
+            textColor={"black"}
+            backgroundColor={"white"}
+          />
         </Box>
       </ExpandingBox>
     </Namespace.Provider>
