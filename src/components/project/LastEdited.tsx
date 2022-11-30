@@ -11,7 +11,6 @@ interface LastEditedProps {
 
 const LastEdited: React.FC<LastEditedProps> = ({ lastModified }) => {
   const { language } = useContext(LanguageContext);
-  //TODO: add TS
   const calculatedDifference = calculateTimeDifference(lastModified, language);
 
   return (

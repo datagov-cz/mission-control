@@ -47,8 +47,8 @@ const NavigationTab = () => {
         icon={<MenuBookOutlinedIcon />}
         iconPosition="start"
         label={t`myPanel`}
-        value="/vocabularies"
-        to="/vocabularies"
+        value="/myPanel"
+        to="/myPanel"
         component={Link}
       />
     </Tabs>

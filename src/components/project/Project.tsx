@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
-import { ProjectData, VocabularyData as IVocabulary } from "../../@types";
+import { ProjectData } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
-import LineBoxWrapper from "../common/LineBoxWrapper";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
-import RemoveVocabularyButton from "./buttons/RemoveVocabulary";
 import EditTermsButton from "./buttons/EditTermsButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
 import PublishButton from "./buttons/PublishButton";
+import ProjectVocabularyListItem from "../vocabulary/ProjectVocabularyListItem";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -25,30 +24,8 @@ const Project: React.FC = () => {
   return <ProjectDetailFetch />;
 };
 
-interface VocabularyI {
-  vocabulary: IVocabulary;
-}
-
-//TODO: Create vocabulary component with customizable button
-
-const Vocabulary: React.FC<VocabularyI> = ({ vocabulary }) => {
-  return (
-    <LineBoxWrapper>
-      <CenteredSpacedOutBox>
-        <Box flex={2}>
-          <Typography variant={"body1"} color={"white"}>
-            {vocabulary.label}
-          </Typography>
-        </Box>
-        <RemoveVocabularyButton />
-      </CenteredSpacedOutBox>
-    </LineBoxWrapper>
-  );
-};
-
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
-  //TODO: Make it work with the previous calculation
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(
     project.lastModified!,
@@ -77,7 +54,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         Upravuje
       </Typography>
       {project.vocabularyContexts.map((vocabulary) => (
-        <Vocabulary vocabulary={vocabulary} key={vocabulary.uri} />
+        <ProjectVocabularyListItem
+          vocabulary={vocabulary}
+          key={vocabulary.uri}
+        />
       ))}
     </Namespace.Provider>
   );
