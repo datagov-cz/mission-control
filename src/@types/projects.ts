@@ -37,7 +37,7 @@ export type Vocabulary = Omit<
 };
 
 export type AddVocabularyPayload = {
-  workspaceId: Id;
+  projectId: Id;
   vocabularyIri: Iri;
   label?: string;
 };

@@ -30,7 +30,7 @@ export const getWorkspaceVocabulariesUrl = (workspaceId: Id) =>
  * Endpoint to create a vocabulary in a workspace
  */
 export const getAddVocabularyUrl = (
-  workspaceId: Id,
+  projectId: Id,
   vocabularyIri: Iri,
   label?: string
 ) => {
@@ -41,7 +41,7 @@ export const getAddVocabularyUrl = (
   if (label) {
     query.append("label", label);
   }
-  return `${getWorkspaceVocabulariesUrl(workspaceId)}?${query.toString()}`;
+  return `${getWorkspaceVocabulariesUrl(projectId)}?${query.toString()}`;
 };
 
 /**
