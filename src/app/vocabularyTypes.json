@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Generický",
+    "prefix": "https://slovník.gov.cz/generický/",
+    "regex": "^https://slovník.gov.cz/generický/[ěščřžýáíéóúůďťňa-z0-9-]+$",
+    "autoIriRegex": "[ěščřžýáíéóúůďťňa-z0-9]+",
+    "autoIriMatchAll": true,
+    "level": 1
+  },
+  {
+    "label": "Legislativní",
+    "prefix": "https://slovník.gov.cz/legislativní/sbírka/",
+    "regex": "^https://slovník.gov.cz/legislativní/sbírka/[0-9]+/[0-9]+$",
+    "autoIriRegex": "[0-9]+/[0-9]+",
+    "autoIriMatchAll": false,
+    "level": 2
+  }
+]
