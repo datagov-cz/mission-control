@@ -6,10 +6,9 @@ import Form from "../form/Form";
 import Checkbox from "../form/Checkbox";
 import FormTextField from "../form/TextField";
 import t from "../i18n";
-import { AddVocabularyPayload, Project } from "../../@types";
+import { AddVocabularyPayload } from "../../@types";
 import { useVocabularies } from "../../api/VocabularyApi";
 import SubmitButton from "../form/SubmitButton";
-import Hidden from "../form/Hidden";
 
 interface CreateVocabularyFormProps {
   isOpen: boolean;
@@ -22,7 +21,9 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
 }) => {
   const form = useForm();
   const { data = [], isLoading } = useVocabularies();
+
   const label = form.watch("label") as string;
+  const legislative = form.watch("legislative") as boolean;
 
   const [vocabularyTypeLabel, setVocabularyType] = useState(
     vocabularyTypes[0].label
@@ -35,29 +36,33 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   const onSubmit = useCallback(
     (payload: AddVocabularyPayload) => {
       console.log(payload);
-    },[]
+      console.log(legislative);
+    },
+    [legislative]
   );
+
+  const handleLegislativeToggle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    form.setValue("legislative", event.target.checked);
+    setVocabularyType(vocabularyTypes[event.target.checked ? 1 : 0].label);
+  };
 
   //TODO: Move this effect
   useEffect(() => {
-      // Prefills the default vocabulary IRI
-      const chunks = label
-        ? label
-          .toLowerCase()
-          .match(new RegExp(vocabularyType.autoIriRegex, "g"))
-        : null;
-      const iriSafeLabel = chunks
-        ? vocabularyType.autoIriMatchAll
-          ? chunks.join("-")
-          : chunks[0]
-        : "";
-      form.setValue("vocabularyIri", `${vocabularyType.prefix}${iriSafeLabel}`);
+    // Prefills the default vocabulary IRI
+    const chunks = label
+      ? label.toLowerCase().match(new RegExp(vocabularyType.autoIriRegex, "g"))
+      : null;
+    const iriSafeLabel = chunks
+      ? vocabularyType.autoIriMatchAll
+        ? chunks.join("-")
+        : chunks[0]
+      : "";
+    form.setValue("vocabularyIri", `${vocabularyType.prefix}${iriSafeLabel}`);
   }, [label, form, vocabularyType]);
 
-
   if (isLoading) return <></>;
-
-
 
   return (
     <Dialog
@@ -68,7 +73,20 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
     >
       <Box sx={{ height: 480, padding: 2 }}>
         <Form form={form}>
-          <Hidden name="vocabularyIri" value={""}/>
+          <FormTextField
+            fullWidth
+            name="vocabularyIri"
+            label={t`vocabularyIri`}
+            disabled={true}
+            defaultValue={vocabularyType?.prefix}
+            rules={{
+              pattern: {
+                value: new RegExp(vocabularyType?.regex!),
+                message: vocabularyType?.regex!,
+              },
+              validate: (value) => !data.find((v) => v.basedOnVersion === value) || "vocabularyIriExists"
+            }}
+          />
           <FormTextField
             color={"primary"}
             fullWidth
@@ -81,6 +99,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
           />
           <Checkbox
             sx={{ color: "blue" }}
+            onChange={handleLegislativeToggle}
             name="legislative"
             defaultChecked={false}
             label={t`legislative`}
