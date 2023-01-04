@@ -1,7 +1,7 @@
 {
   "vocabularies": "Vocabularies",
   "label": "Label",
-  "addVocabulary": "Add a vocabulary",
+  "addVocabulary": "Create vocabulary",
   "addingVocabulary": "Adding the vocabulary...",
   "vocabularyType": "Vocabulary type",
   "vocabularyIri": "Vocabulary IRI",
@@ -16,6 +16,8 @@
   "vocabularyEditedInAnotherWorkspace": "Vocabulary is being edited in workspace:",
   "vocabularyNotFoundCreateNew": "Vocabulary not found. Create new vocabulary.",
   "createVocabulary": "Create new vocabulary",
+  "creatingVocabulary": "Creating vocabulary",
+  "created": "Vocabulary ${value} was created",
   "search": "Search",
   "actions": "Actions",
   "delete": "Delete",
@@ -30,5 +32,6 @@
   "updating": "Updating...",
   "updateVocabularySuccess": "The vocabulary was updated",
   "updateVocabularyError": "The vocabulary cannot be updated",
-  "vocabulariesDependencies": "Vocabulary dependencies"
+  "vocabulariesDependencies": "Vocabulary dependencies",
+  "legislative": "Legislative"
 }

@@ -8,7 +8,6 @@ import t from "../i18n";
 
 const CreateVocabulary: React.FC = () => {
   const { isOpen, open, close } = useToggle();
-  //TODO: Make the button visually correspond with the rest of the application
   return (
     <>
       <ActionButton
@@ -16,7 +15,7 @@ const CreateVocabulary: React.FC = () => {
         startIcon={<SettingsIcon />}
         onClick={open}
       >
-        <Typography variant={"subtitle2"}>{t`manage`}</Typography>
+        <Typography variant={"subtitle2"}>{t`createVocabulary`}</Typography>
       </ActionButton>
       <CreateVocabularyForm isOpen={isOpen} onClose={close} />
     </>

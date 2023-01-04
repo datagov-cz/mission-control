@@ -1,7 +1,7 @@
 {
   "vocabularies": "Slovníky",
   "label": "Název",
-  "addVocabulary": "Přidat slovník",
+  "addVocabulary": "Vytvořit slovník",
   "addingVocabulary": "Přidávám slovník...",
   "vocabularyType": "Typ slovníku",
   "vocabularyIri": "IRI slovníku",
@@ -16,6 +16,8 @@
   "vocabularyEditedInAnotherWorkspace": "Slovník je upravován v pracovním prostoru:",
   "vocabularyNotFoundCreateNew": "Nic nenalezeno, vytvořit nový slovník",
   "createVocabulary": "Nový slovník",
+  "creatingVocabulary": "Vytvářím slovník",
+  "created": "Slovník byl vytvořen",
   "search": "Vyhledat",
   "actions": "Akce",
   "delete": "Smazat",
@@ -30,5 +32,6 @@
   "updating": "Aktualizuji...",
   "updateVocabularySuccess": "Slovník aktualizován",
   "updateVocabularyError": "Nepodařilo se aktualizovat slovník",
-  "vocabulariesDependencies": "Závislosti mezi slovníky"
+  "vocabulariesDependencies": "Závislosti mezi slovníky",
+  "legislative": "Legislativní"
 }

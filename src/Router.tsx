@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./components/Home";
-import Vocabularies from "./components/vocabulary/Vocabularies";
 import Projects from "./components/project/Projects";
 import Project from "./components/project/Project";
 

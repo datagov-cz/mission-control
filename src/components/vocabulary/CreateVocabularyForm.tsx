@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Dialog } from "@mui/material";
+import { Box, Dialog, DialogTitle } from "@mui/material";
 import vocabularyTypes from "../../app/vocabularyTypes.json";
 import { useForm } from "react-hook-form";
 import Form from "../form/Form";
@@ -7,8 +7,14 @@ import Checkbox from "../form/Checkbox";
 import FormTextField from "../form/TextField";
 import t from "../i18n";
 import { AddVocabularyPayload } from "../../@types";
-import { useVocabularies } from "../../api/VocabularyApi";
+import { createVocabulary, useVocabularies } from "../../api/VocabularyApi";
 import SubmitButton from "../form/SubmitButton";
+import { notifyPromise } from "../common/Notify";
+import { useNavigate } from "react-router-dom";
+import { Namespace } from "../i18n";
+import { useIntl } from "react-intl";
+import { ToastPromiseParams } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateVocabularyFormProps {
   isOpen: boolean;
@@ -20,7 +26,10 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   onClose,
 }) => {
   const form = useForm();
+  let navigate = useNavigate();
+  const intl = useIntl();
   const { data = [], isLoading } = useVocabularies();
+  const queryClient = useQueryClient();
 
   const label = form.watch("label") as string;
   const legislative = form.watch("legislative") as boolean;
@@ -33,12 +42,29 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
     (v) => v.label === vocabularyTypeLabel
   )!;
 
+  const formatVocabularyCreationMessage = (): ToastPromiseParams => {
+    //TODO: find a way to do it via some utility
+    //TODO: find a way to make it a styled component, not only text
+    const pending = `${intl.messages["vocabularies.creatingVocabulary"]} `;
+    const success = `${intl.messages["vocabularies.created"]} 🎉`;
+    const error = `${intl.messages["common.somethingWentWrong"]}`;
+
+    return {
+      pending: pending,
+      success: success,
+      error: error,
+    };
+  };
+
   const onSubmit = useCallback(
     (payload: AddVocabularyPayload) => {
-      console.log(payload);
-      console.log(legislative);
+      notifyPromise(createVocabulary(payload), formatVocabularyCreationMessage()).then((projectID) => {
+        queryClient.invalidateQueries(["projects"]);
+        queryClient.invalidateQueries(["vocabularies"]);
+        navigate(`/projects/${projectID}`);
+      });
     },
-    [legislative]
+    [navigate]
   );
 
   const handleLegislativeToggle = (
@@ -62,55 +88,73 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
     form.setValue("vocabularyIri", `${vocabularyType.prefix}${iriSafeLabel}`);
   }, [label, form, vocabularyType]);
 
+  //Clean the form
+  useEffect(() => {
+    if (!isOpen) {
+      form.setValue("label", "");
+      form.setValue("legislative", false);
+      setVocabularyType(vocabularyTypes[0].label);
+    }
+  }, [isOpen, form]);
+
   if (isLoading) return <></>;
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <Box sx={{ height: 480, padding: 2 }}>
-        <Form form={form}>
-          <FormTextField
-            fullWidth
-            name="vocabularyIri"
-            label={t`vocabularyIri`}
-            disabled={true}
-            defaultValue={vocabularyType?.prefix}
-            rules={{
-              pattern: {
-                value: new RegExp(vocabularyType?.regex!),
-                message: vocabularyType?.regex!,
-              },
-              validate: (value) => !data.find((v) => v.basedOnVersion === value) || "vocabularyIriExists"
-            }}
-          />
-          <FormTextField
-            color={"primary"}
-            fullWidth
-            required={true}
-            name="label"
-            label={t`vocabularyLabel`}
-            rules={{
-              required: "common.errorRequired",
-            }}
-          />
-          <Checkbox
-            sx={{ color: "blue" }}
-            onChange={handleLegislativeToggle}
-            name="legislative"
-            defaultChecked={false}
-            label={t`legislative`}
-          />
-          <SubmitButton
-            onClick={onSubmit}
-            pending={t`addingVocabulary`}
-          >{t`addVocabulary`}</SubmitButton>
-        </Form>
-      </Box>
-    </Dialog>
+    <Namespace.Provider value="vocabularies">
+      <Dialog
+        open={isOpen}
+        onClose={onClose}
+        maxWidth={"sm"}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle >{t`createVocabulary`}</DialogTitle>
+        <Box p={2}>
+          <Form form={form}>
+            <FormTextField
+              fullWidth
+              sx={{marginBottom: 2}}
+              name="vocabularyIri"
+              label={t`vocabularyIri`}
+              disabled={true}
+              defaultValue={vocabularyType?.prefix}
+              rules={{
+                pattern: {
+                  value: new RegExp(vocabularyType?.regex!),
+                  message: vocabularyType?.regex!,
+                },
+                validate: (value) =>
+                  !data.find((v) => v.basedOnVersion === value) ||
+                  "vocabularyIriExists",
+              }}
+            />
+            <FormTextField
+              color={"primary"}
+              fullWidth
+              sx={{marginBottom: 2}}
+              required={true}
+              name="label"
+              label={t`vocabularyLabel`}
+              rules={{
+                required: "common.errorRequired",
+              }}
+            />
+            <Checkbox
+              sx={{ color: "blue" }}
+              onChange={handleLegislativeToggle}
+              name="legislative"
+              defaultChecked={false}
+              label={t`legislative`}
+            />
+            <SubmitButton
+              sx={{marginTop: 2}}
+              onClick={onSubmit}
+              pending={t`addingVocabulary`}
+            >{t`addVocabulary`}</SubmitButton>
+          </Form>
+        </Box>
+      </Dialog>
+    </Namespace.Provider>
   );
 };
 
