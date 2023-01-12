@@ -10,10 +10,10 @@ const Home: React.FC = () => {
       <Typography variant={"h4"}>{t`home`}</Typography>
       <Box display={"flex"} flex={3} sx={{minHeight: 300}}>
         <Box mr={2}>
-          <LastEditProject />
+          <LastEditProject id={0}/>
         </Box>
         <Box>
-          <LastEditProject />
+          <LastEditProject id={1}/>
         </Box>
       </Box>
       <Vocabularies/>

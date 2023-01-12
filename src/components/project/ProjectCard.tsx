@@ -113,8 +113,11 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
   );
 };
 
-export const LastEditProject: React.FC = () => {
-  const data = getLastEditedProject();
+export interface LastEditProjectProps{
+  id: number
+}
+export const LastEditProject: React.FC<LastEditProjectProps> = ({id}) => {
+  const data = getLastEditedProject(id);
   return <ProjectCardExpandable project={data} />;
 };
 
