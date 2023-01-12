@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Dialog, DialogTitle } from "@mui/material";
+import { Box, Dialog, DialogTitle, IconButton } from "@mui/material";
 import vocabularyTypes from "../../app/vocabularyTypes.json";
 import { useForm } from "react-hook-form";
 import Form from "../form/Form";
@@ -15,6 +15,7 @@ import { Namespace } from "../i18n";
 import { useIntl } from "react-intl";
 import { ToastPromiseParams } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface CreateVocabularyFormProps {
   isOpen: boolean;
@@ -108,7 +109,24 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle >{t`createVocabulary`}</DialogTitle>
+        <DialogTitle >
+          {t`createVocabulary`}
+          {onClose ? (
+            <IconButton
+              aria-label="close"
+              sx={{
+                position: "absolute",
+                right: 1,
+                top: 1,
+                color: "palette.grey[500]",
+              }}
+              onClick={onClose}
+              size="large"
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
+        </DialogTitle>
         <Box p={2}>
           <Form form={form}>
             <FormTextField
