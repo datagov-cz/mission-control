@@ -11,6 +11,7 @@ import { notifyPromise } from "../common/Notify";
 import t from "../i18n";
 import { useIntl } from "react-intl";
 import { ToastPromiseParams } from "react-toastify";
+import MaxLineText from "../common/MaxLineText";
 
 interface Props {
   vocabulary: BaseVocabularyData;
@@ -56,10 +57,10 @@ const VocabularyListItem: React.FC<Props> = ({
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
-        <Box flex={2}>
-          <Typography variant={"body1"} color={"white"}>
+        <Box flex={2} pr={2}>
+          <MaxLineText maxlines={1} variant={"body1"} color={"white"}>
             {vocabulary.label}
-          </Typography>
+          </MaxLineText>
         </Box>
         <ActionButton
           textColor={"black"}

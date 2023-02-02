@@ -10,7 +10,7 @@ const LineBoxWrapper: React.FC<Props> = ({ children }) => {
   return (
     <Box
       sx={{
-        background: LINEAR_BACKGROUND,
+        background: "#1E87AF",
         padding: 1,
         borderRadius: "4px",
         marginTop: 1,
