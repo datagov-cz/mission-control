@@ -6,8 +6,8 @@ import Vocabularies from "./vocabulary/Vocabularies";
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <Typography variant={"h4"}>{t`home`}</Typography>
+    <Box py={3}>
+      <Typography variant={"h4"} mb={1}>{t`home`}</Typography>
       <Box display={"flex"} flex={3} sx={{minHeight: 300}}>
         <Box mr={2}>
           <LastEditProject id={0}/>
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         </Box>
       </Box>
       <Vocabularies/>
-    </div>
+    </Box>
   );
 };
 

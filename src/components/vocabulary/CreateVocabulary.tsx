@@ -14,6 +14,7 @@ const CreateVocabulary: React.FC = () => {
         variant="contained"
         startIcon={<SettingsIcon />}
         onClick={open}
+        sx={{marginBottom: 1}}
       >
         <Typography variant={"subtitle2"}>{t`createVocabulary`}</Typography>
       </ActionButton>

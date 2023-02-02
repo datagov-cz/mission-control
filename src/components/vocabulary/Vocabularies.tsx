@@ -12,7 +12,7 @@ const Vocabularies: React.FC = () => {
   if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
   return (
     <div>
-      <Typography variant={"h4"}>{t`myPanel`}</Typography>
+      <Typography variant={"h4"} mb={1}>{t`vocabularies`}</Typography>
       <CreateVocabulary/>
       {data.map((vocabulary) => (
         <VocabularyListItem
