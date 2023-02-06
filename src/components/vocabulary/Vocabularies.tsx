@@ -1,12 +1,12 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useCallback, useMemo, useRef, useState } from "react";
+import { useWindowResize } from "../../hooks/useWindowResize";
+import { areEqual, VariableSizeList as List } from "react-window";
+import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
+import VocabularyListItem from "./VocabularyListItem";
 import { useVocabularies } from "../../api/VocabularyApi";
-import { areEqual, FixedSizeList as List } from "react-window";
+import memoize from "memoize-one";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import t from "../i18n";
-import VocabularyListItem from "./VocabularyListItem";
-import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
-import CreateVocabulary from "./CreateVocabulary";
-import memoize from "memoize-one";
 import SearchIcon from "@mui/icons-material/Search";
 
 const endAdornment = (
@@ -16,10 +16,37 @@ const endAdornment = (
 );
 
 const Vocabularies: React.FC = () => {
-  const { data = [], isLoading } = useVocabularies();
+  const Row = memo(
+    ({ data, index, setSize, windowWidth, isWaiting, setIsWaiting }: any) => {
+      const rowRef = useRef<HTMLDivElement>(null);
+      const { items } = data;
+      const item = items[index];
+
+      React.useEffect(() => {
+        setSize(index, rowRef.current!.getBoundingClientRect().height);
+      }, [setSize, index, windowWidth]);
+
+      return (
+        <div ref={rowRef}>
+          <VocabularyListItem
+            vocabulary={item}
+            key={item.label}
+            setIsWaiting={setIsWaiting}
+            isWating={isWaiting}
+          />
+        </div>
+      );
+    },
+    areEqual
+  );
+
   const [isWaiting, setIsWaiting] = useState(false);
   const [filterText, setFilterText] = useState("");
 
+  const { data = [], isLoading } = useVocabularies();
+  const createItemData = memoize((items) => ({
+    items,
+  }));
   const filteredVocabularies = useMemo(() => {
     return data.filter((vocabulary) => {
       if (filterText === "") return true;
@@ -30,60 +57,25 @@ const Vocabularies: React.FC = () => {
       }
     });
   }, [data, filterText]);
-
-  const createItemData = memoize((items) => ({
-    items,
-  }));
-
   const itemdata = createItemData(filteredVocabularies);
 
-  const Scroller = useMemo(() => {
-    return (
-      <ReactWindowScroller>
-        {({ ref, outerRef, style, onScroll }: any) => (
-          <List
-            ref={ref}
-            width={10}
-            outerRef={outerRef}
-            style={style}
-            height={window.innerHeight}
-            itemCount={filteredVocabularies.length}
-            itemData={itemdata}
-            itemSize={60}
-            onScroll={onScroll}
-            overscanCount={15}
-          >
-            {Row}
-          </List>
-        )}
-      </ReactWindowScroller>
-    );
-  }, [filteredVocabularies, isWaiting]);
+  const listRef = useRef<List>();
 
+  const sizeMap = useRef({});
+  const setSize = useCallback((index: number, size: number) => {
+    sizeMap.current = { ...sizeMap.current, [index]: size };
+    listRef.current!.resetAfterIndex(index);
+  }, []);
+  // @ts-ignore
+  const getSize = (index: number) => sizeMap.current[index] + 8 || 60;
+  const [windowWidth] = useWindowResize();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
+
   if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
-
-  const Row = memo(({ data, index, style }: any) => {
-    const { items } = data;
-    const item = items[index];
-    return (
-      <div style={style}>
-        <VocabularyListItem
-          vocabulary={item}
-          key={item.label}
-          setIsWaiting={setIsWaiting}
-          isWating={isWaiting}
-        />
-      </div>
-    );
-  }, areEqual);
-
   return (
     <div>
-      <Typography variant={"h4"} mb={1}>{t`vocabularies`}</Typography>
-      <CreateVocabulary />
       <Box>
         <TextField
           value={filterText}
@@ -96,7 +88,39 @@ const Vocabularies: React.FC = () => {
           }}
         />
       </Box>
-      {Scroller}
+      <ReactWindowScroller>
+        {({ ref, outerRef, style, onScroll }: any) => (
+          <List
+            ref={(list) => {
+              ref.current = list;
+              // @ts-ignore
+              listRef.current = list;
+            }}
+            width={10}
+            outerRef={outerRef}
+            style={style}
+            height={window.innerHeight}
+            itemCount={filteredVocabularies.length}
+            itemSize={getSize}
+            itemData={itemdata}
+            onScroll={onScroll}
+            overscanCount={15}
+          >
+            {({ data, index, style }) => (
+              <div style={style}>
+                <Row
+                  data={data}
+                  index={index}
+                  setSize={setSize}
+                  windowWidth={windowWidth}
+                  isWaiting={isWaiting}
+                  setIsWaiting={setIsWaiting}
+                />
+              </div>
+            )}
+          </List>
+        )}
+      </ReactWindowScroller>
     </div>
   );
 };
