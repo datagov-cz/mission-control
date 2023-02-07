@@ -7,6 +7,9 @@ import { BaseVocabularyData } from "../../@types";
 import { notifyPromise } from "../common/Notify";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import Vocabularies from "./Vocabularies";
+import { useVocabularies } from "../../api/VocabularyApi";
+import { Typography } from "@mui/material";
+import t from "../i18n";
 
 const CreateVocabularyProject: React.FC = () => {
   const intl = useIntl();
@@ -38,7 +41,16 @@ const CreateVocabularyProject: React.FC = () => {
       })
       .catch(() => setIsWaiting(false));
   };
-  return <Vocabularies performAction={createProject} isWaiting={isWaiting} />;
+  const { data = [], isLoading } = useVocabularies();
+
+  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  return (
+    <Vocabularies
+      performAction={createProject}
+      isWaiting={isWaiting}
+      data={data}
+    />
+  );
 };
 
 export default CreateVocabularyProject;

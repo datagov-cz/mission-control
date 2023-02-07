@@ -24,7 +24,6 @@ const Row = memo(({ data, index, setSize, windowWidth }: any) => {
   React.useEffect(() => {
     setSize(index, rowRef.current!.getBoundingClientRect().height);
   }, [setSize, index, windowWidth]);
-
   return (
     <div ref={rowRef}>
       <ProjectListItem project={item} key={item.uri} />

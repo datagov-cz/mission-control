@@ -19,11 +19,13 @@ const endAdornment = (
 interface VocabulariesProps {
   performAction: (vocabulary: BaseVocabularyData) => Promise<void>;
   isWaiting: boolean;
+  data: BaseVocabularyData[];
 }
 
 const Vocabularies: React.FC<VocabulariesProps> = ({
   performAction,
   isWaiting,
+  data,
 }) => {
   const Row = memo(({ data, index, setSize, windowWidth, isWaiting }: any) => {
     const rowRef = useRef<HTMLDivElement>(null);
@@ -48,7 +50,6 @@ const Vocabularies: React.FC<VocabulariesProps> = ({
 
   const [filterText, setFilterText] = useState("");
 
-  const { data = [], isLoading } = useVocabularies();
   const createItemData = memoize((items) => ({
     items,
   }));
@@ -78,7 +79,6 @@ const Vocabularies: React.FC<VocabulariesProps> = ({
     setFilterText(event.target.value);
   };
 
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
   return (
     <div>
       <Box>
