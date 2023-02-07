@@ -43,5 +43,6 @@
   "projects": "Otevřené úpravy",
   "loading": "Načítání...",
   "manage": "Spravovat",
-  "removeVocabulary": "Odebrat"
+  "removeVocabulary": "Odebrat",
+  "addVocabulary": "Přidat slovník"
 }

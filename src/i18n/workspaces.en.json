@@ -43,5 +43,6 @@
   "projects": "Projects",
   "loading": "Loading...",
   "manage": "Manage",
-  "removeVocabulary": "Remove"
+  "removeVocabulary": "Remove",
+  "addVocabulary": "Add vocabulary"
 }

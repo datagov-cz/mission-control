@@ -2,17 +2,14 @@ import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
-import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
-import EditTermsButton from "./buttons/EditTermsButton";
-import EditRelationsButton from "./buttons/EditRelationsButton";
-import PublishButton from "./buttons/PublishButton";
 import ProjectVocabularyListItem from "../vocabulary/ProjectVocabularyListItem";
 import ProjectActions from "./ProjectActions";
 import { ActionButton } from "../common/ActionButton";
+import AddVocabularyToProject from "../vocabulary/AddVocabularyToProject";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -25,6 +22,8 @@ const Project: React.FC = () => {
   }
   return <ProjectDetailFetch />;
 };
+
+//TODO: show the vocabularies by lazy loading
 
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
@@ -53,12 +52,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         />
       ))}
       <ActionButton
+        sx={{marginTop: 2, marginBottom: 2}}
         fullWidth={true}
         onClick={() => setShowVocabualaries(!showVocabularies)}
       >
-        Přidat slovník
+        {t`addVocabulary`}
       </ActionButton>
-      {showVocabularies && <div>Vocabularies visible</div>}
+      {showVocabularies && <AddVocabularyToProject project={project} />}
     </Namespace.Provider>
   );
 };

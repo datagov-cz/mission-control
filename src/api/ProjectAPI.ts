@@ -15,10 +15,6 @@ import {
 } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
-import Projects from "../components/project/Projects";
-import { getEditTermLink } from "../utils/QueryUtil";
-import project from "../components/project/Project";
-import { LastEditProjectProps } from "../components/project/ProjectCard";
 
 const getProjects = (): Promise<Project[]> =>
   Ajax.get(getProjectsUrl())
