@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useLocation, useParams } from "react-router-dom";
@@ -11,6 +11,8 @@ import EditTermsButton from "./buttons/EditTermsButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
 import PublishButton from "./buttons/PublishButton";
 import ProjectVocabularyListItem from "../vocabulary/ProjectVocabularyListItem";
+import ProjectActions from "./ProjectActions";
+import { ActionButton } from "../common/ActionButton";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -26,6 +28,7 @@ const Project: React.FC = () => {
 
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
+  const [showVocabularies, setShowVocabualaries] = useState(false);
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(
     project.lastModified!,
@@ -39,17 +42,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       <Typography variant={"subtitle1"} mt={2} mb={2}>
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
-      <CenteredSpacedOutBox width={700}>
-        <Box flex={1}>
-          <EditTermsButton project={project} />
-        </Box>
-        <Box flex={1}>
-          <EditRelationsButton project={project} />
-        </Box>
-        <Box flex={1}>
-          <PublishButton project={project} />
-        </Box>
-      </CenteredSpacedOutBox>
+      <ProjectActions project={project} />
       <Typography variant="h5" mt={2} mb={2}>
         Upravuje
       </Typography>
@@ -59,6 +52,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
           key={vocabulary.uri}
         />
       ))}
+      <ActionButton
+        fullWidth={true}
+        onClick={() => setShowVocabualaries(!showVocabularies)}
+      >
+        Přidat slovník
+      </ActionButton>
+      {showVocabularies && <div>Vocabularies visible</div>}
     </Namespace.Provider>
   );
 };

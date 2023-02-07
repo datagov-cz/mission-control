@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import t from "./i18n";
 import { LastEditProject } from "./project/ProjectCard";
-import Vocabularies from "./vocabulary/Vocabularies";
+import CreateVocabularyProject from "./vocabulary/CreateVocabularyProject";
 
 const Home: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
           <LastEditProject id={1}/>
         </Box>
       </Box>
-      <Vocabularies/>
+      <CreateVocabularyProject/>
     </Box>
   );
 };

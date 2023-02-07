@@ -8,6 +8,7 @@ import memoize from "memoize-one";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import t from "../i18n";
 import SearchIcon from "@mui/icons-material/Search";
+import { BaseVocabularyData } from "../../@types";
 
 const endAdornment = (
   <InputAdornment position={"end"}>
@@ -15,32 +16,36 @@ const endAdornment = (
   </InputAdornment>
 );
 
-const Vocabularies: React.FC = () => {
-  const Row = memo(
-    ({ data, index, setSize, windowWidth, isWaiting, setIsWaiting }: any) => {
-      const rowRef = useRef<HTMLDivElement>(null);
-      const { items } = data;
-      const item = items[index];
+interface VocabulariesProps {
+  performAction: (vocabulary: BaseVocabularyData) => Promise<void>;
+  isWaiting: boolean;
+}
 
-      React.useEffect(() => {
-        setSize(index, rowRef.current!.getBoundingClientRect().height);
-      }, [setSize, index, windowWidth]);
+const Vocabularies: React.FC<VocabulariesProps> = ({
+  performAction,
+  isWaiting,
+}) => {
+  const Row = memo(({ data, index, setSize, windowWidth, isWaiting }: any) => {
+    const rowRef = useRef<HTMLDivElement>(null);
+    const { items } = data;
+    const item = items[index];
 
-      return (
-        <div ref={rowRef}>
-          <VocabularyListItem
-            vocabulary={item}
-            key={item.label}
-            setIsWaiting={setIsWaiting}
-            isWating={isWaiting}
-          />
-        </div>
-      );
-    },
-    areEqual
-  );
+    React.useEffect(() => {
+      setSize(index, rowRef.current!.getBoundingClientRect().height);
+    }, [setSize, index, windowWidth]);
 
-  const [isWaiting, setIsWaiting] = useState(false);
+    return (
+      <div ref={rowRef}>
+        <VocabularyListItem
+          vocabulary={item}
+          key={item.label}
+          isWating={isWaiting}
+          performAction={performAction}
+        />
+      </div>
+    );
+  }, areEqual);
+
   const [filterText, setFilterText] = useState("");
 
   const { data = [], isLoading } = useVocabularies();
@@ -114,7 +119,6 @@ const Vocabularies: React.FC = () => {
                   setSize={setSize}
                   windowWidth={windowWidth}
                   isWaiting={isWaiting}
-                  setIsWaiting={setIsWaiting}
                 />
               </div>
             )}
