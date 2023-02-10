@@ -49,6 +49,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         <ProjectVocabularyListItem
           vocabulary={vocabulary}
           key={vocabulary.uri}
+          project={project}
         />
       ))}
       <ActionButton

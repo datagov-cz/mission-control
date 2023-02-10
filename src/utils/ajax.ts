@@ -26,6 +26,14 @@ export class Ajax {
   public post(path: string, content: any) {
     return this.axiosInstance.post(path, content);
   }
+
+  public delete(path: string, content: any) {
+    //TODO: Fix this
+    let headers = {};
+    // @ts-ignore
+    headers["content-type"] = "application/json";
+    return this.axiosInstance.delete(path, { data: content, headers: headers });
+  }
 }
 
 const instance = new Ajax();

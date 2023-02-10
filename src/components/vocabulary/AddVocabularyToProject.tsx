@@ -33,7 +33,8 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
     notifyPromise(addVocabularyToExistingProject(vocabulary, project))
       .then((instanceID) => {
         setIsWaiting(false)
-        navigate(`/projects/${instanceID}`,{});
+        //TODO: Completely change reloading, the 'OPTIMZED' solution is causing so many issues
+        navigate(0);
       })
       .catch(() => setIsWaiting(false));
   };
