@@ -18,6 +18,7 @@ import {
 } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
+import ajax from "../utils/Ajax";
 
 const getProjects = (): Promise<Project[]> =>
   Ajax.get(getProjectsUrl())
@@ -104,7 +105,16 @@ export const removeVocabularyFromProjectPromise = (
 ): Promise<any> => {
   return new Promise((myResolve, myReject) => {
     const addr = getWorkspaceVocabulariesUrl(getIdFromIri(project.uri));
-    Ajax.delete(addr, vocabulary.uri)
+    Ajax.deleteJson(addr, vocabulary.uri)
+      .then((resp) => myResolve(resp))
+      .catch((reason) => myReject(reason));
+  });
+};
+
+export const deleteProjectPromise = (project: ProjectData): Promise<any> => {
+  return new Promise((myResolve, myReject) => {
+    const addr = getProjectUrl(getIdFromIri(project.uri));
+    Ajax.delete(addr)
       .then((resp) => myResolve(resp))
       .catch((reason) => myReject(reason));
   });

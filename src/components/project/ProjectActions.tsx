@@ -5,13 +5,16 @@ import EditTermsButton from "./buttons/EditTermsButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
 import PublishButton from "./buttons/PublishButton";
 import { ProjectData } from "../../@types";
+import DeleteButton from "./buttons/DeleteButton";
 
 interface ProjectActionsProps {
-  project: ProjectData
+  project: ProjectData;
 }
-const ProjectActions:React.FC<ProjectActionsProps> = ({project}) => {
+
+//TODO: Rewrite the buttons in a way which would be more reusable -> passing handler functions
+const ProjectActions: React.FC<ProjectActionsProps> = ({ project }) => {
   return (
-    <CenteredSpacedOutBox width={700}>
+    <CenteredSpacedOutBox>
       <Box flex={1}>
         <EditTermsButton project={project} />
       </Box>
@@ -20,6 +23,9 @@ const ProjectActions:React.FC<ProjectActionsProps> = ({project}) => {
       </Box>
       <Box flex={1}>
         <PublishButton project={project} />
+      </Box>
+      <Box flex={1}>
+        <DeleteButton project={project} />
       </Box>
     </CenteredSpacedOutBox>
   );

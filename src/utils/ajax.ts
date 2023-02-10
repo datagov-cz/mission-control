@@ -27,12 +27,16 @@ export class Ajax {
     return this.axiosInstance.post(path, content);
   }
 
-  public delete(path: string, content: any) {
+  public deleteJson(path: string, content: any) {
     //TODO: Fix this
     let headers = {};
     // @ts-ignore
     headers["content-type"] = "application/json";
     return this.axiosInstance.delete(path, { data: content, headers: headers });
+  }
+
+  public delete(path: string){
+    return this.axiosInstance.delete(path);
   }
 }
 
