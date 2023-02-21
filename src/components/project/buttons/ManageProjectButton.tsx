@@ -18,7 +18,7 @@ const ManageProjectButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
   textColor,
 }) => {
   return (
-    <LinkToProject to={getIdFromIri(project.uri)} state={{ project }}>
+    <LinkToProject to={`/projects/${getIdFromIri(project.uri)}`} state={{ project }}>
       <ActionButton
         backgroundColor={backgroundColor}
         textColor={textColor}

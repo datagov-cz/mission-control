@@ -25,5 +25,6 @@
   "editVocabulary": "Edit vocabulary",
   "creatingProject": "Opening vocabulary",
   "createVocabulary": "Create vocabulary",
-  "projectSuccessCreation": "is ready for editation"
+  "projectSuccessCreation": "is ready for editation",
+  "myRecentProjects": "Last edited"
 }

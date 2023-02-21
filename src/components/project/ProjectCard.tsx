@@ -1,6 +1,5 @@
 import React from "react";
 import { ProjectData } from "../../@types";
-import { getLastEditedProject } from "../../api/ProjectAPI";
 import { Box, styled, Typography } from "@mui/material";
 import LastEdited from "./LastEdited";
 import { UserProfile } from "../user/UserProfiles";
@@ -111,14 +110,6 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
       </ExpandingBox>
     </Namespace.Provider>
   );
-};
-
-export interface LastEditProjectProps{
-  id: number
-}
-export const LastEditProject: React.FC<LastEditProjectProps> = ({id}) => {
-  const data = getLastEditedProject(id);
-  return <ProjectCardExpandable project={data} />;
 };
 
 export default ProjectCardExpandable;

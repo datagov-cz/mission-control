@@ -13,14 +13,12 @@ import {
   Project,
   ProjectData,
   UserData,
-  Vocabulary,
   VocabularyData,
 } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
-import ajax from "../utils/Ajax";
 
-const getProjects = (): Promise<Project[]> =>
+const getProjects = (): Promise<ProjectData[]> =>
   Ajax.get(getProjectsUrl())
     .then((resp) => resp.data)
     .then((data) =>
@@ -35,34 +33,6 @@ const getProject = (id: Id): Promise<ProjectData> => {
 
 export const useProjects = () => {
   return useQuery(["projects"], getProjects);
-};
-
-export const getLastEditedProject = (id: number): ProjectData => {
-  //Just mock TODO: call API or calculate from available data
-
-  let labels = [
-    "Slovník zákona č. 56/2001 Sb. o podmínkách provozu vozidel na pozemních komunikacích a o změně zákona č. 168/1999 Sb., o pojištění odpovědnosti za škodu způsobenou provozem vozidla a o změně některých souvisejících zákonů (zákon o pojištění odpovědnosti z provozu vozidla), ve znění zákona č. 307/1999 Sb. - slovník",
-    "Slovník zákona č. 361/2000 Sb. o provozu na pozemních komunikacích a o změnách některých zákonů - slovník",
-  ];
-  let dates = [new Date(1667384634172), new Date("January 8, 2023 03:24:00")];
-  const user: UserData = {
-    firstName: "Filip",
-    id: "id",
-    lastName: "Kopecký",
-    types: [],
-    uri: "uri",
-  };
-  const project: ProjectData = {
-    author: user,
-    created: 166738458732,
-    //label: "Konference stavebnictví",
-    label: labels[id],
-    lastEditor: user,
-    lastModified: dates[id],
-    uri: "https://slovník.gov.cz/datový/pracovní-prostor/pojem/metadatový-kontext/instance-1583624421",
-    vocabularyContexts: [],
-  };
-  return project;
 };
 
 export const useProject = (project: Project) => {

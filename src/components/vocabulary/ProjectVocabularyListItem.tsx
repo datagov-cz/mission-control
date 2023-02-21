@@ -1,11 +1,10 @@
 import React from "react";
-import { ProjectData, Vocabulary, VocabularyData } from "../../@types";
+import { ProjectData, VocabularyData } from "../../@types";
 import LineBoxWrapper from "../common/LineBoxWrapper";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import { Box, Typography } from "@mui/material";
 import RemoveVocabularyButton from "../project/buttons/RemoveVocabulary";
 import {
-  publishProjectPromise,
   removeVocabularyFromProjectPromise,
 } from "../../api/ProjectAPI";
 import { notifyPromise } from "../common/Notify";
