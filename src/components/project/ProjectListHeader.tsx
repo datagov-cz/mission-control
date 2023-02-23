@@ -1,23 +1,53 @@
 import React from "react";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
-import { Box, Typography } from "@mui/material";
+import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import t from "../i18n";
+import SearchIcon from "@mui/icons-material/Search";
 
-const ProjectListHeader: React.FC = () => {
+const endAdornment = (
+  <InputAdornment position={"end"}>
+    <SearchIcon />
+  </InputAdornment>
+);
+
+interface ProjectListHeaderProps {
+  value: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ProjectListHeader: React.FC<ProjectListHeaderProps> = ({value, handleChange}) => {
   return (
     <>
-      <CenteredSpacedOutBox>
-        <Box flex={2}>
+      <CenteredSpacedOutBox mt={2}>
+        <Box flex={3}>
           <Typography
             variant={"subtitle1"}
             color={"gray"}
           >{t`label`}</Typography>
         </Box>
-        <Box flex={3}>
+        <Box flex={1}>
           <Typography
             variant={"subtitle1"}
             color={"gray"}
           >{t`lastModified`}</Typography>
+        </Box>
+        <Box flex={1}>
+          <Typography
+            variant={"subtitle1"}
+            color={"gray"}
+          >{t`lastEditor`}</Typography>
+        </Box>
+        <Box flex={1}>
+          <TextField
+            size={"small"}
+            placeholder="Hledat"
+            fullWidth={true}
+            value={value}
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: endAdornment,
+            }}
+          />
         </Box>
       </CenteredSpacedOutBox>
       <hr />

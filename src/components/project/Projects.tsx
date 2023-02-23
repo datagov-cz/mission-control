@@ -2,20 +2,14 @@ import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import memoize from "memoize-one";
 import { useProjects } from "../../api/ProjectAPI";
 import { areEqual, VariableSizeList as List } from "react-window";
-import { Box, InputAdornment, TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import ProjectListItem from "./ProjectListItem";
 import t, { Namespace } from "../i18n";
 import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
 import ProjectListHeader from "./ProjectListHeader";
 import { useWindowResize } from "../../hooks/useWindowResize";
-import SearchIcon from "@mui/icons-material/Search";
 import SimpleBackdrop from "../common/SimpleBackdrop";
 
-const endAdornment = (
-  <InputAdornment position={"end"}>
-    <SearchIcon />
-  </InputAdornment>
-);
 
 const Row = memo(({ data, index, setSize, windowWidth }: any) => {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -69,19 +63,8 @@ const Projects: React.FC = () => {
         variant={"h5"}
         sx={{ paddingTop: 2, paddingBottom: 1 }}
       >{t`projects`}</Typography>
-      <Box>
-        <TextField
-          value={filterText}
-          onChange={handleChange}
-          size={"small"}
-          fullWidth
-          placeholder="Zadejte hledaný slovník"
-          InputProps={{
-            endAdornment: endAdornment,
-          }}
-        />
-      </Box>
-      <ProjectListHeader />
+
+      <ProjectListHeader value={filterText} handleChange={handleChange}/>
       <div>
         <ReactWindowScroller>
           {({ ref, outerRef, style, onScroll }: any) => (

@@ -11,7 +11,7 @@ const ProjectListItem: React.FC<ProjectDetailProps> = ({ project }) => {
   return (
     <LineBoxWrapper>
       <CenteredSpacedOutBox>
-        <Box flex={2}>
+        <Box flex={3}>
           <Typography variant={"body1"} color={"white"}>
             {project.label}
           </Typography>
