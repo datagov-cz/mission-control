@@ -5,7 +5,7 @@ import MyRecentProjects from "./project/MyRecentProjects";
 
 const Home: React.FC = () => {
   return (
-    <Box py={3}>
+    <Box>
       <MyRecentProjects/>
       <CreateVocabularyProject/>
     </Box>

@@ -13,6 +13,7 @@ import t from "../i18n";
 import SimpleBackdrop from "../common/SimpleBackdrop";
 import { Box, Typography } from "@mui/material";
 import CreateVocabulary from "./CreateVocabulary";
+import IconHeader from "../common/IconHeader";
 
 const CreateVocabularyProject: React.FC = () => {
   const intl = useIntl();
@@ -55,22 +56,15 @@ const CreateVocabularyProject: React.FC = () => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex" }}>
-          <AutoStoriesOutlinedIcon fontSize={"large"} sx={{ marginRight: 1 }} />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant={"h5"}
-              mb={1}
-              mr={2}
-            >{t`vocabularies`}</Typography>
-          </Box>
-        </Box>
+        <IconHeader
+          icon={
+            <AutoStoriesOutlinedIcon
+              fontSize={"large"}
+              sx={{ marginRight: 1 }}
+            />
+          }
+          label={t`vocabularies`}
+        />
         <Box>
           <CreateVocabulary />
         </Box>

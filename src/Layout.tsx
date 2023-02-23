@@ -23,7 +23,7 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <FullSizedBox>
       <Header />
-      <ContentBox>
+      <ContentBox py={3}>
         <Container>{children}</Container>
       </ContentBox>
       <Footer />

@@ -9,7 +9,8 @@ import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
 import ProjectListHeader from "./ProjectListHeader";
 import { useWindowResize } from "../../hooks/useWindowResize";
 import SimpleBackdrop from "../common/SimpleBackdrop";
-
+import IconHeader from "../common/IconHeader";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 
 const Row = memo(({ data, index, setSize, windowWidth }: any) => {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -59,12 +60,16 @@ const Projects: React.FC = () => {
   if (isLoading || isRefetching) return <SimpleBackdrop show={true} />;
   return (
     <Namespace.Provider value={"workspaces"}>
-      <Typography
-        variant={"h5"}
-        sx={{ paddingTop: 2, paddingBottom: 1 }}
-      >{t`projects`}</Typography>
-
-      <ProjectListHeader value={filterText} handleChange={handleChange}/>
+      <IconHeader
+        icon={
+          <LibraryBooksOutlinedIcon
+            fontSize={"large"}
+            sx={{ marginRight: 1 }}
+          />
+        }
+        label={t`projects`}
+      />
+      <ProjectListHeader value={filterText} handleChange={handleChange} />
       <div>
         <ReactWindowScroller>
           {({ ref, outerRef, style, onScroll }: any) => (
