@@ -8,6 +8,7 @@ import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import SimpleBackdrop from "../common/SimpleBackdrop";
+import CreateVocabulary from "../vocabulary/CreateVocabulary";
 
 const MAX_NUMBER_OF_PROJECTS = 2;
 
@@ -45,7 +46,7 @@ const MyRecentProjects: React.FC = () => {
             justifyContent: "center",
           }}
         >
-          <Typography variant={"h4"} mb={1}>{t`myRecentProjects`}</Typography>
+          <Typography variant={"h5"} mb={1}>{t`myRecentProjects`}</Typography>
         </Box>
       </Box>
       <Box mt={1} display={"flex"} flex={1} sx={{ minHeight: 300 }}>

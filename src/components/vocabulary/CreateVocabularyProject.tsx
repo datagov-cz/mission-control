@@ -8,9 +8,11 @@ import { notifyPromise } from "../common/Notify";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import Vocabularies from "./Vocabularies";
 import { useVocabularies } from "../../api/VocabularyApi";
-import { Typography } from "@mui/material";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import t from "../i18n";
 import SimpleBackdrop from "../common/SimpleBackdrop";
+import { Box, Typography } from "@mui/material";
+import CreateVocabulary from "./CreateVocabulary";
 
 const CreateVocabularyProject: React.FC = () => {
   const intl = useIntl();
@@ -44,13 +46,41 @@ const CreateVocabularyProject: React.FC = () => {
   };
   const { data = [], isLoading } = useVocabularies();
 
-  if (isLoading) return <SimpleBackdrop show={true}/>
+  if (isLoading) return <SimpleBackdrop show={true} />;
   return (
-    <Vocabularies
-      performAction={createProject}
-      isWaiting={isWaiting}
-      data={data}
-    />
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box sx={{ display: "flex" }}>
+          <AutoStoriesOutlinedIcon fontSize={"large"} sx={{ marginRight: 1 }} />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              variant={"h5"}
+              mb={1}
+              mr={2}
+            >{t`vocabularies`}</Typography>
+          </Box>
+        </Box>
+        <Box>
+          <CreateVocabulary />
+        </Box>
+      </Box>
+      <Vocabularies
+        performAction={createProject}
+        isWaiting={isWaiting}
+        data={data}
+      />
+    </>
   );
 };
 

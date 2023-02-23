@@ -3,7 +3,7 @@ import useToggle from "../../hooks/useToggle";
 import CreateVocabularyForm from "./CreateVocabularyForm";
 import { Typography } from "@mui/material";
 import { ActionButton } from "../common/ActionButton";
-import SettingsIcon from "@mui/icons-material/Settings";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import t from "../i18n";
 
 const CreateVocabulary: React.FC = () => {
@@ -12,9 +12,9 @@ const CreateVocabulary: React.FC = () => {
     <>
       <ActionButton
         variant="contained"
-        startIcon={<SettingsIcon />}
+        endIcon={<AddOutlinedIcon />}
         onClick={open}
-        sx={{marginBottom: 1}}
+        sx={{ marginBottom: 1 }}
       >
         <Typography variant={"subtitle2"}>{t`createVocabulary`}</Typography>
       </ActionButton>
