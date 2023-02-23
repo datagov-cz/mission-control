@@ -10,6 +10,7 @@ import Vocabularies from "./Vocabularies";
 import { useVocabularies } from "../../api/VocabularyApi";
 import { Typography } from "@mui/material";
 import t from "../i18n";
+import SimpleBackdrop from "../common/SimpleBackdrop";
 
 const CreateVocabularyProject: React.FC = () => {
   const intl = useIntl();
@@ -43,7 +44,7 @@ const CreateVocabularyProject: React.FC = () => {
   };
   const { data = [], isLoading } = useVocabularies();
 
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading) return <SimpleBackdrop show={true}/>
   return (
     <Vocabularies
       performAction={createProject}

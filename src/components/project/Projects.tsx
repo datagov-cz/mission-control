@@ -9,6 +9,7 @@ import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
 import ProjectListHeader from "./ProjectListHeader";
 import { useWindowResize } from "../../hooks/useWindowResize";
 import SearchIcon from "@mui/icons-material/Search";
+import SimpleBackdrop from "../common/SimpleBackdrop";
 
 const endAdornment = (
   <InputAdornment position={"end"}>
@@ -61,8 +62,7 @@ const Projects: React.FC = () => {
     setFilterText(event.target.value);
   };
 
-  if (isLoading || isRefetching)
-    return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading || isRefetching) return <SimpleBackdrop show={true} />;
   return (
     <Namespace.Provider value={"workspaces"}>
       <Typography

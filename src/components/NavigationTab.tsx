@@ -43,14 +43,6 @@ const NavigationTab = () => {
         to="/projects"
         component={Link}
       />
-      <Tab
-        icon={<MenuBookOutlinedIcon />}
-        iconPosition="start"
-        label={t`myPanel`}
-        value="/myPanel"
-        to="/myPanel"
-        component={Link}
-      />
     </Tabs>
   );
 };
