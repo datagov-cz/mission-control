@@ -9,6 +9,7 @@ import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import t from "../i18n";
 import SearchIcon from "@mui/icons-material/Search";
 import { BaseVocabularyData } from "../../@types";
+import { useIntl } from "react-intl";
 
 const endAdornment = (
   <InputAdornment position={"end"}>
@@ -78,7 +79,7 @@ const Vocabularies: React.FC<VocabulariesProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
-
+  const intl = useIntl();
   return (
     <div>
       <Box>
@@ -87,7 +88,7 @@ const Vocabularies: React.FC<VocabulariesProps> = ({
           onChange={handleChange}
           size={"small"}
           fullWidth
-          placeholder="Zadejte hledaný slovník"
+          placeholder={`${intl.messages["common.searchVocabulary"]}`}
           InputProps={{
             endAdornment: endAdornment,
           }}

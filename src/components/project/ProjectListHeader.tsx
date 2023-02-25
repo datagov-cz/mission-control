@@ -3,6 +3,7 @@ import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import t from "../i18n";
 import SearchIcon from "@mui/icons-material/Search";
+import { useIntl } from "react-intl";
 
 const endAdornment = (
   <InputAdornment position={"end"}>
@@ -16,6 +17,7 @@ interface ProjectListHeaderProps {
 }
 
 const ProjectListHeader: React.FC<ProjectListHeaderProps> = ({value, handleChange}) => {
+  const intl = useIntl();
   return (
     <>
       <CenteredSpacedOutBox mt={2}>
@@ -40,7 +42,7 @@ const ProjectListHeader: React.FC<ProjectListHeaderProps> = ({value, handleChang
         <Box flex={1}>
           <TextField
             size={"small"}
-            placeholder="Hledat"
+            placeholder={`${intl.messages["common.search"]}`}
             fullWidth={true}
             value={value}
             onChange={handleChange}

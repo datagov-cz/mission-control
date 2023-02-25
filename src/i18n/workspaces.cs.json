@@ -49,5 +49,9 @@
   "addVocabulary": "Přidat slovník",
   "addingVocabulary": "Přidávám slovník",
   "addVocabularySuccess": "Slovník úspěšně přidán",
-  "hideAddVocabularyButton": "Skrýt nabídku slovníků"
+  "hideAddVocabularyButton": "Skrýt nabídku slovníků",
+  "lastlyEdited": "Naposledy upraveno",
+  "edits": "Upravuje",
+  "deleteProjectTitle": "Opravdu chcete smazat projekt?",
+  "deleteProjectDescription": "Jedná se o destruktivní operaci kterou nelze vrátit zpět. Opravdu chcete smazat projekt?"
 }

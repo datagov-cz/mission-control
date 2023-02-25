@@ -45,7 +45,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       </Typography>
       <ProjectActions project={project} />
       <Typography variant="h5" mt={2} mb={2}>
-        Upravuje
+        {t`edits`}
       </Typography>
       {project.vocabularyContexts.map((vocabulary) => (
         <ProjectVocabularyListItem

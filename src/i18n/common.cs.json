@@ -26,5 +26,7 @@
   "creatingProject": "Otevírám slovník",
   "createVocabulary": "Vytvořit slovník",
   "projectSuccessCreation": "je připraven k úpravám",
-  "myRecentProjects": "Poslední úpravy"
+  "myRecentProjects": "Poslední úpravy",
+  "searchVocabulary": "Zadejte hledaný slovník",
+  "search": "Hledat"
 }

@@ -49,5 +49,9 @@
   "removeVocabularySucces": "Vocabulary was successfuly removed from the project",
   "addingVocabulary": "Adding vocabulary",
   "addVocabularySuccess": "Vocabulary was added",
-  "hideAddVocabularyButton": "Hide the vocabulary list"
+  "hideAddVocabularyButton": "Hide the vocabulary list",
+  "lastlyEdited": "Modified by",
+  "edits": "Modifies",
+  "deleteProjectTitle": "Do you really want to delete this project?",
+  "deleteProjectDescription": "This is a destructive operation that cannot be undone. Are you sure you want to delete the project?"
 }

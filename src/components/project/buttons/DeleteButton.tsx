@@ -10,12 +10,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { notifyPromise } from "../../common/Notify";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
+import DeleteProjectAlert from "../../form/DeleteProjectAlert";
+import useToggle from "../../../hooks/useToggle";
 
 const DeleteButton: React.FC<ProjectDetailProps> = ({ project }) => {
   const [isWaiting, setIsWaiting] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const intl = useIntl();
+  const { isOpen, open, close } = useToggle();
   const formatProjectCreationMessage = (): ToastPromiseParams => {
     const pending = `${intl.messages["workspaces.deletingProject"]} `;
     const success = `${intl.messages["workspaces.deleteProjectSuccess"]} 🎉`;
@@ -39,14 +42,19 @@ const DeleteButton: React.FC<ProjectDetailProps> = ({ project }) => {
       .catch(() => setIsWaiting(false));
   };
   return (
-    <ActionButton
-      variant="contained"
-      onClick={onClickHandler}
-      startIcon={<DeleteIcon />}
-      disabled={isWaiting}
-    >
-      <Typography variant={"subtitle2"}>{t`deleteWorkspace`}</Typography>
-    </ActionButton>
+    <>
+      <ActionButton
+        variant="contained"
+        startIcon={<DeleteIcon />}
+        onClick={open}
+        disabled={isWaiting}
+      >
+        <Typography variant={"subtitle2"}>{t`deleteWorkspace`}</Typography>
+
+      </ActionButton>
+      <DeleteProjectAlert isOpen={isOpen} onClose={close} onSubmit={onClickHandler}/>
+    </>
+
   );
 };
 export default DeleteButton;

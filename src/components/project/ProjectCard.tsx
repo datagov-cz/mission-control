@@ -7,6 +7,7 @@ import EditTermsButton from "./buttons/EditTermsButton";
 import { Namespace } from "../i18n";
 import ManageProjectButton from "./buttons/ManageProjectButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
+import t from "../i18n";
 
 interface ProjectCardProps {
   project: ProjectData;
@@ -72,7 +73,7 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
         <Box mt={1}>
           <Box sx={{ display: "flex" }}>
             <Typography mr={1} variant={"subtitle1"}>
-              Poslední úprava:
+              {t`lastlyEdited`}
             </Typography>
             <Box>
               <Box display={"flex"}>
@@ -90,17 +91,19 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
           </Box>
         </Box>
         <Box className={"hiddenBut"}>
-          {/**TODO: Fix spacing for smaller cards**/}
           <ManageProjectButton
             project={project}
             textColor={"black"}
             backgroundColor={"white"}
           />
-          <EditTermsButton
-            project={project}
-            textColor={"black"}
-            backgroundColor={"white"}
-          />
+          <Box mr={2} ml={2}>
+            <EditTermsButton
+              project={project}
+              textColor={"black"}
+              backgroundColor={"white"}
+            />
+          </Box>
+
           <EditRelationsButton
             project={project}
             textColor={"black"}

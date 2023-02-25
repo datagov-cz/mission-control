@@ -5,6 +5,7 @@ import LineBoxWrapper from "../common/LineBoxWrapper";
 import { BaseVocabularyData } from "../../@types";
 import { ActionButton } from "../common/ActionButton";
 import t from "../i18n";
+import EditIcon from "@mui/icons-material/Edit";
 interface Props {
   vocabulary: BaseVocabularyData;
   isWating: boolean;
@@ -25,6 +26,7 @@ const VocabularyListItem: React.FC<Props> = ({
           </Typography>
         </Box>
         <ActionButton
+          endIcon={<EditIcon />}
           textColor={"black"}
           backgroundColor={"white"}
           disabled={isWating}
