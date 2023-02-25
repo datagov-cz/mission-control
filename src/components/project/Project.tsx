@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
@@ -10,17 +10,19 @@ import ProjectVocabularyListItem from "../vocabulary/ProjectVocabularyListItem";
 import ProjectActions from "./ProjectActions";
 import { ActionButton } from "../common/ActionButton";
 import AddVocabularyToProject from "../vocabulary/AddVocabularyToProject";
+import SimpleBackdrop from "../common/SimpleBackdrop";
 
 export interface ProjectDetailProps {
   project: ProjectData;
 }
 
 const Project: React.FC = () => {
-  let location = useLocation();
-  if (location.state?.project) {
-    return <ProjectDetail project={location.state.project} />;
-  }
-  return <ProjectDetailFetch />;
+  let params = useParams();
+  const id = params["*"] ?? "";
+  const { data, isLoading, isSuccess } = useProjectViaID(id);
+  if (isLoading) return <SimpleBackdrop show={true} />;
+  if (!isSuccess) return <h2>It went wrong</h2>;
+  return <ProjectDetail project={data} />;
 };
 
 //TODO: show the vocabularies by lazy loading
@@ -53,24 +55,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         />
       ))}
       <ActionButton
-        sx={{marginTop: 2, marginBottom: 2}}
+        sx={{ marginTop: 2, marginBottom: 2 }}
         fullWidth={true}
         onClick={() => setShowVocabualaries(!showVocabularies)}
       >
-        {t`addVocabulary`}
+        {showVocabularies? t`hideAddVocabularyButton` : t`addVocabulary`}
       </ActionButton>
       {showVocabularies && <AddVocabularyToProject project={project} />}
     </Namespace.Provider>
   );
-};
-
-const ProjectDetailFetch: React.FC = () => {
-  let params = useParams();
-  const id = params["*"] ?? "";
-  const { data, isLoading, isSuccess } = useProjectViaID(id);
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
-  if (!isSuccess) return <h2>It went wrong</h2>;
-  return <ProjectDetail project={data} />;
 };
 
 export default Project;

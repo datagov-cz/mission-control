@@ -13,16 +13,17 @@ interface ProjectActionsProps {
 
 //TODO: Rewrite the buttons in a way which would be more reusable -> passing handler functions
 const ProjectActions: React.FC<ProjectActionsProps> = ({ project }) => {
+  const disabled = project.vocabularyContexts.length === 0;
   return (
     <CenteredSpacedOutBox>
       <Box flex={1}>
-        <EditTermsButton project={project} />
+        <EditTermsButton project={project} disabled={disabled} />
       </Box>
       <Box flex={1}>
-        <EditRelationsButton project={project} />
+        <EditRelationsButton project={project} disabled={disabled} />
       </Box>
       <Box flex={1}>
-        <PublishButton project={project} />
+        <PublishButton project={project} disabled={disabled} />
       </Box>
       <Box flex={1}>
         <DeleteButton project={project} />

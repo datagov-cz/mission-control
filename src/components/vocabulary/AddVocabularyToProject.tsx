@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { BaseVocabularyData, ProjectData } from "../../@types";
 import { notifyPromise } from "../common/Notify";
 import Vocabularies from "./Vocabularies";
 import { addVocabularyToExistingProject, useVocabularies } from "../../api/VocabularyApi";
 import t, { Namespace } from "../i18n";
 import { Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
+import { ToastPromiseParams } from "react-toastify";
+import { useIntl } from "react-intl";
 
 interface AddVocabularyToProjectProps {
   project: ProjectData;
@@ -14,9 +16,21 @@ interface AddVocabularyToProjectProps {
 const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   project,
 }) => {
-  let navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isWaiting, setIsWaiting] = useState(false);
   const { data = [], isLoading } = useVocabularies();
+  const intl = useIntl();
+  const formatProjectCreationMessage = (): ToastPromiseParams => {
+    const pending = `${intl.messages["workspaces.addingVocabulary"]} `;
+    const success = `${intl.messages["workspaces.addVocabularySuccess"]} 🎉`;
+    const error = `${intl.messages["common.somethingWentWrong"]}`;
+
+    return {
+      pending: pending,
+      success: success,
+      error: error,
+    };
+  };
   const availableVocabularies = useMemo(() => {
     return data.filter((vocabulary) => {
       for (const vocabularyContext of project.vocabularyContexts) {
@@ -30,11 +44,10 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
 
   const addVocabularyToProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
-    notifyPromise(addVocabularyToExistingProject(vocabulary, project))
+    notifyPromise(addVocabularyToExistingProject(vocabulary, project),formatProjectCreationMessage())
       .then((instanceID) => {
         setIsWaiting(false)
-        //TODO: Completely change reloading, the 'OPTIMZED' solution is causing so many issues
-        navigate(0);
+        queryClient.invalidateQueries(["projectsID", instanceID])
       })
       .catch(() => setIsWaiting(false));
   };

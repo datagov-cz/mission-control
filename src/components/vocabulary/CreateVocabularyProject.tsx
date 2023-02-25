@@ -21,8 +21,6 @@ const CreateVocabularyProject: React.FC = () => {
   let navigate = useNavigate();
   const [isWaiting, setIsWaiting] = useState(false);
   const formatProjectCreationMessage = (label: string): ToastPromiseParams => {
-    //TODO: find a way to do it via some utility
-    //TODO: find a way to make it a styled component, not only text
     const pending = `${intl.messages["common.creatingProject"]} ${label}`;
     const success = `${label} ${intl.messages["common.projectSuccessCreation"]} 🎉`;
     const error = `${intl.messages["common.somethingWentWrong"]}`;

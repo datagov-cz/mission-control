@@ -10,6 +10,7 @@ const EditTermsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
   project,
   textColor,
   backgroundColor,
+  disabled = false
 }) => {
   return (
     <ActionButton
@@ -18,6 +19,7 @@ const EditTermsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       variant="contained"
       startIcon={<EditIcon />}
       href={getEditTermLink(project)}
+      disabled={disabled}
     >
       <Typography variant={"subtitle2"}>{t`editTerms`}</Typography>
     </ActionButton>

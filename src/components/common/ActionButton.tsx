@@ -4,6 +4,7 @@ import { LINEAR_BACKGROUND } from "../../utils/Constants";
 export interface ActionButtonProps {
   textColor?: string;
   backgroundColor?: string;
+  disabled?:boolean;
 }
 
 export const ActionButton = styled(Button, {
