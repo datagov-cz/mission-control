@@ -38,9 +38,10 @@ const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
     notifyPromise(
       removeVocabularyFromProjectPromise(project, vocabulary),
       formatProjectCreationMessage()
-    ).then(() =>
-      queryClient.invalidateQueries(["projectsID", getIdFromIri(project.uri)])
-    );
+    ).then(() => {
+      queryClient.invalidateQueries(["projectsID", getIdFromIri(project.uri)]);
+      queryClient.invalidateQueries(["projects"]);
+    });
   };
 
   return (

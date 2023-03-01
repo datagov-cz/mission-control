@@ -6,8 +6,8 @@ import MyRecentProjects from "./project/MyRecentProjects";
 const Home: React.FC = () => {
   return (
     <Box>
-      <MyRecentProjects/>
-      <CreateVocabularyProject/>
+      <MyRecentProjects />
+      <CreateVocabularyProject />
     </Box>
   );
 };

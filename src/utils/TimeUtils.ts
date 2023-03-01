@@ -1,6 +1,6 @@
 import { Locale } from "../@types";
 
-const DAYS_THRESHOLD = 25;
+const DAYS_THRESHOLD = 20;
 
 export const calculateTimeDifference = (
   modifiedDate: Date,

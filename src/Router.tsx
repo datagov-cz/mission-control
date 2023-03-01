@@ -5,7 +5,6 @@ import Home from "./components/Home";
 import Projects from "./components/project/Projects";
 import Project from "./components/project/Project";
 
-
 const Router: React.FC = () => {
   return (
     <BrowserRouter>

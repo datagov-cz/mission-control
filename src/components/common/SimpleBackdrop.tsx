@@ -1,12 +1,11 @@
 import React from "react";
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
-interface SimpleBackdropProps{
+interface SimpleBackdropProps {
   show: boolean;
 }
-const SimpleBackdrop: React.FC<SimpleBackdropProps> = ({show}) => {
-
+const SimpleBackdrop: React.FC<SimpleBackdropProps> = ({ show }) => {
   return (
     <div>
       <Backdrop

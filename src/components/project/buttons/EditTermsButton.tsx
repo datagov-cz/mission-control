@@ -10,7 +10,7 @@ const EditTermsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
   project,
   textColor,
   backgroundColor,
-  disabled = false
+  disabled = false,
 }) => {
   return (
     <ActionButton

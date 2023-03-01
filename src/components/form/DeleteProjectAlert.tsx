@@ -18,7 +18,6 @@ const DeleteProjectAlert: React.FC<AlertDialogSlideProps> = ({
   onClose,
   onSubmit,
 }) => {
-
   return (
     <Dialog
       open={isOpen}

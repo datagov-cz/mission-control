@@ -2,7 +2,10 @@ import React, { useMemo, useState } from "react";
 import { BaseVocabularyData, ProjectData } from "../../@types";
 import { notifyPromise } from "../common/Notify";
 import Vocabularies from "./Vocabularies";
-import { addVocabularyToExistingProject, useVocabularies } from "../../api/VocabularyApi";
+import {
+  addVocabularyToExistingProject,
+  useVocabularies,
+} from "../../api/VocabularyApi";
 import t, { Namespace } from "../i18n";
 import { Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,20 +37,23 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   const availableVocabularies = useMemo(() => {
     return data.filter((vocabulary) => {
       for (const vocabularyContext of project.vocabularyContexts) {
-        if(vocabulary.basedOnVersion === vocabularyContext.basedOnVersion){
-          return false
+        if (vocabulary.basedOnVersion === vocabularyContext.basedOnVersion) {
+          return false;
         }
       }
-      return true
-    })
+      return true;
+    });
   }, [data, project.vocabularyContexts]);
 
   const addVocabularyToProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
-    notifyPromise(addVocabularyToExistingProject(vocabulary, project),formatProjectCreationMessage())
+    notifyPromise(
+      addVocabularyToExistingProject(vocabulary, project),
+      formatProjectCreationMessage()
+    )
       .then((instanceID) => {
-        setIsWaiting(false)
-        queryClient.invalidateQueries(["projectsID", instanceID])
+        setIsWaiting(false);
+        queryClient.invalidateQueries(["projectsID", instanceID]);
       })
       .catch(() => setIsWaiting(false));
   };

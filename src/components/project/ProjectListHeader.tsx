@@ -16,7 +16,10 @@ interface ProjectListHeaderProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ProjectListHeader: React.FC<ProjectListHeaderProps> = ({value, handleChange}) => {
+const ProjectListHeader: React.FC<ProjectListHeaderProps> = ({
+  value,
+  handleChange,
+}) => {
   const intl = useIntl();
   return (
     <>

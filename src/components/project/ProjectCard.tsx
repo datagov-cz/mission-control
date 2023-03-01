@@ -64,6 +64,7 @@ const ExpandingBox = styled(Box)(({ theme }) => ({
 
 const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
   //TODO: Make the sizing better, in a more calculated manner
+  const disabled = project.vocabularyContexts.length === 0;
   return (
     <Namespace.Provider value={"workspaces"}>
       <ExpandingBox p={2}>
@@ -101,6 +102,7 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
               project={project}
               textColor={"black"}
               backgroundColor={"white"}
+              disabled={disabled}
             />
           </Box>
 
@@ -108,6 +110,7 @@ const ProjectCardExpandable: React.FC<ProjectCardProps> = ({ project }) => {
             project={project}
             textColor={"black"}
             backgroundColor={"white"}
+            disabled={disabled}
           />
         </Box>
       </ExpandingBox>

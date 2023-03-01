@@ -59,7 +59,10 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
 
   const onSubmit = useCallback(
     (payload: AddVocabularyPayload) => {
-      notifyPromise(createVocabulary(payload), formatVocabularyCreationMessage()).then((projectID) => {
+      notifyPromise(
+        createVocabulary(payload),
+        formatVocabularyCreationMessage()
+      ).then((projectID) => {
         queryClient.invalidateQueries(["projects"]);
         queryClient.invalidateQueries(["vocabularies"]);
         navigate(`/projects/${projectID}`);
@@ -109,7 +112,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle >
+        <DialogTitle>
           {t`createVocabulary`}
           {onClose ? (
             <IconButton
@@ -131,7 +134,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
           <Form form={form}>
             <FormTextField
               fullWidth
-              sx={{marginBottom: 2}}
+              sx={{ marginBottom: 2 }}
               name="vocabularyIri"
               label={t`vocabularyIri`}
               disabled={true}
@@ -149,7 +152,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
             <FormTextField
               color={"primary"}
               fullWidth
-              sx={{marginBottom: 2}}
+              sx={{ marginBottom: 2 }}
               required={true}
               name="label"
               label={t`vocabularyLabel`}
@@ -165,7 +168,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
               label={t`legislative`}
             />
             <SubmitButton
-              sx={{marginTop: 2}}
+              sx={{ marginTop: 2 }}
               onClick={onSubmit}
               pending={t`addingVocabulary`}
             >{t`addVocabulary`}</SubmitButton>

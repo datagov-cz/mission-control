@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useParams } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
@@ -11,6 +11,8 @@ import ProjectActions from "./ProjectActions";
 import { ActionButton } from "../common/ActionButton";
 import AddVocabularyToProject from "../vocabulary/AddVocabularyToProject";
 import SimpleBackdrop from "../common/SimpleBackdrop";
+import LastEdited from "./LastEdited";
+import { UserProfile } from "../user/UserProfiles";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -40,7 +42,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       <Typography variant="h4" mt={2} mb={2}>
         {project.label}
       </Typography>
-      <Typography variant={"subtitle1"} mt={2} mb={2}>
+      <Box display={"flex"}>
+        <Box mr={1}>
+          <UserProfile user={project.lastEditor} />
+        </Box>
+        <Typography variant={"subtitle1"}>
+          {`${project.lastEditor?.firstName} ${project.lastEditor?.lastName}`}
+        </Typography>
+      </Box>
+
+      <Typography variant={"subtitle1"} mb={2}>
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
       <ProjectActions project={project} />
@@ -59,7 +70,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         fullWidth={true}
         onClick={() => setShowVocabualaries(!showVocabularies)}
       >
-        {showVocabularies? t`hideAddVocabularyButton` : t`addVocabulary`}
+        {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
       </ActionButton>
       {showVocabularies && <AddVocabularyToProject project={project} />}
     </Namespace.Provider>

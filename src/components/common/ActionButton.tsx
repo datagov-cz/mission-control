@@ -4,7 +4,7 @@ import { LINEAR_BACKGROUND } from "../../utils/Constants";
 export interface ActionButtonProps {
   textColor?: string;
   backgroundColor?: string;
-  disabled?:boolean;
+  disabled?: boolean;
 }
 
 export const ActionButton = styled(Button, {
@@ -14,8 +14,8 @@ export const ActionButton = styled(Button, {
   ({ theme, backgroundColor = LINEAR_BACKGROUND, textColor = "white" }) => ({
     color: textColor,
     background: backgroundColor,
-    whiteSpace: 'nowrap',
-    minWidth: 'max-content',
+    whiteSpace: "nowrap",
+    minWidth: "max-content",
     "&:hover": {
       color: textColor,
       background: backgroundColor,

@@ -28,7 +28,7 @@ const LastEdited: React.FC<LastEditedProps> = ({ lastModified }) => {
         >
           <Typography
             variant={"body2"}
-            color={calculatedDifference.showWarning ? "#FFC12C" : "white"}
+            color={calculatedDifference.showWarning ? "#FFC12C" : "inherit"}
           >
             {calculatedDifference.formattedText}
           </Typography>

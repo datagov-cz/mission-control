@@ -7,9 +7,12 @@ import { ProjectDetailProps } from "../Project";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import { notifyPromise } from "../../common/Notify";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({ project, disabled=false }) => {
+const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
+  project,
+  disabled = false,
+}) => {
   const [isWaiting, setIsWaiting] = useState(false);
   const intl = useIntl();
   const formatProjectCreationMessage = (): ToastPromiseParams => {
@@ -25,7 +28,10 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({ proje
   };
   const onClickHandler = () => {
     setIsWaiting(true);
-    notifyPromise(publishProjectPromise(project), formatProjectCreationMessage())
+    notifyPromise(
+      publishProjectPromise(project),
+      formatProjectCreationMessage()
+    )
       .then(() => {
         setIsWaiting(false);
       })

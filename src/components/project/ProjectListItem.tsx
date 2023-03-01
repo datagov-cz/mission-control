@@ -16,7 +16,7 @@ const ProjectListItem: React.FC<ProjectDetailProps> = ({ project }) => {
             {project.label}
           </Typography>
         </Box>
-        <Box flex={1}>
+        <Box flex={1} sx={{ color: "white" }}>
           <LastEdited lastModified={project.lastModified!} />
         </Box>
         <Box flex={1}>

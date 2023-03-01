@@ -50,11 +50,13 @@ const DeleteButton: React.FC<ProjectDetailProps> = ({ project }) => {
         disabled={isWaiting}
       >
         <Typography variant={"subtitle2"}>{t`deleteWorkspace`}</Typography>
-
       </ActionButton>
-      <DeleteProjectAlert isOpen={isOpen} onClose={close} onSubmit={onClickHandler}/>
+      <DeleteProjectAlert
+        isOpen={isOpen}
+        onClose={close}
+        onSubmit={onClickHandler}
+      />
     </>
-
   );
 };
 export default DeleteButton;

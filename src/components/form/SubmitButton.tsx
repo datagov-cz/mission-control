@@ -8,11 +8,11 @@ type SubmitButtonProps = Omit<ButtonProps, "onClick"> & {
 };
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
-                                                     onClick,
-                                                     pending,
-                                                     children,
-                                                     ...rest
-                                                   }) => {
+  onClick,
+  pending,
+  children,
+  ...rest
+}) => {
   const { handleSubmit } = useFormContext();
   const [isPending, startTransition] = useTransition();
 

@@ -14,7 +14,6 @@ export class Ajax {
         reqConfig.headers = {};
       }
       reqConfig.headers[Constants.Headers.AUTHORIZATION] = getToken();
-      reqConfig.withCredentials = true;
       return reqConfig;
     });
   }
@@ -35,7 +34,7 @@ export class Ajax {
     return this.axiosInstance.delete(path, { data: content, headers: headers });
   }
 
-  public delete(path: string){
+  public delete(path: string) {
     return this.axiosInstance.delete(path);
   }
 }
