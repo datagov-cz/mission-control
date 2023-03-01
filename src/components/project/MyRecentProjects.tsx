@@ -37,7 +37,7 @@ const MyRecentProjects: React.FC = () => {
       />
       <Box mt={1} display={"flex"} flex={1} sx={{ minHeight: 300 }}>
         {myProjects.map((project, index) => (
-          <Box mr={index % 2 === 0 ? 2 : 0}>
+          <Box mr={index % 2 === 0 ? 2 : 0} key={project.uri}>
             <ProjectCardExpandable project={project} />
           </Box>
         ))}
