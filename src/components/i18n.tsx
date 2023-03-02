@@ -1,15 +1,15 @@
 import React from "react";
-import { useObservableEagerState } from "observable-hooks";
 import { FormattedMessage, IntlProvider } from "react-intl";
 
-import { locale$ } from "data/locale";
-import i18n from "i18n";
+import i18n from "../i18n";
+import { Locale } from "../@types";
 
-export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const I18nProvider: React.FC<{
+  children: React.ReactNode;
+  language: Locale;
+}> = ({ children, language }) => {
   // const locale = getLocale() as Locale
-  const locale = useObservableEagerState(locale$);
+  const locale = language;
   const messages = i18n[locale];
   return (
     <IntlProvider locale={locale} messages={messages}>

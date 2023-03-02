@@ -1,5 +1,5 @@
-import { Locale } from "@types";
-import i18n from "i18n";
+import { Locale } from "../@types";
+import i18n from "../i18n";
 
 const I18N_KEY = "I18N";
 

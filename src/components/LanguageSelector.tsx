@@ -1,18 +1,16 @@
-import React from "react";
-import { useObservableEagerState } from "observable-hooks";
+import React, { useContext } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import TranslateIcon from "@mui/icons-material/Translate";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { Locale } from "@types";
+import { Locale } from "../@types";
 
 import t, { Namespace } from "./i18n";
-import { locale$, setLocale } from "data/locale";
+import LanguageContext from "../LanguageContext";
 
-const LanguageSelector: React.FC<{}> = () => {
-  const locale = useObservableEagerState(locale$);
-
+const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { language, saveLanguage } = useContext(LanguageContext);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -24,7 +22,7 @@ const LanguageSelector: React.FC<{}> = () => {
 
   const selectLocale = (locale: Locale) => {
     handleClose();
-    setLocale(locale);
+    saveLanguage(locale);
   };
 
   const selectCs = () => selectLocale("cs");
@@ -38,7 +36,7 @@ const LanguageSelector: React.FC<{}> = () => {
         onClick={handleClick}
         color="inherit"
       >
-        {t(locale)}
+        {language}
       </Button>
       <Menu
         anchorEl={anchorEl}

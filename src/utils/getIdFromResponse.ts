@@ -1,9 +1,9 @@
-import { AjaxResponse } from "rxjs/ajax";
-
-import { Id } from "@types";
+import { Id } from "../@types";
 import getIdFromIri from "./getIdFromIri";
+import { AxiosResponse } from "axios";
 
-const getIdFromResponse = (response: AjaxResponse): Id =>
-  getIdFromIri(response.xhr.getResponseHeader("Location") || "");
+const getIdFromResponse = (response: AxiosResponse): Id => {
+  return getIdFromIri(response.headers["location"] ?? "");
+};
 
 export default getIdFromResponse;

@@ -16,5 +16,17 @@
   "publicitySecondLine": "OPZ č. CZ.03.4.74/0.0/0.0/15_025/0013983.",
   "reportBug": "Nahlásit chybu",
   "requestFeature": "Navrhnout úpravu",
-  "noRecordsFound": "Nic nenalezeno"
+  "noRecordsFound": "Nic nenalezeno",
+  "home": "Domů",
+  "vocabularies": "Slovníky",
+  "projects": "Otevřené úpravy",
+  "myPanel": "Můj panel",
+  "loading": "Načítání...",
+  "editVocabulary": "Upravit slovník ",
+  "creatingProject": "Otevírám slovník",
+  "createVocabulary": "Vytvořit slovník",
+  "projectSuccessCreation": "je připraven k úpravám",
+  "myRecentProjects": "Poslední úpravy",
+  "searchVocabulary": "Zadejte hledaný slovník",
+  "search": "Hledat"
 }

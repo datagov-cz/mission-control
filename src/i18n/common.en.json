@@ -16,5 +16,17 @@
   "publicitySecondLine": "OPZ no. CZ.03.4.74/0.0/0.0/15_025/0013983.",
   "reportBug": "Report a bug",
   "requestFeature": "Request a feature",
-  "noRecordsFound": "No records found"
+  "noRecordsFound": "No records found",
+  "home": "Home",
+  "vocabularies": "Vocabularies",
+  "projects": "Projects",
+  "myPanel": "My panel",
+  "loading": "Loading...",
+  "editVocabulary": "Edit vocabulary",
+  "creatingProject": "Opening vocabulary",
+  "createVocabulary": "Create vocabulary",
+  "projectSuccessCreation": "is ready for editation",
+  "myRecentProjects": "Last edited",
+  "searchVocabulary": "Enter vocabulary name",
+  "search": "Search"
 }

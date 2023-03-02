@@ -9,7 +9,7 @@ import {
   useController,
 } from "react-hook-form";
 
-import t from "components/i18n";
+import t from "../i18n";
 
 type TextFieldProps = MuiTextFieldProps & {
   name: string;
