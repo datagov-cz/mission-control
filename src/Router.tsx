@@ -4,10 +4,11 @@ import Layout from "./Layout";
 import Home from "./components/Home";
 import Projects from "./components/project/Projects";
 import Project from "./components/project/Project";
+import { PUBLIC_PATH } from "./app/variables";
 
 const Router: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={PUBLIC_PATH}>
       <Layout>
         <Routes>
           <Route path="projects" element={<Projects />} />
