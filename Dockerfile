@@ -8,8 +8,7 @@ COPY package.json package-lock.json ./
 # Install production and dev dependencies
 FROM base AS dependencies
 # install node packages
-RUN npm set progress=false && npm config set depth 0
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 # TEST STAGE
 # run linters, setup and tests
