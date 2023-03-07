@@ -136,7 +136,6 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
               sx={{ marginBottom: 2 }}
               name="vocabularyIri"
               label={t`vocabularyIri`}
-              disabled={true}
               defaultValue={vocabularyType?.prefix}
               rules={{
                 pattern: {
