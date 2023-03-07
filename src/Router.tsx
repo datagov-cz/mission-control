@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Projects from "./components/project/Projects";
 import Project from "./components/project/Project";
 import { PUBLIC_PATH } from "./app/variables";
+import { ToastContainer } from "react-toastify";
 
 const Router: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const Router: React.FC = () => {
           <Route path="*" element={<h2>Stránka nebyla nalezena</h2>} />
         </Routes>
       </Layout>
+      <ToastContainer />
     </BrowserRouter>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ActionButton, ActionButtonProps } from "../../common/ActionButton";
 import { Typography } from "@mui/material";
-import t from "../../i18n";
+import t, { Namespace } from "../../i18n";
 import { publishProjectPromise } from "../../../api/ProjectAPI";
 import { ProjectDetailProps } from "../Project";
-import { ToastPromiseParams } from "react-toastify";
+import { toast, ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import { notifyPromise } from "../../common/Notify";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -15,6 +15,16 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
 }) => {
   const [isWaiting, setIsWaiting] = useState(false);
   const intl = useIntl();
+  const CustomToastWithLink = (url: string) => (
+    <Namespace.Provider value="workspaces">
+      <div>
+        <Typography variant={"body1"}>{t`projectPRCreated`}</Typography>
+        <a rel="noreferrer" target={"_blank"} href={url}>
+          {url}
+        </a>
+      </div>
+    </Namespace.Provider>
+  );
   const formatProjectCreationMessage = (): ToastPromiseParams => {
     const pending = `${intl.messages["workspaces.publishingWorkspacePleaseWait"]} `;
     const success = `${intl.messages["workspaces.publishWorkspaceSuccess"]} 🎉`;
@@ -32,7 +42,10 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       publishProjectPromise(project),
       formatProjectCreationMessage()
     )
-      .then(() => {
+      .then((data: any) => {
+        toast.info(CustomToastWithLink(data.headers["location"]), {
+          autoClose: 30000,
+        });
         setIsWaiting(false);
       })
       .catch(() => setIsWaiting(false));

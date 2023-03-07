@@ -8,7 +8,6 @@ import { getLocale, setLocale } from "./utils/i18n";
 import { ThemeProvider } from "@mui/material";
 import theme from "./app/theme";
 import LanguageContext from "./LanguageContext";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient({
@@ -37,7 +36,6 @@ const App = () => {
               <React.Suspense fallback={<div>Loading...</div>}>
                 <Router />
               </React.Suspense>
-              <ToastContainer />
             </Namespace.Provider>
           </ThemeProvider>
         </I18nProvider>

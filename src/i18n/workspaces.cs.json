@@ -35,7 +35,7 @@
   "publishingWorkspacePleaseWait": "Úpravy se právě publikují. Nemělo by to trvat déle než půl minuty.",
   "publishWorkspaceSuccess": "Úpravy byly úspěšně publikovány",
   "publishWorkspaceError": "Úpravy se bohužel nepodařilo publikovat",
-  "workspacePRCreated": "Pracovní prostor byl publikován, pull request vytvořen:",
+  "projectPRCreated": "Úpravy byly publikovány, pull request vytvořen:",
   "workspaceMayBeDeleted": "Po schválení pull requestu a jeho zapracování do hlavní větve projektu může být pracovní prostor smazán bez ztráty dat. Diagramy a další přílohy budou uloženy.",
   "actions": "Akce",
   "editTerms": "Editovat pojmy",

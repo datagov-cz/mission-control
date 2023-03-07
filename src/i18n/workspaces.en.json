@@ -35,7 +35,7 @@
   "publishingWorkspacePleaseWait": "Publishing changes, please wait",
   "publishWorkspaceSuccess": "Changes have been successfully published",
   "publishWorkspaceError": "Publication of changes were not successful",
-  "workspacePRCreated": "Workspace was published, pull request was created:",
+  "projectPRCreated": "Changes have been successfully published, pull request created:",
   "workspaceMayBeDeleted": "After the pull request is approved and merged to the main project branch, this workspace may be safely removed without any loss of data. Diagrams and other assets are persisted.",
   "actions": "Actions",
   "editTerms": "Edit terms",
