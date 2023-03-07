@@ -34,6 +34,10 @@ export class Ajax {
     return this.axiosInstance.delete(path, { data: content, headers: headers });
   }
 
+  public putJson(path: string, content: any) {
+    return this.axiosInstance.put(path, content);
+  }
+
   public delete(path: string) {
     return this.axiosInstance.delete(path);
   }

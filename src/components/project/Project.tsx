@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useParams } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
@@ -12,6 +12,9 @@ import { ActionButton } from "../common/ActionButton";
 import AddVocabularyToProject from "../vocabulary/AddVocabularyToProject";
 import SimpleBackdrop from "../common/SimpleBackdrop";
 import { UserProfile } from "../user/UserProfiles";
+import RenameProjectForm from "./RenameProjectForm";
+import useToggle from "../../hooks/useToggle";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -30,6 +33,7 @@ const Project: React.FC = () => {
 
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
+  const edit = useToggle();
   const [showVocabularies, setShowVocabualaries] = useState(false);
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(
@@ -38,9 +42,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
   );
   return (
     <Namespace.Provider value={"workspaces"}>
-      <Typography variant="h4" mt={2} mb={2}>
-        {project.label}
-      </Typography>
+      <Box display={"flex"} sx={{ alignItems: "center" }}>
+        <Typography variant="h4" mt={2} mb={2}>
+          {project.label}
+        </Typography>
+        <Box>
+          <IconButton onClick={() => edit.open()}>
+            <SettingsIcon />
+          </IconButton>
+        </Box>
+      </Box>
       <Box display={"flex"}>
         <Box mr={1}>
           <UserProfile user={project.lastEditor} />
@@ -72,6 +83,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
       </ActionButton>
       {showVocabularies && <AddVocabularyToProject project={project} />}
+      <RenameProjectForm
+        project={project}
+        isOpen={edit.isOpen}
+        onClose={edit.close}
+      />
     </Namespace.Provider>
   );
 };

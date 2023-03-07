@@ -2,11 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import {
   AddVocabularyPayload,
   BaseVocabularyData,
+  EditWorkspacePayload,
   ProjectData,
 } from "../@types";
 import {
   getAddVocabularyUrl,
   getProjectsUrl,
+  getProjectUrl,
   getVocabulariesUrl,
 } from "./endpoints";
 import Ajax from "../utils/Ajax";
@@ -33,6 +35,16 @@ export const createVocabulary = (
         .then((data) => myResolve(projectID))
         .catch((reason) => myReject(reason));
     });
+  });
+};
+
+export const editProjectName = (
+  payload: EditWorkspacePayload
+): Promise<any> => {
+  return new Promise((myResolve, myReject) => {
+    Ajax.putJson(getProjectUrl(getIdFromIri(payload.uri)), payload)
+      .then((data) => myResolve(data))
+      .catch((reason) => myReject(reason));
   });
 };
 
