@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import memoize from "memoize-one";
 import { useProjects } from "../../api/ProjectAPI";
 import { areEqual, VariableSizeList as List } from "react-window";
-import { Typography } from "@mui/material";
 import ProjectListItem from "./ProjectListItem";
 import t, { Namespace } from "../i18n";
 import { ReactWindowScroller } from "../../utils/ReactWindowScroller";

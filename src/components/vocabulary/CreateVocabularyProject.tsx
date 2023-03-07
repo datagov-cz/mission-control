@@ -11,7 +11,7 @@ import { useVocabularies } from "../../api/VocabularyApi";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import t from "../i18n";
 import SimpleBackdrop from "../common/SimpleBackdrop";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import CreateVocabulary from "./CreateVocabulary";
 import IconHeader from "../common/IconHeader";
 

@@ -25,7 +25,6 @@ const ManageProjectButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       <ActionButton
         backgroundColor={backgroundColor}
         textColor={textColor}
-        variant="contained"
         startIcon={<SettingsIcon />}
       >
         <Typography variant={"subtitle2"}>{t`manage`}</Typography>

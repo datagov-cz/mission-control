@@ -4,7 +4,6 @@ import Tab from "@mui/material/Tab";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
-import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import t from "./i18n";
 
 function useRouteMatch(patterns: readonly string[]) {

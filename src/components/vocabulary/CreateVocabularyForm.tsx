@@ -33,7 +33,6 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   const queryClient = useQueryClient();
 
   const label = form.watch("label") as string;
-  const legislative = form.watch("legislative") as boolean;
 
   const [vocabularyTypeLabel, setVocabularyType] = useState(
     vocabularyTypes[0].label
@@ -68,7 +67,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
         navigate(`/projects/${projectID}`);
       });
     },
-    [navigate]
+    [navigate, queryClient]
   );
 
   const handleLegislativeToggle = (
@@ -137,7 +136,6 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
               sx={{ marginBottom: 2 }}
               name="vocabularyIri"
               label={t`vocabularyIri`}
-              disabled={true}
               defaultValue={vocabularyType?.prefix}
               rules={{
                 pattern: {

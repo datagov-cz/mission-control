@@ -17,6 +17,5 @@ export const notifyPromise = (
 ) => {
   return toast.promise(promise, params, {
     position: toast.POSITION.TOP_RIGHT,
-    hideProgressBar: true,
   });
 };

@@ -1,7 +1,5 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import t from "../i18n";
 
 interface IconHeaderProps {
   icon: React.ReactNode;

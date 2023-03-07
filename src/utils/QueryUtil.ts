@@ -7,7 +7,7 @@ const buildQueryString = (vocabularyIris: VocabularyData[]) => {
 
 export function getEditTermLink(project: ProjectData): string {
   const queryString = buildQueryString(project.vocabularyContexts);
-  return `${COMPONENTS["al-termit"].url}/#/?${queryString}`;
+  return `${COMPONENTS["al-termit"].url}/#/vocabularies?${queryString}`;
 }
 
 export function getEditRelationsLink(project: ProjectData): string {

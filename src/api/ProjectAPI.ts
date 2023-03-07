@@ -12,7 +12,6 @@ import {
   Id,
   Project,
   ProjectData,
-  UserData,
   VocabularyData,
 } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";

@@ -11,6 +11,7 @@ const FullSizedBox = styled(Box)({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
+  backgroundColor: "white",
 });
 
 const ContentBox = styled(Box)({
