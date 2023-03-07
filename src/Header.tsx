@@ -7,6 +7,7 @@ import LanguageSelector from "./components/LanguageSelector";
 import React from "react";
 import { LINEAR_BACKGROUND } from "./utils/Constants";
 import { Link } from "react-router-dom";
+import Help from "./components/Help";
 
 const UnstyledLink = styled(Link)(() => ({
   color: "white",
@@ -41,6 +42,7 @@ const Header: React.FC = () => {
           </UnstyledLink>
           <NavigationTab />
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Help />
             <MyUserProfile />
             <LanguageSelector />
           </Box>
