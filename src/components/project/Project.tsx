@@ -11,7 +11,6 @@ import ProjectActions from "./ProjectActions";
 import { ActionButton } from "../common/ActionButton";
 import AddVocabularyToProject from "../vocabulary/AddVocabularyToProject";
 import SimpleBackdrop from "../common/SimpleBackdrop";
-import LastEdited from "./LastEdited";
 import { UserProfile } from "../user/UserProfiles";
 
 export interface ProjectDetailProps {

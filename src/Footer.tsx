@@ -1,7 +1,6 @@
 import React from "react";
 import { Divider, Typography, Box, Container } from "@mui/material";
 
-import opzLogo from "./images/opz_logo.svg";
 import t from "./components/i18n";
 import EUIcon from "./EUIcon";
 

@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, styled, Typography } from "@mui/material";
+import { AppBar, Box, styled, Typography } from "@mui/material";
 import Icon from "./components/Icon";
 import t from "./components/i18n";
 import NavigationTab from "./components/NavigationTab";

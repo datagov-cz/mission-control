@@ -6,7 +6,6 @@ import { Box, Typography } from "@mui/material";
 import RemoveVocabularyButton from "../project/buttons/RemoveVocabulary";
 import { removeVocabularyFromProjectPromise } from "../../api/ProjectAPI";
 import { notifyPromise } from "../common/Notify";
-import { useNavigate } from "react-router-dom";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import { useQueryClient } from "@tanstack/react-query";
