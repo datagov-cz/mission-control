@@ -15,7 +15,7 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
 }) => {
   const [isWaiting, setIsWaiting] = useState(false);
   const intl = useIntl();
-  const CustomToastWithLink = (url: string) => (
+  const ToastWithLink = (url: string) => (
     <Namespace.Provider value="workspaces">
       <div>
         <Typography variant={"body1"}>{t`projectPRCreated`}</Typography>
@@ -43,7 +43,7 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       formatProjectCreationMessage()
     )
       .then((data: any) => {
-        toast.info(CustomToastWithLink(data.headers["location"]), {
+        toast.info(ToastWithLink(data.headers["location"]), {
           autoClose: 30000,
         });
         setIsWaiting(false);
