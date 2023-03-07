@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { EditWorkspacePayload, ProjectData } from "../../@types";
+import { EditProjectPayload, ProjectData } from "../../@types";
 import t from "../i18n";
 import FormDialog from "../form/FormDialog";
 import Hidden from "../form/Hidden";
@@ -34,7 +34,7 @@ const RenameProjectForm: React.FC<RenameProjectForm> = ({
     };
   };
   const queryClient = useQueryClient();
-  const onSubmit = useCallback((payload: EditWorkspacePayload) => {
+  const onSubmit = useCallback((payload: EditProjectPayload) => {
     notifyPromise(
       editProjectName(payload),
       formatProjectCreationMessage()

@@ -52,17 +52,17 @@ export type UpdateVocabularyPayload = {
   vocabulary: Vocabulary;
 };
 
-export type AddWorkspacePayload = {
+export type AddProjectPayload = {
   label: string;
 };
 
-export type EditWorkspacePayload = AddWorkspacePayload & {
+export type EditProjectPayload = AddProjectPayload & {
   uri: Iri;
 };
 
-export type DeleteWorkspacePayload = EditWorkspacePayload;
+export type DeleteWorkspacePayload = EditProjectPayload;
 
-export type PublishWorkspacePayload = EditWorkspacePayload;
+export type PublishWorkspacePayload = EditProjectPayload;
 
 export type PRUri = string;
 

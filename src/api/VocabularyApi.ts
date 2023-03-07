@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   AddVocabularyPayload,
   BaseVocabularyData,
-  EditWorkspacePayload,
+  EditProjectPayload,
   ProjectData,
 } from "../@types";
 import {
@@ -38,9 +38,7 @@ export const createVocabulary = (
   });
 };
 
-export const editProjectName = (
-  payload: EditWorkspacePayload
-): Promise<any> => {
+export const editProjectName = (payload: EditProjectPayload): Promise<any> => {
   return new Promise((myResolve, myReject) => {
     Ajax.putJson(getProjectUrl(getIdFromIri(payload.uri)), payload)
       .then((data) => myResolve(data))
