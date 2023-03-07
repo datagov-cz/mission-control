@@ -6,6 +6,7 @@ import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LastEdited from "./LastEdited";
 import ManageProjectButton from "./buttons/ManageProjectButton";
 import { ProjectDetailProps } from "./Project";
+import ExpandableMenuButton from "./buttons/ExpandableMenuButton";
 
 const ProjectListItem: React.FC<ProjectDetailProps> = ({ project }) => {
   return (
@@ -22,12 +23,13 @@ const ProjectListItem: React.FC<ProjectDetailProps> = ({ project }) => {
         <Box flex={1}>
           <UserProfile user={project.lastEditor} />
         </Box>
-        <Box flex={1} sx={{ textAlign: "right" }}>
+        <Box flex={1} sx={{ textAlign: "right", display: "flex" }}>
           <ManageProjectButton
             project={project}
             textColor={"black"}
             backgroundColor={"white"}
           />
+          <ExpandableMenuButton project={project} />
         </Box>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>

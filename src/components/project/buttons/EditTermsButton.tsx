@@ -20,6 +20,9 @@ const EditTermsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       startIcon={<EditIcon />}
       href={getEditTermLink(project)}
       disabled={disabled}
+      // @ts-ignore
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <Typography variant={"subtitle2"}>{t`editTerms`}</Typography>
     </ActionButton>

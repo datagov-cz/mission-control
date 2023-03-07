@@ -20,6 +20,9 @@ const EditRelationsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       startIcon={<AccountTreeIcon />}
       href={getEditRelationsLink(project)}
       disabled={disabled}
+      // @ts-ignore
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <Typography variant={"subtitle2"}>{t`editRelations`}</Typography>
     </ActionButton>

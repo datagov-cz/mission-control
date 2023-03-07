@@ -8,9 +8,10 @@ interface Props {
 const LineBoxWrapper: React.FC<Props> = ({ children }) => {
   return (
     <Box
+      px={2}
+      py={1}
       sx={{
         background: "#1E87AF",
-        padding: 1,
         borderRadius: "4px",
         marginTop: 1,
       }}

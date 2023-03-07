@@ -16,6 +16,8 @@ export const ActionButton = styled(Button, {
     background: backgroundColor,
     whiteSpace: "nowrap",
     minWidth: "max-content",
+    paddingLeft: 16,
+    paddingRight: 16,
     "&:hover": {
       color: textColor,
       background: backgroundColor,
