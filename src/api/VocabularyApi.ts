@@ -60,3 +60,23 @@ export const addVocabularyToExistingProject = (
     ).then(() => myResolve(getIdFromIri(project.uri)));
   });
 };
+
+export const createVocabularyToExistingProject = (
+  vocabulary: AddVocabularyPayload,
+  project: ProjectData
+): Promise<any> => {
+  return new Promise((myResolve, myReject) => {
+    Ajax.post(
+      getAddVocabularyUrl(
+        getIdFromIri(project.uri),
+        vocabulary.vocabularyIri,
+        vocabulary.label
+      ),
+      {
+        vocabularyUri: vocabulary.vocabularyIri,
+        readOnly: false,
+        label: vocabulary.label,
+      }
+    ).then(() => myResolve(getIdFromIri(project.uri)));
+  });
+};

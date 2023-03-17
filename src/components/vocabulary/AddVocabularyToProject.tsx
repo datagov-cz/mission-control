@@ -1,16 +1,24 @@
 import React, { useMemo, useState } from "react";
-import { BaseVocabularyData, ProjectData } from "../../@types";
+import {
+  AddVocabularyPayload,
+  BaseVocabularyData,
+  ProjectData,
+} from "../../@types";
 import { notifyPromise } from "../common/Notify";
 import Vocabularies from "./Vocabularies";
 import {
   addVocabularyToExistingProject,
+  createVocabularyToExistingProject,
   useVocabularies,
 } from "../../api/VocabularyApi";
 import t, { Namespace } from "../i18n";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
+import CreateVocabulary from "./CreateVocabulary";
+import IconHeader from "../common/IconHeader";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 
 interface AddVocabularyToProjectProps {
   project: ProjectData;
@@ -58,9 +66,44 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
       .catch(() => setIsWaiting(false));
   };
 
+  const createVocabularyToProject = async (
+    vocabulary: AddVocabularyPayload
+  ) => {
+    setIsWaiting(true);
+    notifyPromise(
+      createVocabularyToExistingProject(vocabulary, project),
+      formatProjectCreationMessage()
+    )
+      .then((instanceID) => {
+        setIsWaiting(false);
+        queryClient.invalidateQueries(["projectsID", instanceID]);
+      })
+      .catch(() => setIsWaiting(false));
+  };
+
   if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
   return (
     <Namespace.Provider value={"common"}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <IconHeader
+          icon={
+            <AutoStoriesOutlinedIcon
+              fontSize={"large"}
+              sx={{ marginRight: 1 }}
+            />
+          }
+          label={t`vocabularies`}
+        />
+        <Box>
+          <CreateVocabulary submitAction={createVocabularyToProject} />
+        </Box>
+      </Box>
+
       <Vocabularies
         performAction={addVocabularyToProject}
         isWaiting={isWaiting}
