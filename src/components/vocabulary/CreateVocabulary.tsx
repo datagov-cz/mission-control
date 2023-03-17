@@ -5,9 +5,17 @@ import { Typography } from "@mui/material";
 import { ActionButton } from "../common/ActionButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import t from "../i18n";
+import { AddVocabularyPayload } from "../../@types";
+import { createVocabulary } from "../../api/VocabularyApi";
 
-const CreateVocabulary: React.FC = () => {
+interface CreateVocabularyProps {
+  submitAction: (payload: AddVocabularyPayload) => void;
+}
+const CreateVocabulary: React.FC<CreateVocabularyProps> = ({
+  submitAction,
+}) => {
   const { isOpen, open, close } = useToggle();
+
   return (
     <>
       <ActionButton
@@ -18,7 +26,11 @@ const CreateVocabulary: React.FC = () => {
       >
         <Typography variant={"subtitle2"}>{t`createVocabulary`}</Typography>
       </ActionButton>
-      <CreateVocabularyForm isOpen={isOpen} onClose={close} />
+      <CreateVocabularyForm
+        isOpen={isOpen}
+        onClose={close}
+        submitAction={submitAction}
+      />
     </>
   );
 };

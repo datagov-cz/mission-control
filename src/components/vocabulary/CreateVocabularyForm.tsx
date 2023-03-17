@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Dialog, DialogTitle, IconButton } from "@mui/material";
 import vocabularyTypes from "../../app/vocabularyTypes.json";
 import { useForm } from "react-hook-form";
@@ -6,32 +6,25 @@ import Form from "../form/Form";
 import Checkbox from "../form/Checkbox";
 import FormTextField from "../form/TextField";
 import t from "../i18n";
-import { AddVocabularyPayload } from "../../@types";
-import { createVocabulary, useVocabularies } from "../../api/VocabularyApi";
+import { useVocabularies } from "../../api/VocabularyApi";
 import SubmitButton from "../form/SubmitButton";
-import { notifyPromise } from "../common/Notify";
-import { useNavigate } from "react-router-dom";
 import { Namespace } from "../i18n";
-import { useIntl } from "react-intl";
-import { ToastPromiseParams } from "react-toastify";
-import { useQueryClient } from "@tanstack/react-query";
 import CloseIcon from "@mui/icons-material/Close";
+import { AddVocabularyPayload } from "../../@types";
 
 interface CreateVocabularyFormProps {
   isOpen: boolean;
   onClose: () => void;
+  submitAction: (payload: AddVocabularyPayload) => void;
 }
 
 const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
   isOpen,
   onClose,
+  submitAction,
 }) => {
   const form = useForm();
-  let navigate = useNavigate();
-  const intl = useIntl();
   const { data = [], isLoading } = useVocabularies();
-  const queryClient = useQueryClient();
-
   const label = form.watch("label") as string;
 
   const [vocabularyTypeLabel, setVocabularyType] = useState(
@@ -42,39 +35,16 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
     (v) => v.label === vocabularyTypeLabel
   )!;
 
-  const formatVocabularyCreationMessage = (): ToastPromiseParams => {
-    //TODO: find a way to do it via some utility
-    //TODO: find a way to make it a styled component, not only text
-    const pending = `${intl.messages["vocabularies.creatingVocabulary"]} `;
-    const success = `${intl.messages["vocabularies.created"]} 🎉`;
-    const error = `${intl.messages["common.somethingWentWrong"]}`;
-
-    return {
-      pending: pending,
-      success: success,
-      error: error,
-    };
-  };
-
-  const onSubmit = useCallback(
-    (payload: AddVocabularyPayload) => {
-      notifyPromise(
-        createVocabulary(payload),
-        formatVocabularyCreationMessage()
-      ).then((projectID) => {
-        queryClient.invalidateQueries(["projects"]);
-        queryClient.invalidateQueries(["vocabularies"]);
-        navigate(`/projects/${projectID}`);
-      });
-    },
-    [navigate, queryClient]
-  );
-
   const handleLegislativeToggle = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     form.setValue("legislative", event.target.checked);
     setVocabularyType(vocabularyTypes[event.target.checked ? 1 : 0].label);
+  };
+
+  const submit = (payload: AddVocabularyPayload) => {
+    submitAction(payload);
+    onClose();
   };
 
   //TODO: Move this effect
@@ -167,7 +137,7 @@ const CreateVocabularyForm: React.FC<CreateVocabularyFormProps> = ({
             />
             <SubmitButton
               sx={{ marginTop: 2 }}
-              onClick={onSubmit}
+              onClick={submit}
               pending={t`addingVocabulary`}
             >{t`addVocabulary`}</SubmitButton>
           </Form>

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useIntl } from "react-intl";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { ToastPromiseParams } from "react-toastify";
-import { BaseVocabularyData } from "../../@types";
+import { AddVocabularyPayload, BaseVocabularyData } from "../../@types";
 import { notifyPromise } from "../common/Notify";
 import { createVocabularyProjectPromise } from "../../api/ProjectAPI";
 import Vocabularies from "./Vocabularies";
-import { useVocabularies } from "../../api/VocabularyApi";
+import { createVocabulary, useVocabularies } from "../../api/VocabularyApi";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import t from "../i18n";
 import SimpleBackdrop from "../common/SimpleBackdrop";
@@ -31,6 +31,32 @@ const CreateVocabularyProject: React.FC = () => {
       error: error,
     };
   };
+
+  const formatVocabularyCreationMessage = (): ToastPromiseParams => {
+    const pending = `${intl.messages["vocabularies.creatingVocabulary"]} `;
+    const success = `${intl.messages["vocabularies.created"]} 🎉`;
+    const error = `${intl.messages["common.somethingWentWrong"]}`;
+
+    return {
+      pending: pending,
+      success: success,
+      error: error,
+    };
+  };
+
+  const onVocabularyCreationSubmit = useCallback(
+    (payload: AddVocabularyPayload) => {
+      notifyPromise(
+        createVocabulary(payload),
+        formatVocabularyCreationMessage()
+      ).then((projectID) => {
+        queryClient.invalidateQueries(["projects"]);
+        queryClient.invalidateQueries(["vocabularies"]);
+        navigate(`/projects/${projectID}`);
+      });
+    },
+    [navigate, queryClient]
+  );
   const createProject = async (vocabulary: BaseVocabularyData) => {
     setIsWaiting(true);
     notifyPromise(
@@ -43,6 +69,7 @@ const CreateVocabularyProject: React.FC = () => {
       })
       .catch(() => setIsWaiting(false));
   };
+
   const { data = [], isLoading } = useVocabularies();
 
   if (isLoading) return <SimpleBackdrop show={true} />;
@@ -64,7 +91,7 @@ const CreateVocabularyProject: React.FC = () => {
           label={t`vocabularies`}
         />
         <Box>
-          <CreateVocabulary />
+          <CreateVocabulary submitAction={onVocabularyCreationSubmit} />
         </Box>
       </Box>
       <Vocabularies
