@@ -15,6 +15,8 @@ import { UserProfile } from "../user/UserProfiles";
 import RenameProjectForm from "./RenameProjectForm";
 import useToggle from "../../hooks/useToggle";
 import EditIcon from "@mui/icons-material/Edit";
+import IconHeader from "../common/IconHeader";
+import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -69,9 +71,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
       <ProjectActions project={project} disable={disableActions} />
-      <Typography variant="h5" mt={2} mb={2}>
-        {t`edits`}
-      </Typography>
+      <Box mt={3}>
+        <IconHeader
+          icon={
+            <CollectionsBookmarkOutlinedIcon
+              fontSize={"large"}
+              sx={{ marginRight: 1 }}
+            />
+          }
+          label={t`edits`}
+        />
+      </Box>
       {project.vocabularyContexts.map((vocabulary) => (
         <ProjectVocabularyListItem
           isBusy={disableActions}
@@ -82,11 +92,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         />
       ))}
       <ActionButton
-        sx={{ marginTop: 2, marginBottom: 2 }}
+        sx={{ marginTop: 3, marginBottom: 2, alignItems: "center" }}
         fullWidth={true}
         onClick={() => setShowVocabualaries(!showVocabularies)}
       >
-        {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
+        <Typography variant={"subtitle2"}>
+          {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
+        </Typography>
       </ActionButton>
       {showVocabularies && (
         <Box mt={2}>
