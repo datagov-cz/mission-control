@@ -8,12 +8,14 @@ import { toast, ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import { notifyPromise } from "../../common/Notify";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { FEATURE_DEMO } from "../../../app/variables";
 
 const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
   project,
   disabled = false,
 }) => {
   const [isWaiting, setIsWaiting] = useState(false);
+  const isDisabled = isWaiting || disabled || FEATURE_DEMO;
   const intl = useIntl();
   const ToastWithLink = (url: string) => (
     <Namespace.Provider value="workspaces">
@@ -55,7 +57,7 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
       variant="contained"
       onClick={onClickHandler}
       startIcon={<CloudUploadIcon />}
-      disabled={isWaiting || disabled}
+      disabled={isDisabled}
     >
       <Typography variant={"subtitle2"}>{t`publish`}</Typography>
     </ActionButton>
