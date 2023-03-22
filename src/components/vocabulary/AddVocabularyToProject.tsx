@@ -117,6 +117,7 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
         performAction={addVocabularyToProject}
         isWaiting={isBusy}
         data={availableVocabularies}
+        inProject={true}
       />
     </Namespace.Provider>
   );

@@ -89,11 +89,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
       </ActionButton>
       {showVocabularies && (
-        <AddVocabularyToProject
-          project={project}
-          setBusy={setDisableActions}
-          isBusy={disableActions}
-        />
+        <Box mt={2}>
+          <AddVocabularyToProject
+            project={project}
+            setBusy={setDisableActions}
+            isBusy={disableActions}
+          />
+        </Box>
       )}
       <RenameProjectForm
         project={project}

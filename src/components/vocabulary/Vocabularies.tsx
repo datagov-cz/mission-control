@@ -4,10 +4,11 @@ import { areEqual, VariableSizeList as List } from "react-window";
 import { ReactWindowScroller } from "../../utils/ReactWindowScroller";
 import VocabularyListItem from "./VocabularyListItem";
 import memoize from "memoize-one";
-import { Box, InputAdornment, TextField } from "@mui/material";
+import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { BaseVocabularyData } from "../../@types";
 import { useIntl } from "react-intl";
+import t from "../i18n";
 
 const endAdornment = (
   <InputAdornment position={"end"}>
@@ -19,17 +20,24 @@ interface VocabulariesProps {
   performAction: (vocabulary: BaseVocabularyData) => Promise<void>;
   isWaiting: boolean;
   data: BaseVocabularyData[];
+  inProject?: boolean;
 }
 
 const Vocabularies: React.FC<VocabulariesProps> = ({
   performAction,
   isWaiting,
   data,
+  inProject = false,
 }) => {
   const Row = memo(({ data, index, setSize, windowWidth, isWaiting }: any) => {
     const rowRef = useRef<HTMLDivElement>(null);
     const { items } = data;
     const item = items[index];
+    const actionLabel = (
+      <Typography variant={"subtitle2"}>
+        {inProject ? t`addToProject` : t`editVocabulary`}
+      </Typography>
+    );
 
     React.useEffect(() => {
       setSize(index, rowRef.current!.getBoundingClientRect().height);
@@ -38,6 +46,7 @@ const Vocabularies: React.FC<VocabulariesProps> = ({
     return (
       <div ref={rowRef}>
         <VocabularyListItem
+          labelAction={actionLabel}
           vocabulary={item}
           key={item.label}
           isWating={isWaiting}
