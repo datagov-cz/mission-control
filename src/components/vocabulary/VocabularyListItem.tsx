@@ -4,18 +4,19 @@ import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import LineBoxWrapper from "../common/LineBoxWrapper";
 import { BaseVocabularyData } from "../../@types";
 import { ActionButton } from "../common/ActionButton";
-import t from "../i18n";
 import EditIcon from "@mui/icons-material/Edit";
 interface Props {
   vocabulary: BaseVocabularyData;
   isWating: boolean;
   performAction: (vocabulary: BaseVocabularyData) => Promise<void>;
+  labelAction: React.ReactNode;
 }
 
 const VocabularyListItem: React.FC<Props> = ({
   vocabulary,
   isWating,
   performAction,
+  labelAction,
 }) => {
   return (
     <LineBoxWrapper>
@@ -32,7 +33,7 @@ const VocabularyListItem: React.FC<Props> = ({
           disabled={isWating}
           onClick={() => performAction(vocabulary)}
         >
-          <Typography variant={"subtitle2"}>{t`editVocabulary`}</Typography>
+          {labelAction}
         </ActionButton>
       </CenteredSpacedOutBox>
     </LineBoxWrapper>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useParams } from "react-router-dom";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
@@ -14,7 +14,9 @@ import SimpleBackdrop from "../common/SimpleBackdrop";
 import { UserProfile } from "../user/UserProfiles";
 import RenameProjectForm from "./RenameProjectForm";
 import useToggle from "../../hooks/useToggle";
-import SettingsIcon from "@mui/icons-material/Settings";
+import EditIcon from "@mui/icons-material/Edit";
+import IconHeader from "../common/IconHeader";
+import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -34,12 +36,16 @@ const Project: React.FC = () => {
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
   const edit = useToggle();
+
   const [showVocabularies, setShowVocabualaries] = useState(false);
+  const [disableActions, setDisableActions] = useState(false);
+
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(
     project.lastModified!,
     language
   );
+
   return (
     <Namespace.Provider value={"workspaces"}>
       <Box display={"flex"} sx={{ alignItems: "center" }}>
@@ -48,7 +54,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         </Typography>
         <Box>
           <IconButton onClick={() => edit.open()}>
-            <SettingsIcon />
+            <EditIcon />
           </IconButton>
         </Box>
       </Box>
@@ -64,25 +70,45 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       <Typography variant={"subtitle1"} mb={2}>
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
-      <ProjectActions project={project} />
-      <Typography variant="h5" mt={2} mb={2}>
-        {t`edits`}
-      </Typography>
+      <ProjectActions project={project} disable={disableActions} />
+      <Box mt={3}>
+        <IconHeader
+          icon={
+            <CollectionsBookmarkOutlinedIcon
+              fontSize={"large"}
+              sx={{ marginRight: 1 }}
+            />
+          }
+          label={t`edits`}
+        />
+      </Box>
       {project.vocabularyContexts.map((vocabulary) => (
         <ProjectVocabularyListItem
+          isBusy={disableActions}
+          setBusy={setDisableActions}
           vocabulary={vocabulary}
           key={vocabulary.uri}
           project={project}
         />
       ))}
       <ActionButton
-        sx={{ marginTop: 2, marginBottom: 2 }}
+        sx={{ marginTop: 3, marginBottom: 2, alignItems: "center" }}
         fullWidth={true}
         onClick={() => setShowVocabualaries(!showVocabularies)}
       >
-        {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
+        <Typography variant={"subtitle2"}>
+          {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
+        </Typography>
       </ActionButton>
-      {showVocabularies && <AddVocabularyToProject project={project} />}
+      {showVocabularies && (
+        <Box mt={2}>
+          <AddVocabularyToProject
+            project={project}
+            setBusy={setDisableActions}
+            isBusy={disableActions}
+          />
+        </Box>
+      )}
       <RenameProjectForm
         project={project}
         isOpen={edit.isOpen}

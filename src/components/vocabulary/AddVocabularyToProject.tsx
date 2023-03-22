@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import {
   AddVocabularyPayload,
   BaseVocabularyData,
@@ -12,23 +12,27 @@ import {
   useVocabularies,
 } from "../../api/VocabularyApi";
 import t, { Namespace } from "../i18n";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import CreateVocabulary from "./CreateVocabulary";
 import IconHeader from "../common/IconHeader";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import SimpleBackdrop from "../common/SimpleBackdrop";
 
 interface AddVocabularyToProjectProps {
   project: ProjectData;
+  setBusy: React.Dispatch<React.SetStateAction<boolean>>;
+  isBusy: boolean;
 }
 
 const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   project,
+  setBusy,
+  isBusy,
 }) => {
   const queryClient = useQueryClient();
-  const [isWaiting, setIsWaiting] = useState(false);
   const { data = [], isLoading } = useVocabularies();
   const intl = useIntl();
   const formatProjectCreationMessage = (): ToastPromiseParams => {
@@ -54,34 +58,36 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   }, [data, project.vocabularyContexts]);
 
   const addVocabularyToProject = async (vocabulary: BaseVocabularyData) => {
-    setIsWaiting(true);
+    setBusy(true);
     notifyPromise(
       addVocabularyToExistingProject(vocabulary, project),
       formatProjectCreationMessage()
     )
       .then((instanceID) => {
-        setIsWaiting(false);
+        setBusy(false);
         queryClient.invalidateQueries(["projectsID", instanceID]);
       })
-      .catch(() => setIsWaiting(false));
+      .catch(() => {
+        setBusy(false);
+      });
   };
 
   const createVocabularyToProject = async (
     vocabulary: AddVocabularyPayload
   ) => {
-    setIsWaiting(true);
+    setBusy(true);
     notifyPromise(
       createVocabularyToExistingProject(vocabulary, project),
       formatProjectCreationMessage()
     )
       .then((instanceID) => {
-        setIsWaiting(false);
+        setBusy(false);
         queryClient.invalidateQueries(["projectsID", instanceID]);
       })
-      .catch(() => setIsWaiting(false));
+      .catch(() => setBusy(false));
   };
 
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading) return <SimpleBackdrop show={true} />;
   return (
     <Namespace.Provider value={"common"}>
       <Box
@@ -100,14 +106,18 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
           label={t`vocabularies`}
         />
         <Box>
-          <CreateVocabulary submitAction={createVocabularyToProject} />
+          <CreateVocabulary
+            submitAction={createVocabularyToProject}
+            disabled={isBusy}
+          />
         </Box>
       </Box>
 
       <Vocabularies
         performAction={addVocabularyToProject}
-        isWaiting={isWaiting}
+        isWaiting={isBusy}
         data={availableVocabularies}
+        inProject={true}
       />
     </Namespace.Provider>
   );

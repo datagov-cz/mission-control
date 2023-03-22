@@ -14,11 +14,15 @@ import getIdFromIri from "../../utils/getIdFromIri";
 export interface VocabularyProps {
   vocabulary: VocabularyData;
   project: ProjectData;
+  setBusy: React.Dispatch<React.SetStateAction<boolean>>;
+  isBusy: boolean;
 }
 
 const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
   vocabulary,
   project,
+  setBusy,
+  isBusy,
 }) => {
   const intl = useIntl();
   const queryClient = useQueryClient();
@@ -34,13 +38,20 @@ const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
     };
   };
   const onClickHandler = () => {
+    setBusy(true);
     notifyPromise(
       removeVocabularyFromProjectPromise(project, vocabulary),
       formatProjectCreationMessage()
-    ).then(() => {
-      queryClient.invalidateQueries(["projectsID", getIdFromIri(project.uri)]);
-      queryClient.invalidateQueries(["projects"]);
-    });
+    )
+      .then(() => {
+        setBusy(false);
+        queryClient.invalidateQueries([
+          "projectsID",
+          getIdFromIri(project.uri),
+        ]);
+        queryClient.invalidateQueries(["projects"]);
+      })
+      .catch(() => setBusy(false));
   };
 
   return (
@@ -51,7 +62,7 @@ const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <RemoveVocabularyButton onClick={onClickHandler} />
+        <RemoveVocabularyButton onClick={onClickHandler} disabled={isBusy} />
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );

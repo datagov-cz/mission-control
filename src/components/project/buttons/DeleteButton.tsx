@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ProjectDetailProps } from "../Project";
 import { deleteProjectPromise } from "../../../api/ProjectAPI";
 import { ActionButton } from "../../common/ActionButton";
-import { Typography } from "@mui/material";
+import { ButtonProps, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import t from "../../i18n";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,10 @@ import { useIntl } from "react-intl";
 import DeleteProjectAlert from "../../form/DeleteProjectAlert";
 import useToggle from "../../../hooks/useToggle";
 
-const DeleteButton: React.FC<ProjectDetailProps> = ({ project }) => {
+const DeleteButton: React.FC<ProjectDetailProps & ButtonProps> = ({
+  project,
+  disabled,
+}) => {
   const [isWaiting, setIsWaiting] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -47,7 +50,7 @@ const DeleteButton: React.FC<ProjectDetailProps> = ({ project }) => {
         variant="contained"
         startIcon={<DeleteIcon />}
         onClick={open}
-        disabled={isWaiting}
+        disabled={isWaiting || disabled}
       >
         <Typography variant={"subtitle2"}>{t`deleteWorkspace`}</Typography>
       </ActionButton>
