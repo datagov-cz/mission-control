@@ -61,7 +61,7 @@ export const MyUserProfile: React.FC = () => {
               }}
             >
               <Typography variant={"caption"} color={"#046021"}>
-                0 publikací
+                0 {t`publications`}
               </Typography>
             </Box>
           </Box>
