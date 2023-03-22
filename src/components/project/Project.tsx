@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useProjectViaID } from "../../api/ProjectAPI";
 import { ProjectData } from "../../@types";
 import { useParams } from "react-router-dom";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import t, { Namespace } from "../i18n";
 import { calculateTimeDifference } from "../../utils/TimeUtils";
 import LanguageContext from "../../LanguageContext";
@@ -14,7 +14,7 @@ import SimpleBackdrop from "../common/SimpleBackdrop";
 import { UserProfile } from "../user/UserProfiles";
 import RenameProjectForm from "./RenameProjectForm";
 import useToggle from "../../hooks/useToggle";
-import SettingsIcon from "@mui/icons-material/Settings";
+import EditIcon from "@mui/icons-material/Edit";
 
 export interface ProjectDetailProps {
   project: ProjectData;
@@ -48,7 +48,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         </Typography>
         <Box>
           <IconButton onClick={() => edit.open()}>
-            <SettingsIcon />
+            <EditIcon />
           </IconButton>
         </Box>
       </Box>
