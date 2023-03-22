@@ -15,12 +15,14 @@ export interface VocabularyProps {
   vocabulary: VocabularyData;
   project: ProjectData;
   setBusy: React.Dispatch<React.SetStateAction<boolean>>;
+  isBusy: boolean;
 }
 
 const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
   vocabulary,
   project,
   setBusy,
+  isBusy,
 }) => {
   const intl = useIntl();
   const queryClient = useQueryClient();
@@ -60,7 +62,7 @@ const ProjectVocabularyListItem: React.FC<VocabularyProps> = ({
             {vocabulary.label}
           </Typography>
         </Box>
-        <RemoveVocabularyButton onClick={onClickHandler} />
+        <RemoveVocabularyButton onClick={onClickHandler} disabled={isBusy} />
       </CenteredSpacedOutBox>
     </LineBoxWrapper>
   );

@@ -12,13 +12,14 @@ import {
   useVocabularies,
 } from "../../api/VocabularyApi";
 import t, { Namespace } from "../i18n";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { ToastPromiseParams } from "react-toastify";
 import { useIntl } from "react-intl";
 import CreateVocabulary from "./CreateVocabulary";
 import IconHeader from "../common/IconHeader";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import SimpleBackdrop from "../common/SimpleBackdrop";
 
 interface AddVocabularyToProjectProps {
   project: ProjectData;
@@ -86,7 +87,7 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
       .catch(() => setBusy(false));
   };
 
-  if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
+  if (isLoading) return <SimpleBackdrop show={true} />;
   return (
     <Namespace.Provider value={"common"}>
       <Box
@@ -105,7 +106,10 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
           label={t`vocabularies`}
         />
         <Box>
-          <CreateVocabulary submitAction={createVocabularyToProject} />
+          <CreateVocabulary
+            submitAction={createVocabularyToProject}
+            disabled={isBusy}
+          />
         </Box>
       </Box>
 

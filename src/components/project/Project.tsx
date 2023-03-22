@@ -74,6 +74,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       </Typography>
       {project.vocabularyContexts.map((vocabulary) => (
         <ProjectVocabularyListItem
+          isBusy={disableActions}
           setBusy={setDisableActions}
           vocabulary={vocabulary}
           key={vocabulary.uri}
