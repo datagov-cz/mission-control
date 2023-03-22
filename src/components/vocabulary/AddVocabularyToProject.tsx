@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import {
   AddVocabularyPayload,
   BaseVocabularyData,
@@ -22,13 +22,16 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 
 interface AddVocabularyToProjectProps {
   project: ProjectData;
+  setBusy: React.Dispatch<React.SetStateAction<boolean>>;
+  isBusy: boolean;
 }
 
 const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   project,
+  setBusy,
+  isBusy,
 }) => {
   const queryClient = useQueryClient();
-  const [isWaiting, setIsWaiting] = useState(false);
   const { data = [], isLoading } = useVocabularies();
   const intl = useIntl();
   const formatProjectCreationMessage = (): ToastPromiseParams => {
@@ -54,31 +57,33 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
   }, [data, project.vocabularyContexts]);
 
   const addVocabularyToProject = async (vocabulary: BaseVocabularyData) => {
-    setIsWaiting(true);
+    setBusy(true);
     notifyPromise(
       addVocabularyToExistingProject(vocabulary, project),
       formatProjectCreationMessage()
     )
       .then((instanceID) => {
-        setIsWaiting(false);
+        setBusy(false);
         queryClient.invalidateQueries(["projectsID", instanceID]);
       })
-      .catch(() => setIsWaiting(false));
+      .catch(() => {
+        setBusy(false);
+      });
   };
 
   const createVocabularyToProject = async (
     vocabulary: AddVocabularyPayload
   ) => {
-    setIsWaiting(true);
+    setBusy(true);
     notifyPromise(
       createVocabularyToExistingProject(vocabulary, project),
       formatProjectCreationMessage()
     )
       .then((instanceID) => {
-        setIsWaiting(false);
+        setBusy(false);
         queryClient.invalidateQueries(["projectsID", instanceID]);
       })
-      .catch(() => setIsWaiting(false));
+      .catch(() => setBusy(false));
   };
 
   if (isLoading) return <Typography variant={"h4"}>{t`loading`}</Typography>;
@@ -106,7 +111,7 @@ const AddVocabularyToProject: React.FC<AddVocabularyToProjectProps> = ({
 
       <Vocabularies
         performAction={addVocabularyToProject}
-        isWaiting={isWaiting}
+        isWaiting={isBusy}
         data={availableVocabularies}
       />
     </Namespace.Provider>

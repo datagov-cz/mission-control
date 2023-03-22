@@ -9,11 +9,15 @@ import DeleteButton from "./buttons/DeleteButton";
 
 interface ProjectActionsProps {
   project: ProjectData;
+  disable: boolean;
 }
 
 //TODO: Rewrite the buttons in a way which would be more reusable -> passing handler functions
-const ProjectActions: React.FC<ProjectActionsProps> = ({ project }) => {
-  const disabled = project.vocabularyContexts.length === 0;
+const ProjectActions: React.FC<ProjectActionsProps> = ({
+  project,
+  disable,
+}) => {
+  const disabled = project.vocabularyContexts.length === 0 || disable;
   return (
     <CenteredSpacedOutBox>
       <Box flex={1}>

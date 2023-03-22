@@ -34,12 +34,16 @@ const Project: React.FC = () => {
 //TODO: Make this component more readable
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
   const edit = useToggle();
+
   const [showVocabularies, setShowVocabualaries] = useState(false);
+  const [disableActions, setDisableActions] = useState(false);
+
   const { language } = useContext(LanguageContext);
   const { formattedText } = calculateTimeDifference(
     project.lastModified!,
     language
   );
+
   return (
     <Namespace.Provider value={"workspaces"}>
       <Box display={"flex"} sx={{ alignItems: "center" }}>
@@ -64,12 +68,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       <Typography variant={"subtitle1"} mb={2}>
         {t`lastModified`} {` ${formattedText}`}
       </Typography>
-      <ProjectActions project={project} />
+      <ProjectActions project={project} disable={disableActions} />
       <Typography variant="h5" mt={2} mb={2}>
         {t`edits`}
       </Typography>
       {project.vocabularyContexts.map((vocabulary) => (
         <ProjectVocabularyListItem
+          setBusy={setDisableActions}
           vocabulary={vocabulary}
           key={vocabulary.uri}
           project={project}
@@ -82,7 +87,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       >
         {showVocabularies ? t`hideAddVocabularyButton` : t`addVocabulary`}
       </ActionButton>
-      {showVocabularies && <AddVocabularyToProject project={project} />}
+      {showVocabularies && (
+        <AddVocabularyToProject
+          project={project}
+          setBusy={setDisableActions}
+          isBusy={disableActions}
+        />
+      )}
       <RenameProjectForm
         project={project}
         isOpen={edit.isOpen}
