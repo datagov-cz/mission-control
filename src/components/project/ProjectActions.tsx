@@ -30,7 +30,7 @@ const ProjectActions: React.FC<ProjectActionsProps> = ({
         <PublishButton project={project} disabled={disabled} />
       </Box>
       <Box flex={1}>
-        <DeleteButton project={project} />
+        <DeleteButton project={project} disabled={disable} />
       </Box>
     </CenteredSpacedOutBox>
   );

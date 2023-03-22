@@ -6,7 +6,6 @@ import { ActionButton } from "../common/ActionButton";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import t from "../i18n";
 import { AddVocabularyPayload } from "../../@types";
-import { createVocabulary } from "../../api/VocabularyApi";
 
 interface CreateVocabularyProps {
   submitAction: (payload: AddVocabularyPayload) => void;
