@@ -28,6 +28,6 @@ RUN set -ex; \
 
 # RELEASE STAGE
 # Only include the static files in the final image
-FROM ghcr.io/opendata-mvcr/react-nginx/react-nginx:latest
+FROM ghcr.io/datagov-cz/react-nginx/react-nginx:latest
 WORKDIR /usr/share/nginx/html
 COPY --from=build /usr/src/app/build/ ./
