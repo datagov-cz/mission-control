@@ -47,6 +47,7 @@ const DeleteButton: React.FC<ProjectDetailProps & ButtonProps> = ({
   return (
     <>
       <ActionButton
+        sx={{ minWidth: 170 }}
         variant="contained"
         startIcon={<DeleteIcon />}
         onClick={open}

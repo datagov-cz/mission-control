@@ -14,6 +14,7 @@ const EditRelationsButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
 }) => {
   return (
     <ActionButton
+      sx={{ minWidth: 170 }}
       backgroundColor={backgroundColor}
       textColor={textColor}
       variant="contained"

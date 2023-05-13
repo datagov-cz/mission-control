@@ -62,6 +62,9 @@ export const FEATURE_TRACKER_URL =
 export const FEATURE_DEMO =
   COMPONENTS["al-mission-control"].meta["feature-demo"];
 
+export const CHECKIT_URL = COMPONENTS["al-checkit-server"]?.url;
+export const CHECKIT_FRONTED_URL = COMPONENTS["al-checkit-ui"]?.url;
+
 const NS_PRACOVNI_PROSTOR =
   "https://slovník.gov.cz/datový/pracovní-prostor/pojem/";
 

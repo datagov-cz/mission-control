@@ -26,6 +26,17 @@ export class Ajax {
     return this.axiosInstance.post(path, content);
   }
 
+  public postToNonSgov(path: string, content: any) {
+    let headers = {};
+    // @ts-ignore
+    headers["content-type"] = "application/json";
+    return this.axiosInstance.post(path, content, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   public deleteJson(path: string, content: any) {
     //TODO: Fix this
     let headers = {};
