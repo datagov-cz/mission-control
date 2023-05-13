@@ -16,6 +16,7 @@ import {
 } from "../@types";
 import getIdFromIri from "../utils/getIdFromIri";
 import getIdFromResponse from "../utils/getIdFromResponse";
+import { CHECKIT_URL } from "../app/variables";
 
 const getProjects = (): Promise<ProjectData[]> =>
   Ajax.get(getProjectsUrl())
@@ -63,6 +64,19 @@ export const createVocabularyProjectPromise = (
 export const publishProjectPromise = (project: ProjectData): Promise<any> => {
   return new Promise((myResolve, myReject) => {
     Ajax.post(getProjectPublishUrl(getIdFromIri(project.uri)), {})
+      .then((data) => myResolve(data))
+      .catch((reason) => myReject(reason));
+  });
+};
+
+export const compareChangesInCheckItPromise = (
+  project: ProjectData
+): Promise<any> => {
+  return new Promise((myResolve, myReject) => {
+    Ajax.postToNonSgov(
+      `${CHECKIT_URL}/publication-contexts`,
+      `"${project.uri}"`
+    )
       .then((data) => myResolve(data))
       .catch((reason) => myReject(reason));
   });

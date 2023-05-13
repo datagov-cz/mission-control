@@ -1,11 +1,12 @@
 import React from "react";
-import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import EditTermsButton from "./buttons/EditTermsButton";
 import EditRelationsButton from "./buttons/EditRelationsButton";
 import PublishButton from "./buttons/PublishButton";
 import { ProjectData } from "../../@types";
 import DeleteButton from "./buttons/DeleteButton";
+import { CHECKIT_URL } from "../../app/variables";
+import CheckItButton from "./buttons/CheckItButton";
 
 interface ProjectActionsProps {
   project: ProjectData;
@@ -19,20 +20,25 @@ const ProjectActions: React.FC<ProjectActionsProps> = ({
 }) => {
   const disabled = project.vocabularyContexts.length === 0 || disable;
   return (
-    <CenteredSpacedOutBox>
-      <Box flex={1}>
+    <Grid container spacing={2}>
+      <Grid item md={2}>
         <EditTermsButton project={project} disabled={disabled} />
-      </Box>
-      <Box flex={1}>
+      </Grid>
+      <Grid item md={2}>
         <EditRelationsButton project={project} disabled={disabled} />
-      </Box>
-      <Box flex={1}>
+      </Grid>
+      <Grid item md={2}>
         <PublishButton project={project} disabled={disabled} />
-      </Box>
-      <Box flex={1}>
+      </Grid>
+      <Grid item md={2}>
         <DeleteButton project={project} disabled={disable} />
-      </Box>
-    </CenteredSpacedOutBox>
+      </Grid>
+      {CHECKIT_URL && (
+        <Grid item md={2}>
+          <CheckItButton project={project} disabled={disable} />
+        </Grid>
+      )}
+    </Grid>
   );
 };
 export default ProjectActions;

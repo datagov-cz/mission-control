@@ -54,6 +54,7 @@ const PublishButton: React.FC<ProjectDetailProps & ActionButtonProps> = ({
   };
   return (
     <ActionButton
+      sx={{ minWidth: 170 }}
       variant="contained"
       onClick={onClickHandler}
       startIcon={<CloudUploadIcon />}
