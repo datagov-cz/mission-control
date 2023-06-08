@@ -1,5 +1,5 @@
 # Publish `main` branch as Docker `latest` image.
-name: Publish Docker ImageExtract AL_DEV_URL into organization variables
+name: Publish Docker Image
 
 on:
   push:
