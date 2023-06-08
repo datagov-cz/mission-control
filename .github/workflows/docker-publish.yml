@@ -1,5 +1,5 @@
 # Publish `main` branch as Docker `latest` image.
-name: Docker
+name: Publish Docker Image
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: al-mission-control
+  AL_DEV_URL: ${{ vars.AL_DEV_URL }}    # e.g. https://xn--slovnk-test-scb.dia.gov.cz/modelujeme
 
 jobs:
   build-and-push-image:
@@ -46,5 +47,5 @@ jobs:
         uses: wei/curl@v1.1.1
         with:
           args: |
-            -H \"X-Secret: ${{ secrets.AL_DEV_SECRET }}\" -X POST https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/update/${{ env.IMAGE_NAME }}.php
+            -H \"X-Secret: ${{ secrets.AL_DEV_SECRET }}\" -X POST ${{ env.AL_DEV_URL }}/update/${{ env.IMAGE_NAME }}.php
     
