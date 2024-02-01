@@ -7,7 +7,7 @@
   "vocabularyIri": "IRI slovníku",
   "useDefaultVocabularyIri": "Použít výchozí IRI slovníku",
   "vocabularyLabel": "Název slovníku",
-  "addVocabularySuccess": "Slovník přídán do pracovního prostoru",
+  "addVocabularySuccess": "Slovník přidán do pracovního prostoru",
   "addVocabularyError": "Nepodařilo se přidat slovník do pracovního prostoru",
   "addVocabularyErrorEditableDuplicate": "Vybraný slovník již existuje v režimu zápisu v jiném pracovním prostoru",
   "vocabularyIriExists": "Slovník s touto IRI již existuje",

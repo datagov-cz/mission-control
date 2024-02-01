@@ -17,7 +17,7 @@
   "vocabularyNotFoundCreateNew": "Vocabulary not found. Create new vocabulary.",
   "createVocabulary": "Create new vocabulary",
   "creatingVocabulary": "Creating vocabulary",
-  "created": "Vocabulary ${value} was created",
+  "created": "Vocabulary was created",
   "search": "Search",
   "actions": "Actions",
   "delete": "Delete",
