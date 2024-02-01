@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "@opendata-mvcr/assembly-line-shared";
+import { useAuth } from "@datagov-cz/assembly-line-shared";
 
 const Identity: React.FC = () => {
   const {

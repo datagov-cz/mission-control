@@ -1,15 +1,15 @@
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useCallback } from "react";
+import { useIntl } from "react-intl";
+import { ToastPromiseParams } from "react-toastify";
 import { EditProjectPayload, ProjectData } from "../../@types";
-import t from "../i18n";
+import { editProjectName } from "../../api/VocabularyApi";
+import getIdFromIri from "../../utils/getIdFromIri";
+import { notifyPromise } from "../common/Notify";
 import FormDialog from "../form/FormDialog";
 import Hidden from "../form/Hidden";
 import TextField from "../form/TextField";
-import { notifyPromise } from "../common/Notify";
-import { createVocabulary, editProjectName } from "../../api/VocabularyApi";
-import { useQueryClient } from "@tanstack/react-query";
-import getIdFromIri from "../../utils/getIdFromIri";
-import { ToastPromiseParams } from "react-toastify";
-import { useIntl } from "react-intl";
+import t from "../i18n";
 
 interface RenameProjectForm {
   project: ProjectData;

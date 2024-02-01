@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useProjects } from "../../api/ProjectAPI";
-import { useAuth } from "@opendata-mvcr/assembly-line-shared";
+import { useAuth } from "@datagov-cz/assembly-line-shared";
 import ProjectCardExpandable from "./ProjectCard";
 import { Box } from "@mui/material";
 import t from "../i18n";
