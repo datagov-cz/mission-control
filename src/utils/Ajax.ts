@@ -1,6 +1,6 @@
 import { API_URL } from "../app/variables";
 import axios from "axios";
-import { getToken } from "@opendata-mvcr/assembly-line-shared";
+import { getToken } from "@datagov-cz/assembly-line-shared";
 import Constants from "../app/Constants";
 
 export class Ajax {

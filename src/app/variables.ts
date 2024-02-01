@@ -1,4 +1,4 @@
-import { getEnvInstance } from "@opendata-mvcr/assembly-line-shared";
+import { getEnvInstance } from "@datagov-cz/assembly-line-shared";
 
 type LocalVars =
   | "PUBLIC_URL"

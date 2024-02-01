@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import { setProcessEnv, Auth } from "@opendata-mvcr/assembly-line-shared";
+import { setProcessEnv, Auth } from "@datagov-cz/assembly-line-shared";
 import { ErrorBoundary } from "react-error-boundary";
 
 setProcessEnv(process.env);

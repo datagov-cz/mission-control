@@ -1,11 +1,10 @@
+import { useAuth } from "@datagov-cz/assembly-line-shared";
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
-import { useAuth } from "@opendata-mvcr/assembly-line-shared";
-import React from "react";
-import { stringAvatar, stringToColor } from "../../utils/UserUtils";
-import { UserData } from "../../@types";
-import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
-import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import IconButton from "@mui/material/IconButton";
+import React from "react";
+import { UserData } from "../../@types";
+import { stringAvatar, stringToColor } from "../../utils/UserUtils";
+import { CenteredSpacedOutBox } from "../common/CenteredSpacedOutBox";
 import t from "../i18n";
 
 export const MyUserProfile: React.FC = () => {
@@ -40,31 +39,6 @@ export const MyUserProfile: React.FC = () => {
         </IconButton>
         <Box sx={{ marginRight: 3 }}>
           <Typography variant={"body2"}>{fullName}</Typography>
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <VerifiedOutlinedIcon
-              sx={{
-                color: "#046021",
-                marginRight: "2px",
-                width: "16px",
-                height: "16px",
-              }}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant={"caption"} color={"#046021"}>
-                0 {t`publications`}
-              </Typography>
-            </Box>
-          </Box>
         </Box>
       </CenteredSpacedOutBox>
       <Menu
