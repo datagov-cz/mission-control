@@ -58,5 +58,5 @@
   "lastlyEdited": "Naposledy upraveno",
   "edits": "Upravuje",
   "deleteProjectTitle": "Opravdu chcete smazat projekt?",
-  "deleteProjectDescription": "Jedná se o destruktivní operaci kterou nelze vrátit zpět. Opravdu chcete smazat projekt?"
+  "deleteProjectDescription": "Smazáním projektu smažete Vámi vytvořené změny v upravovaných slovnících, včetně diagramů. Pokud jste v projektu vytvářeli nový slovník, tak se smaže úplně. Tato operace nelze vrátit zpět!"
 }
