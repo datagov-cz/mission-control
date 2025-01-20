@@ -41,10 +41,11 @@ const Projects: React.FC = () => {
   const [filterText, setFilterText] = useState("");
   const filteredProjects = useMemo(() => {
     return data.filter((project) => {
-      if (filterText === "") return true;
-      if (project.author.id === sub) return true;
+      if (project.author.id !== sub) return false;
       else {
-        return project.label.toLowerCase().includes(filterText.toLowerCase());
+        return filterText === ""
+          ? true
+          : project.label.toLowerCase().includes(filterText.toLowerCase());
       }
     });
   }, [data, filterText, sub]);
