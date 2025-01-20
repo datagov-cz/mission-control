@@ -10,6 +10,7 @@ import { useWindowResize } from "../../hooks/useWindowResize";
 import SimpleBackdrop from "../common/SimpleBackdrop";
 import IconHeader from "../common/IconHeader";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+import { useAuth } from "@datagov-cz/assembly-line-shared";
 
 const Row = memo(({ data, index, setSize, windowWidth }: any) => {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -31,16 +32,22 @@ const createItemData = memoize((items) => ({
 }));
 
 const Projects: React.FC = () => {
+  const {
+    user: {
+      profile: { sub },
+    },
+  } = useAuth();
   const { data = [], isLoading, isRefetching } = useProjects();
   const [filterText, setFilterText] = useState("");
   const filteredProjects = useMemo(() => {
     return data.filter((project) => {
       if (filterText === "") return true;
+      if (project.author.id === sub) return true;
       else {
         return project.label.toLowerCase().includes(filterText.toLowerCase());
       }
     });
-  }, [data, filterText]);
+  }, [data, filterText, sub]);
   const itemdata = createItemData(filteredProjects);
   const listRef = useRef<List>();
 
