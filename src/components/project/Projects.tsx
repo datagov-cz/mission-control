@@ -41,7 +41,8 @@ const Projects: React.FC = () => {
   const [filterText, setFilterText] = useState("");
   const filteredProjects = useMemo(() => {
     return data.filter((project) => {
-      if (project.author.id !== sub) return false;
+      if (project.author.id !== sub && project.lastEditor?.id !== sub)
+        return false;
       else {
         return filterText === ""
           ? true
