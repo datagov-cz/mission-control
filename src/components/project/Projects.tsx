@@ -38,10 +38,8 @@ const Projects: React.FC = () => {
   const filteredProjects = useMemo(() => {
     return data.filter((project) => {
       if (
-        (user.profile.sub.realm_access &&
-          user.profile.sub.realm_access.roles.includes(
-            "view_all_workspaces"
-          )) ||
+        (user.profile.realm_access &&
+          user.profile.realm_access.roles.includes("view_all_workspaces")) ||
         project.author.id === user.profile.sub ||
         project.lastEditor?.id === user.profile.sub
       ) {
