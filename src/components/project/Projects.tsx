@@ -32,26 +32,25 @@ const createItemData = memoize((items) => ({
 }));
 
 const Projects: React.FC = () => {
-  const {
-    user: {
-      profile: { sub, realm_access: roles },
-    },
-  } = useAuth();
+  const { user } = useAuth();
   const { data = [], isLoading, isRefetching } = useProjects();
   const [filterText, setFilterText] = useState("");
   const filteredProjects = useMemo(() => {
     return data.filter((project) => {
       if (
-        roles.includes("view_all_workspaces") ||
-        project.author.id === sub ||
-        project.lastEditor?.id === sub
+        (user.profile.sub.realm_access &&
+          user.profile.sub.realm_access.roles.includes(
+            "view_all_workspaces"
+          )) ||
+        project.author.id === user.profile.sub ||
+        project.lastEditor?.id === user.profile.sub
       ) {
         return filterText === ""
           ? true
           : project.label.toLowerCase().includes(filterText.toLowerCase());
       } else return false;
     });
-  }, [data, filterText, roles, sub]);
+  }, [data, filterText, user]);
   const itemdata = createItemData(filteredProjects);
   const listRef = useRef<List>();
 
