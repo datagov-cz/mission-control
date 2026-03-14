@@ -1,12 +1,10 @@
-import React from "react";
 import { Grid } from "@mui/material";
-import EditTermsButton from "./buttons/EditTermsButton";
-import EditRelationsButton from "./buttons/EditRelationsButton";
-import PublishButton from "./buttons/PublishButton";
+import React from "react";
 import { ProjectData } from "../../@types";
 import DeleteButton from "./buttons/DeleteButton";
-import { CHECKIT_URL } from "../../app/variables";
-import CheckItButton from "./buttons/CheckItButton";
+import EditRelationsButton from "./buttons/EditRelationsButton";
+import EditTermsButton from "./buttons/EditTermsButton";
+import PublishButton from "./buttons/PublishButton";
 
 interface ProjectActionsProps {
   project: ProjectData;
@@ -33,11 +31,11 @@ const ProjectActions: React.FC<ProjectActionsProps> = ({
       <Grid item md={2}>
         <DeleteButton project={project} disabled={disable} />
       </Grid>
-      {CHECKIT_URL && (
+      {/* {CHECKIT_URL && (
         <Grid item md={2}>
           <CheckItButton project={project} disabled={disable} />
         </Grid>
-      )}
+      )} */}
     </Grid>
   );
 };
